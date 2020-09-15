@@ -1,0 +1,54 @@
+<%- partial('_partial/bg-cover') %>
+
+<main class="content">
+    <div id="contact" class="container chip-container">
+        <div class="card">
+            <div class="card-content">
+                <div class="tag-title center-align">
+                    <i class="fas fa-comments"></i>&nbsp;&nbsp;<%= __('contact') %>
+                </div>
+                <!--新冠-->
+                <div style="width: 100%;height: auto;isplay: flex;display: -webkit-flex; justify-content: center;  align-items: center; ">
+                    <h4>向战斗在抗击疫情一线的医务工作者和社会各界人士致敬!</h4>
+                </div>
+                <section class="article typo">
+                    <div class="article-entry" itemprop="articleBody">
+                    <iframe src="https://www.lovestu.com/api/project/cnmapyinqing/obj.php" height="500" frameborder="no" border="0" width="100%"> </iframe>
+                    <p></p>
+                    </div>
+                    <div class='article-meta' id="bottom">
+                    <div class='new-meta-box'>
+                    </div>
+                    </div>
+                </section>
+
+                <%- page.content %>
+            </div>
+        </div>
+        <div class="card">
+            <% if (theme.gitalk && theme.gitalk.enable) { %>
+            <%- partial('_partial/gitalk') %>
+            <% } %>
+
+            <% if (theme.gitment.enable) { %>
+            <%- partial('_partial/gitment') %>
+            <% } %>
+
+            <% if (theme.disqus.enable) { %>
+            <%- partial('_partial/disqus') %>
+            <% } %>
+
+            <% if (theme.livere && theme.livere.enable) { %>
+            <%- partial('_partial/livere') %>
+            <% } %>
+
+            <% if (theme.valine && theme.valine.enable) { %>
+            <%- partial('_partial/valine') %>
+            <% } %>
+			
+			<% if (theme.minivaline && theme.minivaline.enable) { %>
+            <%- partial('_partial/minivaline') %>
+            <% } %>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,164 @@
+
+<style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    <%if(theme.music.enable&&theme.music.fixed){ %>
+        <%- partial('_widget/music') %>
+    <% } %>
+    <div class="container row center-align" style="margin-bottom: <% if (theme.time.enable) { %>15<% } else { %>0<% } %>px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year"><%- theme.time.year %></span>
+            <a href="<%- config.url %>" target="_blank"><%- config.author %></a>
+            |&nbsp;HOST&nbsp;<a href="https://github.com/hexojs/hexo" target="_blank">Hexo</a>
+            |&nbsp;THEME&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            <% if (theme.postInfo.totalCount) { %>
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;码字:&nbsp;<span
+                class="white-color"><%= totalcount(site) %></span>&nbsp;字
+            <% } %>
+            <% let socialClass = '' %>
+            <% if (theme.busuanziStatistics && theme.busuanziStatistics.enable) { %>
+            <% socialClass = 'social-statis' %>
+            <% } %>
+            <% if (theme.busuanziStatistics && theme.busuanziStatistics.totalTraffic) { %>
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;PV:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            <% } %>
+            <% if (theme.busuanziStatistics && theme.busuanziStatistics.totalNumberOfvisitors) { %>
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;UV:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            <% } %>
+            <br>
+            <% if (theme.cnzz_siteid) { %>
+            <div>
+            <script type="text/javascript"> document.write(unescape("%3Cspan id='cnzz_stat_icon_1279096621'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1279096621%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+            </div>
+            <% } %>
+            <% if (theme.time.enable) { %>
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "<%- theme.time.year %>";
+                    var startMonth = "<%- theme.time.month %>";
+                    var startDate = "<%- theme.time.date %>";
+                    var startHour = "<%- theme.time.hour %>";
+                    var startMinute = "<%- theme.time.minute %>";
+                    var startSecond = "<%- theme.time.second %>";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            <% } %>
+            
+            <% if (theme.icp.enable) { %>
+            <span id="icp"><img src="<%- theme.jsDelivr.url %>/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="<%- theme.icp.url %>" target="_blank"><%- theme.icp.text %></a>
+            </span>
+            <% } %>
+            <!--gihub badge-->
+         <div>
+            <div class="github-badge">       
+                <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="支持996">         
+             <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+            </div>
+            <div class="github-badge">
+               <a style="color: #fff" rel="license" href="https://github.com/" target="_blank" title="托管于 GitHub Pages与Coding Pages">
+            <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding</span></a>
+            </div>
+            <div class="github-badge">          
+               <a style="color: #fff"  rel="license" href="https://cloud.tencent.com/" target="_blank" title="腾讯云提供域名相关服务">  
+             <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Tencent </span></a>       
+            </div>
+            <div class="github-badge">          
+               <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+            <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+            </div>
+            <div class="github-badge">          
+               <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+            <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+           </div>
+
+
+        </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link <%- socialClass %>"><%- partial('_partial/social-link') %></div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>

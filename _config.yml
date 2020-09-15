@@ -1,0 +1,136 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: WuLiZeng
+subtitle: '吴李曾'
+description: 正在学习编程的小猿，热爱生活，更爱学习
+keywords: [java, HTML, CSS, JavaScript, JQuery, React, Vue.js等]
+author: HaiLin Zhou
+language: zh-CN
+timezone: ''
+
+# URL
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: https://wulinzeng.vip
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+  - 'box/**'
+  
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link:
+  enable: true # Open external links in new tab
+  field: site # Apply to the whole site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: true
+relative_link: false
+future: true
+highlight:
+  enable: false
+  #line_number: true
+  #auto_detect: false
+  #tab_replace: ''
+  #wrap: true
+  #hljs: false
+prism_plugin:           #代码高亮
+  mode: 'preprocess'    # realtime/preprocess
+  theme: 'tomorrow'
+  line_number: false    # default false
+  custom_css:
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 12
+  order_by: -date
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Metadata elements
+## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+meta_generator: true
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+## Use post's date for updated date unless set in front-matter
+use_date_for_updated: false
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 12
+pagination_dir: page
+
+# Include / Exclude file(s)
+## include:/exclude: options only apply to the 'source/' folder
+include:
+exclude:
+ignore:
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: hexo-theme-matery
+
+# Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+  type: git
+  repository:
+    github: git@github.com:unluckynike/unluckynike.github.io.git
+    coding: git@e.coding.net:unluckynike/unluckynike/unluckynike.git
+  branch: master  
+
+#图片懒加载
+lazyload:
+  enable: true
+  onlypost: false  #是否仅文章中的图片做懒加载, 如果为 false, 则主题中的其他图片, 也会做懒加载, 如头像, logo 等任何图片.
+  loadingImg:    #加载图片路径Marty主题需将图片放到 \themes\hexo-theme-matery\source\medias 目录下, 然后引用时: loadingImg: /medias/图片文件名
+
+#备份
+backup:
+  type: git
+  theme: hexo-theme-matery
+  message: Back up my www.wulinzeng.vip blog
+  repository:
+    github: git@github.com:unluckynike/unluckynike.github.io.git,backup
+    coding: git@e.coding.net:unluckynike/unluckynike/unluckynike.git,backup
+
+#搜索
+search:
+  path: search.xml
+  field: post
+
+#中文连链接转拼音  使用文章无显示
+#permalink_pinyin:
+  #enable: true
+  #separator: '-' # default: '-'
