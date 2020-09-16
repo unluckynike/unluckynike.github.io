@@ -1,10 +1,10 @@
 ---
 title: 我在人间凑数的日子
 date: 2020-07-30 18:51:47
+cover: true
 tags: 札记
 categories: 札记
 img: https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/people-5365324_1920.jpg
-password: e3e26a9e5568b62d9f642a96406271366ce1ae5b7bd592519026cdd86bb2f439
 summary: 这短短的一生我们终将会失去，不妨大胆一些，爱一个，攀一座山，追一个梦。
 ---
 
@@ -45,6 +45,7 @@ summary: 这短短的一生我们终将会失去，不妨大胆一些，爱一�
 
 {% raw %}
 
+<!--
 <div >
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100%  height=86 src="//music.163.com/outchain/player?type=2&id=1374329431&auto=1&height=66"></iframe>
 </div>
@@ -56,7 +57,7 @@ summary: 这短短的一生我们终将会失去，不妨大胆一些，爱一�
 <div >
 <iframe height="230" width="260" src="https://www.ximalaya.com/thirdparty/player/sound/player.html?id=324428990&type=red" frameborder=0 allowfullscreen></iframe>
 </div>
-
+-->
 
 
 {% endraw %}
@@ -71,6 +72,14 @@ summary: 这短短的一生我们终将会失去，不妨大胆一些，爱一�
 
 <div >
    <iframe src="//player.bilibili.com/player.html?aid=77185945&bvid=BV1vJ411X7kM&cid=132029886&page=1"  width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</div>
+
+ <div "" >
+<iframe src="//player.bilibili.com/player.html?aid=840308488&bvid=BV1C54y197CT&cid=179996357&page=1"  width="100%" height="500" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+ </div>
+
+ <div>
+<iframe src="//player.bilibili.com/player.html?aid=99316004&bvid=BV1Y741117Lk&cid=169671011&page=1"  width="100%" height="500"  scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </div>
 
 <div>

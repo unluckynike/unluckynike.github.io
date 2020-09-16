@@ -65,6 +65,6 @@ summary: Eclipse最初是由IBM公司开发的替代商业软件Visual Age for J
 
 ## 代码统计
 
-依次进入 `Search` -> `file` Containing tex 输入 `\n`，勾选 Regular expression ,File name patterns 输入`*java`,当然也可以输入`*css,*html`等文件后缀，这里匹配的是你所要统计的文件。点击 `Search` 后，下方便又代码总数了。这是统计的工作区的所有项目，当然也可统计单个项目。
+依次进入 `Search` -> `file` Containing tex 输入 `\n`，勾选 Regular expression ,File name patterns 输入`*java`,当然也可以输入`*css,*html`（ 点击choose切换 ）等文件后缀，这里匹配的是你所要统计的文件。点击 `Search` 后，下方便有代码总数了。这是统计的工作区的所有项目，当然也可统计单个项目。
 
 ![](https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/eclipse3.png)

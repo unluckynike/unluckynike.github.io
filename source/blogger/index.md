@@ -106,7 +106,7 @@ layout: false
 		</div>
 		<div class="showarea-3">
 			<h3>简介 | Introduction</h3>
-			<p>● 学历：软件工程本科在校大二学生；</p>
+			<p>● 学历：软件工程本科在校大三学生；</p>
 			<p>● 现况：整合框架；</p>
 			<p>● 目标：JAVA工程师 or 架构师；</p>
 			<p>● 博客：记录学习，记录生活；</p>
