@@ -13,24 +13,51 @@ menu:
   Archives:
     url: /archives
     icon: fas fa-archive
-  About:
-    url: /about
-    icon: fas fa-user-circle
+  #About:
+  #  url: /about
+  #  icon: fas fa-user-circle
   Contact:
     url: /contact
     icon: fas fa-comments
   Friends:
     url: /friends
     icon: fas fa-address-book
-  discover :    
-    url: /navigate    
-    icon: fas fa-location-arrow
-  navigation:
-    url: /box
-    icon: fas fa-map-marker   
-  blogger:
-    url: /blogger
-    icon: fa fa-book fa-fw
+  #discover :    
+  #  url: /navigate    
+  #  icon: fas fa-location-arrow
+  #navigation:
+  #  url: /box
+  #  icon: fas fa-map-marker   
+  #blogger:
+  #  url: /blogger
+  #  icon: fa fa-book fa-fw
+
+  # 二级菜单写法如下
+  About:
+     icon:
+     children:
+       - name: 关于站点
+         url: /about
+         icon: fa fa-book fa-fw
+       - name: 关于博主
+         url: /blogger
+         icon: fas fa-user-circle
+
+  discover:
+    icon: fas fa-list
+    children:
+      - name: 导航
+        url: /box
+        icon: fas fa-map-marker 
+      - name: 黑科技
+        url: /navigate 
+        icon: fas fa-location-arrow
+    #  - name: Books
+    #    url: /books
+    #    icon: fas fa-book
+    #  - name: Galleries
+    #    url: /galleries
+    #    icon: fas fa-image
 
   # 二级菜单写法如下
   #Medias:
@@ -48,6 +75,7 @@ menu:
   #    - name: Galleries
   #      url: /galleries
   #      icon: fas fa-image
+        
 
 # Website start time.
 # 站点运行开始时间.
