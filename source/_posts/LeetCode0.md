@@ -9,7 +9,7 @@ categories: 算法
 summary: Leetcode简单题目
 ---
 
-## Leetcode9回文数
+## Leetcode9 回文数
 
 判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
 
@@ -63,7 +63,7 @@ return init==x;
 }
 ```
 
-## Leetcode189旋转数组
+## Leetcode189 旋转数组
 
 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
 
@@ -145,6 +145,67 @@ void rotate(int* nums, int numsSize, int k){
 		nums[j] = tmp;
 	}
 	return;
+}
+```
+
+## Leetcode617 合并二叉树
+
+给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。
+
+你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。
+
+示例 1:
+
+```
+输入: 
+	Tree 1                     Tree 2                  
+          1                         2                             
+         / \                       / \                            
+        3   2                     1   3                        
+       /                           \   \                      
+      5                             4   7                  
+输出: 
+合并后的树:
+	     3
+	    / \
+	   4   5
+	  / \   \ 
+	 5   4   7
+```
+
+
+注意: 合并必须从两个树的根节点开始。
+[链接](https://leetcode-cn.com/problems/merge-two-binary-trees)
+
+**题解**
+
+递归求解，左子树或者右子树有一个为空则终止递归，返回值为合并树的根节点。
+
+```c
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+struct TreeNode* mergeTrees(struct TreeNode* t1, struct TreeNode* t2){
+ 
+     if(t1 == NULL){
+         return t2;
+     }
+     if(t2 == NULL){
+         return t1;
+     }
+    //都不为空
+     struct TreeNode *head = (struct TreeNode *)malloc(sizeof(struct TreeNode));
+     head->val = t1->val+t2->val;
+     head->left=mergeTrees(t1->left,t2->left);
+     head->right=mergeTrees(t1->right,t2->right);
+     return head;
+  
 }
 ```
 

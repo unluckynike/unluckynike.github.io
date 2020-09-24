@@ -27,7 +27,7 @@ layout: false
 	</script>
 	<audio autoplay="" loop="">
         <!--https://cdn.jsdelivr.net/gh/TRHX/CDN-for-itrhx.com@3.0.4/music/sillyboy.mp3-->
-		<source src="http://music.163.com/song/media/outer/url?id=427606780.mp3" type="audio/mpeg">
+		<source src="http://music.163.com/song/media/outer/url?id=38679412.mp3" type="audio/mpeg">
 		您的浏览器不支持audio标签，无法播放音乐！
 	</audio>
 	<div class="mdui-container">
@@ -37,14 +37,15 @@ layout: false
 			</a>
 			<table>
 				<tbody><tr>
-					<td><i class="fa fa-user-tie"></i> 江湖名称：吴李曾</td>
-					<td><i class="fa fa-map-marker-alt fa-fw"></i>常驻之地：辽宁|大连  四川|成都</td>
+					<td><i></i> 江湖名称：吴李曾</td>
+					<td><i></i> 常驻之地：辽宁|大连  四川|成都</td>
 				</tr>
 				<tr>
-					<td><i class="fa fa-birthday-cake fa-fw"></i>初度之辰：1999</td>
-					<td><i class="fa fa-code"></i> 学习方向：算法 | 后端 | java</td>
+					<td><i></i> 初度之辰：1999</td>
+					<td><i></i> 学习方向： 后端 | java</td>
 				</tr>
-			</tbody></table>
+			  </tbody>
+			</table>
 		</div>
 	</div>
 	<div class="mdui-container">
@@ -90,7 +91,7 @@ layout: false
 							SQL
 						</div>
 						<div class="progress">
-							<span class="darkblue" style="width: 55%;"><span>55%</span></span>
+							<span class="darkblue" style="width: 65%;"><span>65%</span></span>
 						</div>
 					</div>
 					<div class="item">
