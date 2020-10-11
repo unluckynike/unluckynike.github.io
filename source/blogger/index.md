@@ -37,12 +37,12 @@ layout: false
 			</a>
 			<table>
 				<tbody><tr>
-					<td><i></i> 江湖名称：吴李曾</td>
-					<td><i></i> 常驻之地：辽宁|大连  四川|成都</td>
+					<td><i ></i> 江湖名称：吴李曾</td>
+					<td><i ></i> 常驻之地：辽宁|大连  四川|成都</td>
 				</tr>
 				<tr>
-					<td><i></i> 初度之辰：1999</td>
-					<td><i></i> 学习方向： 后端 | java</td>
+					<td><i ></i> 初度之辰：1999</td>
+					<td><i ></i> 学习方向： 后端 | java</td>
 				</tr>
 			  </tbody>
 			</table>
