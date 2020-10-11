@@ -52,12 +52,13 @@ menu:
       - name: 黑科技
         url: /navigate 
         icon: fas fa-location-arrow
+      - name: 画廊
+        url: /gallery
+        icon: fas fa-image
     #  - name: Books
     #    url: /books
     #    icon: fas fa-book
-    #  - name: Galleries
-    #    url: /galleries
-    #    icon: fas fa-image
+
 
   # 二级菜单写法如下
   #Medias:
