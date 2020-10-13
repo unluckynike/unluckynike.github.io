@@ -9,11 +9,11 @@ layout: "friends"
 
 > 博主站点信息
 >
-> avatar: "https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/avatar.jpg"
-> name: "吴李曾"
-> introduction:"喜欢的风景要自己去看"
-> url: "https://www.wulinzeng.vip"
-> title: "去看看"
+> 头像: "https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/avatar.jpg"
+> 描述:"喜欢的风景要自己去看"
+> 站点名称: "吴李曾"
+> 主页地址: "https://www.wulinzeng.vip"
+> 
 
 ## 交换友链请先添加本站并在下方留言
 
