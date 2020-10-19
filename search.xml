@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title>Blog Demo</title>
-      <link href="/2020/10/19/hello-world/"/>
-      <url>/2020/10/19/hello-world/</url>
+      <title>Hexo-backup备份恢复</title>
+      <link href="/2020/10/19/HexoBlogRecovery/"/>
+      <url>/2020/10/19/HexoBlogRecovery/</url>
       
-        <content type="html"><![CDATA[<p>Hello everyone! Welcome to my blog. </p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>记录一次电脑重置Hexo还原恢复</p></blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>就在昨天，博主的电脑莫名其妙就崩了，蓝屏，开不了机。通过某技术手段（U盘）打开发现，里面也没有，连C盘都直接空了😱😱😱😱。这可真是神奇，啥也没给我留下。还好hexo之前用backup利用branch做了备份，要不然可真是😨😨😨😨😨“连个毛都不剩了”。（嗯！<a href="https://baike.baidu.com/item/%E6%9C%AA%E9%9B%A8%E7%BB%B8%E7%BC%AA/839102" target="_blank" rel="noopener">未雨绸缪</a>总是好事😝😝😝😝）。</p><div><img      src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/doyouhavemao.gif"></div><div><img      src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/computersystemcrash.png"></div><h2 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>之前已经用hexo分支备份，我们首先需要电脑上下载git，node.js，配好ssh.</p><p>重置电脑删除了配置文件的环境变量，需要重新设置name和email。</p><pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> config --global user.name<span class="token operator">=</span><span class="token string">"你的名字"</span><span class="token function">git</span> config --global user.email<span class="token operator">=</span><span class="token string">"你的邮箱"</span></code></pre><p>私钥，生产后在github配置SSH,同样在<code>.ssh</code>文件下，将公钥粘到<code>key</code>l里面。</p><pre class=" language-bash"><code class="language-bash">ssh-keygen -t rsa -C <span class="token string">"你的邮箱"</span></code></pre><ul><li>-t 指定密钥类型，默认是rsa</li><li>-C 设置注释文字，比如用户名</li></ul><p>这里输入后弹出的信息，连按回车就可以。</p><p>测试是否连通，这里看自己个人有哪些部署，GitHub，Coding，Gitee</p><pre class=" language-bash"><code class="language-bash"><span class="token function">ssh</span> -T git@github.com<span class="token function">ssh</span> -T git@git.coding.net<span class="token function">ssh</span> -T git@gitee.com</code></pre><h3 id="克隆到本地"><a href="#克隆到本地" class="headerlink" title="克隆到本地"></a>克隆到本地</h3><p>首先找一个空的文件夹将之前托管的项目拉下来，这里使用的GitHub Desktop工具(推荐)，也可以直接<code>clone</code></p><pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> clone git@github.com:xxxxx/xxxxx.github.io.git<span class="token function">git</span> clone https://github.com/xxxxx/xxxxx.github.io.git</code></pre><div><img   src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20201019170706.png"></div><p>拉取下来后切换到分支<code>backup</code>,因为这里才是我们的源文件，<code>master</code>我已经渲染生成好的文件。</p><div><img   src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20201019170707.png"></div><h3 id="恢复-1"><a href="#恢复-1" class="headerlink" title="恢复"></a>恢复</h3><p>在克隆的那个文件夹下输入如下命令恢复博客，这里我们不再需要<code>hexo init</code>了，因为我们不再是从零开始搭建的，要进入有<code>public</code>、<code>source</code>、<code>themes</code>文件的目录下执行。</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-cli$ <span class="token function">npm</span> <span class="token function">install</span>$ <span class="token function">npm</span> <span class="token function">install</span> hexo-deployer-git</code></pre><div><img   src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20201019170708.png"></div><p>完成之后直接三连本地访问部署😆😆😆😆😆。</p><h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><h4 id="指令无效"><a href="#指令无效" class="headerlink" title="指令无效"></a>指令无效</h4><pre class=" language-bash"><code class="language-bash">$ hexo s $ bash: hexo:command not foud</code></pre><p>这里我们将hexo的文件写入系统环境变量即可解决，找到<code>node_modules</code>目录。</p><div><img   src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20201019170709.png">    <img   src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20201019170710.png"></div><p>完成之后当前终端可能依然会出现指令找不见的现象，另开一个终端执行hexo即可（或者重启）。</p><h3 id="Coding推送失败"><a href="#Coding推送失败" class="headerlink" title="Coding推送失败"></a>Coding推送失败</h3><p>如图（中间部分Error），这里只是GitHub推送上去了，Coding推送失败，检查自己的Coding SSH配置，重新部署。</p><div><img   src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20201019170711.png"></div>]]></content>
       
       
+      <categories>
+          
+          <category> Hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
       
     </entry>
     

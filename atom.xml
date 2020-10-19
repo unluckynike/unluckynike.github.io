@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2020-10-19T07:50:58.829Z</updated>
+  <updated>2020-10-19T09:38:08.369Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -17,24 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Blog Demo</title>
-    <link href="https://wulinzeng.vip/2020/10/19/hello-world/"/>
-    <id>https://wulinzeng.vip/2020/10/19/hello-world/</id>
-    <published>2020-10-19T07:50:58.829Z</published>
-    <updated>2020-10-19T07:50:58.829Z</updated>
+    <title>Hexo-backup备份恢复</title>
+    <link href="https://wulinzeng.vip/2020/10/19/HexoBlogRecovery/"/>
+    <id>https://wulinzeng.vip/2020/10/19/HexoBlogRecovery/</id>
+    <published>2020-10-19T08:17:09.000Z</published>
+    <updated>2020-10-19T09:38:08.369Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;Hello everyone! Welcome to my blog. &lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick</summary>
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;记录一次电脑重置Hexo还原恢复&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;</summary>
         
       
     
     
     
+    <category term="Hexo" scheme="https://wulinzeng.vip/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://wulinzeng.vip/tags/Hexo/"/>
     
   </entry>
   
