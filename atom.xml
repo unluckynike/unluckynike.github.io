@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>WuLiZeng</title>
+  
+  <subtitle>吴李曾</subtitle>
+  <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
+  
+  <link href="https://wulinzeng.vip/"/>
+  <updated>2020-10-19T07:50:58.829Z</updated>
+  <id>https://wulinzeng.vip/</id>
+  
+  <author>
+    <name>HaiLin Zhou</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Blog Demo</title>
+    <link href="https://wulinzeng.vip/2020/10/19/hello-world/"/>
+    <id>https://wulinzeng.vip/2020/10/19/hello-world/</id>
+    <published>2020-10-19T07:50:58.829Z</published>
+    <updated>2020-10-19T07:50:58.829Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Hello everyone! Welcome to my blog. &lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>部署Coding SSL/TLS证书</title>
+    <link href="https://wulinzeng.vip/2020/10/13/HexoCodingSSL/"/>
+    <id>https://wulinzeng.vip/2020/10/13/HexoCodingSSL/</id>
+    <published>2020-10-13T02:34:13.000Z</published>
+    <updated>2020-10-19T07:50:58.810Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;站点Coding Pages SSL/TLS证书到期，访问为不安全链接。&lt;/p&gt;
+&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="Hexo" scheme="https://wulinzeng.vip/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://wulinzeng.vip/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>存储系统</title>
+    <link href="https://wulinzeng.vip/2020/10/12/MemorySystem/"/>
+    <id>https://wulinzeng.vip/2020/10/12/MemorySystem/</id>
+    <published>2020-10-12T07:58:16.000Z</published>
+    <updated>2020-10-19T07:50:58.816Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;存储系统&quot;&gt;&lt;a href=&quot;#存储系统&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSM-Maven坐标</title>
+    <link href="https://wulinzeng.vip/2020/10/11/SSMMavenCoordinate/"/>
+    <id>https://wulinzeng.vip/2020/10/11/SSMMavenCoordinate/</id>
+    <published>2020-10-11T08:18:25.000Z</published>
+    <updated>2020-10-19T07:50:58.822Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt; pom.xml&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot; language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;  &lt;span class=&quot;token comment&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
+    
+    
+    <category term="Maven" scheme="https://wulinzeng.vip/tags/Maven/"/>
+    
+    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
+    
+    <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
+    
+    <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Leetcode</title>
+    <link href="https://wulinzeng.vip/2020/09/17/LeetCode0/"/>
+    <id>https://wulinzeng.vip/2020/09/17/LeetCode0/</id>
+    <published>2020-09-17T04:57:40.000Z</published>
+    <updated>2020-10-19T07:50:58.811Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Leetcode9-回文数&quot;&gt;&lt;a href=&quot;#Leetcode9-回文数&quot; class=&quot;headerlink&quot; title=&quot;Leetcode9 回文数&quot;&gt;&lt;/a&gt;Leetcode9</summary>
+        
+      
+    
+    
+    
+    <category term="算法" scheme="https://wulinzeng.vip/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="C语言" scheme="https://wulinzeng.vip/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+    <category term="Leetcode 简单" scheme="https://wulinzeng.vip/tags/Leetcode-%E7%AE%80%E5%8D%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>运算方法</title>
+    <link href="https://wulinzeng.vip/2020/09/16/OperationMethod/"/>
+    <id>https://wulinzeng.vip/2020/09/16/OperationMethod/</id>
+    <published>2020-09-16T10:41:30.000Z</published>
+    <updated>2020-10-19T07:50:58.820Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;定点加减&quot;&gt;&lt;a href=&quot;#定点加减&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Eclipse便捷操作</title>
+    <link href="https://wulinzeng.vip/2020/09/14/EclipseShortcutSettings/"/>
+    <id>https://wulinzeng.vip/2020/09/14/EclipseShortcutSettings/</id>
+    <published>2020-09-14T09:08:15.000Z</published>
+    <updated>2020-10-19T07:50:58.807Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Eclipse 是一个开放源代码的、基于Java的可扩展开发平台。就其本身而言，它只是一个框架和一组服务，用于通过插件组件构建开发环境。幸运的是，Eclipse 附带了一个标准的插件集，包括Java开发工具（Java Development</summary>
+        
+      
+    
+    
+    
+    <category term="工具" scheme="https://wulinzeng.vip/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="java" scheme="https://wulinzeng.vip/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mybatis动态SQL</title>
+    <link href="https://wulinzeng.vip/2020/09/08/MybatisDynamicSQL/"/>
+    <id>https://wulinzeng.vip/2020/09/08/MybatisDynamicSQL/</id>
+    <published>2020-09-08T12:56:08.000Z</published>
+    <updated>2020-10-19T07:50:58.817Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Mybatis 的映射文件，有些时候业务逻辑复杂时，我们的 SQL是动态变化的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;动态SQL语句&quot;&gt;&lt;a href=&quot;#动态SQL语句&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
+    
+    
+    <category term="Mybatis" scheme="https://wulinzeng.vip/tags/Mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数制转换</title>
+    <link href="https://wulinzeng.vip/2020/09/07/NumberSystemConversion/"/>
+    <id>https://wulinzeng.vip/2020/09/07/NumberSystemConversion/</id>
+    <published>2020-09-07T02:17:30.000Z</published>
+    <updated>2020-10-19T07:50:58.818Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;数制，也称为“计数制”，是用一组固定的符号和统一的规则来表示数值的方法。任何一个数制都包含两个基本要素：基数和位权。不同的数制可以进行进制转换。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;🚪传送门：&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机系统</title>
+    <link href="https://wulinzeng.vip/2020/08/31/PrinciplesOfComputerComposition/"/>
+    <id>https://wulinzeng.vip/2020/08/31/PrinciplesOfComputerComposition/</id>
+    <published>2020-08-31T08:31:58.000Z</published>
+    <updated>2020-10-19T07:50:58.821Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;计算机组成指的是系统结构的逻辑实现，包括机器机内的数据流和控制流的组成及逻辑设计等。主要分为五个部分：控制器，运算器，存储器，输入设备，输出设备。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;计算机的由来&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+    <category term="概论" scheme="https://wulinzeng.vip/tags/%E6%A6%82%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSM配置</title>
+    <link href="https://wulinzeng.vip/2020/08/17/ssmConfiguration/"/>
+    <id>https://wulinzeng.vip/2020/08/17/ssmConfiguration/</id>
+    <published>2020-08-17T00:55:16.000Z</published>
+    <updated>2020-10-19T07:50:58.830Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;SSM框架集由Spring、SpringMVC、MyBatis三个开源框架整合而成，常作为数据源较简单的web项目的框架。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Eclipse&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h</summary>
+        
+      
+    
+    
+    
+    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
+    
+    
+    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
+    
+    <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
+    
+    <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring配置数据源</title>
+    <link href="https://wulinzeng.vip/2020/08/15/Spring-dataSource/"/>
+    <id>https://wulinzeng.vip/2020/08/15/Spring-dataSource/</id>
+    <published>2020-08-15T13:34:30.000Z</published>
+    <updated>2020-10-19T07:50:58.823Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;数据库连接池（Connection</summary>
+        
+      
+    
+    
+    
+    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
+    
+    
+    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSM各层级作用</title>
+    <link href="https://wulinzeng.vip/2020/08/11/SSMExecutionProcess/"/>
+    <id>https://wulinzeng.vip/2020/08/11/SSMExecutionProcess/</id>
+    <published>2020-08-11T01:42:35.000Z</published>
+    <updated>2020-10-19T07:50:58.821Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;SSM&quot;&gt;&lt;a href=&quot;#SSM&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
+    
+    
+    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
+    
+    <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
+    
+    <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MyBatis</title>
+    <link href="https://wulinzeng.vip/2020/08/07/mybatis-quick/"/>
+    <id>https://wulinzeng.vip/2020/08/07/mybatis-quick/</id>
+    <published>2020-08-07T11:49:32.000Z</published>
+    <updated>2020-10-19T07:50:58.830Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;MyBatis&quot;&gt;&lt;a href=&quot;#MyBatis&quot; class=&quot;headerlink&quot; title=&quot;MyBatis&quot;&gt;&lt;/a&gt;MyBatis&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;mybatis</summary>
+        
+      
+    
+    
+    
+    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
+    
+    
+    <category term="Mybatis" scheme="https://wulinzeng.vip/tags/Mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring-IOC-Set注入</title>
+    <link href="https://wulinzeng.vip/2020/08/06/Spring-ioc-Set/"/>
+    <id>https://wulinzeng.vip/2020/08/06/Spring-ioc-Set/</id>
+    <published>2020-08-06T07:31:36.000Z</published>
+    <updated>2020-10-19T07:50:58.823Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;IOC&quot;&gt;&lt;a href=&quot;#IOC&quot; class=&quot;headerlink&quot; title=&quot;IOC&quot;&gt;&lt;/a&gt;IOC&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;IOC&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;控制反转IoC(Inversion</summary>
+        
+      
+    
+    
+    
+    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
+    
+    
+    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL索引刨析</title>
+    <link href="https://wulinzeng.vip/2020/08/02/MysqlIndex/"/>
+    <id>https://wulinzeng.vip/2020/08/02/MysqlIndex/</id>
+    <published>2020-08-02T08:25:22.000Z</published>
+    <updated>2020-10-19T07:50:58.817Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;MySQL索引&quot;&gt;&lt;a href=&quot;#MySQL索引&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数据库" scheme="https://wulinzeng.vip/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="数据库" scheme="https://wulinzeng.vip/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="SQL" scheme="https://wulinzeng.vip/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我在人间凑数的日子</title>
+    <link href="https://wulinzeng.vip/2020/07/30/MyDayInTheWorld/"/>
+    <id>https://wulinzeng.vip/2020/07/30/MyDayInTheWorld/</id>
+    <published>2020-07-30T10:51:47.000Z</published>
+    <updated>2020-10-19T07:50:58.816Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;div id=&quot;weather-v2-plugin-simple&quot;&gt;&lt;/div&gt;
+    &lt;script&gt;
+    WIDGET = {
+      CONFIG: {
+        &quot;modules&quot;: &quot;10234&quot;,
+        &quot;background&quot;: 1,
+</summary>
+        
+      
+    
+    
+    
+    <category term="札记" scheme="https://wulinzeng.vip/categories/%E6%9C%AD%E8%AE%B0/"/>
+    
+    
+    <category term="札记" scheme="https://wulinzeng.vip/tags/%E6%9C%AD%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络层</title>
+    <link href="https://wulinzeng.vip/2020/07/28/NetworkLayer/"/>
+    <id>https://wulinzeng.vip/2020/07/28/NetworkLayer/</id>
+    <published>2020-07-28T11:48:33.000Z</published>
+    <updated>2020-10-19T07:50:58.818Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;网络层是计算机网络体系结构中非常重要的一层，它为运输层提供服务，跨越不同的网络将运输层报文段送达到对端运输层。IP协议是因特网网络层的核心协议。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2^7=128  </summary>
+        
+      
+    
+    
+    
+    <category term="计算机网络" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机网络" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计算机网络</title>
+    <link href="https://wulinzeng.vip/2020/07/16/ComputerNetwork/"/>
+    <id>https://wulinzeng.vip/2020/07/16/ComputerNetwork/</id>
+    <published>2020-07-16T06:29:00.000Z</published>
+    <updated>2020-10-19T07:50:58.804Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;计算机网络的概念&quot;&gt;&lt;a href=&quot;#计算机网络的概念&quot; class=&quot;headerlink&quot; title=&quot;计算机网络的概念&quot;&gt;&lt;/a&gt;计算机网络的概念&lt;/h2&gt;&lt;h5 id=&quot;计算机网络是指自主计算机的互连集合&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="计算机网络" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机网络" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="绪论" scheme="https://wulinzeng.vip/tags/%E7%BB%AA%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式七大原则</title>
+    <link href="https://wulinzeng.vip/2020/07/13/DesignPhilosophy/"/>
+    <id>https://wulinzeng.vip/2020/07/13/DesignPhilosophy/</id>
+    <published>2020-07-13T06:08:21.000Z</published>
+    <updated>2020-10-19T07:50:58.807Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;设计模式存在的根本原因是为了更好的复用代码增加代码的可维护性&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;开闭原则（Open-Close-Principle）&quot;&gt;&lt;a href=&quot;#开闭原则（Open-Close-Principle）&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="https://wulinzeng.vip/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="https://wulinzeng.vip/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="面向对象" scheme="https://wulinzeng.vip/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
+  
+</feed>
