@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2020-10-27T11:31:20.011Z</updated>
+  <updated>2020-11-02T03:42:49.991Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Idea Maven SSM整合配置</title>
+    <link href="https://wulinzeng.vip/2020/11/02/IdeaMavenSSM/"/>
+    <id>https://wulinzeng.vip/2020/11/02/IdeaMavenSSM/</id>
+    <published>2020-11-02T03:09:34.000Z</published>
+    <updated>2020-11-02T03:42:49.991Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;IntelliJ IDEA&lt;/strong&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
+    
+    
+    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
+    
+    <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
+    
+    <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
+    
+  </entry>
   
   <entry>
     <title>阿里云ECS项目部署</title>
@@ -325,7 +354,7 @@
     <link href="https://wulinzeng.vip/2020/08/17/ssmConfiguration/"/>
     <id>https://wulinzeng.vip/2020/08/17/ssmConfiguration/</id>
     <published>2020-08-17T00:55:16.000Z</published>
-    <updated>2020-10-19T07:50:58.830Z</updated>
+    <updated>2020-11-02T03:10:49.002Z</updated>
     
     
       
@@ -335,10 +364,7 @@
     <summary type="html">&lt;blockquote&gt;
 &lt;p&gt;SSM框架集由Spring、SpringMVC、MyBatis三个开源框架整合而成，常作为数据源较简单的web项目的框架。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Eclipse&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h</summary>
+&lt;h2 id=&quot;文件结构&quot;&gt;&lt;a href=&quot;#文件结构&quot;</summary>
         
       
     
@@ -548,33 +574,6 @@
     
     
     <category term="计算机网络" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>计算机网络</title>
-    <link href="https://wulinzeng.vip/2020/07/16/ComputerNetwork/"/>
-    <id>https://wulinzeng.vip/2020/07/16/ComputerNetwork/</id>
-    <published>2020-07-16T06:29:00.000Z</published>
-    <updated>2020-10-19T07:50:58.804Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;计算机网络的概念&quot;&gt;&lt;a href=&quot;#计算机网络的概念&quot; class=&quot;headerlink&quot; title=&quot;计算机网络的概念&quot;&gt;&lt;/a&gt;计算机网络的概念&lt;/h2&gt;&lt;h5 id=&quot;计算机网络是指自主计算机的互连集合&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="计算机网络" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="计算机网络" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    <category term="绪论" scheme="https://wulinzeng.vip/tags/%E7%BB%AA%E8%AE%BA/"/>
     
   </entry>
   
