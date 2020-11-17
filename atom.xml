@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2020-11-04T08:49:02.621Z</updated>
+  <updated>2020-11-17T09:04:17.750Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>指令系统</title>
+    <link href="https://wulinzeng.vip/2020/11/17/ComputerCommandSystem/"/>
+    <id>https://wulinzeng.vip/2020/11/17/ComputerCommandSystem/</id>
+    <published>2020-11-17T08:12:50.000Z</published>
+    <updated>2020-11-17T09:04:17.750Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;指令系统是计算机硬件的语言系统，也叫机器语言，它是软件和硬件的主要界面，从系统结构的角度看，它是系统程序员看到的计算机的主要属性。指令系统是表征一台计算机性能的重要因素，它的格式与功能不仅直接影响到机器的硬件结构，而且也直接影响到系统软件，影响到机</summary>
+        
+      
+    
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+    
+    <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>Idea Maven SSM整合配置</title>
@@ -545,35 +571,6 @@
     
     
     <category term="札记" scheme="https://wulinzeng.vip/tags/%E6%9C%AD%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网络层</title>
-    <link href="https://wulinzeng.vip/2020/07/28/NetworkLayer/"/>
-    <id>https://wulinzeng.vip/2020/07/28/NetworkLayer/</id>
-    <published>2020-07-28T11:48:33.000Z</published>
-    <updated>2020-10-19T07:50:58.818Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;网络层是计算机网络体系结构中非常重要的一层，它为运输层提供服务，跨越不同的网络将运输层报文段送达到对端运输层。IP协议是因特网网络层的核心协议。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;2^7=128  </summary>
-        
-      
-    
-    
-    
-    <category term="计算机网络" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="计算机网络" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
