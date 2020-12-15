@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2020-12-14T12:09:30.406Z</updated>
+  <updated>2020-12-15T01:37:33.460Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -17,24 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>temp</title>
-    <link href="https://wulinzeng.vip/2020/12/14/temp/"/>
-    <id>https://wulinzeng.vip/2020/12/14/temp/</id>
-    <published>2020-12-14T12:02:08.000Z</published>
-    <updated>2020-12-14T12:09:30.406Z</updated>
+    <title>解决Hexo迁移 the &quot;mode&quot; argument must be integer</title>
+    <link href="https://wulinzeng.vip/2020/12/15/nodejsVersionTooHigh/"/>
+    <id>https://wulinzeng.vip/2020/12/15/nodejsVersionTooHigh/</id>
+    <published>2020-12-15T01:04:46.000Z</published>
+    <updated>2020-12-15T01:37:33.460Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;asjkfhasjkhfajks&lt;/p&gt;
-</summary>
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;博客从Window迁移到Mac电脑&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&quot; language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;fatal something&#39;s wrong. maybe</summary>
         
       
     
     
     
+    <category term="Hexo" scheme="https://wulinzeng.vip/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://wulinzeng.vip/tags/Hexo/"/>
     
   </entry>
   
@@ -125,7 +131,7 @@
     <link href="https://wulinzeng.vip/2020/10/19/HexoBlogRecovery/"/>
     <id>https://wulinzeng.vip/2020/10/19/HexoBlogRecovery/</id>
     <published>2020-10-19T08:17:09.000Z</published>
-    <updated>2020-10-20T03:08:31.993Z</updated>
+    <updated>2020-12-15T01:11:54.828Z</updated>
     
     
       
@@ -204,7 +210,7 @@
     <link href="https://wulinzeng.vip/2020/10/11/SSMMavenCoordinate/"/>
     <id>https://wulinzeng.vip/2020/10/11/SSMMavenCoordinate/</id>
     <published>2020-10-11T08:18:25.000Z</published>
-    <updated>2020-10-19T10:58:55.427Z</updated>
+    <updated>2020-12-15T01:37:42.647Z</updated>
     
     
       
