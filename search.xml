@@ -201,13 +201,13 @@
       
         <tags>
             
-            <tag> Maven </tag>
-            
             <tag> Spring </tag>
             
             <tag> SpringMVC </tag>
             
             <tag> MyBatis </tag>
+            
+            <tag> Maven </tag>
             
         </tags>
       

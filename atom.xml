@@ -229,13 +229,13 @@
     <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
     
     
-    <category term="Maven" scheme="https://wulinzeng.vip/tags/Maven/"/>
-    
     <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
     
     <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
     
     <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
+    
+    <category term="Maven" scheme="https://wulinzeng.vip/tags/Maven/"/>
     
   </entry>
   
