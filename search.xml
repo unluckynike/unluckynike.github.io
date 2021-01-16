@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>GitHubSearch</title>
+      <link href="/2021/01/16/GitHubSearch/"/>
+      <url>/2021/01/16/GitHubSearch/</url>
+      
+        <content type="html"><![CDATA[<p>当我们知道自己要找的技术栈、编程语言或框架等关键要素之后，我们就可以通过搜索引擎或在代码托管平台上进行搜索。以 GitHub 为例，除了直接搜索关键字，GitHub 还提供了许多条件搜索功能，善用这些功能，可以更加快速有效地找到我们想要的、优质的开源项目。比如：</p><ol><li><p>匹配含有 “student” 字样、星标超过 500 个的仓库。</p><pre><code>student stars:&gt;500</code></pre></li><li><p>匹配含有 “vue” 字样、有 5 个或更多主题的仓库。</p><pre><code>vue topics:&gt;=5</code></pre></li><li><p>匹配含有 “node” 字样，有 10,000 或更多关注者的仓库。</p><pre><code>node followers:&gt;=10000</code></pre></li><li><p>匹配已归类为 “algorithm” 主题的仓库</p><pre><code>topic:algorithm</code></pre></li><li><p>匹配遵循 Apache License 2.0 授权的仓库</p><pre><code>license:apache-2.0</code></pre></li><li><p>匹配项目自述文件中提及 “SSM” 的仓库。</p><pre><code>SSM in:readme</code></pre></li><li><p>搜索地址位于中国，且拥有超过 5000 名关注者的开发者。</p><pre><code>location:china followers:&gt;5000</code></pre></li></ol><p>更多搜索语法相关内容，请查阅 GitHub Docs 文档 <a href="https://docs.github.com/cn/free-pro-team@latest/github/searching-for-information-on-github" target="_blank" rel="noopener">在 GitHub 上搜索信息</a>。</p><h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+            <tag> github </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>解决Hexo迁移 the &quot;mode&quot; argument must be integer</title>
       <link href="/2020/12/15/nodejsVersionTooHigh/"/>
       <url>/2020/12/15/nodejsVersionTooHigh/</url>
