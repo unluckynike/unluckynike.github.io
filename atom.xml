@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2021-01-16T03:05:25.962Z</updated>
+  <updated>2021-02-17T06:14:36.186Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何在在开源社区提问</title>
+    <link href="https://wulinzeng.vip/2021/02/17/HowToAskQuestionsInOS/"/>
+    <id>https://wulinzeng.vip/2021/02/17/HowToAskQuestionsInOS/</id>
+    <published>2021-02-17T05:55:10.000Z</published>
+    <updated>2021-02-17T06:14:36.186Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;使用软件产品，或多或少都会遇到问题。对于商业产品，我们可以咨询客服寻求帮助。对于公司自己研发的产品，我们可以直接请教专家同事。但对于开源软件，在遇到问题时，如何才能及时有效地寻求帮助呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;本文以开源类库</summary>
+        
+      
+    
+    
+    
+    <category term="学习方法" scheme="https://wulinzeng.vip/categories/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
+    
+    
+    <category term="学习方法" scheme="https://wulinzeng.vip/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>GitHubSearch</title>
@@ -186,7 +214,7 @@
     <link href="https://wulinzeng.vip/2020/10/13/HexoCodingSSL/"/>
     <id>https://wulinzeng.vip/2020/10/13/HexoCodingSSL/</id>
     <published>2020-10-13T02:34:13.000Z</published>
-    <updated>2021-02-16T03:04:11.333Z</updated>
+    <updated>2021-02-17T06:05:54.388Z</updated>
     
     
       
@@ -540,34 +568,6 @@
     
     
     <category term="Mybatis" scheme="https://wulinzeng.vip/tags/Mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-IOC-Set注入</title>
-    <link href="https://wulinzeng.vip/2020/08/06/Spring-ioc-Set/"/>
-    <id>https://wulinzeng.vip/2020/08/06/Spring-ioc-Set/</id>
-    <published>2020-08-06T07:31:36.000Z</published>
-    <updated>2021-02-16T03:02:13.478Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;IOC&quot;&gt;&lt;a href=&quot;#IOC&quot; class=&quot;headerlink&quot; title=&quot;IOC&quot;&gt;&lt;/a&gt;IOC&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;IOC&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;strong&gt;控制反转IoC(Inversion</summary>
-        
-      
-    
-    
-    
-    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
-    
-    
-    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
     
   </entry>
   
