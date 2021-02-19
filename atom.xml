@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2021-02-19T08:29:25.962Z</updated>
+  <updated>2021-02-19T08:40:04.949Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MacIDEA快捷键</title>
+    <link href="https://wulinzeng.vip/2021/02/19/MacIdeaQuickKey/"/>
+    <id>https://wulinzeng.vip/2021/02/19/MacIdeaQuickKey/</id>
+    <published>2021-02-19T08:34:03.000Z</published>
+    <updated>2021-02-19T08:40:04.949Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Mac电脑IDEA常用快捷键&quot;&gt;&lt;a href=&quot;#Mac电脑IDEA常用快捷键&quot; class=&quot;headerlink&quot; title=&quot;Mac电脑IDEA常用快捷键&quot;&gt;&lt;/a&gt;Mac电脑IDEA常用快捷键&lt;/h2&gt;&lt;p&gt;command+A</summary>
+        
+      
+    
+    
+    
+    <category term="工具" scheme="https://wulinzeng.vip/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="工具" scheme="https://wulinzeng.vip/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>Mac终端查看/杀死进程</title>
@@ -542,32 +567,6 @@
     <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
     
     <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring配置数据源</title>
-    <link href="https://wulinzeng.vip/2020/08/15/Spring-dataSource/"/>
-    <id>https://wulinzeng.vip/2020/08/15/Spring-dataSource/</id>
-    <published>2020-08-15T13:34:30.000Z</published>
-    <updated>2021-02-16T03:02:49.172Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;数据库连接池（Connection</summary>
-        
-      
-    
-    
-    
-    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
-    
-    
-    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
     
   </entry>
   

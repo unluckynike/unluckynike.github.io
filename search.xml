@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>MacIDEA快捷键</title>
+      <link href="/2021/02/19/MacIdeaQuickKey/"/>
+      <url>/2021/02/19/MacIdeaQuickKey/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Mac电脑IDEA常用快捷键"><a href="#Mac电脑IDEA常用快捷键" class="headerlink" title="Mac电脑IDEA常用快捷键"></a>Mac电脑IDEA常用快捷键</h2><p>command+A 全选</p><p>command+C 复制</p><p>command+X  剪切</p><p>command+V 粘贴</p><p>command+Z 撤销 </p><p>command+shift+Z 重做</p><p> command+option+L 代码格式化 </p><p>command+N   generate功能，生成setter/getter/toString，实现借口等等 </p><p>command+option+M  将选中代码提取成单独方法 </p><p>command+option+left/right   光标上一个/下一个位置 </p><p>command+shift+backspace  最近一次编辑的位置 </p><p>command+shift  生成单测 </p><p>command+F  搜索 </p><p>command+shift+F 全局搜索 </p><p>command+R  替换 </p><p>command+shift+R 全局替换 </p><p>command+O 查找类 </p><p>command+shift+O 查找文件 </p><p>command+K git提交到缓存 </p><p>command+shift+K git代码push到远程 </p><p>shift连续两次  搜索任何东西</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mac终端查看/杀死进程</title>
       <link href="/2021/02/19/MacCheckAndProcess/"/>
       <url>/2021/02/19/MacCheckAndProcess/</url>
