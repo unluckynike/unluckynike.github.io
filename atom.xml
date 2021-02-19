@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2021-02-19T02:31:15.168Z</updated>
+  <updated>2021-02-19T08:29:25.962Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac终端查看/杀死进程</title>
+    <link href="https://wulinzeng.vip/2021/02/19/MacCheckAndProcess/"/>
+    <id>https://wulinzeng.vip/2021/02/19/MacCheckAndProcess/</id>
+    <published>2021-02-19T08:17:12.000Z</published>
+    <updated>2021-02-19T08:29:25.962Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;查看PID&quot;&gt;&lt;a href=&quot;#查看PID&quot; class=&quot;headerlink&quot; title=&quot;查看PID&quot;&gt;&lt;/a&gt;查看PID&lt;/h2&gt;&lt;p&gt;在不知程序端口号的情况下&lt;/p&gt;
+&lt;pre class=&quot; language-bash&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    <category term="操作系统" scheme="https://wulinzeng.vip/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="操作系统" scheme="https://wulinzeng.vip/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="终端" scheme="https://wulinzeng.vip/tags/%E7%BB%88%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>SpringBoot核心</title>
@@ -540,35 +568,6 @@
     
     
     <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM各层级作用</title>
-    <link href="https://wulinzeng.vip/2020/08/11/SSMExecutionProcess/"/>
-    <id>https://wulinzeng.vip/2020/08/11/SSMExecutionProcess/</id>
-    <published>2020-08-11T01:42:35.000Z</published>
-    <updated>2020-10-19T10:58:55.426Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;SSM&quot;&gt;&lt;a href=&quot;#SSM&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
-    
-    
-    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
-    
-    <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
-    
-    <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
     
   </entry>
   
