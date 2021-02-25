@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2021-02-25T10:57:22.657Z</updated>
+  <updated>2021-02-25T15:19:00.260Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS8MySQL</title>
+    <link href="https://wulinzeng.vip/2021/02/25/CentOS8MySQL/"/>
+    <id>https://wulinzeng.vip/2021/02/25/CentOS8MySQL/</id>
+    <published>2021-02-25T14:57:56.000Z</published>
+    <updated>2021-02-25T15:19:00.260Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;服务器安装mysql8.0&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数据库" scheme="https://wulinzeng.vip/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="数据库" scheme="https://wulinzeng.vip/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="Linux" scheme="https://wulinzeng.vip/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>Navicat连接阿里云ECS</title>
@@ -530,34 +560,6 @@
     
     
     <category term="Mybatis" scheme="https://wulinzeng.vip/tags/Mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数制转换</title>
-    <link href="https://wulinzeng.vip/2020/09/07/NumberSystemConversion/"/>
-    <id>https://wulinzeng.vip/2020/09/07/NumberSystemConversion/</id>
-    <published>2020-09-07T02:17:30.000Z</published>
-    <updated>2020-10-19T10:58:55.424Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;数制，也称为“计数制”，是用一组固定的符号和统一的规则来表示数值的方法。任何一个数制都包含两个基本要素：基数和位权。不同的数制可以进行进制转换。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;🚪传送门：&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="计算机组成原理" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-    
-    <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
     
   </entry>
   

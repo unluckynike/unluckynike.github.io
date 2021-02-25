@@ -7,7 +7,7 @@
     <!--百度分析-->
     <meta name="baidu-site-verification" content="code-9EUuHHzhSH" />
     <meta charset="utf-8">
-    <meta name="keywords" content="设计模式之模板方法模式, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
+    <meta name="keywords" content="CentOS8MySQL, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
     <meta name="description" content="正在学习编程的小猿，热爱生活，更爱学习">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -19,7 +19,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>设计模式之模板方法模式 | WuLiZeng</title>
+    <title>CentOS8MySQL | WuLiZeng</title>
     <link rel="icon" type="image/png" href="/medias/logo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -618,12 +618,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/TemplateMethodPattern.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">设计模式之模板方法模式</h1>
+                    <h1 class="description center-align post-title">CentOS8MySQL</h1>
                 </div>
             </div>
         </div>
@@ -748,16 +748,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                                <span class="chip bg-color">设计模式</span>
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">数据库</span>
                             </a>
                         
-                            <a href="/tags/java/">
-                                <span class="chip bg-color">java</span>
-                            </a>
-                        
-                            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                <span class="chip bg-color">面向对象</span>
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
                     </div>
@@ -768,8 +764,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                设计模式
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                数据库
                             </a>
                         
                     </div>
@@ -781,28 +777,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-22
+                    2021-02-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-10-19
+                    2021-02-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    903
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    11 分
                 </div>
                 
 
@@ -818,122 +814,278 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>《Head First》</p>
-<p>The Template Method Pattern defines the skeleton of an algorithm in a method, deferring some steps to subclasses. Template Method lets subclass redefine certain steps of an algorithm without changing the algorithm’s structure.</p>
-<p>模板方法模式在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</p>
-<p>模板方法就是一个固定步骤的“算法”骨架方法。这个算法的可变部分通过继承，在子类中重载实现。这样就可以在算法骨架不变的情况下，算法细节步骤根据不同的需求进行适应的改变</p>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
-<li>一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现</li>
-<li>各子类中公共的行为应该被提取出来并集中到一个公共父类中避免代码重复</li>
-<li>控制子类的扩展</li>
+                <blockquote>
+<p>服务器安装mysql8.0</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装MySQL及其所有依赖</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> dnf <span class="token function">install</span> @mysql</code></pre>
+<p>启动MySQL服务，并设置自启</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> systemctl <span class="token function">enable</span> --now mysqld</code></pre>
+<p>检查MySQL服务器是否正在运行</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> systemctl status mysqld</code></pre>
+<p>运行mysql_secure_installation脚本，该脚本执行一些与安全性相关的操作并设置MySQL根密码：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> mysql_secure_installation</code></pre>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
+<li>配置VALIDATE PASSWORD component（验证密码组件）： 输入y ，回车进入该配置</li>
 </ul>
-<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ul>
-<li>AbstractClass: 抽象类，定义抽象原语操作，具体子类将重定义他们以实现一个算法，实现一个模板方法，定义一个算法的骨架。改模板方法不仅调用原语操作，也调用定义。</li>
-<li>ConcreteClass: 具体子类，实现原语操作以完成算法中与特点子类相关的步骤</li>
+<pre class=" language-bash"><code class="language-bash">VALIDATE PASSWORD COMPONENT can be used to <span class="token function">test</span> passwords
+and improve security. It checks the strength of password
+and allows the <span class="token function">users</span> to <span class="token keyword">set</span> only those passwords <span class="token function">which</span> are
+secure enough. Would you like to setup VALIDATE PASSWORD component?
+
+Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No: y</code></pre>
+<ul>
+<li>选择密码验证策略等级， 这里选择0 （low），回车</li>
 </ul>
-<h3 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h3><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="TemplateMethodPattern.png" alt=""></p>
-<h3 id="实际案例"><a href="#实际案例" class="headerlink" title="实际案例"></a>实际案例</h3><ul>
-<li>泡茶，都需要先煮沸水，然后加入茶叶，然后根据需求加入调料（柠檬，蜂蜜），再将泡好的茶水倒入杯子</li>
-<li>去银行办理业务，先要排号，然后办理相关业务（取款，存款），再为本次服务评分，完成业务办理</li>
+<pre class=" language-bash"><code class="language-bash">There are three levels of password validation policy:
+
+LOW    Length <span class="token operator">>=</span> 8
+MEDIUM Length <span class="token operator">>=</span> 8, numeric, mixed case, and special characters
+STRONG Length <span class="token operator">>=</span> 8, numeric, mixed case, special characters and dictionary                  <span class="token function">file</span>
+
+Please enter 0 <span class="token operator">=</span> LOW, 1 <span class="token operator">=</span> MEDIUM and 2 <span class="token operator">=</span> STRONG: 0</code></pre>
+<ul>
+<li><p>输入新密码两次(mysql -u root -p 回车时输的密码)</p>
+</li>
+<li><p>确认是否继续使用提供的密码？输入y ，回车</p>
+</li>
+<li><p>移除匿名用户？ 输入y，回车</p>
+</li>
 </ul>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>以上述银行业务为例子，取款，存款可以为服务打分，转账可以不用打分</p>
-<h4 id="类图-1"><a href="#类图-1" class="headerlink" title="类图"></a>类图</h4><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="Bank.png" alt=""></p>
-<h4 id="Bank-抽象类"><a href="#Bank-抽象类" class="headerlink" title="Bank 抽象类"></a>Bank 抽象类</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Bank</span> <span class="token punctuation">{</span>
+<pre class=" language-bash"><code class="language-bash">Estimated strength of the password: 50 
+Do you wish to <span class="token keyword">continue</span> with the password provided?<span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created <span class="token keyword">for</span> them. This is intended only <span class="token keyword">for</span>
+testing, and to <span class="token function">make</span> the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
 
-    <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">prepareBussiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">doBusiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isJudge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">judgeOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"完成业务"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"已经开始排号"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">doBusiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">judgeOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"完成评分"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isJudge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span></code></pre>
-<h4 id="Deposit存款类"><a href="#Deposit存款类" class="headerlink" title="Deposit存款类"></a>Deposit存款类</h4><p>需要继承银行类，并实现自己的存款业务</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Deposit</span> <span class="token keyword">extends</span> <span class="token class-name">Bank</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doBusiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"存款"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span></code></pre>
-<h4 id="WithdrawMoney取款类"><a href="#WithdrawMoney取款类" class="headerlink" title="WithdrawMoney取款类"></a>WithdrawMoney取款类</h4><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WithdrawMoney</span> <span class="token keyword">extends</span> <span class="token class-name">Bank</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doBusiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"取款"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span></code></pre>
-<h4 id="Transfer转账类"><a href="#Transfer转账类" class="headerlink" title="Transfer转账类"></a>Transfer转账类</h4><p>转账不需要评分，所以需要重写isJudge方法，让他返回值为false</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Transfer</span> <span class="token keyword">extends</span> <span class="token class-name">Bank</span> <span class="token punctuation">{</span>
-
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doBusiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"转账"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isJudge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span></code></pre>
-<h4 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h4><p>再写个测试类运行一下</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// TODO Auto-generated method stub</span>
-
-        Deposit deposit<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Deposit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"*********存款业务***********"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        deposit<span class="token punctuation">.</span><span class="token function">prepareBussiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        WithdrawMoney withdrawMoney<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">WithdrawMoney</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"********取款业务**************"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        withdrawMoney<span class="token punctuation">.</span><span class="token function">prepareBussiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Transfer transfer<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Transfer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"*********转账业务*************"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        transfer<span class="token punctuation">.</span><span class="token function">prepareBussiness</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span></code></pre>
-<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><pre><code>*********存款业务***********
-已经开始排号
-存款
-完成评分
-完成业务
-
-********取款业务**************
-已经开始排号
-取款
-完成评分
-完成业务
-
-*********转账业务*************
-已经开始排号
-转账
-完成业务</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
-<li>提高代码复用性，将相同部分的代码放在抽象的父类中</li>
-<li>提高了拓展性，将不同的代码放入不同的子类中，通过对子类的扩展增加新的行为</li>
-<li>实现了反向控制，通过一个父类调用其子类的操作，通过过对子类的扩展增加新的行为实现了反向控制，符合开闭原则</li>
+Remove anonymous users? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
+Success.</code></pre>
+<ul>
+<li>不允许root远程登陆？ 需要远程登陆，所以输入n ，回车</li>
 </ul>
-<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
-<li>引入了抽象类，每一个不同的实现都需要一个子类来实现，导致类的个数增加，从而增加了系统实现的复杂度</li>
+<pre class=" language-bash"><code class="language-bash">Normally, root should only be allowed to connect from
+<span class="token string">'localhost'</span><span class="token keyword">.</span> This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> n</code></pre>
+<ul>
+<li>移除test数据库？ 输入y ，回车</li>
+<li>重新载入权限表？ 输入y ，回车</li>
 </ul>
+<pre class=" language-bash"><code class="language-bash">Remove <span class="token function">test</span> database and access to it? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
+ - Dropping <span class="token function">test</span> database<span class="token punctuation">..</span>.
+Success.
+
+ - Removing privileges on <span class="token function">test</span> database<span class="token punctuation">..</span>.
+Success.</code></pre>
+<ul>
+<li>配置结束</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
+Success.
+
+All done<span class="token operator">!</span> </code></pre>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><pre class=" language-bash"><code class="language-bash">mysql -u root -p</code></pre>
+<h3 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h3><pre class=" language-mysql"><code class="language-mysql">exit;</code></pre>
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><p>移除mariadb程序文件</p>
+<pre class=" language-bash"><code class="language-bash">yum remove -y  mariadb*</code></pre>
+<p>查询mysql相关文件并删</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">find</span>  /  -name  <span class="token string">"mysql*"</span> <span class="token operator">|</span><span class="token function">xargs</span>  <span class="token function">rm</span>  -rf 
+<span class="token function">find</span>  /  -name  <span class="token string">"mariadb*"</span> <span class="token operator">|</span><span class="token function">xargs</span>  <span class="token function">rm</span>  -rf </code></pre>
+<h2 id="附：终端信息"><a href="#附：终端信息" class="headerlink" title="附：终端信息"></a>附：终端信息</h2><pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@iZbp1gp1t778o6paja9tabZ ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># sudo dnf install @mysql</span>
+上次元数据过期检查：0:58:50 前，执行于 2021年02月25日 星期四 21时38分48秒。
+依赖关系解决。
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+ 软件包                              架构            版本                                             仓库                大小
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+安装组/模块包:
+ mysql-server                        x86_64          8.0.21-1.module_el8.2.0+493+63b41e36             appstream           22 M
+安装依赖关系:
+ mariadb-connector-c-config          noarch          3.1.11-2.el8_3                                   appstream           15 k
+ mecab                               x86_64          0.996-1.module_el8.2.0+493+63b41e36.9            appstream          393 k
+ mysql                               x86_64          8.0.21-1.module_el8.2.0+493+63b41e36             appstream           12 M
+ mysql-common                        x86_64          8.0.21-1.module_el8.2.0+493+63b41e36             appstream          148 k
+ mysql-errmsg                        x86_64          8.0.21-1.module_el8.2.0+493+63b41e36             appstream          581 k
+ protobuf-lite                       x86_64          3.5.0-13.el8                                     appstream          149 k
+安装模块配置档案:
+ mysql/server                                                                                                                 
+启用模块流:
+ mysql                                               8.0                                                                      
+
+事务概要
+<span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>
+安装  7 软件包
+
+总下载：35 M
+安装大小：182 M
+确定吗？<span class="token punctuation">[</span>y/N<span class="token punctuation">]</span>： y
+下载软件包：
+<span class="token punctuation">(</span>1/7<span class="token punctuation">)</span>: mariadb-connector-c-config-3.1.11-2.el8_3.noarch.rpm                                    116 kB/s <span class="token operator">|</span>  15 kB     00:00    
+<span class="token punctuation">(</span>2/7<span class="token punctuation">)</span>: mecab-0.996-1.module_el8.2.0+493+63b41e36.9.x86_64.rpm                                  1.7 MB/s <span class="token operator">|</span> 393 kB     00:00    
+<span class="token punctuation">(</span>3/7<span class="token punctuation">)</span>: mysql-common-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64.rpm                            1.4 MB/s <span class="token operator">|</span> 148 kB     00:00    
+<span class="token punctuation">(</span>4/7<span class="token punctuation">)</span>: mysql-errmsg-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64.rpm                            1.2 MB/s <span class="token operator">|</span> 581 kB     00:00    
+<span class="token punctuation">(</span>5/7<span class="token punctuation">)</span>: protobuf-lite-3.5.0-13.el8.x86_64.rpm                                                   4.0 MB/s <span class="token operator">|</span> 149 kB     00:00    
+<span class="token punctuation">(</span>6/7<span class="token punctuation">)</span>: mysql-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64.rpm                                   5.8 MB/s <span class="token operator">|</span>  12 MB     00:02    
+<span class="token punctuation">(</span>7/7<span class="token punctuation">)</span>: mysql-server-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64.rpm                             11 MB/s <span class="token operator">|</span>  22 MB     00:02    
+-------------------------------------------------------------------------------------------------------------------------------
+总计                                                                                            12 MB/s <span class="token operator">|</span>  35 MB     00:03     
+运行事务检查
+事务检查成功。
+运行事务测试
+事务测试成功。
+运行事务
+  准备中  <span class="token keyword">:</span>                                                                                                                1/1 
+  安装    <span class="token keyword">:</span> mariadb-connector-c-config-3.1.11-2.el8_3.noarch                                                               1/7 
+  安装    <span class="token keyword">:</span> mysql-common-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                       2/7 
+  安装    <span class="token keyword">:</span> mysql-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                              3/7 
+  安装    <span class="token keyword">:</span> mysql-errmsg-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                       4/7 
+  安装    <span class="token keyword">:</span> protobuf-lite-3.5.0-13.el8.x86_64                                                                              5/7 
+  安装    <span class="token keyword">:</span> mecab-0.996-1.module_el8.2.0+493+63b41e36.9.x86_64                                                             6/7 
+  运行脚本: mecab-0.996-1.module_el8.2.0+493+63b41e36.9.x86_64                                                             6/7 
+  运行脚本: mysql-server-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                       7/7 
+  安装    <span class="token keyword">:</span> mysql-server-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                       7/7 
+  运行脚本: mysql-server-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                       7/7 
+ValueError: /var/log/mysql<span class="token punctuation">(</span>/.*<span class="token punctuation">)</span>? 的文件上下文已定义
+
+  验证    <span class="token keyword">:</span> mariadb-connector-c-config-3.1.11-2.el8_3.noarch                                                               1/7 
+  验证    <span class="token keyword">:</span> mecab-0.996-1.module_el8.2.0+493+63b41e36.9.x86_64                                                             2/7 
+  验证    <span class="token keyword">:</span> mysql-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                              3/7 
+  验证    <span class="token keyword">:</span> mysql-common-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                       4/7 
+  验证    <span class="token keyword">:</span> mysql-errmsg-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                       5/7 
+  验证    <span class="token keyword">:</span> mysql-server-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64                                                       6/7 
+  验证    <span class="token keyword">:</span> protobuf-lite-3.5.0-13.el8.x86_64                                                                              7/7 
+
+已安装:
+  mariadb-connector-c-config-3.1.11-2.el8_3.noarch               mecab-0.996-1.module_el8.2.0+493+63b41e36.9.x86_64            
+  mysql-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64              mysql-common-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64      
+  mysql-errmsg-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64       mysql-server-8.0.21-1.module_el8.2.0+493+63b41e36.x86_64      
+  protobuf-lite-3.5.0-13.el8.x86_64                             
+
+完毕！
+<span class="token punctuation">[</span>root@iZbp1gp1t778o6paja9tabZ ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># sudo systemctl status mysql</span>
+● mysql.service
+   Loaded: not-found <span class="token punctuation">(</span>Reason: Unit mysql.service not found.<span class="token punctuation">)</span>
+   Active: failed <span class="token punctuation">(</span>Result: exit-code<span class="token punctuation">)</span> since Thu 2021-02-25 22:32:38 CST<span class="token punctuation">;</span> 5min ago
+
+2月 25 22:32:38 iZbp1gp1t778o6paja9tabZ systemd<span class="token punctuation">[</span>1<span class="token punctuation">]</span>: Starting MySQL Community Server<span class="token punctuation">..</span>.
+2月 25 22:32:38 iZbp1gp1t778o6paja9tabZ systemd<span class="token punctuation">[</span>1<span class="token punctuation">]</span>: mysql.service: Control process exited, code<span class="token operator">=</span>exited status<span class="token operator">=</span>203
+2月 25 22:32:38 iZbp1gp1t778o6paja9tabZ systemd<span class="token punctuation">[</span>1<span class="token punctuation">]</span>: mysql.service: Failed with result <span class="token string">'exit-code'</span><span class="token keyword">.</span>
+2月 25 22:32:38 iZbp1gp1t778o6paja9tabZ systemd<span class="token punctuation">[</span>1<span class="token punctuation">]</span>: Failed to start MySQL Community Server.
+<span class="token punctuation">[</span>root@iZbp1gp1t778o6paja9tabZ ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># sudo systemctl enable --now mysqld</span>
+Created symlink /etc/systemd/system/multi-user.target.wants/mysqld.service → /usr/lib/systemd/system/mysqld.service.
+<span class="token punctuation">[</span>root@iZbp1gp1t778o6paja9tabZ ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># sudo systemctl status mysql</span>
+● mysql.service
+   Loaded: not-found <span class="token punctuation">(</span>Reason: Unit mysql.service not found.<span class="token punctuation">)</span>
+   Active: failed <span class="token punctuation">(</span>Result: exit-code<span class="token punctuation">)</span> since Thu 2021-02-25 22:32:38 CST<span class="token punctuation">;</span> 6min ago
+
+2月 25 22:32:38 iZbp1gp1t778o6paja9tabZ systemd<span class="token punctuation">[</span>1<span class="token punctuation">]</span>: Starting MySQL Community Server<span class="token punctuation">..</span>.
+2月 25 22:32:38 iZbp1gp1t778o6paja9tabZ systemd<span class="token punctuation">[</span>1<span class="token punctuation">]</span>: mysql.service: Control process exited, code<span class="token operator">=</span>exited status<span class="token operator">=</span>203
+2月 25 22:32:38 iZbp1gp1t778o6paja9tabZ systemd<span class="token punctuation">[</span>1<span class="token punctuation">]</span>: mysql.service: Failed with result <span class="token string">'exit-code'</span><span class="token keyword">.</span>
+2月 25 22:32:38 iZbp1gp1t778o6paja9tabZ systemd<span class="token punctuation">[</span>1<span class="token punctuation">]</span>: Failed to start MySQL Community Server.
+<span class="token punctuation">[</span>root@iZbp1gp1t778o6paja9tabZ ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># mysql -v</span>
+Welcome to the MySQL monitor.  Commands end with <span class="token punctuation">;</span> or \g.
+Your MySQL connection <span class="token function">id</span> is 8
+Server version: 8.0.21 Source distribution
+
+Copyright <span class="token punctuation">(</span>c<span class="token punctuation">)</span> 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Reading history-file /root/.mysql_history
+Type <span class="token string">'help;'</span> or <span class="token string">'\h'</span> <span class="token keyword">for</span> help. Type <span class="token string">'\c'</span> to <span class="token function">clear</span> the current input statement.
+
+mysql<span class="token operator">></span> <span class="token keyword">exit</span><span class="token punctuation">;</span>
+Writing history-file /root/.mysql_history
+Bye
+<span class="token punctuation">[</span>root@iZbp1gp1t778o6paja9tabZ ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># sudo mysql_secure_installation</span>
+
+Securing the MySQL server deployment.
+
+Connecting to MySQL using a blank password.
+
+VALIDATE PASSWORD COMPONENT can be used to <span class="token function">test</span> passwords
+and improve security. It checks the strength of password
+and allows the <span class="token function">users</span> to <span class="token keyword">set</span> only those passwords <span class="token function">which</span> are
+secure enough. Would you like to setup VALIDATE PASSWORD component?
+
+Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No: y
+
+There are three levels of password validation policy:
+
+LOW    Length <span class="token operator">>=</span> 8
+MEDIUM Length <span class="token operator">>=</span> 8, numeric, mixed case, and special characters
+STRONG Length <span class="token operator">>=</span> 8, numeric, mixed case, special characters and dictionary                  <span class="token function">file</span>
+
+Please enter 0 <span class="token operator">=</span> LOW, 1 <span class="token operator">=</span> MEDIUM and 2 <span class="token operator">=</span> STRONG: 0
+Please <span class="token keyword">set</span> the password <span class="token keyword">for</span> root here.
+
+New password: 
+
+Re-enter new password: 
+
+Estimated strength of the password: 50 
+Do you wish to <span class="token keyword">continue</span> with the password provided?<span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created <span class="token keyword">for</span> them. This is intended only <span class="token keyword">for</span>
+testing, and to <span class="token function">make</span> the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+Remove anonymous users? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
+Success.
+
+
+Normally, root should only be allowed to connect from
+<span class="token string">'localhost'</span><span class="token keyword">.</span> This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> n
+
+ <span class="token punctuation">..</span>. skipping.
+By default, MySQL comes with a database named <span class="token string">'test'</span> that
+anyone can access. This is also intended only <span class="token keyword">for</span> testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove <span class="token function">test</span> database and access to it? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
+ - Dropping <span class="token function">test</span> database<span class="token punctuation">..</span>.
+Success.
+
+ - Removing privileges on <span class="token function">test</span> database<span class="token punctuation">..</span>.
+Success.
+
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
+Success.
+
+All done<span class="token operator">!</span> 
+<span class="token punctuation">[</span>root@iZbp1gp1t778o6paja9tabZ ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># mysql -u root -p</span>
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with <span class="token punctuation">;</span> or \g.
+Your MySQL connection <span class="token function">id</span> is 11
+Server version: 8.0.21 Source distribution
+
+Copyright <span class="token punctuation">(</span>c<span class="token punctuation">)</span> 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type <span class="token string">'help;'</span> or <span class="token string">'\h'</span> <span class="token keyword">for</span> help. Type <span class="token string">'\c'</span> to <span class="token function">clear</span> the current input statement.
+
+mysql<span class="token operator">></span> </code></pre>
 
             </div>
             <hr/>
@@ -959,7 +1111,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://wulinzeng.vip/2020/04/22/TemplateMethodPattern/">https://wulinzeng.vip/2020/04/22/TemplateMethodPattern/</a>
+                    <a href="https://wulinzeng.vip/2021/02/25/CentOS8MySQL/">https://wulinzeng.vip/2021/02/25/CentOS8MySQL/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -997,16 +1149,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                                    <span class="chip bg-color">设计模式</span>
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">数据库</span>
                                 </a>
                             
-                                <a href="/tags/java/">
-                                    <span class="chip bg-color">java</span>
-                                </a>
-                            
-                                <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                                    <span class="chip bg-color">面向对象</span>
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
                         </div>
@@ -1437,53 +1585,59 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/04/22/DecoratorPattern/">
+                <a href="/2021/02/25/CentOS8MySQL/">
                     <div class="card-image">
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/DecoratorPattern.jpg" class="responsive-img" alt="设计模式之装饰者模式">
                         
-                        <span class="card-title">设计模式之装饰者模式</span>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/2.jpg" class="responsive-img" alt="CentOS8MySQL">
+                        
+                        <span class="card-title">CentOS8MySQL</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            The Decorator Pattern attaches additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.
+                            
+服务器安装mysql8.0
+
+安装安装MySQL及其所有依赖
+sudo dnf install @mysql
+启动MySQL服务，并设置自启
+sudo systemctl enable --now mysqld
+检查MySQL服务器是否正
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    数据库
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                        <span class="chip bg-color">设计模式</span>
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
                     </a>
                     
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
@@ -1497,30 +1651,37 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/20/ObserverPattern/">
+                <a href="/2021/02/25/NavicatConnectAliyunECS/">
                     <div class="card-image">
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/ObserverPattern.jpg" class="responsive-img" alt="设计模式之观察者模式">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/children-5833685_1280.jpg" class="responsive-img" alt="Navicat连接阿里云ECS">
                         
-                        <span class="card-title">设计模式之观察者模式</span>
+                        <span class="card-title">Navicat连接阿里云ECS</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            The Observer Pattern defines as one-to-many dependcy between objects so that when one object changes state, all if its depends are notified and updated automatically.
+                            进入ECS使用终端
+ssh 用户名@ip
+#ssh root@xxx.xx.xxx.xx
+进入mysqlmysql -u root -p #回车 输入密码
+授予权限
+8.0之前
+
+grant all privileges on . to '
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-25
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-category">
-                                    设计模式
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    数据库
                                 </a>
                             
                             
@@ -1530,16 +1691,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                        <span class="chip bg-color">设计模式</span>
-                    </a>
-                    
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                        <span class="chip bg-color">面向对象</span>
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">数据库</span>
                     </a>
                     
                 </div>
