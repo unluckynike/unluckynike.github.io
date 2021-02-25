@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2021-02-25T09:36:29.854Z</updated>
+  <updated>2021-02-25T10:57:22.657Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Navicat连接阿里云ECS</title>
+    <link href="https://wulinzeng.vip/2021/02/25/NavicatConnectAliyunECS/"/>
+    <id>https://wulinzeng.vip/2021/02/25/NavicatConnectAliyunECS/</id>
+    <published>2021-02-25T10:28:52.000Z</published>
+    <updated>2021-02-25T10:57:22.657Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;进入ECS&quot;&gt;&lt;a href=&quot;#进入ECS&quot; class=&quot;headerlink&quot; title=&quot;进入ECS&quot;&gt;&lt;/a&gt;进入ECS&lt;/h2&gt;&lt;p&gt;使用终端&lt;/p&gt;
+&lt;pre class=&quot; language-bash&quot;&gt;&lt;code</summary>
+        
+      
+    
+    
+    
+    <category term="数据库" scheme="https://wulinzeng.vip/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="数据库" scheme="https://wulinzeng.vip/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MacSSH连接</title>
     <link href="https://wulinzeng.vip/2021/02/25/MacSSH/"/>
     <id>https://wulinzeng.vip/2021/02/25/MacSSH/</id>
     <published>2021-02-25T08:59:12.000Z</published>
-    <updated>2021-02-25T09:36:29.854Z</updated>
+    <updated>2021-02-25T09:41:45.244Z</updated>
     
     
       
@@ -266,7 +292,7 @@
     <link href="https://wulinzeng.vip/2020/10/27/AiliyunECSDeployProject/"/>
     <id>https://wulinzeng.vip/2020/10/27/AiliyunECSDeployProject/</id>
     <published>2020-10-27T07:58:37.000Z</published>
-    <updated>2021-01-17T12:16:40.369Z</updated>
+    <updated>2021-02-25T09:40:12.429Z</updated>
     
     
       
@@ -532,36 +558,6 @@
     
     
     <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>计算机系统</title>
-    <link href="https://wulinzeng.vip/2020/08/31/PrinciplesOfComputerComposition/"/>
-    <id>https://wulinzeng.vip/2020/08/31/PrinciplesOfComputerComposition/</id>
-    <published>2020-08-31T08:31:58.000Z</published>
-    <updated>2020-10-19T10:58:55.426Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;计算机组成指的是系统结构的逻辑实现，包括机器机内的数据流和控制流的组成及逻辑设计等。主要分为五个部分：控制器，运算器，存储器，输入设备，输出设备。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;计算机的由来&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="计算机组成原理" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-    
-    <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-    <category term="概论" scheme="https://wulinzeng.vip/tags/%E6%A6%82%E8%AE%BA/"/>
     
   </entry>
   
