@@ -780,14 +780,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-25
+                    2021-02-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    220
+                    194
                 </div>
                 
 
@@ -818,11 +818,11 @@
 <p>8.0之前</p>
 </blockquote>
 <pre class=" language-mysql"><code class="language-mysql">grant all privileges on . to '用户名'@'%' identified by '密码' with grant option;
-
-#grant all privileges on . to 'root'@'%' identified by '123456t' with grant option;</code></pre>
+#grant all privileges on . to 'root'@'%' identified by '123456t' with grant option;
+#或者
+grant all privileges on . to 'root'@’主机ip‘ with grant option;</code></pre>
 <p>若是报错，使用下步方式</p>
-<pre class=" language-mysql"><code class="language-mysql">mysql> grant all privileges on . to 'root'@’主机ip‘ with grant option;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to 'root'@'主机ip' with grant option' at line 1</code></pre>
+<pre class=" language-mysql"><code class="language-mysql">GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;</code></pre>
 <blockquote>
 <p>8.0之后</p>
 </blockquote>
@@ -1710,7 +1710,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;码字:&nbsp;<span
-                class="white-color">150.7k</span>&nbsp;字
+                class="white-color">150.8k</span>&nbsp;字
             
             
             

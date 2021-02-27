@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2021-02-27T01:39:09.638Z</updated>
+  <updated>2021-02-27T15:23:53.077Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>命令启动SpringBoot项目</title>
+    <link href="https://wulinzeng.vip/2021/02/27/SpringBootRunJar/"/>
+    <id>https://wulinzeng.vip/2021/02/27/SpringBootRunJar/</id>
+    <published>2021-02-27T15:15:05.000Z</published>
+    <updated>2021-02-27T15:23:53.077Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;java-jar&quot;&gt;&lt;a href=&quot;#java-jar&quot; class=&quot;headerlink&quot; title=&quot;java -jar&quot;&gt;&lt;/a&gt;java</summary>
+        
+      
+    
+    
+    
+    <category term="SpringBoot" scheme="https://wulinzeng.vip/categories/SpringBoot/"/>
+    
+    
+    <category term="部署上线" scheme="https://wulinzeng.vip/tags/%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF/"/>
+    
+    <category term="SpringBoot" scheme="https://wulinzeng.vip/tags/SpringBoot/"/>
+    
+  </entry>
   
   <entry>
     <title>提问的智慧</title>
@@ -81,7 +108,7 @@
     <link href="https://wulinzeng.vip/2021/02/25/NavicatConnectAliyunECS/"/>
     <id>https://wulinzeng.vip/2021/02/25/NavicatConnectAliyunECS/</id>
     <published>2021-02-25T10:28:52.000Z</published>
-    <updated>2021-02-25T10:57:22.657Z</updated>
+    <updated>2021-02-27T10:07:29.944Z</updated>
     
     
       
@@ -536,32 +563,6 @@
     
     
     <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Eclipse操作</title>
-    <link href="https://wulinzeng.vip/2020/09/14/EclipseShortcutSettings/"/>
-    <id>https://wulinzeng.vip/2020/09/14/EclipseShortcutSettings/</id>
-    <published>2020-09-14T09:08:15.000Z</published>
-    <updated>2020-10-24T06:14:14.762Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;Eclipse 是一个开放源代码的、基于Java的可扩展开发平台。就其本身而言，它只是一个框架和一组服务，用于通过插件组件构建开发环境。幸运的是，Eclipse 附带了一个标准的插件集，包括Java开发工具（Java Development</summary>
-        
-      
-    
-    
-    
-    <category term="工具" scheme="https://wulinzeng.vip/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="java" scheme="https://wulinzeng.vip/tags/java/"/>
     
   </entry>
   
