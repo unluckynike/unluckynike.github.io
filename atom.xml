@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2021-02-25T15:19:00.260Z</updated>
+  <updated>2021-02-27T01:39:09.638Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>提问的智慧</title>
+    <link href="https://wulinzeng.vip/2021/02/27/HowToAskQuestions/"/>
+    <id>https://wulinzeng.vip/2021/02/27/HowToAskQuestions/</id>
+    <published>2021-02-27T01:28:53.000Z</published>
+    <updated>2021-02-27T01:39:09.638Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;提问的智慧&quot;&gt;&lt;a href=&quot;#提问的智慧&quot; class=&quot;headerlink&quot; title=&quot;提问的智慧&quot;&gt;&lt;/a&gt;提问的智慧&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;声明&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;How To Ask</summary>
+        
+      
+    
+    
+    
+    <category term="认知升级" scheme="https://wulinzeng.vip/categories/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/"/>
+    
+    
+    <category term="学习方法" scheme="https://wulinzeng.vip/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
+    
+    <category term="认知升级" scheme="https://wulinzeng.vip/tags/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/"/>
+    
+  </entry>
   
   <entry>
     <title>CentOS8MySQL</title>
@@ -182,7 +212,7 @@
     <link href="https://wulinzeng.vip/2021/02/17/HowToAskQuestionsInOS/"/>
     <id>https://wulinzeng.vip/2021/02/17/HowToAskQuestionsInOS/</id>
     <published>2021-02-17T05:55:10.000Z</published>
-    <updated>2021-02-26T00:48:29.189Z</updated>
+    <updated>2021-02-27T01:31:23.699Z</updated>
     
     
       
@@ -198,7 +228,7 @@
     
     
     
-    <category term="学习方法" scheme="https://wulinzeng.vip/categories/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
+    <category term="认知升级" scheme="https://wulinzeng.vip/categories/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/"/>
     
     
     <category term="学习方法" scheme="https://wulinzeng.vip/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
@@ -532,34 +562,6 @@
     
     
     <category term="java" scheme="https://wulinzeng.vip/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mybatis动态SQL</title>
-    <link href="https://wulinzeng.vip/2020/09/08/MybatisDynamicSQL/"/>
-    <id>https://wulinzeng.vip/2020/09/08/MybatisDynamicSQL/</id>
-    <published>2020-09-08T12:56:08.000Z</published>
-    <updated>2020-10-26T02:21:15.312Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;Mybatis 的映射文件，有些时候业务逻辑复杂时，我们的 SQL是动态变化的&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;动态SQL语句&quot;&gt;&lt;a href=&quot;#动态SQL语句&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
-    
-    
-    <category term="Mybatis" scheme="https://wulinzeng.vip/tags/Mybatis/"/>
     
   </entry>
   
