@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2021-02-27T15:23:53.077Z</updated>
+  <updated>2021-03-13T03:39:21.167Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux apt</title>
+    <link href="https://wulinzeng.vip/2021/03/13/LinuxAptCommand/"/>
+    <id>https://wulinzeng.vip/2021/03/13/LinuxAptCommand/</id>
+    <published>2021-03-13T03:28:50.000Z</published>
+    <updated>2021-03-13T03:39:21.167Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Linux-apt-命令&quot;&gt;&lt;a href=&quot;#Linux-apt-命令&quot; class=&quot;headerlink&quot; title=&quot;Linux apt 命令&quot;&gt;&lt;/a&gt;Linux apt 命令&lt;/h2&gt;&lt;p&gt;apt（Advanced Packaging</summary>
+        
+      
+    
+    
+    
+    <category term="工具" scheme="https://wulinzeng.vip/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="Linux" scheme="https://wulinzeng.vip/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>命令启动SpringBoot项目</title>
@@ -48,7 +73,7 @@
     <link href="https://wulinzeng.vip/2021/02/27/HowToAskQuestions/"/>
     <id>https://wulinzeng.vip/2021/02/27/HowToAskQuestions/</id>
     <published>2021-02-27T01:28:53.000Z</published>
-    <updated>2021-02-27T01:39:09.638Z</updated>
+    <updated>2021-03-13T03:34:06.849Z</updated>
     
     
       
@@ -239,7 +264,7 @@
     <link href="https://wulinzeng.vip/2021/02/17/HowToAskQuestionsInOS/"/>
     <id>https://wulinzeng.vip/2021/02/17/HowToAskQuestionsInOS/</id>
     <published>2021-02-17T05:55:10.000Z</published>
-    <updated>2021-02-27T01:31:23.699Z</updated>
+    <updated>2021-03-13T03:34:12.663Z</updated>
     
     
       
@@ -538,31 +563,6 @@
     <category term="C语言" scheme="https://wulinzeng.vip/tags/C%E8%AF%AD%E8%A8%80/"/>
     
     <category term="Leetcode 简单" scheme="https://wulinzeng.vip/tags/Leetcode-%E7%AE%80%E5%8D%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>运算方法</title>
-    <link href="https://wulinzeng.vip/2020/09/16/OperationMethod/"/>
-    <id>https://wulinzeng.vip/2020/09/16/OperationMethod/</id>
-    <published>2020-09-16T10:41:30.000Z</published>
-    <updated>2020-10-19T10:58:55.426Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;定点加减&quot;&gt;&lt;a href=&quot;#定点加减&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="计算机组成原理" scheme="https://wulinzeng.vip/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-    
-    <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
     
   </entry>
   

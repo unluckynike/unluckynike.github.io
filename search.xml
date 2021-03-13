@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Linux apt</title>
+      <link href="/2021/03/13/LinuxAptCommand/"/>
+      <url>/2021/03/13/LinuxAptCommand/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Linux-apt-命令"><a href="#Linux-apt-命令" class="headerlink" title="Linux apt 命令"></a>Linux apt 命令</h2><p>apt（Advanced Packaging Tool）是一个在 Debian 和 Ubuntu 中的 Shell 前端软件包管理器。</p><p>apt 命令提供了查找、安装、升级、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p><p>apt 命令执行需要超级管理员权限(root)。</p><h3 id="apt-语法"><a href="#apt-语法" class="headerlink" title="apt 语法"></a>apt 语法</h3><pre><code>  apt [options] [command] [package ...]</code></pre><ul><li><strong>options：</strong>可选，选项包括 -h（帮助），-y（当安装过程提示选择全部为”yes”），-q（不显示安装的过程）等等。</li><li><strong>command：</strong>要进行的操作。</li><li><strong>package</strong>：安装的包名。</li></ul><hr><h3 id="apt-常用命令"><a href="#apt-常用命令" class="headerlink" title="apt 常用命令"></a>apt 常用命令</h3><ul><li><p>列出所有可更新的软件清单命令：<strong>sudo apt update</strong></p></li><li><p>升级软件包：<strong>sudo apt upgrade</strong></p><p>列出可更新的软件包及版本信息：<strong>apt list –upgradeable</strong></p><p>升级软件包，升级前先删除需要更新软件包：<strong>sudo apt full-upgrade</strong></p></li><li><p>安装指定的软件命令：<strong>sudo apt install <package_name></strong></p><p>安装多个软件包：<strong>sudo apt install <package_1> <package_2> <package_3></strong></p></li><li><p>更新指定的软件命令：<strong>sudo apt update <package_name></strong></p></li><li><p>显示软件包具体信息,例如：版本号，安装大小，依赖关系等等：<strong>sudo apt show <package_name></strong></p></li><li><p>删除软件包命令：<strong>sudo apt remove <package_name></strong></p></li><li><p>清理不再使用的依赖和库文件: <strong>sudo apt autoremove</strong></p></li><li><p>移除软件包及配置文件: <strong>sudo apt purge <package_name></strong></p></li><li><p>查找软件包命令： <strong>sudo apt search <keyword></strong></p></li><li><p>列出所有已安装的包：<strong>apt list –installe</strong>d</p></li><li><p>列出所有已安装的包的版本信息：<strong>apt list –all-versions</strong></p></li></ul><h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><p><code>jdk</code></p><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update <span class="token function">sudo</span> apt <span class="token function">install</span> openjdk-11-jdkjava - -version </code></pre><p><code>node</code></p><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nodejs<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">npm</span>node - -version<span class="token comment" spellcheck="true">##升级</span><span class="token function">sudo</span> <span class="token function">npm</span> cache clean -f<span class="token function">sudo</span> <span class="token function">npm</span> <span class="token function">install</span> -g n<span class="token function">sudo</span> n stablenode - -version</code></pre><p><code>psql</code></p><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> apt update<span class="token function">sudo</span> apt <span class="token function">install</span> postgresql postgresql-contribpsql - -version</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>命令启动SpringBoot项目</title>
       <link href="/2021/02/27/SpringBootRunJar/"/>
       <url>/2021/02/27/SpringBootRunJar/</url>
