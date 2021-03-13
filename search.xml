@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Linux yum</title>
+      <link href="/2021/03/13/LinuxYumCommand/"/>
+      <url>/2021/03/13/LinuxYumCommand/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Linux-yum-命令"><a href="#Linux-yum-命令" class="headerlink" title="Linux yum 命令"></a>Linux yum 命令</h2><p>yum（ Yellow dog Updater, Modified）是一个在 Fedora 和 RedHat 以及 SUSE 中的 Shell 前端软件包管理器。</p><p>基于 RPM 包管理，能够从指定的服务器自动下载 RPM 包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。</p><p>yum 提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p><h3 id="yum-语法"><a href="#yum-语法" class="headerlink" title="yum 语法"></a>yum 语法</h3><pre><code>yum [options] [command] [package ...]</code></pre><ul><li><strong>options：</strong>可选，选项包括-h（帮助），-y（当安装过程提示选择全部为 “yes”），-q（不显示安装的过程）等等。</li><li><strong>command：</strong>要进行的操作。</li><li><strong>package：</strong>安装的包名。</li></ul><hr><h2 id="yum常用命令"><a href="#yum常用命令" class="headerlink" title="yum常用命令"></a>yum常用命令</h2><ul><li>列出所有可更新的软件清单命令：<strong>yum check-update</strong></li><li>更新所有软件命令：<strong>yum update</strong></li><li>仅安装指定的软件命令：<strong>yum install <package_name></strong></li><li>仅更新指定的软件命令：<strong>yum update <package_name></strong></li><li>列出所有可安裝的软件清单命令：<strong>yum list</strong></li><li>删除软件包命令：<strong>yum remove <package_name></strong></li><li>查找软件包命令：<strong>yum search <keyword></strong></li><li>清除缓存命令:<ul><li><strong>yum clean packages</strong>: 清除缓存目录下的软件包</li><li><strong>yum clean headers</strong>: 清除缓存目录下的 headers</li><li><strong>yum clean oldheaders</strong>: 清除缓存目录下旧的 headers</li><li><strong>yum clean, yum clean all (= yum clean packages; yum clean oldheaders)</strong> :清除缓存目录下的软件包及旧的 headers</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux apt</title>
       <link href="/2021/03/13/LinuxAptCommand/"/>
       <url>/2021/03/13/LinuxAptCommand/</url>
