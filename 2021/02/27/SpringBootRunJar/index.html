@@ -784,14 +784,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-27
+                    2021-03-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    198
+                    233
                 </div>
                 
 
@@ -824,6 +824,8 @@
 <pre class=" language-shell"><code class="language-shell">nohup java -jar xxx.jar > nohup.log  2>&1 & </code></pre>
 <p>如果不想输出日志，也可以使用如下命令。</p>
 <pre class=" language-shell"><code class="language-shell">nohup java -jar xxx.jar >/dev/null &</code></pre>
+<h2 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h2><pre class=" language-bash"><code class="language-bash"><span class="token function">kill</span> -9 <span class="token variable"><span class="token variable">$(</span><span class="token function">lsof</span> -i tcp:8080 -t<span class="token variable">)</span></span></code></pre>
+<p>8080 代表你启动的springboot程序端口，替换成你想要关闭的程序的端口</p>
 
             </div>
             <hr/>
