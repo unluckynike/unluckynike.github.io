@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2021-03-13T03:45:03.984Z</updated>
+  <updated>2021-03-22T10:14:32.828Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hermann Ebbinghaus</title>
+    <link href="https://wulinzeng.vip/2021/03/22/Ebbinghaus/"/>
+    <id>https://wulinzeng.vip/2021/03/22/Ebbinghaus/</id>
+    <published>2021-03-22T10:09:49.000Z</published>
+    <updated>2021-03-22T10:14:32.828Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;&lt;strong&gt;遗忘曲线&lt;/strong&gt;（Forgetting curve）是用于表述记忆中的中长期记忆的遗忘率的一种曲线。这一曲线最早由心理学家&lt;a href=&quot;https://zh.wikipedia.org/wiki/赫尔曼·艾宾浩斯&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="认知升级" scheme="https://wulinzeng.vip/categories/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/"/>
+    
+    
+    <category term="学习方法" scheme="https://wulinzeng.vip/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
+    
+    <category term="记忆曲线" scheme="https://wulinzeng.vip/tags/%E8%AE%B0%E5%BF%86%E6%9B%B2%E7%BA%BF/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux yum</title>
@@ -527,40 +554,6 @@
     
     
     <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SSM-Maven坐标</title>
-    <link href="https://wulinzeng.vip/2020/10/11/SSMMavenCoordinate/"/>
-    <id>https://wulinzeng.vip/2020/10/11/SSMMavenCoordinate/</id>
-    <published>2020-10-11T08:18:25.000Z</published>
-    <updated>2020-12-15T01:37:42.647Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt; pom.xml&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre class=&quot; language-xml&quot;&gt;&lt;code class=&quot;language-xml&quot;&gt;  &lt;span class=&quot;token comment&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
-    
-    
-    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
-    
-    <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
-    
-    <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
-    
-    <category term="Maven" scheme="https://wulinzeng.vip/tags/Maven/"/>
     
   </entry>
   
