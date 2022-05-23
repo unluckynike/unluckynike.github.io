@@ -241,7 +241,8 @@ mark {
 }
 
 .bg-color {
-    background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
+    background-image: linear-gradient(to right, #61616b 0%, #497467 100%);
+    opacity: 0.9; /*nav透明效果 0~1*/
 }
 
 .text-color {
@@ -592,7 +593,8 @@ header .go-back i {
     font-size: 2.5rem;
     font-weight: 400;
 }
-
+/* banner图动态滤镜颜色 */
+/* 
 @-webkit-keyframes rainbow {
 
     0%,
@@ -637,7 +639,7 @@ header .go-back i {
         background: -moz-linear-gradient(135deg, rgba(233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
         background: -webkit-linear-gradient(135deg, rgba(2233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
     }
-}
+} 
 
 @keyframes rainbow {
 
@@ -683,7 +685,7 @@ header .go-back i {
         background: -moz-linear-gradient(135deg, rgba(233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
         background: -webkit-linear-gradient(135deg, rgba(2233, 30, 99, 0.75) 0%, rgba(233, 30, 99, 0.65) 100%);
     }
-}
+} */
 
 .index-card {
     margin-top: -10px;
