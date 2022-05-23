@@ -2,10 +2,7 @@
 <html lang="zh-CN">
 
 
-
 <head>
-    <!--百度分析-->
-    <meta name="baidu-site-verification" content="code-9EUuHHzhSH" />
     <meta charset="utf-8">
     <meta name="keywords" content="supervise, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
     <meta name="description" content="正在学习编程的小猿，热爱生活，更爱学习">
@@ -31,160 +28,14 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-    
-<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="WuLiZeng" type="application/atom+xml">
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="WuLiZeng" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
-    <style type="text/css" lang="css">
-    #loading-container{
-        position: fixed;
-        top: 0;
-        left: 0;
-        min-height: 100vh;
-        width: 100vw;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: #FFF;
-        text-align: center;
-        /* loader页面消失采用渐隐的方式*/
-        -webkit-transition: opacity 1s ease;
-        -moz-transition: opacity 1s ease;
-        -o-transition: opacity 1s ease;
-        transition: opacity 1s ease;
-    }
-    .loading-image{
-        width: 120px;
-        height: 50px;
-        transform: translate(-50%);
-    }
 
-    .loading-image div:nth-child(2) {
-        -webkit-animation: pacman-balls 1s linear 0s infinite;
-        animation: pacman-balls 1s linear 0s infinite
-    }
-
-    .loading-image div:nth-child(3) {
-        -webkit-animation: pacman-balls 1s linear .33s infinite;
-        animation: pacman-balls 1s linear .33s infinite
-    }
-
-    .loading-image div:nth-child(4) {
-        -webkit-animation: pacman-balls 1s linear .66s infinite;
-        animation: pacman-balls 1s linear .66s infinite
-    }
-
-    .loading-image div:nth-child(5) {
-        -webkit-animation: pacman-balls 1s linear .99s infinite;
-        animation: pacman-balls 1s linear .99s infinite
-    }
-
-   .loading-image div:first-of-type {
-        width: 0;
-        height: 0;
-        border: 25px solid #49b1f5;
-        border-right-color: transparent;
-        border-radius: 25px;
-        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
-        animation: rotate_pacman_half_up .5s 0s infinite;
-    }
-    .loading-image div:nth-child(2) {
-        width: 0;
-        height: 0;
-        border: 25px solid #49b1f5;
-        border-right-color: transparent;
-        border-radius: 25px;
-        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
-        animation: rotate_pacman_half_down .5s 0s infinite;
-        margin-top: -50px;
-    }
-    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
-
-    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
-
-    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
-
-    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
-
-    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
-
-    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
-
-
-    .loading-image div:nth-child(3),
-    .loading-image div:nth-child(4),
-    .loading-image div:nth-child(5),
-    .loading-image div:nth-child(6){
-        background-color: #49b1f5;
-        width: 15px;
-        height: 15px;
-        border-radius: 100%;
-        margin: 2px;
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        transform: translateY(-6.25px);
-        top: 25px;
-        left: 100px;
-    }
-    .loading-text{
-        margin-bottom: 20vh;
-        text-align: center;
-        color: #2c3e50;
-        font-size: 2rem;
-        box-sizing: border-box;
-        padding: 0 10px;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    }
-    @media only screen and (max-width: 500px) {
-         .loading-text{
-            font-size: 1.5rem;
-         }
-    }
-    .fadeout {
-        opacity: 0;
-        filter: alpha(opacity=0);
-    }
-    /* logo出现动画 */
-    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
-    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
- </style>
- <script>
-(function () {
-    const loaded = function(){
-       setTimeout(function(){
-            const loader = document.getElementById("loading-container");
-            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
-            // document.getElementById("body-wrap").style.display="flex";
-            setTimeout(function(){
-                loader.style.display="none";
-            },2500); 
-        },1000);//强制显示loading page 1s  
-    };
-    loaded();
-})()
-</script>
-
- 
 <body>
-
-    
-        <div id="loading-container">
-             <p class="loading-text"> 嘀嘀嘀~~~ &nbsp;页面这在飞快的跑来 . . . </p> 
-             <div class="loading-image">
-                 <div></div>
-                 <div></div>
-                 <div></div>
-                 <div></div> 
-                 <div></div>
-             </div>
-        </div>
-    
-
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -247,6 +98,17 @@
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/contact" class="waves-effect waves-light">
       
       <i class="fas fa-comments" style="zoom: 0.6;"></i>
@@ -259,90 +121,17 @@
   <li class="hide-on-med-and-down nav-item">
     
     <a href="/friends" class="waves-effect waves-light">
-
       
       <i class="fas fa-address-book" style="zoom: 0.6;"></i>
       
       <span>友情链接</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
     </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/supervise">
-          
-          <i class="fa fa-desktop" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>链接监测</span>
-        </a>
-      </li>
-      
-    </ul>
     
   </li>
   
   <li class="hide-on-med-and-down nav-item">
     
-    <a href="/about" class="waves-effect waves-light">
-
-      
-      <i class="fas fa-route" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
-    </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/blogger">
-          
-          <i class="fas fa-user-circle" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>博主</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/gallery">
-          
-          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>画廊</span>
-        </a>
-      </li>
-      
-    </ul>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/navigate" class="waves-effect waves-light">
-
-      
-      <i class="fas fa-list" style="zoom: 0.6;"></i>
-      
-      <span>发现</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
-    </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/box">
-          
-          <i class="fas fa-map-marker" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>导航</span>
-        </a>
-      </li>
-      
-    </ul>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="https://travellings.now.sh/" target="_blank" rel="noopener" class="waves-effect waves-light">
+    <a target="_blank" rel="noopener" href="https://travellings.now.sh/" class="waves-effect waves-light">
       
       <i class="fa fa-subway" style="zoom: 0.6;"></i>
       
@@ -357,6 +146,7 @@
     </a>
   </li>
 </ul>
+
 
 <div id="mobile-nav" class="side-nav sidenav">
 
@@ -422,6 +212,17 @@
         
         <li class="m-nav-item">
 	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
 		<a href="/contact" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fas fa-comments"></i>
@@ -433,92 +234,18 @@
         
         <li class="m-nav-item">
 	  
-		<a href="javascript:;">
+		<a href="/friends" class="waves-effect waves-light">
 			
-				<i class="fa-fw fas fa-address-book"></i>
+			    <i class="fa-fw fas fa-address-book"></i>
 			
 			友情链接
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
 		</a>
-            <ul  style="background:  ;" >
-              
-                <li>   
-				
-                  <a href="/supervise " style="margin-left:75px";>
-				  
-				   <i class="fa fa fa-desktop" style="position: absolute;left:50px" ></i>
-			      
-		          <span>链接监测</span>
-                  </a>
-                </li>
-               
-            </ul>
           
         </li>
         
         <li class="m-nav-item">
 	  
-		<a href="javascript:;">
-			
-				<i class="fa-fw fas fa-route"></i>
-			
-			关于
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
-		</a>
-            <ul  style="background:  ;" >
-              
-                <li>   
-				
-                  <a href="/blogger " style="margin-left:75px";>
-				  
-				   <i class="fa fas fa-user-circle" style="position: absolute;left:50px" ></i>
-			      
-		          <span>博主</span>
-                  </a>
-                </li>
-              
-                <li>   
-				
-                  <a href="/gallery " style="margin-left:75px";>
-				  
-				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
-			      
-		          <span>画廊</span>
-                  </a>
-                </li>
-               
-            </ul>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="javascript:;">
-			
-				<i class="fa-fw fas fa-list"></i>
-			
-			discover
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
-		</a>
-            <ul  style="background:  ;" >
-              
-                <li>   
-				
-                  <a href="/box " style="margin-left:75px";>
-				  
-				   <i class="fa fas fa-map-marker" style="position: absolute;left:50px" ></i>
-			      
-		          <span>导航</span>
-                  </a>
-                </li>
-               
-            </ul>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="https://travellings.now.sh/" target="_blank" rel="noopener" class="waves-effect waves-light">
+		<a target="_blank" rel="noopener" href="https://travellings.now.sh/" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fa fa-subway"></i>
 			
@@ -537,6 +264,7 @@
         
     </ul>
 </div>
+
 
         </div>
 
@@ -601,416 +329,804 @@
 
 </header>
 
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                吴李曾
-                
-            </div>
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
 
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['太阳会来到你的身边，我们也会快乐一场。',
-                                  '没有谁会踏雪而来，喜欢的风景要自己去看。',
-                                  '曾虑多情损梵行，入山又恐别倾城。世间安得两全法，不负如来不负卿。',],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">supervise</h1>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-12-20
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    0
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    1 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">WuLiZeng</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://wulinzeng.vip/supervise/index.html">https://wulinzeng.vip/supervise/index.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">WuLiZeng</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/medias/comment_bg_logo.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'k8iTRIRcQnuQFM9p07fRwYPI-gzGzoHsz',
+        appKey: 'feRTCGFABbYqhBlnmmhnSU1l',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '路过留下你的足迹'
+    });
+</script>
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/supervise/index.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/16.jpg" class="responsive-img" alt="supervise">
+                        
+                        <span class="card-title">supervise</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            WuLiZeng
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/supervise/index.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/featureimages/16.jpg" class="responsive-img" alt="supervise">
+                        
+                        <span class="card-title">supervise</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            WuLiZeng
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
 </div>
 
 
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.  
-    $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getHours() + '.jpg)');
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('80')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: WuLiZeng<br />'
+            + '文章作者: WuLiZeng<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
 </script>
 
 
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
     </div>
 </div>
-  <main class="content">
-    <div class="container chip-container">
-      <div class="card">
-		<div class="card-content">
-      
-          <div class="tag-title center-align"><i class="fa fa-desktop"></i>&nbsp;&nbsp;友链状态监测</div>
-          <div class="supervise_details">本页面是友情链接状态监控，展示了全部链接的当前运行状态。</div>
-		  <hr>
-        <div class="panel panel-info">
-          <div class="panel-heading">各友情链接当前状态</div>
-          <div class="panel-body">
-            <div id="panel-heading" class="alert alert-warning hide" role="alert">
-              <b>当前状态：</b>部分友链发生异常，我们将尽快修复。
-            </div>
-            <div id="stattip-ok" class="alert alert-success hide" role="alert">
-              <b>当前状态：</b>所有友链正常运行中，没有发现异常。
-            </div>
-            <div id="stattip-load" class="alert alert-info" role="alert">
-              <b>当前状态：</b>正在检测运行状态，请稍候..
-            </div>
-            <div class="table-responsive">
-              <table class="table table-hover check">
-                <thead>
-                  <tr id="server-title">
-                  </tr>
-                </thead>
-                <tbody id="server-container"></tbody>
-              </table>
-            </div>
-          </div>
-          <div class="alert alert-info" style="text-align: center;margin-bottom: 0px;">
-            距离下次监测刷新时间:
-            <span class="fa fa-refresh"></span> <span id="last-update"></span>
-          </div>
-        </div>
-		</div>
-      </div>
-    </div>
-  </main>
-  <style>
-  	.card-supervise{
-  	  padding: 24px;
-  	  border-radius: 0 0 2px 2px;
-  	}
-  	
-    .wname {
-      font-size: 16px;
-    }
-  	.card-panel{
-  		padding: 0px;
-  		color: #fff;
-  	}
-	.supervise_details{
-		margin: 38px 0 15px -4px;
-		font-size: 1.6rem;
-		font-weight: 700;
-		line-height: 1.7rem;
-	}
-	.panel-heading{
-		font-size: 20px;
-	}
-    .teal {
-      margin-right: 5px;
-    }
-  
-    .check>tbody>tr>td {
-      padding-top: 11px;
-      padding-bottom: 11px;
-    }
-  
-    .check th {
-      text-align: center;
-    }
-  
-    .check .center {
-      text-align: center;
-      vertical-align: middle;
-    }
-  
-    .check .sertitle {
-      vertical-align: middle;
-    }
-  
-    .status-success {
-      color: #5cb85c
-    }
-  
-    .status-warning {
-      color: #f0ad4e
-    }
-  
-    .status-danger {
-      color: #d9534f
-    }
-  
-    #server-container {
-      border-bottom: 1px solid #ddd;
-    }
-  
-    .barl>td {
-      border-top: none !important;
-      padding: 0 !important;
-    }
-  
-    .barl .progress {
-      margin: 0;
-      border-radius: 0;
-      height: 8px;
-      box-shadow: none;
-    }
-  
-    .barl .progress .progress-bar {
-      box-shadow: none;
-      opacity: 0.7;
-    }
-  
-    .barl .progress .progress-bar:hover {
-      opacity: 1;
-    }
-  
-    .barl .progress .progress-bar-default {
-      background-color: #EFEFEF;
-    }
-  
-    .progress .tooltip .tooltip-inner .ttime {
-      color: #A3A3A3;
-      font-size: 11px;
-    }
-  
-    .credit {
-      font-size: 12px;
-      color: #BBB;
-    }
-  
-    .credit a {
-      color: #999;
-    }
-  
-    .credit .pipe {
-      padding-left: 6px;
-      padding-right: 6px;
-      color: #DDD;   
-    }
-  
-  </style>
-  <script type="template/mustache" id="server-template">
-    <tr class="{{alert}}">
-      <td rowspan="2" class="sertitle">
-        <span class="card-panel {{label}}"><span class="fa fa-{{statusicon}}"style="padding-left: 2px;"></span> {{statustxt}}</span>
-        <span class="wname">{{friendlyname}}</span>
-      </td>
-      {{#charts}}
-      <td class="center">
-      <span class="status-{{uptype}} set-tooltip" data-toggle="tooltip" data-placement="top" title="{{uptime}}"><span class="fa fa-{{upsign}}"></span></span>
-      </td>
-      {{/charts}}
-    </tr>
-    <tr class="{{alert}} barl">
-      <td colspan="8" class="barls">
-        <div class="progress">
-        {{#progress}}
-          <div class="progress-bar progress-bar-{{types}} set-tooltip" style="width: {{len}}%" data-toggle="tooltip" data-placement="top" title="{{stattip}}"></div>
-        {{/progress}}
-       </div>
-      </td>
-    </tr>
-  </script>
-  <script src="./js/jquery-1.12.4.min.js" type="text/javascript"></script>
-  <script>
-    /**
-     * 和PHP一样的时间戳格式化函数
-     * @param {string} format 格式
-     * @param {int} timestamp 要格式化的时间 默认为当前时间
-     * @return {string}   格式化的时间字符串
-     */
-    function date(format, timestamp) {
-      var a, jsdate = ((timestamp) ? new Date(timestamp * 1000) : new Date());
-      var pad = function (n, c) {
-        if ((n = n + "").length < c) {
-          return new Array(++c - n.length).join("0") + n;
-        } else {
-          return n;
-        }
-      };
-      var txt_weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      var txt_ordin = {
-        1: "st",
-        2: "nd",
-        3: "rd",
-        21: "st",
-        22: "nd",
-        23: "rd",
-        31: "st"
-      };
-      var txt_months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September",
-        "October", "November", "December"
-      ];
-      var f = {
-        // Day
-        d: function () {
-          return pad(f.j(), 2)
-        },
-        D: function () {
-          return f.l().substr(0, 3)
-        },
-        j: function () {
-          return jsdate.getDate()
-        },
-        l: function () {
-          return txt_weekdays[f.w()]
-        },
-        N: function () {
-          return f.w() + 1
-        },
-        S: function () {
-          return txt_ordin[f.j()] ? txt_ordin[f.j()] : 'th'
-        },
-        w: function () {
-          return jsdate.getDay()
-        },
-        z: function () {
-          return (jsdate - new Date(jsdate.getFullYear() + "/1/1")) / 864e5 >> 0
-        },
 
-        // Week
-        W: function () {
-          var a = f.z(),
-            b = 364 + f.L() - a;
-          var nd2, nd = (new Date(jsdate.getFullYear() + "/1/1").getDay() || 7) - 1;
-          if (b <= 2 && ((jsdate.getDay() || 7) - 1) <= 2 - b) {
-            return 1;
-          } else {
-            if (a <= 2 && nd >= 4 && a >= (6 - nd)) {
-              nd2 = new Date(jsdate.getFullYear() - 1 + "/12/31");
-              return date("W", Math.round(nd2.getTime() / 1000));
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
             } else {
-              return (1 + (nd <= 3 ? ((a + nd) / 7) : (a - (7 - nd)) / 7) >> 0);
+                $tocWidget.removeClass('toc-fixed');
             }
-          }
-        },
+        });
 
-        // Month
-        F: function () {
-          return txt_months[f.n()]
-        },
-        m: function () {
-          return pad(f.n(), 2)
-        },
-        M: function () {
-          return f.F().substr(0, 3)
-        },
-        n: function () {
-          return jsdate.getMonth() + 1
-        },
-        t: function () {
-          var n;
-          if ((n = jsdate.getMonth() + 1) == 2) {
-            return 28 + f.L();
-          } else {
-            if (n & 1 && n < 8 || !(n & 1) && n > 7) {
-              return 31;
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
             } else {
-              return 30;
+                w = w + 14;
             }
-          }
-        },
+            $('#' + targetId).width(w);
+        };
 
-        // Year
-        L: function () {
-          var y = f.Y();
-          return (!(y & 3) && (y % 1e2 || !(y % 4e2))) ? 1 : 0
-        },
-        //o not supported yet
-        Y: function () {
-          return jsdate.getFullYear()
-        },
-        y: function () {
-          return (jsdate.getFullYear() + "").slice(2)
-        },
-
-        // Time
-        a: function () {
-          return jsdate.getHours() > 11 ? "pm" : "am"
-        },
-        A: function () {
-          return f.a().toUpperCase()
-        },
-        B: function () {
-          // peter paul koch:
-          var off = (jsdate.getTimezoneOffset() + 60) * 60;
-          var theSeconds = (jsdate.getHours() * 3600) + (jsdate.getMinutes() * 60) + jsdate.getSeconds() + off;
-          var beat = Math.floor(theSeconds / 86.4);
-          if (beat > 1000) beat -= 1000;
-          if (beat < 0) beat += 1000;
-          if ((String(beat)).length == 1) beat = "00" + beat;
-          if ((String(beat)).length == 2) beat = "0" + beat;
-          return beat;
-        },
-        g: function () {
-          return jsdate.getHours() % 12 || 12
-        },
-        G: function () {
-          return jsdate.getHours()
-        },
-        h: function () {
-          return pad(f.g(), 2)
-        },
-        H: function () {
-          return pad(jsdate.getHours(), 2)
-        },
-        i: function () {
-          return pad(jsdate.getMinutes(), 2)
-        },
-        s: function () {
-          return pad(jsdate.getSeconds(), 2)
-        },
-        //u not supported yet
-
-        // Timezone
-        //e not supported yet
-        //I not supported yet
-        O: function () {
-          var t = pad(Math.abs(jsdate.getTimezoneOffset() / 60 * 100), 4);
-          if (jsdate.getTimezoneOffset() > 0) t = "-" + t;
-          else t = "+" + t;
-          return t;
-        },
-        P: function () {
-          var O = f.O();
-          return (O.substr(0, 3) + ":" + O.substr(3, 2))
-        },
-        //T not supported yet
-        //Z not supported yet
-
-        // Full Date/Time
-        c: function () {
-          return f.Y() + "-" + f.m() + "-" + f.d() + "T" + f.h() + ":" + f.i() + ":" + f.s() + f.P()
-        },
-        //r not supported yet
-        U: function () {
-          return Math.round(jsdate.getTime() / 1000)
-        }
-      };
-
-      return format.replace(/[\\]?([a-zA-Z])/g, function (t, s) {
-        if (t != s) {
-          // escaped
-          ret = s;
-        } else if (f[s]) {
-          // a date function exists
-          ret = f[s]();
-        } else {
-          // nothing special
-          ret = s;
-        }
-        return ret;
-      });
-    }
-  </script>
-  <script src="/js/mustache.min.js" type="text/javascript"></script>
-  <script src="/js/uptimerobot.js" type="text/javascript"></script>
-  <script src="/js/upscuits.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    jQuery(document).ready(myApp.dashboard.init);
-  </script>
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
 
     
-<style>
+
+</main>
+
+
+
+
+    <style>
     .github-badge {      
         display:inline-block;      
         border-radius:4px;       
@@ -1057,12 +1173,18 @@
         <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
 <style>
     .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
         font-size: 12px;
         font-weight: 700;
         line-height: 16px !important;
     }
 
     .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
         font-size: 15px;
         color: #42b983;
     }
@@ -1100,18 +1222,22 @@
 
 <script src="/libs/aplayer/APlayer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
-            <span id="year">2020</span>
-            <a href="https://wulinzeng.vip" target="_blank">HaiLin Zhou</a>
-            |&nbsp;HOST&nbsp;<a href="https://github.com/hexojs/hexo" target="_blank">Hexo</a>
-            |&nbsp;THEME&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+                <span id="year">2020-2022</span>
+            
+            <!-- <span id="year">2020</span> -->
+            <a href="/about" target="_blank">WuLiZeng</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;码字:&nbsp;<span
-                class="white-color">157.7k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">158k</span>&nbsp;字
             
             
             
@@ -1119,26 +1245,17 @@
             
             
             <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;PV:&nbsp;<span id="busuanzi_value_site_pv"
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
                     class="white-color"></span>&nbsp;次
             </span>
             
             
             <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;UV:&nbsp;<span id="busuanzi_value_site_uv"
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
                     class="white-color"></span>&nbsp;人
-            </span>   
-           
+            </span>
             
             <br>
-            <!--cnzz-->
-            
-            <div>
-            <script type="text/javascript"> document.write(unescape("%3Cspan id='cnzz_stat_icon_1279096621'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1279096621%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
-            </div>
-            
-
-
             
             <span id="sitetime">载入运行时间...</span>
             <script>
@@ -1184,41 +1301,36 @@
                 setInterval(siteTime, 1000);
             </script>
             
-            
+            <br>
             
             <span id="icp"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/icp.png" style="vertical-align: text-bottom;" />
-                <a href="" target="_blank">蜀公安网|备 51018002000054</a>
+                <a href="/null" target="_blank">蜀公安网|备 51018002000054</a>
             </span>
             
-            <!--gihub badge-->
-         <div>
-            <div class="github-badge">       
-                <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="支持996">         
-             <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
-            </div>
-            <div class="github-badge">
-               <a style="color: #fff" rel="license" href="https://github.com/" target="_blank" title="托管于 GitHub Pages与Coding Pages">
-            <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding</span></a>
-            </div>
-            <div class="github-badge">          
-               <a style="color: #fff"  rel="license" href="https://cloud.tencent.com/" target="_blank" title="腾讯云提供域名相关服务">  
-             <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Tencent </span></a>       
-            </div>
-            <div class="github-badge">          
-               <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
-            <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
-            </div>
-            <div class="github-badge">          
-               <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
-            <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
-           </div>
-           
-            <!-- travelling
-            <div>
-                <a href="https://travellings.now.sh/" target="blank" title="开往-友链接力"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://travellings.now.sh/assets/logo.gif" alt="开往-友链接力" width="120"></a>
-            </div> -->
 
-        </div>
+             <!--gihub badge-->
+            <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">
+                   <a style="color: #fff" rel="license" href="https://github.com/" target="_blank" title="托管于 GitHub Pages与Coding Pages">
+                <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding</span></a>
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://cloud.tencent.com/" target="_blank" title="腾讯云提供域名相关服务">  
+                 <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Tencent </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
 
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
@@ -1275,10 +1387,95 @@
     </div>
 </div>
 
-<script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
 });
 </script>
 
@@ -1336,51 +1533,32 @@ $(function () {
 
     
 
+	
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
-    
-    
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
- 
-    <!--雪花 
-    <script src="/js/snow.js"></script>
-   -->
-
-    <!--樱花-->
-    <script type="text/javascript">
-    //只在桌面版网页启用特效
-    var windowWidth = $(window).width();
-    if (windowWidth > 768) {   
-         document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
-        }
-        </script>
-
-    <!--点击烟花爆炸-->
-    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
-    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
-    <script type="text/javascript" src="/js/fireworks.js"></script>
-
-    <!-- 数字雨 -->
-    <canvas id="canvas" width="1440" height="900" ></canvas>
-    <script type="text/javascript" src="../js/DigitalRain.js"></script>
-
-    <!--浏览器搞笑标题-->
-    <script type="text/javascript" src="../js/FunnyTitle.js"></script>
-
-
     
 
 <script>
             window.imageLazyLoadSetting = {
                 isSPA: false,
+                preloadRatio: 1,
                 processImages: null,
             };
-        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
 
 </html>

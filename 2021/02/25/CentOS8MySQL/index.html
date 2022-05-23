@@ -2,10 +2,7 @@
 <html lang="zh-CN">
 
 
-
 <head>
-    <!--百度分析-->
-    <meta name="baidu-site-verification" content="code-9EUuHHzhSH" />
     <meta charset="utf-8">
     <meta name="keywords" content="CentOS8MySQL, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
     <meta name="description" content="正在学习编程的小猿，热爱生活，更爱学习">
@@ -31,160 +28,14 @@
     <link rel="stylesheet" type="text/css" href="/css/my.css">
 
     <script src="/libs/jquery/jquery.min.js"></script>
-    
-<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="WuLiZeng" type="application/atom+xml">
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="WuLiZeng" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
-    <style type="text/css" lang="css">
-    #loading-container{
-        position: fixed;
-        top: 0;
-        left: 0;
-        min-height: 100vh;
-        width: 100vw;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: #FFF;
-        text-align: center;
-        /* loader页面消失采用渐隐的方式*/
-        -webkit-transition: opacity 1s ease;
-        -moz-transition: opacity 1s ease;
-        -o-transition: opacity 1s ease;
-        transition: opacity 1s ease;
-    }
-    .loading-image{
-        width: 120px;
-        height: 50px;
-        transform: translate(-50%);
-    }
 
-    .loading-image div:nth-child(2) {
-        -webkit-animation: pacman-balls 1s linear 0s infinite;
-        animation: pacman-balls 1s linear 0s infinite
-    }
-
-    .loading-image div:nth-child(3) {
-        -webkit-animation: pacman-balls 1s linear .33s infinite;
-        animation: pacman-balls 1s linear .33s infinite
-    }
-
-    .loading-image div:nth-child(4) {
-        -webkit-animation: pacman-balls 1s linear .66s infinite;
-        animation: pacman-balls 1s linear .66s infinite
-    }
-
-    .loading-image div:nth-child(5) {
-        -webkit-animation: pacman-balls 1s linear .99s infinite;
-        animation: pacman-balls 1s linear .99s infinite
-    }
-
-   .loading-image div:first-of-type {
-        width: 0;
-        height: 0;
-        border: 25px solid #49b1f5;
-        border-right-color: transparent;
-        border-radius: 25px;
-        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
-        animation: rotate_pacman_half_up .5s 0s infinite;
-    }
-    .loading-image div:nth-child(2) {
-        width: 0;
-        height: 0;
-        border: 25px solid #49b1f5;
-        border-right-color: transparent;
-        border-radius: 25px;
-        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
-        animation: rotate_pacman_half_down .5s 0s infinite;
-        margin-top: -50px;
-    }
-    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
-
-    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
-
-    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
-
-    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
-
-    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
-
-    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
-
-
-    .loading-image div:nth-child(3),
-    .loading-image div:nth-child(4),
-    .loading-image div:nth-child(5),
-    .loading-image div:nth-child(6){
-        background-color: #49b1f5;
-        width: 15px;
-        height: 15px;
-        border-radius: 100%;
-        margin: 2px;
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        transform: translateY(-6.25px);
-        top: 25px;
-        left: 100px;
-    }
-    .loading-text{
-        margin-bottom: 20vh;
-        text-align: center;
-        color: #2c3e50;
-        font-size: 2rem;
-        box-sizing: border-box;
-        padding: 0 10px;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    }
-    @media only screen and (max-width: 500px) {
-         .loading-text{
-            font-size: 1.5rem;
-         }
-    }
-    .fadeout {
-        opacity: 0;
-        filter: alpha(opacity=0);
-    }
-    /* logo出现动画 */
-    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
-    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
- </style>
- <script>
-(function () {
-    const loaded = function(){
-       setTimeout(function(){
-            const loader = document.getElementById("loading-container");
-            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
-            // document.getElementById("body-wrap").style.display="flex";
-            setTimeout(function(){
-                loader.style.display="none";
-            },2500); 
-        },1000);//强制显示loading page 1s  
-    };
-    loaded();
-})()
-</script>
-
- 
 <body>
-
-    
-        <div id="loading-container">
-             <p class="loading-text"> 嘀嘀嘀~~~ &nbsp;页面这在飞快的跑来 . . . </p> 
-             <div class="loading-image">
-                 <div></div>
-                 <div></div>
-                 <div></div>
-                 <div></div> 
-                 <div></div>
-             </div>
-        </div>
-    
-
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -247,6 +98,17 @@
   
   <li class="hide-on-med-and-down nav-item">
     
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
     <a href="/contact" class="waves-effect waves-light">
       
       <i class="fas fa-comments" style="zoom: 0.6;"></i>
@@ -259,90 +121,17 @@
   <li class="hide-on-med-and-down nav-item">
     
     <a href="/friends" class="waves-effect waves-light">
-
       
       <i class="fas fa-address-book" style="zoom: 0.6;"></i>
       
       <span>友情链接</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
     </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/supervise">
-          
-          <i class="fa fa-desktop" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>链接监测</span>
-        </a>
-      </li>
-      
-    </ul>
     
   </li>
   
   <li class="hide-on-med-and-down nav-item">
     
-    <a href="/about" class="waves-effect waves-light">
-
-      
-      <i class="fas fa-route" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
-    </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/blogger">
-          
-          <i class="fas fa-user-circle" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>博主</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/gallery">
-          
-          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>画廊</span>
-        </a>
-      </li>
-      
-    </ul>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/navigate" class="waves-effect waves-light">
-
-      
-      <i class="fas fa-list" style="zoom: 0.6;"></i>
-      
-      <span>发现</span>
-      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
-    </a>
-    <ul class="sub-nav menus_item_child ">
-      
-      <li>
-        <a href="/box">
-          
-          <i class="fas fa-map-marker" style="margin-top: -20px; zoom: 0.6;"></i>
-          
-          <span>导航</span>
-        </a>
-      </li>
-      
-    </ul>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="https://travellings.now.sh/" target="_blank" rel="noopener" class="waves-effect waves-light">
+    <a target="_blank" rel="noopener" href="https://travellings.now.sh/" class="waves-effect waves-light">
       
       <i class="fa fa-subway" style="zoom: 0.6;"></i>
       
@@ -357,6 +146,7 @@
     </a>
   </li>
 </ul>
+
 
 <div id="mobile-nav" class="side-nav sidenav">
 
@@ -422,6 +212,17 @@
         
         <li class="m-nav-item">
 	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
 		<a href="/contact" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fas fa-comments"></i>
@@ -433,92 +234,18 @@
         
         <li class="m-nav-item">
 	  
-		<a href="javascript:;">
+		<a href="/friends" class="waves-effect waves-light">
 			
-				<i class="fa-fw fas fa-address-book"></i>
+			    <i class="fa-fw fas fa-address-book"></i>
 			
 			友情链接
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
 		</a>
-            <ul  style="background:  ;" >
-              
-                <li>   
-				
-                  <a href="/supervise " style="margin-left:75px";>
-				  
-				   <i class="fa fa fa-desktop" style="position: absolute;left:50px" ></i>
-			      
-		          <span>链接监测</span>
-                  </a>
-                </li>
-               
-            </ul>
           
         </li>
         
         <li class="m-nav-item">
 	  
-		<a href="javascript:;">
-			
-				<i class="fa-fw fas fa-route"></i>
-			
-			关于
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
-		</a>
-            <ul  style="background:  ;" >
-              
-                <li>   
-				
-                  <a href="/blogger " style="margin-left:75px";>
-				  
-				   <i class="fa fas fa-user-circle" style="position: absolute;left:50px" ></i>
-			      
-		          <span>博主</span>
-                  </a>
-                </li>
-              
-                <li>   
-				
-                  <a href="/gallery " style="margin-left:75px";>
-				  
-				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
-			      
-		          <span>画廊</span>
-                  </a>
-                </li>
-               
-            </ul>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="javascript:;">
-			
-				<i class="fa-fw fas fa-list"></i>
-			
-			discover
-			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
-		</a>
-            <ul  style="background:  ;" >
-              
-                <li>   
-				
-                  <a href="/box " style="margin-left:75px";>
-				  
-				   <i class="fa fas fa-map-marker" style="position: absolute;left:50px" ></i>
-			      
-		          <span>导航</span>
-                  </a>
-                </li>
-               
-            </ul>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="https://travellings.now.sh/" target="_blank" rel="noopener" class="waves-effect waves-light">
+		<a target="_blank" rel="noopener" href="https://travellings.now.sh/" class="waves-effect waves-light">
 			
 			    <i class="fa-fw fa fa-subway"></i>
 			
@@ -537,6 +264,7 @@
         
     </ul>
 </div>
+
 
         </div>
 
@@ -666,8 +394,7 @@
     }
 
     .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
+        padding: 35px 0 15px 17px;
         font-size: 1.5rem;
         font-weight: bold;
         line-height: 1.5rem;
@@ -679,7 +406,7 @@
     }
 
     #toc-content {
-        height: calc(100vh - 250px);
+        padding-bottom: 30px;
         overflow: auto;
     }
 
@@ -700,22 +427,14 @@
     #toc-content .toc-link::before {
         background-color: transparent;
         max-height: 25px;
-        
+
         position: absolute;
         right: 23.5vw;
         display: block;
     }
 
-    .toc-fixed .toc-link::before{
-        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
-    }
-
     #toc-content .is-active-link {
         color: #42b983;
-    }
-
-    #toc-content .is-active-link::before {
-        background-color: #42b983;
     }
 
     #floating-toc-btn {
@@ -809,22 +528,30 @@
                     </div>
 				
             </div>
-
         </div>
         <hr class="clearfix">
+
+        
+
+        
+
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
 <p>服务器安装mysql8.0</p>
 </blockquote>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装MySQL及其所有依赖</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> dnf <span class="token function">install</span> @mysql</code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> dnf <span class="token function">install</span> @mysql
+</code></pre>
 <p>启动MySQL服务，并设置自启</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> systemctl <span class="token function">enable</span> --now mysqld</code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> systemctl <span class="token function">enable</span> --now mysqld
+</code></pre>
 <p>检查MySQL服务器是否正在运行</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> systemctl status mysqld</code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> systemctl status mysqld
+</code></pre>
 <p>运行mysql_secure_installation脚本，该脚本执行一些与安全性相关的操作并设置MySQL根密码：</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> mysql_secure_installation</code></pre>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> mysql_secure_installation
+</code></pre>
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
 <li>配置VALIDATE PASSWORD component（验证密码组件）： 输入y ，回车进入该配置</li>
 </ul>
@@ -833,7 +560,8 @@ and improve security. It checks the strength of password
 and allows the <span class="token function">users</span> to <span class="token keyword">set</span> only those passwords <span class="token function">which</span> are
 secure enough. Would you like to setup VALIDATE PASSWORD component?
 
-Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No: y</code></pre>
+Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No: y
+</code></pre>
 <ul>
 <li>选择密码验证策略等级， 这里选择0 （low），回车</li>
 </ul>
@@ -843,7 +571,8 @@ LOW    Length <span class="token operator">>=</span> 8
 MEDIUM Length <span class="token operator">>=</span> 8, numeric, mixed case, and special characters
 STRONG Length <span class="token operator">>=</span> 8, numeric, mixed case, special characters and dictionary                  <span class="token function">file</span>
 
-Please enter 0 <span class="token operator">=</span> LOW, 1 <span class="token operator">=</span> MEDIUM and 2 <span class="token operator">=</span> STRONG: 0</code></pre>
+Please enter 0 <span class="token operator">=</span> LOW, 1 <span class="token operator">=</span> MEDIUM and 2 <span class="token operator">=</span> STRONG: 0
+</code></pre>
 <ul>
 <li><p>输入新密码两次(mysql -u root -p 回车时输的密码)</p>
 </li>
@@ -862,7 +591,8 @@ You should remove them before moving into a production
 environment.
 
 Remove anonymous users? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
-Success.</code></pre>
+Success.
+</code></pre>
 <ul>
 <li>不允许root远程登陆？ 需要远程登陆，所以输入n ，回车</li>
 </ul>
@@ -870,7 +600,8 @@ Success.</code></pre>
 <span class="token string">'localhost'</span><span class="token keyword">.</span> This ensures that someone cannot guess at
 the root password from the network.
 
-Disallow root login remotely? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> n</code></pre>
+Disallow root login remotely? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> n
+</code></pre>
 <ul>
 <li>移除test数据库？ 输入y ，回车</li>
 <li>重新载入权限表？ 输入y ，回车</li>
@@ -880,7 +611,8 @@ Disallow root login remotely? <span class="token punctuation">(</span>Press y<sp
 Success.
 
  - Removing privileges on <span class="token function">test</span> database<span class="token punctuation">..</span>.
-Success.</code></pre>
+Success.
+</code></pre>
 <ul>
 <li>配置结束</li>
 </ul>
@@ -890,14 +622,19 @@ made so far will take effect immediately.
 Reload privilege tables now? <span class="token punctuation">(</span>Press y<span class="token operator">|</span>Y <span class="token keyword">for</span> Yes, any other key <span class="token keyword">for</span> No<span class="token punctuation">)</span> <span class="token keyword">:</span> y
 Success.
 
-All done<span class="token operator">!</span> </code></pre>
-<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><pre class=" language-bash"><code class="language-bash">mysql -u root -p</code></pre>
-<h3 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h3><pre class=" language-mysql"><code class="language-mysql">exit;</code></pre>
+All done<span class="token operator">!</span> 
+</code></pre>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><pre class=" language-bash"><code class="language-bash">mysql -u root -p
+</code></pre>
+<h3 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h3><pre class=" language-mysql"><code class="language-mysql">exit;
+</code></pre>
 <h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><p>移除mariadb程序文件</p>
-<pre class=" language-bash"><code class="language-bash">yum remove -y  mariadb*</code></pre>
+<pre class=" language-bash"><code class="language-bash">yum remove -y  mariadb*
+</code></pre>
 <p>查询mysql相关文件并删</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">find</span>  /  -name  <span class="token string">"mysql*"</span> <span class="token operator">|</span><span class="token function">xargs</span>  <span class="token function">rm</span>  -rf 
-<span class="token function">find</span>  /  -name  <span class="token string">"mariadb*"</span> <span class="token operator">|</span><span class="token function">xargs</span>  <span class="token function">rm</span>  -rf </code></pre>
+<span class="token function">find</span>  /  -name  <span class="token string">"mariadb*"</span> <span class="token operator">|</span><span class="token function">xargs</span>  <span class="token function">rm</span>  -rf 
+</code></pre>
 <h2 id="附：终端信息"><a href="#附：终端信息" class="headerlink" title="附：终端信息"></a>附：终端信息</h2><pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>root@iZbp1gp1t778o6paja9tabZ ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># sudo dnf install @mysql</span>
 上次元数据过期检查：0:58:50 前，执行于 2021年02月25日 星期四 21时38分48秒。
 依赖关系解决。
@@ -1085,8 +822,10 @@ owners.
 
 Type <span class="token string">'help;'</span> or <span class="token string">'\h'</span> <span class="token keyword">for</span> help. Type <span class="token string">'\c'</span> to <span class="token function">clear</span> the current input statement.
 
-mysql<span class="token operator">></span> </code></pre>
+mysql<span class="token operator">></span> 
+</code></pre>
 
+                
             </div>
             <hr/>
 
@@ -1101,7 +840,7 @@ mysql<span class="token operator">></span> </code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://wulinzeng.vip" rel="external nofollow noreferrer">HaiLin Zhou</a>
+                    <a href="/about" rel="external nofollow noreferrer">WuLiZeng</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -1124,7 +863,7 @@ mysql<span class="token operator">></span> </code></pre>
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://wulinzeng.vip" target="_blank">HaiLin Zhou</a>
+                    <a href="/about" target="_blank">WuLiZeng</a>
                     !
                 </span>
             </div>
@@ -1162,9 +901,8 @@ mysql<span class="token operator">></span> </code></pre>
                 </div>
                 <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
                     <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
-
 <div id="article-share">
-    
+
     
     <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
     <script src="/libs/share/js/social-share.min.js"></script>
@@ -1176,131 +914,6 @@ mysql<span class="token operator">></span> </code></pre>
 
                 </div>
             </div>
-            
-                <style>
-    #reward {
-        margin: 40px 0;
-        text-align: center;
-    }
-
-    #reward .reward-link {
-        font-size: 1.4rem;
-        line-height: 38px;
-    }
-
-    #reward .btn-floating:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    #rewardModal {
-        width: 320px;
-        height: 350px;
-    }
-
-    #rewardModal .reward-title {
-        margin: 15px auto;
-        padding-bottom: 5px;
-    }
-
-    #rewardModal .modal-content {
-        padding: 10px;
-    }
-
-    #rewardModal .close {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 1.3rem;
-        line-height: 20px;
-        cursor: pointer;
-    }
-
-    #rewardModal .close:hover {
-        color: #ef5350;
-        transform: scale(1.3);
-        -moz-transform:scale(1.3);
-        -webkit-transform:scale(1.3);
-        -o-transform:scale(1.3);
-    }
-
-    #rewardModal .reward-tabs {
-        margin: 0 auto;
-        width: 210px;
-    }
-
-    .reward-tabs .tabs {
-        height: 38px;
-        margin: 10px auto;
-        padding-left: 0;
-    }
-
-    .reward-content ul {
-        padding-left: 0 !important;
-    }
-
-    .reward-tabs .tabs .tab {
-        height: 38px;
-        line-height: 38px;
-    }
-
-    .reward-tabs .tab a {
-        color: #fff;
-        background-color: #ccc;
-    }
-
-    .reward-tabs .tab a:hover {
-        background-color: #ccc;
-        color: #fff;
-    }
-
-    .reward-tabs .wechat-tab .active {
-        color: #fff !important;
-        background-color: #22AB38 !important;
-    }
-
-    .reward-tabs .alipay-tab .active {
-        color: #fff !important;
-        background-color: #019FE8 !important;
-    }
-
-    .reward-tabs .reward-img {
-        width: 210px;
-        height: 210px;
-    }
-</style>
-
-<div id="reward">
-    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close modal-close"><i class="fas fa-times"></i></a>
-            <h4 class="reward-title">请博主喝杯咖啡</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs row">
-                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
-                    </ul>
-                    <div id="alipay">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/reward/alipay.png" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                    <div id="wechat">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(function () {
-        $('.tabs').tabs();
-    });
-</script>
             
         </div>
     </div>
@@ -1325,7 +938,7 @@ mysql<span class="token operator">></span> </code></pre>
 
     #vcomments textarea {
         box-sizing: border-box;
-        background: url("/medias/comment_bg1.png") 100% 100% no-repeat;
+        background: url("/medias/comment_bg_logo.png") 100% 100% no-repeat;
     }
 
     #vcomments p {
@@ -1567,7 +1180,7 @@ mysql<span class="token operator">></span> </code></pre>
         appId: 'k8iTRIRcQnuQFM9p07fRwYPI-gzGzoHsz',
         appKey: 'feRTCGFABbYqhBlnmmhnSU1l',
         notify: 'true' === 'true',
-        verify: 'false' === 'true',
+        verify: 'true' === 'true',
         visitor: 'true' === 'true',
         avatar: '',
         pageSize: '10',
@@ -1577,7 +1190,9 @@ mysql<span class="token operator">></span> </code></pre>
 </script>
 
     
-	
+
+    
+
     
 
     
@@ -1601,12 +1216,7 @@ mysql<span class="token operator">></span> </code></pre>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            提问的智慧
-声明
-
-How To Ask Questions The Smart Way
-Copyright © 2001,2006,2014 Eric S. Raymond, Rick Moen
-本指南英文版版权为 Eric S. Ray
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -1658,14 +1268,7 @@ Copyright © 2001,2006,2014 Eric S. Raymond, Rick Moen
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            进入ECS使用终端
-ssh 用户名@ip
-#ssh root@xxx.xx.xxx.xx
-进入mysqlmysql -u root -p #回车 输入密码
-授予权限
-8.0之前
-
-grant all privileges on . to '
+                            
                         
                     </div>
                     <div class="publish-info">
@@ -1709,7 +1312,7 @@ grant all privileges on . to '
 
         var selection = window.getSelection();
         // if the selection is short let's not annoy our users.
-        if (('' + selection).length < Number.parseInt('100')) {
+        if (('' + selection).length < Number.parseInt('80')) {
             return;
         }
 
@@ -1730,7 +1333,7 @@ grant all privileges on . to '
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
             + '来源: WuLiZeng<br />'
-            + '文章作者: HaiLin Zhou<br />'
+            + '文章作者: WuLiZeng<br />'
             + '文章链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
 
@@ -1758,16 +1361,9 @@ grant all privileges on . to '
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
 
-<!-- 代码块折行 -->
-
-<style type="text/css">
-code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
-</style>
-
-
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
+        <div class="toc-widget card" style="background-color: white;">
             <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
             <div id="toc-content"></div>
         </div>
@@ -1865,8 +1461,8 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 
 
-    
-<style>
+
+    <style>
     .github-badge {      
         display:inline-block;      
         border-radius:4px;       
@@ -1913,12 +1509,18 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
 <style>
     .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
         font-size: 12px;
         font-weight: 700;
         line-height: 16px !important;
     }
 
     .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
         font-size: 15px;
         color: #42b983;
     }
@@ -1956,18 +1558,22 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 <script src="/libs/aplayer/APlayer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
     
     <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
-            <span id="year">2020</span>
-            <a href="https://wulinzeng.vip" target="_blank">HaiLin Zhou</a>
-            |&nbsp;HOST&nbsp;<a href="https://github.com/hexojs/hexo" target="_blank">Hexo</a>
-            |&nbsp;THEME&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+                <span id="year">2020-2022</span>
+            
+            <!-- <span id="year">2020</span> -->
+            <a href="/about" target="_blank">WuLiZeng</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;码字:&nbsp;<span
-                class="white-color">157.7k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">158k</span>&nbsp;字
             
             
             
@@ -1975,26 +1581,17 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             
             
             <span id="busuanzi_container_site_pv">
-                |&nbsp;<i class="far fa-eye"></i>&nbsp;PV:&nbsp;<span id="busuanzi_value_site_pv"
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
                     class="white-color"></span>&nbsp;次
             </span>
             
             
             <span id="busuanzi_container_site_uv">
-                |&nbsp;<i class="fas fa-users"></i>&nbsp;UV:&nbsp;<span id="busuanzi_value_site_uv"
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
                     class="white-color"></span>&nbsp;人
-            </span>   
-           
+            </span>
             
             <br>
-            <!--cnzz-->
-            
-            <div>
-            <script type="text/javascript"> document.write(unescape("%3Cspan id='cnzz_stat_icon_1279096621'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/z_stat.php%3Fid%3D1279096621%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
-            </div>
-            
-
-
             
             <span id="sitetime">载入运行时间...</span>
             <script>
@@ -2040,41 +1637,36 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
                 setInterval(siteTime, 1000);
             </script>
             
-            
+            <br>
             
             <span id="icp"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/medias/icp.png" style="vertical-align: text-bottom;" />
-                <a href="" target="_blank">蜀公安网|备 51018002000054</a>
+                <a href="/null" target="_blank">蜀公安网|备 51018002000054</a>
             </span>
             
-            <!--gihub badge-->
-         <div>
-            <div class="github-badge">       
-                <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="支持996">         
-             <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
-            </div>
-            <div class="github-badge">
-               <a style="color: #fff" rel="license" href="https://github.com/" target="_blank" title="托管于 GitHub Pages与Coding Pages">
-            <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding</span></a>
-            </div>
-            <div class="github-badge">          
-               <a style="color: #fff"  rel="license" href="https://cloud.tencent.com/" target="_blank" title="腾讯云提供域名相关服务">  
-             <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Tencent </span></a>       
-            </div>
-            <div class="github-badge">          
-               <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
-            <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
-            </div>
-            <div class="github-badge">          
-               <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
-            <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
-           </div>
-           
-            <!-- travelling
-            <div>
-                <a href="https://travellings.now.sh/" target="blank" title="开往-友链接力"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://travellings.now.sh/assets/logo.gif" alt="开往-友链接力" width="120"></a>
-            </div> -->
 
-        </div>
+             <!--gihub badge-->
+            <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">
+                   <a style="color: #fff" rel="license" href="https://github.com/" target="_blank" title="托管于 GitHub Pages与Coding Pages">
+                <span class="badge-subject">Hosted</span><span class="badge-value bg-brightgreen">GitHub & Coding</span></a>
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://cloud.tencent.com/" target="_blank" title="腾讯云提供域名相关服务">  
+                 <span class="badge-subject">DNS</span><span class="badge-value bg-blueviolet">Tencent </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
 
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
@@ -2131,10 +1723,95 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     </div>
 </div>
 
-<script src="/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
-    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
 });
 </script>
 
@@ -2192,51 +1869,32 @@ $(function () {
 
     
 
+	
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
     
 
     
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
-    
-    
     
     <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
- 
-    <!--雪花 
-    <script src="/js/snow.js"></script>
-   -->
-
-    <!--樱花-->
-    <script type="text/javascript">
-    //只在桌面版网页启用特效
-    var windowWidth = $(window).width();
-    if (windowWidth > 768) {   
-         document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
-        }
-        </script>
-
-    <!--点击烟花爆炸-->
-    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
-    <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
-    <script type="text/javascript" src="/js/fireworks.js"></script>
-
-    <!-- 数字雨 -->
-    <canvas id="canvas" width="1440" height="900" ></canvas>
-    <script type="text/javascript" src="../js/DigitalRain.js"></script>
-
-    <!--浏览器搞笑标题-->
-    <script type="text/javascript" src="../js/FunnyTitle.js"></script>
-
-
     
 
 <script>
             window.imageLazyLoadSetting = {
                 isSPA: false,
+                preloadRatio: 1,
                 processImages: null,
             };
-        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var i=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){i&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,e,a=0;a<r.length;a++)t=r[a],0<=(e=t.getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
 
 </html>
