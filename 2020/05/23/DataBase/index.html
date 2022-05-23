@@ -637,7 +637,7 @@
 <tr>
 <td align="center">numeric(p,q)或decimal(p,q)</td>
 <td align="center">decimal</td>
-<td align="center">定点精度和小数位数。使用最大精度时，有效值从  –10^38 +1 到 10^38 -1。其中，p为精度，指定小数点左边和右边可以存储的十进制数字的最大个数。q为小数位数，指定小数点右边可以存储的十进制数字的最大个数,0 &lt;= q &lt;= p。q的默认值为0</td>
+<td align="center">定点精度和小数位数。使用最大精度时，有效值从  –10^38 +1 到 10^38 -1。其中，p为精度，指定小数点左边和右边可以存储的十进制数字的最大个数。q为小数位数，指定小数点右边可以存储的十进制数字的最大个数,0 &lt;&#x3D; q &lt;&#x3D; p。q的默认值为0</td>
 </tr>
 <tr>
 <td align="center">float</td>
@@ -709,7 +709,7 @@
 <td align="center">可存储231-1 (2,147,483,647)个字符的大文本</td>
 </tr>
 </tbody></table>
-<h3 id="数据操纵语言（DML，Data-Manipulation-Language）"><a href="#数据操纵语言（DML，Data-Manipulation-Language）" class="headerlink" title="数据操纵语言（DML，Data Manipulation Language）"></a>数据操纵语言（DML，Data Manipulation Language）</h3><p>*<em>INSERT DELETE UPDATE SELECT(增删改查) *</em></p>
+<h3 id="数据操纵语言（DML，Data-Manipulation-Language）"><a href="#数据操纵语言（DML，Data-Manipulation-Language）" class="headerlink" title="数据操纵语言（DML，Data Manipulation Language）"></a>数据操纵语言（DML，Data Manipulation Language）</h3><p>**INSERT DELETE UPDATE SELECT(增删改查) **</p>
 <p>数据操纵语言是指用来查询、添加、修改和删除数据库中数据的语句，这些语句包括SELECT、INSERT、UPDATE、DELETE等。在默认情况下，只有sysadmin、dbcreator、db_owner或db_datawriter等角色的成员才有权利执行数据操纵语言。</p>
 <h3 id="数据控制语言（DCL，Data-Control-Language）"><a href="#数据控制语言（DCL，Data-Control-Language）" class="headerlink" title="数据控制语言（DCL，Data Control Language）"></a>数据控制语言（DCL，Data Control Language）</h3><p><strong>GRANT（授权） REVOKE（回收权限） COMMIT（提交） ROLLBACK（回滚）</strong></p>
 <p>数据控制语言（DCL）是用来设置或者更改数据库用户或角色权限的语句，这些语句包括GRANT、REVOKE 、DENY等语句，在默认状态下，只有sysadmin、dbcreator、db_owner或db_securityadmin等角色的成员才有权利执行数据控制语言。</p>
@@ -780,14 +780,15 @@
 <td>每个人的身份证号是唯一</td>
 </tr>
 </tbody></table>
-<pre class=" language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> Studet{
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> Studet<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
    s_number char<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
    s_name char<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
    s_sex  char<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">check</span><span class="token punctuation">(</span>s_sex<span class="token operator">=</span><span class="token string">'男'</span> <span class="token operator">or</span> s_sex<span class="token operator">=</span><span class="token string">'女'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
    s_age  <span class="token keyword">int</span>  <span class="token keyword">check</span><span class="token punctuation">(</span>s_age<span class="token operator">></span><span class="token number">10</span> <span class="token operator">and</span> s_age<span class="token operator">&lt;</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
    s_classity <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">26</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">'计算机系'</span><span class="token punctuation">,</span>
    s_ID   char<span class="token punctuation">(</span><span class="token number">18</span><span class="token punctuation">)</span>  <span class="token keyword">unique</span><span class="token punctuation">,</span>
-}</code></pre>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+</code></pre>
 <h3 id="删除表结构-Drop"><a href="#删除表结构-Drop" class="headerlink" title="删除表结构 Drop"></a>删除表结构 Drop</h3><p>语法：DROP DATABASE 数据库名 [ , … n ]</p>
 <ul>
 <li><p>用SQL删除关系（表）</p>
@@ -825,7 +826,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="数据删除（Delete）"><a href="#数据删除（Delete）" class="headerlink" title="数据删除（Delete）"></a>数据删除（Delete）</h3><p>语法：DELETE FROM table_name WHERE <em>some_column</em>=<em>some_value</em></p>
+<h3 id="数据删除（Delete）"><a href="#数据删除（Delete）" class="headerlink" title="数据删除（Delete）"></a>数据删除（Delete）</h3><p>语法：DELETE FROM table_name WHERE <em>some_column</em>&#x3D;<em>some_value</em></p>
 <ul>
 <li>只能对整个元组操作，不能只删除某些属性上的值</li>
 <li>只能对一个关系起作用，若要从多个关系中删除元组，则必须对每个关系分别执行删除命令</li>
@@ -833,7 +834,7 @@
 <li>删除多个元组</li>
 <li>删除整个关系中的所有数据</li>
 </ul>
-<h3 id="数据更新（Update）"><a href="#数据更新（Update）" class="headerlink" title="数据更新（Update）"></a>数据更新（Update）</h3><p>语法：UPDATE table_name SET <em>column1</em>=<em>value1</em>,<em>column2</em>=<em>value2</em>,… WHERE <em>some_column</em>=<em>some_value</em></p>
+<h3 id="数据更新（Update）"><a href="#数据更新（Update）" class="headerlink" title="数据更新（Update）"></a>数据更新（Update）</h3><p>语法：UPDATE table_name SET <em>column1</em>&#x3D;<em>value1</em>,<em>column2</em>&#x3D;<em>value2</em>,… WHERE <em>some_column</em>&#x3D;<em>some_value</em></p>
 <p>改变符合条件的某个（某些）元组的属性值</p>
 <h2 id="视图-VIEW"><a href="#视图-VIEW" class="headerlink" title="视图   (VIEW)"></a>视图   (VIEW)</h2><p> 视图是从一个或者多个表或视图中导出的表，其结构和数据是建立在对表的查询基础上的。和真实的表一样，视图也包括几个被定义的数据列和多个数据行，但从本质上讲，这些数据列和数据行来源于其所引用的表。因此，视图不是真实存在的基础表而是一个虚拟表，视图所对应的数据并不实际地以视图结构存储在数据库中，而是存储在视图所引用的表中。</p>
 <p>创建视图</p>
@@ -846,7 +847,8 @@
 <span class="token keyword">AS</span>
 <span class="token keyword">SELECT</span> book_ id<span class="token punctuation">,</span> name，author<span class="token punctuation">,</span> publish， price
 <span class="token keyword">FROM</span> Book
-<span class="token keyword">WHERE</span> price<span class="token operator">></span><span class="token number">30</span></code></pre>
+<span class="token keyword">WHERE</span> price<span class="token operator">></span><span class="token number">30</span>
+</code></pre>
 <p>视图的更新</p>
 <h2 id="数据查询（Select）"><a href="#数据查询（Select）" class="headerlink" title="数据查询（Select）"></a>数据查询（Select）</h2><h3 id="数据查询是数据库应用的核心功能"><a href="#数据查询是数据库应用的核心功能" class="headerlink" title="数据查询是数据库应用的核心功能"></a>数据查询是数据库应用的核心功能</h3><p>SELECT 的基本结构</p>
 <p>​    select&lt;目标列名序列&gt;        –&gt;需要哪些列</p>
@@ -863,13 +865,16 @@
 <li><p>去除重复元组:费时</p>
 </li>
 <li><p>需要临时表的支持</p>
-<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token keyword">distinct</span> publish <span class="token keyword">from</span> BOOK <span class="token comment" spellcheck="true">-->去重查询</span></code></pre>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token keyword">distinct</span> publish <span class="token keyword">from</span> BOOK <span class="token comment" spellcheck="true">-->去重查询</span>
+</code></pre>
 <h3 id="Select子句——-与属性列表"><a href="#Select子句——-与属性列表" class="headerlink" title="Select子句—— *与属性列表"></a>Select子句—— *与属性列表</h3></li>
 <li><p>星号 * 表示所有属性</p>
 <ul>
 <li>星号 * ：按关系模式中属性的顺序排列</li>
-<li>显式列出属性名：按用户顺序排列<pre class=" language-sql"><code class="language-sql"><span class="token keyword">Select</span> <span class="token operator">*</span>  <span class="token keyword">from</span> Book</code></pre>
-<h3 id="Select子句——更名"><a href="#Select子句——更名" class="headerlink" title="Select子句——更名"></a>Select子句——更名</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> name <span class="token keyword">as</span> 姓名 <span class="token keyword">from</span> BOOK        <span class="token comment" spellcheck="true">-->改名</span></code></pre>
+<li>显式列出属性名：按用户顺序排列<pre class=" language-sql"><code class="language-sql"><span class="token keyword">Select</span> <span class="token operator">*</span>  <span class="token keyword">from</span> Book
+</code></pre>
+<h3 id="Select子句——更名"><a href="#Select子句——更名" class="headerlink" title="Select子句——更名"></a>Select子句——更名</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> name <span class="token keyword">as</span> 姓名 <span class="token keyword">from</span> BOOK        <span class="token comment" spellcheck="true">-->改名</span>
+</code></pre>
 </li>
 </ul>
 </li>
@@ -878,7 +883,8 @@
 <li><p>使结果集更具可读性</p>
 <h3 id="Where-子句"><a href="#Where-子句" class="headerlink" title="Where 子句"></a>Where 子句</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">Select</span>  <span class="token operator">*</span> <span class="token keyword">from</span> Book <span class="token keyword">where</span> price<span class="token operator">></span><span class="token number">30</span>
 <span class="token keyword">select</span> name <span class="token keyword">from</span> BOOK <span class="token keyword">where</span> name <span class="token operator">like</span> <span class="token string">'%数学'</span>  <span class="token comment" spellcheck="true">-->模糊查询</span>
-<span class="token keyword">Select</span>  <span class="token operator">*</span> <span class="token keyword">from</span> Book <span class="token keyword">where</span> publish <span class="token operator">in</span><span class="token punctuation">(</span><span class="token string">'清华大学出版社'</span>，<span class="token string">'高等教育出版社'</span><span class="token punctuation">,</span><span class="token string">'机械工业出版社'</span><span class="token punctuation">)</span>        </code></pre>
+<span class="token keyword">Select</span>  <span class="token operator">*</span> <span class="token keyword">from</span> Book <span class="token keyword">where</span> publish <span class="token operator">in</span><span class="token punctuation">(</span><span class="token string">'清华大学出版社'</span>，<span class="token string">'高等教育出版社'</span><span class="token punctuation">,</span><span class="token string">'机械工业出版社'</span><span class="token punctuation">)</span>        
+</code></pre>
 </li>
 <li><p>查询满足指定条件的元组可以通过Where子句来实现</p>
 </li>
@@ -886,7 +892,7 @@
 </li>
 <li><p>Where 子句——运算符</p>
 <ul>
-<li>比较：&lt;、&lt;=、&gt;、&gt;=、=、&lt;&gt; 等</li>
+<li>比较：&lt;、&lt;&#x3D;、&gt;、&gt;&#x3D;、&#x3D;、&lt;&gt; 等</li>
 <li>确定范围：<ul>
 <li>Between  A  and  B、Not Between A and B</li>
 </ul>
@@ -926,18 +932,21 @@
 <li>外连接是指把两个表分为左右两个表。右外连接是指连接满足条件右侧表的全部记录。左外连接是指连接满足条件左侧表的全部记录。全外连接是指连接满足条件表的全部记录。</li>
 <li>左外连接</li>
 <li>右外连接</li>
-<li>全外连接<br>```sql</li>
-</ul>
+<li>全外连接<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">-->多表连接查询</span>
+<span class="token keyword">select</span> Student_Course<span class="token punctuation">.</span><span class="token operator">*</span> 
+<span class="token keyword">from</span> Student_Course <span class="token keyword">join</span> Student <span class="token keyword">on</span>
+Student_Course<span class="token punctuation">.</span>student_number <span class="token operator">=</span> Student<span class="token punctuation">.</span>student_number
+<span class="token keyword">where</span> student_name<span class="token operator">=</span><span class="token string">'张三'</span>
+</code></pre>
 </li>
 </ul>
 </li>
 </ul>
-<p>–&gt;多表连接查询<br>select Student_Course.*<br>from Student_Course join Student on<br>Student_Course.student_number = Student.student_number<br>where student_name=’张三’</p>
-<pre><code>
-### Order By子句
-
-```sql
-select price from BOOK order by price ASC --&gt;排序 ASC 升序 不写默认为升序  DESE 降序</code></pre><ul>
+</li>
+</ul>
+<h3 id="Order-By子句"><a href="#Order-By子句" class="headerlink" title="Order By子句"></a>Order By子句</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">select</span> price <span class="token keyword">from</span> BOOK <span class="token keyword">order</span> <span class="token keyword">by</span> price <span class="token keyword">ASC</span> <span class="token comment" spellcheck="true">-->排序 ASC 升序 不写默认为升序  DESE 降序</span>
+</code></pre>
+<ul>
 <li>指定结果集中元组的排列次序</li>
 <li>耗时</li>
 <li>ASC升序（缺省）、DESC降序</li>
@@ -951,16 +960,17 @@ select price from BOOK order by price ASC --&gt;排序 ASC 升序 不写默认�
      course_name <span class="token operator">in</span><span class="token punctuation">(</span>
      <span class="token keyword">select</span> course_name <span class="token keyword">from</span> Course
      <span class="token keyword">where</span> course_name<span class="token operator">=</span><span class="token string">'近代史'</span>
- <span class="token punctuation">)</span></code></pre>
+ <span class="token punctuation">)</span>
+</code></pre>
 <ul>
-<li>子查询是嵌套在另一查询中的 Select-From-Where 表达式（Where/Having）</li>
+<li>子查询是嵌套在另一查询中的 Select-From-Where 表达式（Where&#x2F;Having）</li>
 <li>SQL允许多层嵌套，由内而外地进行分析，子查询的结果作为父查询的查找条件</li>
 <li>可以用多个简单查询来构成复杂查询，以增强SQL的查询能力</li>
 <li>子查询中不使用 Order By 子句，Order By子句只能对最终查询结果进行排序</li>
 <li>子查询——单值比较<ul>
 <li>返回单值的子查询，只返回一行一列</li>
 <li>父查询与单值子查询之间用比较运算符进行连接<ul>
-<li>运算符：&gt;、&gt;=、=、&lt;=、&lt;、 &lt;&gt;</li>
+<li>运算符：&gt;、&gt;&#x3D;、&#x3D;、&lt;&#x3D;、&lt;、 &lt;&gt;</li>
 </ul>
 </li>
 </ul>
@@ -979,20 +989,20 @@ select price from BOOK order by price ASC --&gt;排序 ASC 升序 不写默认�
 <li>父查询与多值子查询之间的比较用All来连接</li>
 <li>值s比子查询返回集R中的每个都大时，s&gt;All R 为True </li>
 <li>All表示所有</li>
-<li>all、&lt; all、&lt;=all、&gt;=all、&lt;&gt; all</li>
+<li>all、&lt; all、&lt;&#x3D;all、&gt;&#x3D;all、&lt;&gt; all</li>
 <li>&lt;&gt; all 等价于 not in</li>
 </ul>
 </li>
-<li>子查询——多值比较Some/Any<ul>
-<li>父查询与多值子查询之间的比较需用Some/Any来连接</li>
+<li>子查询——多值比较Some&#x2F;Any<ul>
+<li>父查询与多值子查询之间的比较需用Some&#x2F;Any来连接</li>
 <li>值s比子查询返回集R中的某一个都大时返回 Ture<ul>
 <li>s &gt; Some R为True  或 </li>
-<li>s &gt; Any R为True </li>
+<li>s &gt; Any R为True</li>
 </ul>
 </li>
 <li>Some(早期用Any)表示某一个（任意一个）</li>
-<li>some、&lt; some、&lt;=some、&gt;=some、&lt;&gt; some</li>
-<li>= some 等价于 in、&lt;&gt; some 不等价于 not in</li>
+<li>some、&lt; some、&lt;&#x3D;some、&gt;&#x3D;some、&lt;&gt; some</li>
+<li>&#x3D; some 等价于 in、&lt;&gt; some 不等价于 not in</li>
 </ul>
 </li>
 </ul>
@@ -1037,7 +1047,7 @@ select price from BOOK order by price ASC --&gt;排序 ASC 升序 不写默认�
 <li>Count：不计</li>
 <li>Sum：不将其计入</li>
 <li>Avg：具有 Null 的元组不参与</li>
-<li>Max / Min：不参与<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2>数据库中的索引与书籍中的索引类似，在一本书中，利用索引可以快速查找所需信息，无须阅读整本书。在数据库中，索引使数据库程序无须对整个表进行扫描，就可以在其中找到所需数据。书中的索引是一个词语列表，其中注明了包含各个词的页码。而数据库中的索引是某个表中一列或者若干列值的集合和相应的指向表中物理标识这些值的数据页的逻辑指针清单</li>
+<li>Max &#x2F; Min：不参与<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2> 数据库中的索引与书籍中的索引类似，在一本书中，利用索引可以快速查找所需信息，无须阅读整本书。在数据库中，索引使数据库程序无须对整个表进行扫描，就可以在其中找到所需数据。书中的索引是一个词语列表，其中注明了包含各个词的页码。而数据库中的索引是某个表中一列或者若干列值的集合和相应的指向表中物理标识这些值的数据页的逻辑指针清单</li>
 </ul>
 </li>
 </ul>
@@ -1083,13 +1093,13 @@ select price from BOOK order by price ASC --&gt;排序 ASC 升序 不写默认�
 <li>（3）在名称编辑框中输入登录名，在身份验证选项栏中选择新建的用户帐号是Windows NT认证模式，还是SQL Server认证模式。 </li>
 <li>（４）选择服务器角色页框。在服务器角色列表框中，列出了系统的固定服务器角色。 </li>
 <li>（５）选择用户映射页框。上面的列表框列出了该帐号可以访问的数据库，单击数据库左边的复选框，表示该用户可以访问相应的数据库以及该帐号在数据库中的用户名。 </li>
-<li>（６）设置完成后，单击“确定”按钮即可完成登录帐号的创建。 </li>
+<li>（６）设置完成后，单击“确定”按钮即可完成登录帐号的创建。</li>
 </ul>
 </li>
 <li>使用SQL 语句创建登录帐号</li>
 <li>2.用户帐号管理 <ul>
 <li>在数据库中，一个用户或工作组取得合法的登录帐号，只表明该帐号通过了Windows NT认证或者SQL Server认证，但不能表明其可以对数据库数据和数据库对象进行某种或者某些操作，只有当他同时拥有了用户权限后，才能够访问数据库。 </li>
-<li>利用企业管理器可以授予SQL Server登录访问数据库的许可权限。使用它可创建一个新数据库用户帐号 </li>
+<li>利用企业管理器可以授予SQL Server登录访问数据库的许可权限。使用它可创建一个新数据库用户帐号</li>
 </ul>
 </li>
 </ul>
@@ -1106,7 +1116,7 @@ select price from BOOK order by price ASC --&gt;排序 ASC 升序 不写默认�
 </ul>
 </li>
 <li>3、预定义许可<ul>
-<li>是指系统安装以后有些用户和角色不必授权就有的许可。 </li>
+<li>是指系统安装以后有些用户和角色不必授权就有的许可。</li>
 </ul>
 </li>
 </ul>
@@ -1143,7 +1153,7 @@ select price from BOOK order by price ASC --&gt;排序 ASC 升序 不写默认�
 <li>db_datareader：能且仅能对数据库中的任何表执行select操作，从而读取所有表的信息。</li>
 <li>db_datawriter：能够增加、修改和删除表中的数据，但不能进行select操作。</li>
 <li>db_denydatareader：不能读取数据库中任何表中的数据。</li>
-<li>db_denydatawriter：不能对数据库中的任何表执行增加、修改和删除数据操作。 </li>
+<li>db_denydatawriter：不能对数据库中的任何表执行增加、修改和删除数据操作。</li>
 </ul>
 </li>
 <li>（２）用户自定义角色 <ul>
@@ -1160,7 +1170,7 @@ select price from BOOK order by price ASC --&gt;排序 ASC 升序 不写默认�
 <ul>
 <li>赋权语句——Grant</li>
 <li>收回权限——Revoke </li>
-<li>收回权限——Deny </li>
+<li>收回权限——Deny</li>
 </ul>
 
                 
@@ -1910,7 +1920,7 @@ select price from BOOK order by price ASC --&gt;排序 ASC 升序 不写默认�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">158k</span>&nbsp;字
+                class="white-color">152.8k</span>&nbsp;字
             
             
             

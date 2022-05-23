@@ -510,7 +510,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    77
+                    78
                 </div>
                 
 
@@ -541,20 +541,23 @@
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>类似斐波那契数列，不断循环。</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><pre class=" language-C"><code class="language-C">#include  stdio.h
 
-int main() {
+int main() &#123;
     int a = 1, b = 1, c = 1;
     int result = 0;
     for (int i=4 ;  i<=20190324 ; i++)
-    {
+    &#123;
         result = (a + b + c) %10000;
         a = b;
         b = c;
         c = result;
-    }
+    &#125;
     printf("%d\n",result);
     return 0;
-}</code></pre>
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><pre><code>4659</code></pre>
+&#125;
+</code></pre>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><pre><code>4659
+</code></pre>
+
                 
             </div>
             <hr/>
@@ -1306,7 +1309,7 @@ int main() {
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">158k</span>&nbsp;字
+                class="white-color">152.8k</span>&nbsp;字
             
             
             
