@@ -180,6 +180,16 @@
  
 
 
+   <style>
+    body{
+       background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
 
 <body>
   <!-- 页面预加载 -->
@@ -663,7 +673,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-10-19
+                    2022-05-24
                 </div>
                 
 
@@ -699,17 +709,17 @@
             <div id="articleContent">
                 <h2 id="Leetcode9-回文数"><a href="#Leetcode9-回文数" class="headerlink" title="Leetcode9 回文数"></a>Leetcode9 回文数</h2><p>判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。</p>
 <p><strong>示例 1:</strong></p>
-<pre><code>输入: 121
-输出: true
+<pre class=" language-bash"><code class="language-bash">输入: 121
+输出: <span class="token boolean">true</span>
 </code></pre>
 <p><strong>示例 2:</strong></p>
-<pre><code>输入: -121
-输出: false
+<pre class=" language-bash"><code class="language-bash">输入: -121
+输出: <span class="token boolean">false</span>
 解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。
 </code></pre>
 <p><strong>示例 3:</strong></p>
-<pre><code>输入: 10
-输出: false
+<pre class=" language-bash"><code class="language-bash">输入: 10
+输出: <span class="token boolean">false</span>
 解释: 从右向左读, 为 01 。因此它不是一个回文数。
 </code></pre>
 <p><strong>进阶:</strong></p>
@@ -731,20 +741,20 @@
 </code></pre>
 <h2 id="Leetcode189-旋转数组"><a href="#Leetcode189-旋转数组" class="headerlink" title="Leetcode189 旋转数组"></a>Leetcode189 旋转数组</h2><p>给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。</p>
 <p>示例 1:</p>
-<pre><code>输入: [1,2,3,4,5,6,7] 和 k = 3
-输出: [5,6,7,1,2,3,4]
+<pre class=" language-bash"><code class="language-bash">输入: <span class="token punctuation">[</span>1,2,3,4,5,6,7<span class="token punctuation">]</span> 和 k <span class="token operator">=</span> 3
+输出: <span class="token punctuation">[</span>5,6,7,1,2,3,4<span class="token punctuation">]</span>
 解释:
 </code></pre>
-<pre><code>向右旋转 1 步: [7,1,2,3,4,5,6]
-向右旋转 2 步: [6,7,1,2,3,4,5]
-向右旋转 3 步: [5,6,7,1,2,3,4]
+<pre class=" language-bash"><code class="language-bash">向右旋转 1 步: <span class="token punctuation">[</span>7,1,2,3,4,5,6<span class="token punctuation">]</span>
+向右旋转 2 步: <span class="token punctuation">[</span>6,7,1,2,3,4,5<span class="token punctuation">]</span>
+向右旋转 3 步: <span class="token punctuation">[</span>5,6,7,1,2,3,4<span class="token punctuation">]</span>
 </code></pre>
 <p>示例 2:</p>
-<pre><code>输入: [-1,-100,3,99] 和 k = 2
-输出: [3,99,-1,-100]
+<pre class=" language-bash"><code class="language-bash">输入: <span class="token punctuation">[</span>-1,-100,3,99<span class="token punctuation">]</span> 和 k <span class="token operator">=</span> 2
+输出: <span class="token punctuation">[</span>3,99,-1,-100<span class="token punctuation">]</span>
 解释: 
-向右旋转 1 步: [99,-1,-100,3]
-向右旋转 2 步: [3,99,-1,-100]
+向右旋转 1 步: <span class="token punctuation">[</span>99,-1,-100,3<span class="token punctuation">]</span>
+向右旋转 2 步: <span class="token punctuation">[</span>3,99,-1,-100<span class="token punctuation">]</span>
 </code></pre>
 <p>说明:</p>
 <p>尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。<br>要求使用空间复杂度为 O(1) 的 原地 算法。<br><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-array">链接</a></p>
@@ -794,7 +804,7 @@
 <h2 id="Leetcode617-合并二叉树"><a href="#Leetcode617-合并二叉树" class="headerlink" title="Leetcode617 合并二叉树"></a>Leetcode617 合并二叉树</h2><p>给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。</p>
 <p>你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。</p>
 <p>示例 1:</p>
-<pre><code>输入: 
+<pre class=" language-bash"><code class="language-bash">输入: 
     Tree 1                     Tree 2                  
           1                         2                             
          / \                       / \                            
@@ -1904,6 +1914,8 @@ $(function () {
         zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
     
 
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

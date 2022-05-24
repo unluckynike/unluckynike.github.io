@@ -180,6 +180,16 @@
  
 
 
+   <style>
+    body{
+       background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
 
 <body>
   <!-- 页面预加载 -->
@@ -663,7 +673,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-03-13
+                    2022-05-24
                 </div>
                 
 
@@ -742,35 +752,25 @@
 </blockquote>
 <p>明确、有意义的标题，可以帮助作者确定问题具体是什么类型、预估需要多少时间解决、是否现在马上解决等。一个好的标题，也有利于社区知识的沉淀和后期搜索。标题有如一个人的颜面衣着，虽然不是关键，但在嘈杂的信息社区中，这很重要。</p>
 <h3 id="遵循良好的模板"><a href="#遵循良好的模板" class="headerlink" title="遵循良好的模板"></a>遵循良好的模板</h3><p>如果社区提供了问题模板，一定要仔细看下。比如 Google Code 社区，当你创建一个问题时，会自动提供以下模板：</p>
-<pre><code>What steps will reproduce the problem? 
-该问题的重现步骤是什么？
-1. 
-2. 
-3. 
-
-What is the expected output? What do you see instead? 
-你期待的结果是什么？实际看到的又是什么？
-
-
-What version of the product are you using? On what operating system? 
-你正在使用产品的哪个版本？在什么操作系统上？
-
-
-Please provide any additional information below.
-如果有的话，请在下面提供更多信息。
-</code></pre>
+<hr>
+<p>What steps will reproduce the problem?<br>该问题的重现步骤是什么？</p>
+<p>1.<br>2.<br>3. </p>
+<p>What is the expected output? What do you see instead?<br>你期待的结果是什么？实际看到的又是什么？</p>
+<p>What version of the product are you using? On what operating system?<br>你正在使用产品的哪个版本？在什么操作系统上？</p>
+<p>Please provide any additional information below.<br>如果有的话，请在下面提供更多信息。</p>
+<hr>
 <p>遵循这个模板去描述问题，经常能省很多事。作者一般也非常欢迎通过模板提交的问题。如果社区没有提供模板，也可以自己遵循以上模板来提交。</p>
 <p>下面针对问题内容，具体说说一些需要注意的点。</p>
 <h3 id="语法正确、格式清晰"><a href="#语法正确、格式清晰" class="headerlink" title="语法正确、格式清晰"></a>语法正确、格式清晰</h3><p>虽然我们不是作家，但正确的语法、清晰的格式，可以让读者赏心悦目，也就更有心情帮你一起思考解决问题。</p>
 <p>对于很多需要代码来描述的问题，要尤其注意格式，比如</p>
-<pre><code>seajs.use(&#39;jquery&#39;,function($)&#123;$(document).ready(function() &#123; /* ... */ &#125;)&#125;);
+<pre class=" language-javascript"><code class="language-javascript">seajs<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'jquery'</span><span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span>$<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ready</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* ... */</span> <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>可读性不如</p>
-<pre><code>seajs.use(&#39;jquery&#39;, function($) &#123;
-  $(document).ready(function() &#123;
-    // ...
-  &#125;);
-&#125;);
+<pre class=" language-javascript"><code class="language-javascript">seajs<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'jquery'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>$<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ready</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+  <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>GitHub 的 Markdown 语法可以很好地支持代码排版、语法高亮等，建议书写代码时，一定要先阅读下说明：<a target="_blank" rel="noopener" href="http://github.github.com/github-flavored-markdown/">GitHub Flavored Markdown</a>。这能让你的内容看起来很专业，社区也就更有意愿会去帮助你，否则糟糕的排版，经常带来的是发帖之后的石沉大海。</p>
 <h3 id="描述事实、而不是猜测"><a href="#描述事实、而不是猜测" class="headerlink" title="描述事实、而不是猜测"></a>描述事实、而不是猜测</h3><p>事实是指，依次进行了哪些操作、产生了怎样的结果。比如</p>
@@ -1873,6 +1873,8 @@ $(function () {
         zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
     
 
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     

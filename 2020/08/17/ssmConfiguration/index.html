@@ -180,6 +180,16 @@
  
 
 
+   <style>
+    body{
+       background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+       background-repeat:no-repeat;
+       background-size:cover;
+       background-attachment:fixed;
+    }
+</style>
+
+
 
 <body>
   <!-- 页面预加载 -->
@@ -667,7 +677,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-03-02
+                    2022-05-24
                 </div>
                 
 
@@ -853,7 +863,7 @@
 <p>db_xxx  数据库名称</p>
 <p>8.0以上url添加时区 serverTimezone&#x3D;UTC</p>
 </blockquote>
-<pre><code>datasource.connection.driver_class=com.mysql.jdbc.Driver
+<pre class=" language-xml"><code class="language-xml">datasource.connection.driver_class=com.mysql.jdbc.Driver
 datasource.connection.url=jdbc:mysql://localhost:3306/db_xxx?useUnicode=true&amp;characterEncoding=utf-8
 datasource.connection.username=root
 datasource.connection.password=
@@ -897,11 +907,11 @@ datasource.connection.maxConnectionAge=0
 <h2 id="log4j-properties"><a href="#log4j-properties" class="headerlink" title="log4j.properties"></a>log4j.properties</h2><blockquote>
 <p>日志打印</p>
 </blockquote>
-<pre><code>### direct log message to stdout ###
+<pre class=" language-xml"><code class="language-xml">### direct log message to stdout ###
 log4j.appender.stdout.Target = System.out
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender
 log4j.appender.stdout.layout = org.apache.log4j.PatternLayout
-log4j.appender.stdout.layout.ConversionPattern =  %d&#123;ABSOLUTE&#125; %5p %c&#123;1&#125;:%L - %m%n
+log4j.appender.stdout.layout.ConversionPattern =  %d<span class="token entity" title="&#123;">&amp;#123;</span>ABSOLUTE<span class="token entity" title="&#125;">&amp;#125;</span> %5p %c<span class="token entity" title="&#123;">&amp;#123;</span>1<span class="token entity" title="&#125;">&amp;#125;</span>:%L - %m%n
 
 log4j.rootLogger=INFO, stdout
 </code></pre>
@@ -2153,6 +2163,8 @@ $(function () {
         zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
     
 
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     
