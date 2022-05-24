@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2022-05-24T01:58:52.925Z</updated>
+  <updated>2022-05-24T06:50:25.001Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Matery主题文章</title>
+    <link href="https://wulinzeng.vip/2022/05/24/HexoMateryPost/"/>
+    <id>https://wulinzeng.vip/2022/05/24/HexoMateryPost/</id>
+    <published>2022-05-24T06:40:35.000Z</published>
+    <updated>2022-05-24T06:50:25.001Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;新建文章&quot;&gt;&lt;a href=&quot;#新建文章&quot; class=&quot;headerlink&quot; title=&quot;新建文章&quot;&gt;&lt;/a&gt;新建文章&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://hexo.io/zh-cn/docs/writing&quot;&gt;Hexo</summary>
+        
+      
+    
+    
+    
+    <category term="Hexo" scheme="https://wulinzeng.vip/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://wulinzeng.vip/tags/Hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>Mac-M1 Docker</title>
@@ -527,33 +552,6 @@
     <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
     
     <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>阿里云ECS项目部署</title>
-    <link href="https://wulinzeng.vip/2020/10/27/AiliyunECSDeployProject/"/>
-    <id>https://wulinzeng.vip/2020/10/27/AiliyunECSDeployProject/</id>
-    <published>2020-10-27T07:58:37.000Z</published>
-    <updated>2021-03-02T02:34:08.838Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;准备工具&quot;&gt;&lt;a href=&quot;#准备工具&quot; class=&quot;headerlink&quot; title=&quot;准备工具&quot;&gt;&lt;/a&gt;准备工具&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;传送门🚪：&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="工具" scheme="https://wulinzeng.vip/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="部署上线" scheme="https://wulinzeng.vip/tags/%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF/"/>
-    
-    <category term="工具" scheme="https://wulinzeng.vip/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
