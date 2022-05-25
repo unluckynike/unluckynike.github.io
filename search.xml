@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Sublime Text Python</title>
+      <link href="/2022/05/25/SublimePython/"/>
+      <url>/2022/05/25/SublimePython/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Mac-OS-Python-安装"><a href="#Mac-OS-Python-安装" class="headerlink" title="Mac OS Python 安装"></a>Mac OS Python 安装</h2><blockquote><p>说明：1. Mac 本身自带 Python2.7。2. 允许两个版本共存。</p></blockquote><p>Mac OS 下安装 Python 主要方式有两种：</p><p>1、安装 Homebrew</p><p>使用了 Homebrew 安装 Python3 ，首先需要安装 Homebrew。</p><p>打开终端执行以下命名：</p><pre class=" language-bash"><code class="language-bash">ruby -e <span class="token string">"<span class="token variable"><span class="token variable">$(</span>curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="token variable">)</span></span>"</span></code></pre><p>执行过程中会自动安装 Xcode ，时间比较久可以等待一会。</p><p>2、homebrew 安装 python3</p><p>如果权限问题出错，请加上 sudo，如果需要安装 Python 3.X 版本，可以直接输入以下命令:</p><pre class=" language-bash"><code class="language-bash">brew <span class="token function">install</span> python3</code></pre><p>手动执行</p><pre class=" language-bash"><code class="language-bash">brew <span class="token function">link</span> python</code></pre><p>安装完成之后，系统将自动拥有了 python2.7 和 python 3.x ，可以使用 which 命名来查看 python 的安装路径</p><p>查看 Python 2个版本的安装路径：</p><pre class=" language-bash"><code class="language-bash">// 系统自带的 python2.7，目录为/usr/bin/python<span class="token function">which</span> python//brew 安装的 python3.7.4,目录为 /usr/local/Cellar/python/3.7.4<span class="token function">which</span> python3</code></pre><p>我本机之前安装过 3.5 的版本，因此需要修改本地环境变量：</p><ul><li>1、打开 Terminal（终端）</li><li>2、输入：<code>vi ~/.bash_profile</code></li><li>3、设置 PATH</li></ul><pre><code>PATH=&quot;/usr/local/Cellar/python/3.7.4/bin:$&#123;PATH&#125;&quot;export PATH</code></pre><ul><li>4、输入：:wq   &#x2F;&#x2F;保存并退出vi (注意在vi下 :)</li><li>5、修改立即生效：<code>source ~/.bash_profile</code></li><li>6、查看环境变量的值：<code>echo $PATH</code></li></ul><p>验证是否成功</p><p>打开终端 <code>python3 --version</code></p><h2 id="Sublime-Text"><a href="#Sublime-Text" class="headerlink" title="Sublime Text"></a>Sublime Text</h2><p><a href="http://www.sublimetext.com/">官网</a></p><p>Sublime Text 是一款非常流行的代码编辑器，其开发者是一名谷歌的工程师，其梦想是使之成为更好的文本编辑器。Sublime Text 支持 Python 代码编辑同时兼容所有平台，并且丰富的插件（称之为“包”）扩展了语法和编辑功能。</p><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>Sublime Text 通过 Package Control 来浏览、安装和卸载插件，安装 Package Control 有两种方案。</p><p>1、使用  View &gt; Show Console menu 打开 Sublime Text 控制台，将下面的 Python 代码粘贴到控制台里:</p><pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> urllib<span class="token punctuation">.</span>request<span class="token punctuation">,</span>os<span class="token punctuation">;</span> pf <span class="token operator">=</span> <span class="token string">'Package Control.sublime-package'</span><span class="token punctuation">;</span> ipp <span class="token operator">=</span> sublime<span class="token punctuation">.</span>installed_packages_path<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> urllib<span class="token punctuation">.</span>request<span class="token punctuation">.</span>install_opener<span class="token punctuation">(</span> urllib<span class="token punctuation">.</span>request<span class="token punctuation">.</span>build_opener<span class="token punctuation">(</span> urllib<span class="token punctuation">.</span>request<span class="token punctuation">.</span>ProxyHandler<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> open<span class="token punctuation">(</span>os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>ipp<span class="token punctuation">,</span> pf<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'wb'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>write<span class="token punctuation">(</span>urllib<span class="token punctuation">.</span>request<span class="token punctuation">.</span>urlopen<span class="token punctuation">(</span> <span class="token string">'http://sublime.wbond.net/'</span> <span class="token operator">+</span> pf<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">,</span><span class="token string">'%20'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre><p>安装完成后重启 Sublime Text 3，在 Perferences-&gt; 中看到 Package Setting 和 Package Control 则表示安装成功。</p><p>2、手动安装</p><p>可能由于各种原因，无法使用代码安装，那可以通过以下步骤手动安装 Package Control：</p><ul><li>点击 Preferences &gt; Browse Packages 菜单</li><li>进入打开的目录的上层目录，然后再进入 Installed Packages&#x2F; 目录</li><li>下载 Package Control.sublime-package 并复制到 Installed Packages&#x2F; 目录</li><li>重启 Sublime Text。</li></ul><h3 id="配置-Python-环境"><a href="#配置-Python-环境" class="headerlink" title="配置 Python 环境"></a><strong>配置 Python 环境</strong></h3><p>Sumbline text 3 中默认使用 command + B 就可以编译器来编译 Python 文件。</p><p>我们创建一个 hello.py 文件，文件中输入如下代码：</p><pre class=" language-python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello python!"</span><span class="token punctuation">)</span></code></pre><p>使用快捷 command + B 执行打印到控制台。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> Sublime </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Matery主题文章</title>
       <link href="/2022/05/24/HexoMateryPost/"/>
       <url>/2022/05/24/HexoMateryPost/</url>

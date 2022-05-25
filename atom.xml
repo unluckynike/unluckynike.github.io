@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2022-05-24T06:50:25.001Z</updated>
+  <updated>2022-05-25T07:27:22.825Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Sublime Text Python</title>
+    <link href="https://wulinzeng.vip/2022/05/25/SublimePython/"/>
+    <id>https://wulinzeng.vip/2022/05/25/SublimePython/</id>
+    <published>2022-05-25T07:15:07.000Z</published>
+    <updated>2022-05-25T07:27:22.825Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Mac-OS-Python-安装&quot;&gt;&lt;a href=&quot;#Mac-OS-Python-安装&quot; class=&quot;headerlink&quot; title=&quot;Mac OS Python 安装&quot;&gt;&lt;/a&gt;Mac OS Python</summary>
+        
+      
+    
+    
+    
+    <category term="开发工具" scheme="https://wulinzeng.vip/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="Python" scheme="https://wulinzeng.vip/tags/Python/"/>
+    
+    <category term="Sublime" scheme="https://wulinzeng.vip/tags/Sublime/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Matery主题文章</title>
     <link href="https://wulinzeng.vip/2022/05/24/HexoMateryPost/"/>
     <id>https://wulinzeng.vip/2022/05/24/HexoMateryPost/</id>
     <published>2022-05-24T06:40:35.000Z</published>
-    <updated>2022-05-24T06:50:25.001Z</updated>
+    <updated>2022-05-24T06:59:18.707Z</updated>
     
     
       
@@ -523,35 +550,6 @@
     
     
     <category term="计算机组成原理" scheme="https://wulinzeng.vip/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Idea Maven SSM整合配置</title>
-    <link href="https://wulinzeng.vip/2020/11/02/IdeaMavenSSM/"/>
-    <id>https://wulinzeng.vip/2020/11/02/IdeaMavenSSM/</id>
-    <published>2020-11-02T03:09:34.000Z</published>
-    <updated>2020-11-04T08:49:02.621Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;IntelliJ IDEA&lt;/strong&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="SSM" scheme="https://wulinzeng.vip/categories/SSM/"/>
-    
-    
-    <category term="Spring" scheme="https://wulinzeng.vip/tags/Spring/"/>
-    
-    <category term="SpringMVC" scheme="https://wulinzeng.vip/tags/SpringMVC/"/>
-    
-    <category term="MyBatis" scheme="https://wulinzeng.vip/tags/MyBatis/"/>
     
   </entry>
   
