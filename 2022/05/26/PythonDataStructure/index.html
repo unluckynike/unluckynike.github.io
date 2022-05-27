@@ -669,21 +669,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-05-26
+                    2022-05-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.8k
+                    10.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    19 分
+                    44 分
                 </div>
                 
 
@@ -1321,6 +1321,822 @@ Car--> Car 120迈 行驶
 BMWCar--> 宝马 100迈 行驶
 SVWCar--> 大众 80迈 行驶
 '''</span>
+</code></pre>
+<h2 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h2><p>Python 中的字典提供了一种灵活的访问和组织数据的方式</p>
+<ul>
+<li>字典是由很多值组成的集合</li>
+<li>字典的索引可以是不同的数据类型，同样也不止是整数，也有字符串</li>
+<li>字典的索引被称为“键”，键及键所关联的值叫键值对（类似于Java中的Map集合）</li>
+<li>字典是另一种可变容器模型，且可存储任意类型对象。</li>
+<li>字典的每个键值 key&#x3D;&gt;value 对用冒号 : 分割，每个键值对之间用逗号 , 分割，整个字典包括在花括号 {} 中 ,格式如下所示：</li>
+</ul>
+<pre class=" language-python"><code class="language-python">dictionary  <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'url1':'baidu', 'url':'google', 'num1':12, 'num2':34&amp;#125;;</span>
+</code></pre>
+<p>键一般是唯一的，如果键重复，最后的一个键值对会替换前面的键值对，值没有唯一性要求，如下：</p>
+<pre class=" language-python"><code class="language-python">dic1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'name':'zhangsan','age':23,'address':'BeiJing','name':'lisi'&amp;#125;</span>
+<span class="token comment" spellcheck="true"># 查看字典值发现重复的键值后面的替换前面的</span>
+dic1
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'name': 'lisi', 'age': 23, 'address': 'BeiJing'&amp;#125;</span>
+
+dic1<span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span>
+<span class="token string">'lisi'</span>
+</code></pre>
+<p>值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组，如下：</p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Alice': '2341', 'Beth': '9102', 'Cecil': '3258',('a','b'):(12,43)&amp;#125;</span>
+</code></pre>
+<h3 id="访问字典数据"><a href="#访问字典数据" class="headerlink" title="访问字典数据"></a>访问字典数据</h3><p>创建一个字典，并访问数据字典内容，以下字典的键是‘size’,’color’,’character’,这些键对应的值是‘big’,’white’,’gentle’,访问字典的值通过方括号里面添加键就可以直接进行访问，例如：</p>
+<pre class=" language-python"><code class="language-python">MyDog <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'size':'big','color':'white','character':'gentle'&amp;#125;</span>
+
+<span class="token comment" spellcheck="true"># 字典值通过[‘键’]来访问</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>MyDog<span class="token punctuation">[</span><span class="token string">'size'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ big   <span class="token comment" spellcheck="true">#输出结果</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'My Dog has '</span><span class="token operator">+</span>MyDog<span class="token punctuation">[</span><span class="token string">'color'</span><span class="token punctuation">]</span><span class="token operator">+</span><span class="token string">' fur.'</span> <span class="token operator">+</span> <span class="token string">' and it has a '</span> <span class="token operator">+</span> MyDog<span class="token punctuation">[</span><span class="token string">'character'</span><span class="token punctuation">]</span><span class="token operator">+</span><span class="token string">' character'</span><span class="token punctuation">)</span>
+My Dog has white fur<span class="token punctuation">.</span> <span class="token operator">and</span> it has a gentle character <span class="token comment" spellcheck="true">#输出结果</span>
+</code></pre>
+<p>同样的，字典也可以用整数作为键，和列表的索引类似，只是字典的值是任何整数类型都行，不必要从0开始，因为键值的数据类型是任意的，如下：</p>
+<pre class=" language-python"><code class="language-python">MyCon <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;12:'big',0:'white',354:'gentle',1:'good'&amp;#125;</span>
+<span class="token comment" spellcheck="true"># 访问键为 12 的字典值</span>
+MyCon<span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">]</span>
+<span class="token string">'big'</span>
+<span class="token comment" spellcheck="true"># 访问键为 0 的字典值</span>
+MyCon<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+<span class="token string">'white'</span>
+</code></pre>
+<p>因为字典是不排序的，所以不能像列表那样切片。如果访问字典中不存在的键，将导致 KeyError 出错信息。这很像列表的“越界” IndexError 出错信息。在交互式环境中输入以下代码，并注意显示的出错信息，因 为没有’color’键：</p>
+<pre class=" language-python"><code class="language-python">dic1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'name':'zhangsan','age':23,'address':'BeiJing'&amp;#125;</span>
+<span class="token comment" spellcheck="true">#找字典中键为 'color' 的值</span>
+dic1<span class="token punctuation">[</span><span class="token string">'color'</span><span class="token punctuation">]</span>
+Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  File <span class="token string">"&lt;input>"</span><span class="token punctuation">,</span> line <span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">></span>
+KeyError<span class="token punctuation">:</span> <span class="token string">'color'</span>
+</code></pre>
+<h3 id="修改字典元素"><a href="#修改字典元素" class="headerlink" title="修改字典元素"></a>修改字典元素</h3><p><strong>添加和更新字典数据</strong></p>
+<p>向字典添加新内容的方法是增加新的键&#x2F;值对，修改或删除已有键&#x2F;值对如下实例:</p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Fiona', 'Age': 10, 'Class': 'Three'&amp;#125;</span>
+<span class="token comment" spellcheck="true"># 更新</span>
+dict<span class="token punctuation">[</span><span class="token string">'Age'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">8</span> 
+<span class="token comment" spellcheck="true"># 添加</span>
+dict<span class="token punctuation">[</span><span class="token string">'School'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"Middle School"</span> 
+<span class="token comment" spellcheck="true"># 查看字典数据 </span>
+dict
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Fiona', 'Age': 8, 'Class': 'Three', 'School': 'Middle School'&amp;#125;</span>
+</code></pre>
+<p><strong>删除字典元素</strong></p>
+<p>对字典元素的删除操作能单一删除也能将整个字典清空，显示的删除一个字典使用 del 命令“</p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Fiona', 'Age': 10, 'Class': 'Three'&amp;#125;</span>
+
+<span class="token comment" spellcheck="true"># 删除键是'Name'的条目 </span>
+<span class="token keyword">del</span> dict<span class="token punctuation">[</span><span class="token string">'Name'</span><span class="token punctuation">]</span>  
+
+<span class="token comment" spellcheck="true"># 清空字典所有条目</span>
+dict<span class="token punctuation">.</span>clear<span class="token punctuation">(</span><span class="token punctuation">)</span>  
+
+<span class="token comment" spellcheck="true"># 删除整个字典元素</span>
+<span class="token keyword">del</span> dict          
+ 
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"dict['Age']: "</span><span class="token punctuation">,</span> dict<span class="token punctuation">[</span><span class="token string">'Age'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"dict['School']: "</span><span class="token punctuation">,</span> dict<span class="token punctuation">[</span><span class="token string">'School'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>以上打印语句这会引发一个异常，因为用 del 后的字典不再存在：</p>
+<pre class=" language-python"><code class="language-python">Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  File <span class="token string">"test.py"</span><span class="token punctuation">,</span> line <span class="token number">12</span><span class="token punctuation">,</span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">></span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"dict['Age']: "</span><span class="token punctuation">,</span> dict<span class="token punctuation">[</span><span class="token string">'Age'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+TypeError<span class="token punctuation">:</span> <span class="token string">'type'</span> object <span class="token keyword">is</span> <span class="token operator">not</span> subscriptable
+</code></pre>
+<h3 id="字典键的特性"><a href="#字典键的特性" class="headerlink" title="字典键的特性"></a>字典键的特性</h3><p>字典值可以没有限制地取任何python对象，既可以是标准的对象，也可以是用户定义的，但键不行。</p>
+<p>两个重要的点需要记住：</p>
+<p><strong>不允许同一个键出现两次。创建时如果同一个键被赋值两次，后一个值会被记住，如下实例：</strong></p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Fiona', 'Age': 10, 'Name': 'Manni'&amp;#125; </span>
+ 
+<span class="token keyword">print</span> <span class="token string">"dict['Name']: "</span><span class="token punctuation">,</span> dict<span class="token punctuation">[</span><span class="token string">'Name'</span><span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true"># 以上实例输出结果：</span>
+
+dict<span class="token punctuation">[</span><span class="token string">'Name'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>  Manni
+</code></pre>
+<p><strong>键必须不可变，所以可以用数字，字符串或元组充当，所以用列表就不行，如下实例：</strong></p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;['Name']: 'Fiona', 'Age': 10&amp;#125; </span>
+ 
+<span class="token keyword">print</span> <span class="token string">"dict['Name']: "</span><span class="token punctuation">,</span> dict<span class="token punctuation">[</span><span class="token string">'Name'</span><span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true"># 以上实例输出结果：</span>
+
+Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  File <span class="token string">"test.py"</span><span class="token punctuation">,</span> line <span class="token number">3</span><span class="token punctuation">,</span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">></span>
+    dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;['Name']: 'Zara', 'Age': 7&amp;#125; </span>
+TypeError<span class="token punctuation">:</span> list objects are unhashable
+</code></pre>
+<h3 id="字典的函数"><a href="#字典的函数" class="headerlink" title="字典的函数"></a>字典的函数</h3><p><strong>len()</strong></p>
+<p>len() 方法计算字典元素个数（键的总个数）</p>
+<pre class=" language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Fiona', 'Age': 10, 'class': 'Three'&amp;#125;  </span>
+<span class="token operator">>></span><span class="token operator">></span> len<span class="token punctuation">(</span>dict<span class="token punctuation">)</span>     
+<span class="token number">3</span>
+</code></pre>
+<p><strong>str()</strong></p>
+<p>str() 方法输出字典中可以打印的字符串标识</p>
+<pre class=" language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Runoob', 'Age': 10, 'Class': 'Three'&amp;#125;</span>
+<span class="token operator">>></span><span class="token operator">></span> str<span class="token punctuation">(</span>dict<span class="token punctuation">)</span>
+<span class="token string">"&amp;#123;'Name': 'Runoob', 'Age': 10, 'Class': 'Three'&amp;#125;"</span>
+</code></pre>
+<p><strong>type()</strong></p>
+<p>type() 方法返回输入的变量类型，如果变量是字典就返回字典类型</p>
+<pre><code>&gt;&gt;&gt; dict = &#123;&#39;Name&#39;: &#39;Runoob&#39;, &#39;Age&#39;: 10, &#39;Class&#39;: &#39;Three&#39;&#125;
+&gt;&gt;&gt; type(dict)
+&lt;class &#39;dict&#39;&gt;
+</code></pre>
+<h3 id="字典的方法"><a href="#字典的方法" class="headerlink" title="字典的方法"></a>字典的方法</h3><p> <strong>dict.clear()</strong></p>
+<p>删除字典内所有元素，clear() 方法没有任何返回值,实例如下：</p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Fiona', 'Age': 10&amp;#125;</span>
+
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"字典长度 : %d"</span> <span class="token operator">%</span>  len<span class="token punctuation">(</span>dict<span class="token punctuation">)</span><span class="token punctuation">)</span>
+dict<span class="token punctuation">.</span>clear<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"字典删除后长度 : %d"</span> <span class="token operator">%</span>  len<span class="token punctuation">(</span>dict<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出结果为：</span>
+字典长度 <span class="token punctuation">:</span> <span class="token number">2</span>
+字典删除后长度 <span class="token punctuation">:</span> <span class="token number">0</span>
+</code></pre>
+<p><strong>dict.copy()</strong></p>
+<p>copy() 方法对字典进行复制</p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Runoob', 'Age': 7, 'Class': 'First'&amp;#125;</span>
+
+dict11 <span class="token operator">=</span> dict<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict11<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"新复制的字典为 : "</span><span class="token punctuation">,</span> dict11<span class="token punctuation">)</span>
+
+dict1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'user': 'runoob', 'num': [1, 2, 3]&amp;#125;</span>
+
+<span class="token comment" spellcheck="true"># 浅拷贝: 引用对象  赋值</span>
+dict2 <span class="token operator">=</span> dict1  
+<span class="token comment" spellcheck="true"># 拷贝</span>
+dict3 <span class="token operator">=</span> dict1<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>  
+
+<span class="token comment" spellcheck="true"># 修改 data 数据</span>
+dict1<span class="token punctuation">[</span><span class="token string">'user'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'root'</span>
+dict1<span class="token punctuation">[</span><span class="token string">'num'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>remove<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出结果</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict1<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict2<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict3<span class="token punctuation">)</span>
+</code></pre>
+<p>实例中 dict2 其实是 dict1 的引用，即别名，所以输出结果都是一致的，dict3 对父对象进行了深拷贝，深拷贝不会随dict1 修改而修改，子对象是浅拷贝所以随 dict1 的修改而修改，<strong>即赋值会随父对象的修改而修改，拷贝不会随父对象的修改而修改</strong>，以上结果输出如下：</p>
+<pre class=" language-python"><code class="language-python"><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Runoob', 'Age': 7, 'Class': 'First'&amp;#125;</span>
+新复制的字典为 <span class="token punctuation">:</span>  <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Runoob', 'Age': 7, 'Class': 'First'&amp;#125;</span>
+
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'user': 'root', 'num': [2, 3]&amp;#125;</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'user': 'root', 'num': [2, 3]&amp;#125;</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'user': 'runoob', 'num': [2, 3]&amp;#125;</span>
+</code></pre>
+<p> <strong>dict.fromkeys()</strong></p>
+<p>创建一个新字典，以序列seq中元素做字典的键，val为字典所有键对应的初始值，该方法返回一个新的字典</p>
+<p><strong>fromkeys() 方法语法</strong></p>
+<pre class=" language-python"><code class="language-python">dict<span class="token punctuation">.</span>fromkeys<span class="token punctuation">(</span>seq<span class="token punctuation">[</span><span class="token punctuation">,</span> value<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 参数</span>
+seq <span class="token operator">-</span><span class="token operator">-</span> 字典键值列表。
+value <span class="token operator">-</span><span class="token operator">-</span> 可选参数<span class="token punctuation">,</span> 设置键序列（seq）对应的值，默认为 None。
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># dict.fromkeys(seq[, value])</span>
+seq <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">,</span> <span class="token string">'class'</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 不指定值</span>
+dict <span class="token operator">=</span> dict<span class="token punctuation">.</span>fromkeys<span class="token punctuation">(</span>seq<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"新的字典为 : %s"</span> <span class="token operator">%</span> str<span class="token punctuation">(</span>dict<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 赋值 10</span>
+dict <span class="token operator">=</span> dict<span class="token punctuation">.</span>fromkeys<span class="token punctuation">(</span>seq<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"新的字典为 : %s"</span> <span class="token operator">%</span> str<span class="token punctuation">(</span>dict<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#　赋值一个元组</span>
+dict <span class="token operator">=</span> dict<span class="token punctuation">.</span>fromkeys<span class="token punctuation">(</span>seq<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">'zs'</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token string">'Two'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"新的字典为 : %s"</span> <span class="token operator">%</span> str<span class="token punctuation">(</span>dict<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>执行结果返回一个新的字典，如果不指定值默认为None,以上结果输出结果为：</p>
+<pre class=" language-python"><code class="language-python">新的字典为 <span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'name': None, 'age': None, 'class': None&amp;#125;</span>
+新的字典为 <span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'name': 10, 'age': 10, 'class': 10&amp;#125;</span>
+新的字典为 <span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'name': ('zs', 8, 'Two'), 'age': ('zs', 8, 'Two'), 'class': ('zs', 8, 'Two')&amp;#125;</span>
+</code></pre>
+<p><strong>dict.get()</strong></p>
+<p>返回指定键的值，如果值不在字典中返回default值</p>
+<p><strong>get() 方法语法</strong></p>
+<pre class=" language-python"><code class="language-python">dict<span class="token punctuation">.</span>get<span class="token punctuation">(</span>key<span class="token punctuation">,</span> default<span class="token operator">=</span>None<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 参数key -- 字典中要查找的键。default -- 如果指定键的值不存在时，返回该默认值值。</span>
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># get ()方法的应用举例dict = &amp;#123;'Name': 'Mary', 'Age': 20&amp;#125;</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"Age 值为 : %s"</span> <span class="token operator">%</span>  dict<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'Age'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"Name 值为 : %s"</span> <span class="token operator">%</span>  dict<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'Name'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"Sex 值为 : %s"</span> <span class="token operator">%</span>  dict<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'Sex'</span><span class="token punctuation">,</span> <span class="token string">"NA"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>以上结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python">Age 值为 <span class="token punctuation">:</span> 20Name 值为 <span class="token punctuation">:</span> MarySex 值为 <span class="token punctuation">:</span> NA
+</code></pre>
+<p><strong>key in dict</strong></p>
+<p>如果键在字典dict里返回true，否则返回false</p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary', 'Age': 20,'Address':'BeiJing'&amp;#125;</span>
+
+<span class="token comment" spellcheck="true"># 检测键 Age 是否存在</span>
+<span class="token keyword">if</span> <span class="token string">'Age'</span> <span class="token keyword">in</span> dict<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"键 Age 存在"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"键 Age 不存在"</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 检测键 Sex 是否存在</span>
+<span class="token keyword">if</span> <span class="token string">'Sex'</span> <span class="token keyword">in</span> dict<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"键 Sex 存在"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"键 Sex 不存在"</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># not in</span>
+
+<span class="token comment" spellcheck="true"># 检测键 Name 是否存在</span>
+<span class="token keyword">if</span> <span class="token string">'Name'</span> <span class="token operator">not</span> <span class="token keyword">in</span> dict<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"键 Name 不存在"</span><span class="token punctuation">)</span>
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"键 Name 存在"</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>以上结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python">键 Age 存在
+键 Sex 不存在
+键 Name 存在
+</code></pre>
+<p><strong>dict.items()</strong></p>
+<p>item() 方法以列表返回可遍历的(键, 值) 元组数组</p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary', 'Age': 17&amp;#125;</span>
+ 
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"Value : %s"</span> <span class="token operator">%</span>  dict<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出结果为：</span>
+Value <span class="token punctuation">:</span> dict_items<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'Age'</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'Name'</span><span class="token punctuation">,</span> <span class="token string">'Mary'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>可遍历的元组数组举例：</strong></p>
+<pre class=" language-python"><code class="language-python">dict1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'老大':'25岁',</span>
+        <span class="token string">'老二'</span><span class="token punctuation">:</span><span class="token string">'20岁'</span><span class="token punctuation">,</span>
+        <span class="token string">'老三'</span><span class="token punctuation">:</span><span class="token string">'12岁'</span><span class="token punctuation">,</span>
+        <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict1<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> key<span class="token punctuation">,</span>values <span class="token keyword">in</span> dict1<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>key <span class="token operator">+</span> <span class="token string">'已经'</span> <span class="token operator">+</span> values <span class="token operator">+</span> <span class="token string">'了'</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>以上结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python">老大已经<span class="token number">25</span>岁了
+老二已经<span class="token number">20</span>岁了
+老三已经<span class="token number">12</span>岁了
+
+Process finished <span class="token keyword">with</span> exit code <span class="token number">0</span>
+</code></pre>
+<p><strong>dict..keys()</strong></p>
+<p>返回一个迭代器，可以使用 list() 来转换为列表</p>
+<p><strong>keys()方法语法：</strong></p>
+<pre class=" language-python"><code class="language-python">dict<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary', 'Age': 17&amp;#125;</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>以上结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python">dict_keys<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Name'</span><span class="token punctuation">,</span> <span class="token string">'Age'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+<p>由结果看出结果返回一个迭代对象，可以使用 list 转换为列表：</p>
+<pre class=" language-python"><code class="language-python">list1 <span class="token operator">=</span> list<span class="token punctuation">(</span>dict<span class="token punctuation">.</span>keys<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"转换后的结果为 : %s"</span> <span class="token operator">%</span> list1<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出结果为一个列表，后续可以对其进行相应操作：</span>
+转换后的结果为 <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'Name'</span><span class="token punctuation">,</span> <span class="token string">'Age'</span><span class="token punctuation">]</span>
+</code></pre>
+<p><strong>dict..setdefault()</strong></p>
+<p>Python 字典 setdefault() 方法和 get() 方法类似, 如果 key 在 字典中，返回对应的值。如果不在字典中，则插入 key 及设置的默认值 default，并返回 default ，default 默认值为 None。</p>
+<p><strong>setdefault()方法语法：</strong></p>
+<pre class=" language-python"><code class="language-python">dict<span class="token punctuation">.</span>setdefault<span class="token punctuation">(</span>key<span class="token punctuation">,</span> default<span class="token operator">=</span>None<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 参数</span>
+key <span class="token operator">-</span><span class="token operator">-</span> 查找的键值。
+default <span class="token operator">-</span><span class="token operator">-</span> 键不存在时，设置的默认键值。
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary', 'Age': 17&amp;#125;</span>
+ 
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"Age 键的值为 : %s"</span> <span class="token operator">%</span>  dict<span class="token punctuation">.</span>setdefault<span class="token punctuation">(</span><span class="token string">'Age'</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"Sex 键的值为 : %s"</span> <span class="token operator">%</span>  dict<span class="token punctuation">.</span>setdefault<span class="token punctuation">(</span><span class="token string">'Sex'</span><span class="token punctuation">,</span> None<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"新字典为："</span><span class="token punctuation">,</span> dict<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>以上结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python">Age 键的值为 <span class="token punctuation">:</span> <span class="token number">17</span>
+Sex 键的值为 <span class="token punctuation">:</span> None
+新字典为：<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Age': 17, 'Name': 'Mary', 'Sex': None&amp;#125;</span>
+</code></pre>
+<p> <strong>dict.update(dict2)</strong></p>
+<p>Python 字典 update() 函数把字典参数 dict2 的 key&#x2F;value(键&#x2F;值) 对更新到字典 dict 里。</p>
+<p><strong>语法：</strong></p>
+<pre class=" language-python"><code class="language-python">dict<span class="token punctuation">.</span>update<span class="token punctuation">(</span>dict2<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 参数</span>
+ dict2 <span class="token operator">-</span><span class="token operator">-</span> 添加到指定字典dict里的字典。
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary', 'Age': 17&amp;#125;</span>
+dict2 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Sex': 'female' &amp;#125;</span>
+
+<span class="token comment" spellcheck="true"># 将 dict2 中的结果添加到字典 dict 中　</span>
+dict<span class="token punctuation">.</span>update<span class="token punctuation">(</span>dict2<span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span><span class="token string">"更新字典 dict : "</span><span class="token punctuation">,</span> dict<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>以上结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python">更新字典 dict <span class="token punctuation">:</span>  <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary', 'Age': 17, 'Sex': 'female'&amp;#125;</span>
+</code></pre>
+<p> <strong>dict.values()</strong></p>
+<p>Python 字典 values() 方法返回一个迭代器，可以使用 list() 来转换为列表，列表为字典中的所有值。</p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123; 'Name': 'Mary','Sex': 'male', 'Age': 7&amp;#125;</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"字典所有值为 : "</span><span class="token punctuation">,</span> list<span class="token punctuation">(</span>dict<span class="token punctuation">.</span>values<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>以上结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python">字典所有值为 <span class="token punctuation">:</span>  <span class="token punctuation">[</span><span class="token string">'Mary'</span><span class="token punctuation">,</span> <span class="token string">'male'</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">]</span>
+</code></pre>
+<p><strong>dict.pop(key[,default])</strong></p>
+<p>Python 字典 pop() 方法删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。否则，返回default值。</p>
+<p> <strong>pop()方法语法：</strong></p>
+<pre class=" language-python"><code class="language-python">pop<span class="token punctuation">(</span>key<span class="token punctuation">[</span><span class="token punctuation">,</span>default<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#参数</span>
+key<span class="token punctuation">:</span> 要删除的键值
+default<span class="token punctuation">:</span> 如果没有 key，返回 default 值
+
+<span class="token comment" spellcheck="true"># 返回值</span>
+返回被删除的值。
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary', 'Age': 17&amp;#125;</span>
+
+result <span class="token operator">=</span> dict<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token string">'Age'</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 删除</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>以上结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token number">17</span>
+Process finished <span class="token keyword">with</span> exit code <span class="token number">0</span>
+</code></pre>
+<p><strong>dict.popitem()</strong></p>
+<p>Python 字典 popitem() 方法随机返回一个键值对(key,value)形式，按照 LIFO（Last In First Out 后进先出法） 顺序规则，即最末尾的键值对。如果字典已经为空，却调用了此方法，就报出KeyError异常。</p>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary', 'Age': 17&amp;#125;</span>
+pop_obj<span class="token operator">=</span>dict<span class="token punctuation">.</span>popitem<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>pop_obj<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>以上结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token punctuation">(</span><span class="token string">'Age'</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary'&amp;#125;</span>
+</code></pre>
+<p>将字典清空：</p>
+<pre class=" language-python"><code class="language-python">dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Name': 'Mary', 'Age': 17&amp;#125;</span>
+<span class="token keyword">del</span> dict
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>dict<span class="token punctuation">.</span>popitem<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>结果输出为：</strong></p>
+<pre class=" language-python"><code class="language-python">Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  File <span class="token string">"test.py"</span><span class="token punctuation">,</span> line <span class="token number">4</span><span class="token punctuation">,</span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">></span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>dict<span class="token punctuation">.</span>popitem<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+TypeError<span class="token punctuation">:</span> descriptor <span class="token string">'popitem'</span> of <span class="token string">'dict'</span> object needs an argument
+</code></pre>
+<h3 id="字典和列表"><a href="#字典和列表" class="headerlink" title="字典和列表"></a>字典和列表</h3><p> <strong>字典和列表差异</strong></p>
+<p>列表中的元素表项由于元素通过序列从 0 开始递增存放，所以列表中的表项是排序的，而字典的内容的表项是不排序的，如下例子就很好的说明列表和字典的区别：</p>
+<pre class=" language-python"><code class="language-python">list1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'zhangsan'</span><span class="token punctuation">,</span><span class="token number">23</span><span class="token punctuation">,</span><span class="token string">'BeiJing'</span><span class="token punctuation">]</span>
+list2 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'BeiJing'</span><span class="token punctuation">,</span><span class="token string">'zhangsan'</span><span class="token punctuation">,</span><span class="token number">23</span><span class="token punctuation">]</span>
+list1 <span class="token operator">==</span> list2
+<span class="token boolean">False</span>
+dic1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'name':'zhangsan','age':23,'address':'BeiJing'&amp;#125;</span>
+dic2 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123; 'age':23,'name':'zhangsan','address':'BeiJing'&amp;#125;</span>
+dic1 <span class="token operator">==</span> dic2
+<span class="token boolean">True</span>
+</code></pre>
+<p>由以上实例可以看出，当列表元素内容一致，顺序不同再对比内容时匹配不成功，同理字典值匹配成功，说明字典中元素内容不按顺序存放。</p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>Python也包含有 集合 类型。集合是由不重复元素组成的无序的集。它的基本用法包括成员检测和消除重复元素。集合对象也支持像 联合，交集，差集，对称差分等数学运算。</p>
+<p><strong>集合结构如下：</strong></p>
+<pre class=" language-python"><code class="language-python">set1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'hello', 'hello', 'word', 'word'&amp;#125;</span>
+set1
+<span class="token comment" spellcheck="true">#　输出结果实现自动去重</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'hello', 'word'&amp;#125;</span>
+</code></pre>
+<h3 id="集合创建"><a href="#集合创建" class="headerlink" title="集合创建"></a>集合创建</h3><p>可以使用大括号 { } 或者 set() 函数创建集合，</p>
+<p><strong>创建格式：</strong></p>
+<pre class=" language-python"><code class="language-python">parame <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;value01,value02,...&amp;#125;</span>
+或者
+set<span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+</code></pre>
+<p>注意：创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典。</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 创建空集合</span>
+<span class="token operator">>></span><span class="token operator">></span> empty_set <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>empty_set<span class="token punctuation">)</span>
+  <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'set'</span><span class="token operator">></span>
+
+<span class="token comment" spellcheck="true"># 创建空字典</span>
+<span class="token operator">>></span><span class="token operator">></span> empty_dict <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;&amp;#125;</span>
+<span class="token operator">>></span><span class="token operator">></span> type<span class="token punctuation">(</span>empty_dict<span class="token punctuation">)</span>
+  <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'dict'</span><span class="token operator">></span>
+</code></pre>
+<h3 id="集合的基本操作"><a href="#集合的基本操作" class="headerlink" title="集合的基本操作"></a>集合的基本操作</h3><p><strong>添加元素</strong></p>
+<p><strong>语法格式：</strong></p>
+<pre class=" language-python"><code class="language-python">s<span class="token punctuation">.</span>add<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+</code></pre>
+<p>将元素 x 添加到集合 s 中，如果元素已存在，则不进行任何操作。</p>
+<pre class=" language-python"><code class="language-python">s <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">'hello'</span><span class="token punctuation">,</span><span class="token string">'world'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 向集合 s 中添加元素</span>
+s<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token string">'!'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'添加元素后的集合是：%s'</span> <span class="token operator">%</span> s<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出结果是：</span>
+添加元素后的集合是：<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'world', '!', 'hello'&amp;#125;</span>
+</code></pre>
+<p>除了 add() 方法可以添加元素外，还有一个方法，也可以添加元素，并且参数可以是列表，元组，字典等，语法格式如下：</p>
+<pre class=" language-python"><code class="language-python">s<span class="token punctuation">.</span>update<span class="token punctuation">(</span> x <span class="token punctuation">)</span>
+</code></pre>
+<p>参数 x 可以是一个，也可以是多个，多个参数之间用逗号相隔</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#　1）添加列表</span>
+s<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'添加元素后的集合是：%s'</span> <span class="token operator">%</span> s<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 2）添加元组</span>
+s<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">'h'</span><span class="token punctuation">,</span> <span class="token string">'j'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'添加元素后的集合是：%s'</span> <span class="token operator">%</span> s<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>移除元素</strong></p>
+<p><strong>语法格式：</strong></p>
+<pre class=" language-python"><code class="language-python">s<span class="token punctuation">.</span>remove<span class="token punctuation">(</span> x <span class="token punctuation">)</span>
+</code></pre>
+<p>将元素 x 从集合 s 中移除，如果元素不存在，则会发生错误。</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 将元素 2 从集合中移除</span>
+s<span class="token punctuation">.</span>remove<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'移除元素 2 后的集合是：%s'</span> <span class="token operator">%</span> s<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 如果移除集合中不存在的元素会报异常</span>
+<span class="token comment" spellcheck="true"># 移除集合中不存在的集合</span>
+s<span class="token punctuation">.</span>remove<span class="token punctuation">(</span><span class="token string">'hi'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'移除元素后的集合是：%s'</span> <span class="token operator">%</span> s<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#　异常信息</span>
+Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  File <span class="token string">"test.py"</span><span class="token punctuation">,</span> line <span class="token number">20</span><span class="token punctuation">,</span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">></span>
+  s<span class="token punctuation">.</span>remove<span class="token punctuation">(</span><span class="token string">'hi'</span><span class="token punctuation">)</span>
+  KeyError<span class="token punctuation">:</span> <span class="token string">'hi'</span>
+</code></pre>
+<p>此外还有一个方法也是移除集合中的元素，且如果元素不存在，不会发生错误。格式如下所示：</p>
+<pre class=" language-python"><code class="language-python">s<span class="token punctuation">.</span>discard<span class="token punctuation">(</span> x <span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span>thisset <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">"Google"</span><span class="token punctuation">,</span> <span class="token string">"Runoob"</span><span class="token punctuation">,</span> <span class="token string">"Taobao"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> thisset<span class="token punctuation">.</span>discard<span class="token punctuation">(</span><span class="token string">"Facebook"</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 不存在不会发生错误</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>thisset<span class="token punctuation">)</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'Taobao', 'Google', 'Runoob'&amp;#125;</span>
+</code></pre>
+<p>我们也可以设置随机删除集合中的一个元素，语法格式如下：</p>
+<pre class=" language-python"><code class="language-python">s<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 随机删除集合中的一个元素</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+
+s<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'移除元素后的集合是：%s'</span> <span class="token operator">%</span> s<span class="token punctuation">)</span>
+
+输出结果：
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;1, 3, 4, 'world', '!', 'hello', 'h', 'j'&amp;#125;</span>
+移除元素后的集合是：<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;3, 4, 'world', '!', 'hello', 'h', 'j'&amp;#125;</span>
+</code></pre>
+<p><strong>注意</strong>：在交互模式，pop 是删除集合的第一个元素（排序后的集合的第一个元素）。</p>
+<p><strong>计算集合元素个数</strong></p>
+<p><strong>语法格式：</strong></p>
+<pre class=" language-python"><code class="language-python">len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+</code></pre>
+<p>计算集合 s 元素个数。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'集合 s 的长度是：%s'</span> <span class="token operator">%</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 输出结果集合 s 的长度是：7</span>
+</code></pre>
+<p><strong>清空集合</strong></p>
+<p><strong>语法格式：</strong></p>
+<pre class=" language-python"><code class="language-python">s<span class="token punctuation">.</span>clear<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>清空集合 </p>
+<pre class=" language-python"><code class="language-python">s<span class="token punctuation">.</span>clear<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'集合清空后的结果是：%s'</span> <span class="token operator">%</span> s<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出结果：</span>
+集合清空后的结果是：set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p> <strong>判断元素是否存在</strong></p>
+<p><strong>语法格式：</strong></p>
+<pre class=" language-python"><code class="language-python">x <span class="token keyword">in</span> s
+</code></pre>
+<p>判断元素 x 是否在集合 s 中，存在返回 True，不存在返回 False。</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 判断元素是否存在</span>
+s <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'hello',  'word'&amp;#125;</span>
+<span class="token comment" spellcheck="true"># 判断元素 hello 是否在集合 s 中</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>hello' <span class="token keyword">in</span> s<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出结果：True</span>
+</code></pre>
+<p> <strong>集合运算</strong></p>
+<p>集合之间的运算符分别是‘-’、‘|’、‘&amp;’、‘^’ ; 下面以两个集合之间的运算为例进行讲解：</p>
+<ul>
+<li>‘-’：代表前者中包含后者中不包含的元素</li>
+<li>‘|’：代表两者中全部元素聚在一起去重后的结果</li>
+<li>‘&amp;’：两者中都包含的元素</li>
+<li>‘^’：不同时包含于两个集合中的元素</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> a <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token string">'afqwbracadaagfgbrafg'</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> b <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token string">'rfgfgfalacazamddg'</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> a                                  
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'r', 'q', 'd', 'b', 'w', 'g', 'f', 'c', 'a'&amp;#125;</span>
+<span class="token operator">>></span><span class="token operator">></span> b
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'r', 'd', 'g', 'f', 'l', 'z', 'c', 'm', 'a'&amp;#125;</span>
+<span class="token comment" spellcheck="true"># 集合a中包含而集合b中不包含的元素</span>
+<span class="token operator">>></span><span class="token operator">></span> a <span class="token operator">-</span> b                              
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'b', 'w', 'q'&amp;#125;</span>
+ <span class="token comment" spellcheck="true"># 集合a或b中包含的所有元素</span>
+<span class="token operator">>></span><span class="token operator">></span> a <span class="token operator">|</span> b                             
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'d', 'g', 'l', 'c', 'r', 'q', 'b', 'w', 'f', 'z', 'm', 'a'&amp;#125;</span>
+<span class="token comment" spellcheck="true"># 集合a和b中都包含了的元素</span>
+<span class="token operator">>></span><span class="token operator">></span> a <span class="token operator">&amp;</span> b                              
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'r', 'd', 'g', 'f', 'c', 'a'&amp;#125;</span>
+<span class="token comment" spellcheck="true"># 不同时包含于a和b的元素</span>
+<span class="token operator">>></span><span class="token operator">></span> a <span class="token operator">^</span> b                              
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'l', 'q', 'b', 'w', 'z', 'm'&amp;#125;</span>
+</code></pre>
+<h3 id="集合推导式"><a href="#集合推导式" class="headerlink" title="集合推导式"></a>集合推导式</h3><p>和列表一样，集合也支持推导式</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 判断元素是否存在</span>
+<span class="token operator">>></span><span class="token operator">></span> a <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;x for x in 'abracadabra' if x not in 'abc'&amp;#125;</span>
+<span class="token operator">>></span><span class="token operator">></span> a
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'r', 'd'&amp;#125;</span>
+</code></pre>
+<h3 id="集合内置方法"><a href="#集合内置方法" class="headerlink" title="集合内置方法"></a>集合内置方法</h3><p> <strong>difference()</strong></p>
+<p>difference() 方法用于返回集合的差集，即返回的集合元素包含在第一个集合中，但不包含在第二个集合(方法的参数)中，返回一个新的集合。 difference() 方法语法：</p>
+<pre class=" language-python"><code class="language-python">set<span class="token punctuation">.</span>difference<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>实例：</strong> 两个集合的差集返回一个集合，元素包含在集合 x ，但不在集合 y ：</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 求两个集合的差集，元素在 x 中不在 y 中</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"apple", "banana", "cherry"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"google", "microsoft", "apple"&amp;#125;</span>
+
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>difference<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'两个集合的差集是：%s'</span> <span class="token operator">%</span> z<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出结果为：</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'cherry', 'banana'&amp;#125;</span>
+</code></pre>
+<p> <strong>difference_update()</strong></p>
+<ul>
+<li>difference_update() 方法用于移除两个集合中都存在的元素。</li>
+<li>difference_update() 方法与 difference() 方法的区别在于 difference() 方法返回一个移除相同元素的新集合，而 difference_update() 方法是直接在原来的集合中移除元素，没有返回值。</li>
+</ul>
+<pre class=" language-python"><code class="language-python">x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"apple", "banana", "cherry"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"google", "microsoft", "apple"&amp;#125;</span>
+
+x<span class="token punctuation">.</span>difference_update<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+结果为：
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'banana', 'cherry'&amp;#125;</span>
+
+x1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;1,2,3,4&amp;#125;</span>
+y1 <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;1,2,3&amp;#125;</span>
+
+x1<span class="token punctuation">.</span>difference_update<span class="token punctuation">(</span>y1<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>x1<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 结果为：</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;4&amp;#125;</span>
+</code></pre>
+<p><strong>intersection()</strong></p>
+<p>intersection() 方法用于返回两个或更多集合中都包含的元素，即交集，返回一个新的集合。</p>
+<p><strong>intersection() 方法语法：</strong></p>
+<pre class=" language-python"><code class="language-python">set<span class="token punctuation">.</span>intersection<span class="token punctuation">(</span>set1<span class="token punctuation">,</span> set2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> etc<span class="token punctuation">)</span>
+
+<span class="token operator">**</span>参数：<span class="token operator">**</span>
+set1 <span class="token operator">-</span><span class="token operator">-</span> 必需，要查找相同元素的集合
+set2 <span class="token operator">-</span><span class="token operator">-</span> 可选，其他要查找相同元素的集合，可以多个，多个使用逗号 <span class="token punctuation">,</span> 隔开
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 返回两个或者多个集合的交集</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"apple", "banana", "cherry"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"google", "runoob", "apple"&amp;#125;</span>
+
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>intersection<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#　返回三个集合的交集</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"a", "b", "c"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"c", "d", "e"&amp;#125;</span>
+z <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"f", "g", "c"&amp;#125;</span>
+
+result <span class="token operator">=</span> x<span class="token punctuation">.</span>intersection<span class="token punctuation">(</span>y<span class="token punctuation">,</span> z<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'三个集合的差集是：%s'</span> <span class="token operator">%</span> result<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 输出结果：</span>
+
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'apple'&amp;#125;</span>
+两个集合的差集是：<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'c'&amp;#125;</span>
+</code></pre>
+<p><strong>intersection_update()</strong></p>
+<ul>
+<li>intersection_update() 方法用于获取两个或更多集合中都重叠的元素，即计算交集。</li>
+<li>intersection_update() 方法不同于 intersection() 方法，因为 intersection() 方法是返回一个新的集合，而 intersection_update() 方法是在原始的集合上移除不重叠的元素。</li>
+</ul>
+<p><strong>intersection_update() 方法语法：</strong></p>
+<pre class=" language-python"><code class="language-python">set<span class="token punctuation">.</span>intersection_update<span class="token punctuation">(</span>set1<span class="token punctuation">,</span> set2 <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> etc<span class="token punctuation">)</span>
+
+<span class="token operator">**</span>参数<span class="token operator">**</span>
+set1 <span class="token operator">-</span><span class="token operator">-</span> 必需，要查找相同元素的集合
+set2 <span class="token operator">-</span><span class="token operator">-</span> 可选，其他要查找相同元素的集合，可以使用多个多个，多个使用逗号‘<span class="token punctuation">,</span>’ 隔开
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 返回一个无返回值的集合交集</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"apple", "banana", "cherry"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"google", "runoob", "apple"&amp;#125;</span>
+
+x<span class="token punctuation">.</span>intersection_update<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"a", "b", "c"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"c", "d", "e"&amp;#125;</span>
+z <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"f", "g", "c"&amp;#125;</span>
+
+x<span class="token punctuation">.</span>intersection_update<span class="token punctuation">(</span>y<span class="token punctuation">,</span> z<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#　输出结果：</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'apple'&amp;#125;</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'c'&amp;#125;</span>
+</code></pre>
+<p><strong>union()</strong></p>
+<p>union() 方法返回两个集合的并集，即包含了所有集合的元素，重复的元素只会出现一次，返回值返回一个新的集合</p>
+<p><strong>语法：</strong></p>
+<pre class=" language-python"><code class="language-python">union<span class="token punctuation">(</span><span class="token punctuation">)</span> 方法语法：
+
+set<span class="token punctuation">.</span>union<span class="token punctuation">(</span>set1<span class="token punctuation">,</span> set2<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span>
+参数
+set1 <span class="token operator">-</span><span class="token operator">-</span> 必需，合并的目标集合
+set2 <span class="token operator">-</span><span class="token operator">-</span> 可选，其他要合并的集合，可以多个，多个使用逗号 <span class="token punctuation">,</span> 隔开。
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 合并两个集合，重复元素只会出现一次：</span>
+
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"apple", "banana", "cherry"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"google", "runoob", "apple"&amp;#125;</span>
+ 
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>union<span class="token punctuation">(</span>y<span class="token punctuation">)</span> 
+ 
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+输出结果为：
+
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'cherry', 'runoob', 'google', 'banana', 'apple'&amp;#125;</span>
+
+<span class="token comment" spellcheck="true"># 合并多个集合：</span>
+
+实例 <span class="token number">1</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"a", "b", "c"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"f", "d", "a"&amp;#125;</span>
+z <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"c", "d", "e"&amp;#125;</span>
+ 
+result <span class="token operator">=</span> x<span class="token punctuation">.</span>union<span class="token punctuation">(</span>y<span class="token punctuation">,</span> z<span class="token punctuation">)</span> 
+ 
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+输出结果为：
+
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'c', 'd', 'f', 'e', 'b', 'a'&amp;#125;</span>
+</code></pre>
+<p><strong>isdisjoint()</strong></p>
+<p>isdisjoint() 方法用于判断两个集合是否包含相同的元素，如果没有返回 True，否则返回 False。</p>
+<p><strong>语法：</strong></p>
+<pre class=" language-python"><code class="language-python">isdisjoint<span class="token punctuation">(</span><span class="token punctuation">)</span> 方法语法：
+
+set<span class="token punctuation">.</span>isdisjoint<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python">x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"apple", "banana", "cherry"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"google", "runoob", "apple"&amp;#125;</span>
+<span class="token comment" spellcheck="true">#　判断集合 y 中是否包含集合 x 中的元素，如果没有返回 True, 有则返回 False</span>
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>isdisjoint<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 结果返回 False,说明集合 y 中有和 x 中相同的元素</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+
+
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"apple", "banana", "cherry"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"google", "runoob", "baidu"&amp;#125;</span>
+<span class="token comment" spellcheck="true">#　判断集合 y 中是否包含集合 x 中的元素，如果没有返回 True, 有则返回 False</span>
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>isdisjoint<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># 结果返回 True,说明集合 y 中没有和 x 中相同的元素</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+
+
+输出结果：
+<span class="token boolean">False</span>
+<span class="token boolean">True</span>
+</code></pre>
+<p><strong>issubset()</strong></p>
+<p>issubset() 方法用于判断集合的所有元素是否都包含在指定集合中，如果是则返回 True，否则返回 False。</p>
+<p><strong>语法:</strong></p>
+<pre class=" language-python"><code class="language-python">issubset<span class="token punctuation">(</span><span class="token punctuation">)</span> 方法语法：
+
+set<span class="token punctuation">.</span>issubset<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+
+<span class="token operator">**</span>参数<span class="token operator">**</span>
+set <span class="token operator">-</span><span class="token operator">-</span> 必需，要比查找的集合
+返回值
+返回布尔值，如果都包含返回 <span class="token boolean">True</span>，否则返回 <span class="token boolean">False</span>。
+</code></pre>
+<p><strong>实例:</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 判断集合 x 的所有元素是否都包含在集合 y 中：</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"a", "b", "c"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"f", "e", "d", "c", "b", "a"&amp;#125;</span>
+ 
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>issubset<span class="token punctuation">(</span>y<span class="token punctuation">)</span> 
+ 
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+
+输出结果
+<span class="token comment" spellcheck="true"># 说明 集合 x 中的元素都包含在 y 中</span>
+<span class="token boolean">True</span>
+</code></pre>
+<p>注意：必须是集合中的元素都包含在内，否则结果为false</p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#　集合 y 中只有元素 b 和 c ，执行结果为False </span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"a", "b", "c"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"f", "e", "d", "c", "b","y"&amp;#125;</span>
+
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>issubset<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+
+结果输出；
+<span class="token boolean">False</span>
+</code></pre>
+<p> <strong>issuperset()</strong></p>
+<p>issuperset() 方法用于判断指定集合的所有元素是否都包含在原始的集合中，如果是则返回 True，否则返回 False。</p>
+<p><strong>语法：</strong></p>
+<pre class=" language-python"><code class="language-python">set<span class="token punctuation">.</span>issuperset<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 判断集合 y 的所有元素是否都包含在集合 x 中：</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"f", "e", "d", "c", "b", "a"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"a", "b", "c"&amp;#125;</span>
+ 
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>issuperset<span class="token punctuation">(</span>y<span class="token punctuation">)</span> 
+ 
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+输出结果为：
+
+<span class="token boolean">True</span>
+
+
+<span class="token comment" spellcheck="true"># 如果没有全部包含返回 False：</span>
+
+实例 <span class="token number">1</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"f", "e", "d", "c", "b"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"a", "b", "c"&amp;#125;</span>
+ 
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>issuperset<span class="token punctuation">(</span>y<span class="token punctuation">)</span> 
+ 
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+输出结果为：
+
+<span class="token boolean">False</span>
+</code></pre>
+<p> <strong>symmetric_difference()</strong></p>
+<p>symmetric_difference() 方法返回两个集合中不重复的元素集合，即会移除两个集合中都存在的元素，结果返回一个新的集合。</p>
+<p><strong>语法：</strong></p>
+<pre class=" language-python"><code class="language-python">set<span class="token punctuation">.</span>symmetric_difference<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 返回两个集合组成的新集合，但会移除两个集合的重复元素：</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"apple", "banana", "cherry"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"google", "runoob", "apple"&amp;#125;</span>
+
+z <span class="token operator">=</span> x<span class="token punctuation">.</span>symmetric_difference<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+
+输出结果：
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'banana', 'google', 'cherry', 'runoob'&amp;#125;</span>
+</code></pre>
+<p> <strong>symmetric_difference_update()</strong></p>
+<p>symmetric_difference_update() 方法移除当前集合中在另外一个指定集合相同的元素，并将另外一个指定集合中不同的元素插入到当前集合中。</p>
+<p><strong>语法：</strong></p>
+<pre class=" language-python"><code class="language-python">set<span class="token punctuation">.</span>symmetric_difference_update<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>实例：</strong></p>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 在原始集合 x 中移除与 y 集合中的重复元素，并将不重复的元素插入到集合 x 中：</span>
+x <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"apple", "banana", "cherry"&amp;#125;</span>
+y <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"google", "runoob", "apple"&amp;#125;</span>
+
+x<span class="token punctuation">.</span>symmetric_difference_update<span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+输出结果：
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;'runoob', 'cherry', 'banana', 'google'&amp;#125;</span>
 </code></pre>
 
                 
@@ -2066,7 +2882,7 @@ SVWCar--> 大众 80迈 行驶
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">168.2k</span>&nbsp;字
+                class="white-color">174k</span>&nbsp;字
             
             
             
