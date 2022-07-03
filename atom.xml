@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2022-05-27T03:19:55.751Z</updated>
+  <updated>2022-07-03T00:41:47.956Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>深度学习改-善神经网络</title>
+    <link href="https://wulinzeng.vip/2022/07/03/ImprovingDeepNeuralNetworksAndrewNGweekone/"/>
+    <id>https://wulinzeng.vip/2022/07/03/ImprovingDeepNeuralNetworksAndrewNGweekone/</id>
+    <published>2022-07-03T00:31:54.000Z</published>
+    <updated>2022-07-03T00:41:47.956Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Hyperparameter tuning, Regularization and Optimization&lt;br&gt;改善深层神经网络：超参数调试、正则化以及优化&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;训练、验证、测试集&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://wulinzeng.vip/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="Andrew NG" scheme="https://wulinzeng.vip/tags/Andrew-NG/"/>
+    
+  </entry>
   
   <entry>
     <title>Python数据结构</title>
@@ -513,34 +541,6 @@
     
     
     <category term="工具" scheme="https://wulinzeng.vip/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac终端查看/杀死进程</title>
-    <link href="https://wulinzeng.vip/2021/02/19/MacCheckAndProcess/"/>
-    <id>https://wulinzeng.vip/2021/02/19/MacCheckAndProcess/</id>
-    <published>2021-02-19T08:17:12.000Z</published>
-    <updated>2021-02-19T08:29:25.962Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;查看PID&quot;&gt;&lt;a href=&quot;#查看PID&quot; class=&quot;headerlink&quot; title=&quot;查看PID&quot;&gt;&lt;/a&gt;查看PID&lt;/h2&gt;&lt;p&gt;在不知程序端口号的情况下&lt;/p&gt;
-&lt;pre class=&quot; language-bash&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="操作系统" scheme="https://wulinzeng.vip/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="操作系统" scheme="https://wulinzeng.vip/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    <category term="终端" scheme="https://wulinzeng.vip/tags/%E7%BB%88%E7%AB%AF/"/>
     
   </entry>
   
