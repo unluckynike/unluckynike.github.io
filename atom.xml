@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2022-07-03T00:41:47.956Z</updated>
+  <updated>2022-07-03T00:59:07.871Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>深度学习改-善神经网络</title>
+    <title>深度学习-改善神经网络</title>
     <link href="https://wulinzeng.vip/2022/07/03/ImprovingDeepNeuralNetworksAndrewNGweekone/"/>
     <id>https://wulinzeng.vip/2022/07/03/ImprovingDeepNeuralNetworksAndrewNGweekone/</id>
     <published>2022-07-03T00:31:54.000Z</published>
-    <updated>2022-07-03T00:41:47.956Z</updated>
+    <updated>2022-07-03T00:59:07.871Z</updated>
     
     
       
@@ -42,6 +42,10 @@
     
     <category term="Andrew NG" scheme="https://wulinzeng.vip/tags/Andrew-NG/"/>
     
+    <category term="人工智能" scheme="https://wulinzeng.vip/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="机器学习" scheme="https://wulinzeng.vip/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
   </entry>
   
   <entry>
@@ -49,7 +53,7 @@
     <link href="https://wulinzeng.vip/2022/05/26/PythonDataStructure/"/>
     <id>https://wulinzeng.vip/2022/05/26/PythonDataStructure/</id>
     <published>2022-05-26T09:09:11.000Z</published>
-    <updated>2022-05-27T03:19:55.751Z</updated>
+    <updated>2022-05-27T03:21:58.708Z</updated>
     
     
       
