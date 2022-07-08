@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Mathjax公式, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
+    <meta name="keywords" content="Mathjax公式(一), java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
     <meta name="description" content="正在学习编程的小猿，热爱生活，更爱学习">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -27,7 +27,7 @@
 </script>
 
 
-    <title>Mathjax公式 | WuLiZeng</title>
+    <title>Mathjax公式(一) | WuLiZeng</title>
     <link rel="icon" type="image/png" href="/medias/logo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -521,7 +521,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Mathjax公式</h1>
+                    <h1 class="description center-align post-title">Mathjax公式(一)</h1>
                 </div>
             </div>
         </div>
@@ -680,14 +680,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.7k
+                    4.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    17 分
+                    23 分
                 </div>
                 
 
@@ -1629,10 +1629,179 @@ $$
 <li>显示：</li>
 </ul>
 <p>$$<br>\bbox[#9ff, 5px]{<br>    e^x&#x3D;\lim_{n\to\infty} \left( 1+\frac{x}{n} \right)^n \qquad (1)<br>}<br>$$</p>
+<h4 id="大括号和行标的使用"><a href="#大括号和行标的使用" class="headerlink" title="大括号和行标的使用"></a>大括号和行标的使用</h4><p>在 <code>\left</code> 和 <code>\right</code> 之后加上要使用的括号来创建自动匹配高度的圆括号 <code>(</code> <code>)</code>，方括号 <code>[</code> <code>]</code> 和花括号 <code>\&#123;</code> <code>\&#125;</code>。<br>在每个公式末尾前使用 <code>\tag &#123;行标&#125;</code> 来实现行标。</p>
 <ul>
 <li>例子：</li>
 </ul>
-<p>&#96;&#96;&#96;tex<br>$$<br>% 此处使用 0.5 倍行高作为边距，附加 2 像素的实线边框（Ctrl+Alt+Y 可见）<br>\bbox[#2f3542, 0.5em, border:2px solid #f1f2f6]{<br>    \color</p>
+<pre class=" language-tex"><code class="language-tex">$$
+f\left(
+   \left[ 
+     \frac&#123;
+       1+\left\&#123;x,y\right\&#125;
+     &#125;&#123;
+       \left(
+          \frac xy + \frac yx
+       \right)
+       (u+1)
+     &#125;+a
+   \right]^&#123;3/2&#125;
+\right)
+\tag &#123;行标&#125;
+$$
+</code></pre>
+<ul>
+<li>显示：</li>
+</ul>
+<p>$$<br>f\left(<br>   \left[<br>     \frac{<br>       1+\left{x,y\right}<br>     }{<br>       \left(<br>          \frac xy + \frac yx<br>       \right)<br>       (u+1)<br>     }+a<br>   \right]^{3&#x2F;2}<br>\right)<br>\tag {行标}<br>$$</p>
+<p>如果你需要在不同的行显示对应括号，可以在每一行对应处使用 <code>\left.</code> 或 <code>\right.</code> 来放一个“不存在的括号”。</p>
+<ul>
+<li>例子：</li>
+</ul>
+<pre class=" language-tex"><code class="language-tex">$$
+\begin&#123;align*&#125;
+    a=&\left(1+2+3+ \cdots \right. \\
+      &\cdots+\left. \infty-2+\infty-1+\infty\right)
+\end&#123;align*&#125;
+$$
+</code></pre>
+<ul>
+<li>显示：</li>
+</ul>
+<p>$$<br>\begin{align*}<br>    a&#x3D;&amp;\left(1+2+3+ \cdots \right. \<br>      &amp;\cdots+\left. \infty-2+\infty-1+\infty\right)<br>\end{align*}<br>$$</p>
+<p>如果你需要将大括号里面显示的分隔符也变大，可以使用 <code>\middle</code> 命令，此处分别使用单竖线 <code>|</code> 和双竖线 <code>\\|</code> 。</p>
+<ul>
+<li>例子：</li>
+</ul>
+<pre class=" language-tex"><code class="language-tex">$$
+\left\langle  
+    q \; \middle|
+        \frac&#123;\frac xy&#125;&#123;\frac uv&#125;
+    \middle\| p 
+\right\rangle
+$$
+</code></pre>
+<ul>
+<li>显示：</li>
+</ul>
+<p>$$<br>\left\langle<br>    q ; \middle|<br>        \frac{\frac xy}{\frac uv}<br>    \middle| p<br>\right\rangle<br>$$</p>
+<h4 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h4><h5 id="定义新的运算符-operatorname"><a href="#定义新的运算符-operatorname" class="headerlink" title="定义新的运算符 \operatorname"></a>定义新的运算符 \operatorname</h5><p>当需要使用的运算符不在 MathJax 的内置库中时，程序可能会报错或产生错误的渲染结果。此时可以使用 <code>\operatorname</code> 命令定义一个新的运算符号。</p>
+<ul>
+<li>反例：</li>
+</ul>
+<pre class=" language-tex"><code class="language-tex">\begin&#123;array&#125;&#123;c|c&#125;
+    \mathrm&#123;Error&#125; & \text&#123;Wrong rendering&#125; \\
+    \hline \\
+    \arsinh(x) & arsinh(x) \\
+    \Res_&#123;z=1&#125; & Res_&#123;z=1&#125;&#123;\frac&#123;1&#125;&#123;z^2-z&#125;=1&#125; \\
+\end&#123;array&#125;
+</code></pre>
+<p>使用 <code>\operatorname&#123;运算符&#125;&#123;式子&#125;</code> 来生成一个普通运算，或使用 <code>\operatorname*&#123;运算符&#125;_&#123;下标&#125;^&#123;上标&#125;&#123;式子&#125;</code> 来生成一个含上下标的自定义运算。</p>
+<ul>
+<li>例子：</li>
+</ul>
+<pre class=" language-tex"><code class="language-tex">\begin&#123;array&#125;&#123;c|c&#125;
+    \text&#123;Normal Operator&#125; & \text&#123;Operator with label above and below&#125; \\
+    \hline \\
+    \scriptsize\text&#123;\operatorname&#123;arsinh&#125;&#123;x&#125;&#125; & \scriptsize\text&#123;\operatorname*&#123;Res&#125;_&#123;z=1&#125;&#123;\frac&#123;1&#125;&#123;z^2-z&#125;=1&#125;&#125; \\
+    \operatorname&#123;arsinh&#125;&#123;x&#125; & \operatorname*&#123;Res&#125;_&#123;z=1&#125;&#123;\frac&#123;1&#125;&#123;z^2-z&#125;=1&#125; \\
+\end&#123;array&#125;s
+</code></pre>
+<p>查询<a target="_blank" rel="noopener" href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference/15077#15077">关于此命令的定义</a>和<a target="_blank" rel="noopener" href="http://meta.math.stackexchange.com/search?q=operatorname">关于此命令的讨论</a>来进一步了解此命令。</p>
+<h5 id="添加注释文字-text"><a href="#添加注释文字-text" class="headerlink" title="添加注释文字 \text"></a>添加注释文字 \text</h5><p>在 <code>\text &#123;文字&#125;</code> 中仍可以使用 <code>$公式$</code> 插入其它公式。</p>
+<ul>
+<li>例子：</li>
+</ul>
+<pre class=" language-tex"><code class="language-tex">$$ f(n)= \begin&#123;cases&#125; n/2, & \text &#123;if $n$ is even&#125; \\ 3n+1, & \text&#123;if $n$ is odd&#125; \end&#123;cases&#125; $$
+</code></pre>
+<ul>
+<li>显示：<br>$$ f(n)&#x3D; \begin{cases} n&#x2F;2, &amp; \text {if $n$ is even} \ 3n+1, &amp; \text{if $n$ is odd} \end{cases} $$</li>
+</ul>
+<h5 id="在字符间加入空格"><a href="#在字符间加入空格" class="headerlink" title="在字符间加入空格"></a>在字符间加入空格</h5><p>有四种宽度的空格可以使用： <code>\,</code>、<code>\;</code>、<code>\quad</code> 和 <code>\qquad</code>，灵活使用 <code>\text&#123;n个空格&#125;</code> 也可以在任意位置实现空格。<br>同时存在一种负空格 <code>\!</code> 用来减小字符间距，一般在物理单位中使用。<br><strong>反复使用 <code>\!</code> 命令能够实现不同元素的叠加渲染，如$\wedge!!!!!!!!;\bigcirc$ 和 $ }!!!!!\div $</strong></p>
+<ul>
+<li>例子：</li>
+</ul>
+<pre class=" language-tex"><code class="language-tex">\begin&#123;array&#125;&#123;c|c&#125;
+    \text&#123;Spaces&#125; & \text&#123;Negative Space in Units&#125; \\
+    \hline \\
+    \overbrace&#123;a \! b&#125;^&#123;\text&#123;\!&#125;&#125; \mid \underbrace&#123;ab&#125;_&#123;\rm&#123;default&#125;&#125; \mid \overbrace&#123;a \, b&#125;^&#123;\text&#123;\,&#125;&#125; \mid \underbrace&#123;a \; b&#125;_&#123;\text&#123;\;&#125;&#125; \mid \overbrace&#123;a \quad b&#125;^&#123;\text&#123;\quad&#125;&#125; \mid \underbrace&#123;a \qquad b&#125;_&#123;\text&#123;\qquad&#125;&#125; & \mathrm&#123;N&#125;\!\cdot\!\mathrm&#123;m&#125; \mid \mathrm&#123;s&#125;\!\cdot\!\mathrm&#123;A&#125; \mid \mathrm&#123;kg&#125;\!\cdot\!\mathrm&#123;m&#125;^2 \\ 
+\end&#123;array&#125;
+</code></pre>
+<ul>
+<li>显示：</li>
+</ul>
+<p>一些常见的公式单位可表达如下：</p>
+<ul>
+<li>例子：</li>
+</ul>
+<pre class=" language-tex"><code class="language-tex">$$ \mu_0=4\pi\times10^&#123;-7&#125; \ \left.\mathrm&#123;\mathrm&#123;T&#125;\!\cdot\!\mathrm&#123;m&#125;&#125;\middle/\mathrm&#123;A&#125;\right. $$
+$$ 180^\circ=\pi \ \mathrm&#123;rad&#125; $$
+$$ \mathrm&#123;N_A&#125; = 6.022\times10^&#123;23&#125; \ \mathrm&#123;mol&#125;^&#123;-1&#125; $$
+</code></pre>
+<ul>
+<li>显示：<br>$$ \mu_0&#x3D;4\pi\times10^{-7} \ \left.\mathrm{\mathrm{T}!\cdot!\mathrm{m}}\middle&#x2F;\mathrm{A}\right. $$ $$ 180^\circ&#x3D;\pi \ \mathrm{rad} $$ $$ \mathrm{N_A} &#x3D; 6.022\times10^{23} \ \mathrm{mol}^{-1} $$</li>
+</ul>
+<h5 id="更改文字颜色-color"><a href="#更改文字颜色-color" class="headerlink" title="更改文字颜色 \color"></a>更改文字颜色 \color</h5><p>使用 <code>\color&#123;颜色&#125;&#123;文字&#125;</code> 来更改特定的文字颜色。</p>
+<p>更改文字颜色需要浏览器支持 ，如果浏览器不知道你所需的颜色，那么文字将被渲染为黑色。对于较旧的浏览器（HTML4 &amp; CSS2），以下颜色是被支持的：</p>
+<table>
+<thead>
+<tr>
+<th align="center">输入</th>
+<th align="center">显示</th>
+<th align="center">输入</th>
+<th align="center">显示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">black</td>
+<td align="center">$\color{black}{text}$</td>
+<td align="center">grey</td>
+<td align="center">$\color{grey}{text}$</td>
+</tr>
+<tr>
+<td align="center">silver</td>
+<td align="center">$\color{silver}{text}$</td>
+<td align="center">white</td>
+<td align="center">$\color{white}{text}$</td>
+</tr>
+<tr>
+<td align="center">maroon</td>
+<td align="center">$\color{maroon}{text}$</td>
+<td align="center">red</td>
+<td align="center">$\color{red}{text}$</td>
+</tr>
+<tr>
+<td align="center">yellow</td>
+<td align="center">$\color{yellow}{text}$</td>
+<td align="center">lime</td>
+<td align="center">$\color{lime}{text}$</td>
+</tr>
+<tr>
+<td align="center">olive</td>
+<td align="center">$\color{olive}{text}$</td>
+<td align="center">green</td>
+<td align="center">$\color{green}{text}$</td>
+</tr>
+<tr>
+<td align="center">teal</td>
+<td align="center">$\color{teal}{text}$</td>
+<td align="center">auqa</td>
+<td align="center">$\color{auqa}{text}$</td>
+</tr>
+<tr>
+<td align="center">blue</td>
+<td align="center">$\color{blue}{text}$</td>
+<td align="center">navy</td>
+<td align="center">$\color{navy}{text}$</td>
+</tr>
+<tr>
+<td align="center">purple</td>
+<td align="center">$\color{purple}{text}$</td>
+<td align="center">fuchsia</td>
+<td align="center">$\color{fuchsia}{text}$</td>
+</tr>
+</tbody></table>
+<p>对于较新的浏览器（HTML5 &amp; CSS3），HEX 颜色将被支持：</p>
+<p>输入 &#96;\color </p>
 
                 
             </div>
@@ -2017,9 +2186,9 @@ $$
                 <a href="/2022/07/08/MathjaxTutorial/">
                     <div class="card-image">
                         
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/geometry-gdde14c0be_1280.jpg" class="responsive-img" alt="Mathjax公式">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/geometry-gdde14c0be_1280.jpg" class="responsive-img" alt="Mathjax公式(一)">
                         
-                        <span class="card-title">Mathjax公式</span>
+                        <span class="card-title">Mathjax公式(一)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -2398,7 +2567,7 @@ $$
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">185k</span>&nbsp;字
+                class="white-color">186.2k</span>&nbsp;字
             
             
             
