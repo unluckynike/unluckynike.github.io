@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2022-07-06T11:16:20.611Z</updated>
+  <updated>2022-07-08T15:29:31.128Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mathjax公式</title>
+    <link href="https://wulinzeng.vip/2022/07/08/MathjaxTutorial/"/>
+    <id>https://wulinzeng.vip/2022/07/08/MathjaxTutorial/</id>
+    <published>2022-07-08T14:45:24.000Z</published>
+    <updated>2022-07-08T15:29:31.128Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zybuluo.com/codeep/note/163962&quot;&gt;原文链接 Cmd Markdown 公式指导手册 Drafted &amp;amp; Translated by &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="数学公式" scheme="https://wulinzeng.vip/categories/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/"/>
+    
+    
+    <category term="Mathjax" scheme="https://wulinzeng.vip/tags/Mathjax/"/>
+    
+    <category term="Latex" scheme="https://wulinzeng.vip/tags/Latex/"/>
+    
+  </entry>
   
   <entry>
     <title>深度学习-改善神经网络</title>
@@ -521,31 +549,6 @@
     <category term="操作系统" scheme="https://wulinzeng.vip/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     <category term="终端" scheme="https://wulinzeng.vip/tags/%E7%BB%88%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MacIDEA快捷键</title>
-    <link href="https://wulinzeng.vip/2021/02/19/MacIdeaQuickKey/"/>
-    <id>https://wulinzeng.vip/2021/02/19/MacIdeaQuickKey/</id>
-    <published>2021-02-19T08:34:03.000Z</published>
-    <updated>2021-02-19T08:40:04.949Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;Mac电脑IDEA常用快捷键&quot;&gt;&lt;a href=&quot;#Mac电脑IDEA常用快捷键&quot; class=&quot;headerlink&quot; title=&quot;Mac电脑IDEA常用快捷键&quot;&gt;&lt;/a&gt;Mac电脑IDEA常用快捷键&lt;/h2&gt;&lt;p&gt;command+A</summary>
-        
-      
-    
-    
-    
-    <category term="工具" scheme="https://wulinzeng.vip/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-    <category term="工具" scheme="https://wulinzeng.vip/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
