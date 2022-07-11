@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>深度学习数学符号</title>
+      <link href="/2022/07/11/DeepLearningNotation/"/>
+      <url>/2022/07/11/DeepLearningNotation/</url>
+      
+        <content type="html"><![CDATA[<h3 id="数据标记与上下标"><a href="#数据标记与上下标" class="headerlink" title="数据标记与上下标"></a>数据标记与上下标</h3><ul><li>上标 $^{(i)}$ 代表第 $i$ 个训练样本</li><li>上标 $^{[l]}$ 代表第 $l$ 层</li><li>$m$ 数据集的样本数</li><li>下标 $_x$ 输入数据</li><li>下标 $_y$ 输出数据</li><li>$n_x$ 输入大小</li><li>$n_y$ 输出大小 (或者类别数)</li><li>$n_h^{[l]}$ 第 $l$ 层的隐藏单元数</li><li>$L$ 神经网络的层数</li><li>在循环中<ul><li>$n_x &#x3D; n_h^{[0]}$</li><li>$n_y &#x3D; n_h^{[L + 1]}$</li></ul></li></ul><h3 id="神经网络模型"><a href="#神经网络模型" class="headerlink" title="神经网络模型"></a>神经网络模型</h3><ul><li>$X \in \mathbb{R}^{n_x \times m}$ 代表输入的矩阵</li><li>$x^{(i)} \in \mathbb{R}^{n_x}$ 代表第 $i$ 个样本的列向量</li><li>$Y \in \mathbb{R}^{n_y \times m}$ 是标记矩阵</li><li>$y^{(i)} \in \mathbb{R}^{n_y}$ 是第 $i$样本的输出标签</li><li>$W^{[l]} \in \mathbb{R}^{l \times (l-1)}$ 代表第 $[l]$ 层的权重矩阵</li><li>$b^{[l]} \in \mathbb{R}^{l}$ 代表第 $[l]$ 层的偏差矩阵</li><li>$\hat{y} \in \mathbb{R}^{n_y}$ 是预测输出向量<ul><li>也可以用 $a^{[L]}$ 表示</li></ul></li></ul><h4 id="正向传播方程示例"><a href="#正向传播方程示例" class="headerlink" title="正向传播方程示例"></a>正向传播方程示例</h4><ul><li>$a &#x3D; g^{[l]}(W_x x^{(i)}_ + b_1) &#x3D; g^{[l]}(z_1)$<ul><li>其中， $g^{[l]}$ 代表第 $l$ 层的激活函数</li></ul></li><li>$\hat{y} &#x3D; softmax(W_h h + b_2)$</li></ul><h4 id="通用激活公式"><a href="#通用激活公式" class="headerlink" title="通用激活公式"></a>通用激活公式</h4><ul><li>$a_j^{[l]} &#x3D; g^{[l]}(z_j^{[l]}) &#x3D; g^{[l]}(\sum_k w_{jk}^{[l]}a_k^{[l-1]} + b_j^{[l]})$<ul><li>$j$ 当前层的维度</li><li>$k$ 上一层的维度</li></ul></li></ul><h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><ul><li>$J(x, W, b, y)$ 或者 $J(\hat{y}, y)$</li><li>常见损失函数示例<ul><li>$J_{CE}(\hat{y}, y) &#x3D; -\sum_{i&#x3D;0}^m y^{(i)}log\hat{y}^{(i)}$</li><li>$J_1(\hat{y}, y) &#x3D; -\sum_{i&#x3D;0}^m |y^{(i)} - \hat{y}^{(i)}|$</li></ul></li></ul><h2 id="深度学习图示"><a href="#深度学习图示" class="headerlink" title="深度学习图示"></a>深度学习图示</h2><ul><li>节点：代表输入、激活或者输出</li><li>边：代表权重或者误差</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 深度学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 人工智能 </tag>
+            
+            <tag> 机器学习 </tag>
+            
+            <tag> 数学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mathjax公式(一)</title>
       <link href="/2022/07/08/MathjaxTutorial/"/>
       <url>/2022/07/08/MathjaxTutorial/</url>
@@ -23,6 +52,8 @@
             <tag> Mathjax </tag>
             
             <tag> Latex </tag>
+            
+            <tag> 数学 </tag>
             
         </tags>
       
