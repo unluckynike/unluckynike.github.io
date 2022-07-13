@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2022-07-11T10:12:08.744Z</updated>
+  <updated>2022-07-13T03:09:11.184Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>M1配置Conda环境安装Tensorflow</title>
+    <link href="https://wulinzeng.vip/2022/07/13/MacOSM1CondaAndTensorflow/"/>
+    <id>https://wulinzeng.vip/2022/07/13/MacOSM1CondaAndTensorflow/</id>
+    <published>2022-07-13T02:20:37.000Z</published>
+    <updated>2022-07-13T03:09:11.184Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;系统版本 ： macOS Ventura &lt;/p&gt;
+&lt;p&gt;设备信息： MacBook Air M1(AppleSilicon)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;Anaconda&quot;&gt;&lt;a href=&quot;#Anaconda&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="开发环境" scheme="https://wulinzeng.vip/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    
+    
+    <category term="人工智能" scheme="https://wulinzeng.vip/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="Tensorflow" scheme="https://wulinzeng.vip/tags/Tensorflow/"/>
+    
+    <category term="Anaconda" scheme="https://wulinzeng.vip/tags/Anaconda/"/>
+    
+  </entry>
   
   <entry>
     <title>深度学习数学符号</title>
@@ -529,32 +562,6 @@
     <category term="数据库" scheme="https://wulinzeng.vip/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     <category term="Linux" scheme="https://wulinzeng.vip/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Navicat连接阿里云ECS</title>
-    <link href="https://wulinzeng.vip/2021/02/25/NavicatConnectAliyunECS/"/>
-    <id>https://wulinzeng.vip/2021/02/25/NavicatConnectAliyunECS/</id>
-    <published>2021-02-25T10:28:52.000Z</published>
-    <updated>2021-02-27T10:07:29.944Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;进入ECS&quot;&gt;&lt;a href=&quot;#进入ECS&quot; class=&quot;headerlink&quot; title=&quot;进入ECS&quot;&gt;&lt;/a&gt;进入ECS&lt;/h2&gt;&lt;p&gt;使用终端&lt;/p&gt;
-&lt;pre class=&quot; language-bash&quot;&gt;&lt;code</summary>
-        
-      
-    
-    
-    
-    <category term="数据库" scheme="https://wulinzeng.vip/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="数据库" scheme="https://wulinzeng.vip/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   

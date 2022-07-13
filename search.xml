@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>M1配置Conda环境安装Tensorflow</title>
+      <link href="/2022/07/13/MacOSM1CondaAndTensorflow/"/>
+      <url>/2022/07/13/MacOSM1CondaAndTensorflow/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>系统版本 ： macOS Ventura </p><p>设备信息： MacBook Air M1(AppleSilicon)</p></blockquote><h2 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h2><p>下载 miniforge3，下载地址为：<a href="https://github.com/conda-forge/miniforge/#download">链接🔗</a></p><p>在Download中选择 Apple Silicon 版本：<code>arm64 (Apple Silicon)</code>将下载好的脚本移动到用户目录，并赋予执行权限，安装即可。</p><p> <strong>安装</strong></p><p>下载完以后在terminal依次输入以下三个命令，后面的命令也都是在terminal输入</p><pre class=" language-shell"><code class="language-shell">chmod +x ~/Downloads/Miniforge3-MacOSX-arm64.shsh ~/Downloads/Miniforge3-MacOSX-arm64.shsource ~/miniforge3/bin/activate</code></pre><p><strong>查看版本</strong></p><pre class=" language-shell"><code class="language-shell">conda --versionpython --version</code></pre><p> <strong>创建环境，指定为python3.9</strong></p><p><code>env_name</code>是环境名字</p><pre class=" language-shell"><code class="language-shell">conda create -n env_name python==3.9</code></pre><p><strong>激活环境</strong></p><pre class=" language-shell"><code class="language-shell">conda activate env_name</code></pre><p> <strong>安装jupyter</strong></p><pre class=" language-shell"><code class="language-shell">conda install jupyter notebook</code></pre><p><strong>使用jupyter</strong></p><pre class=" language-shell"><code class="language-shell">jupyter notebook</code></pre><h2 id="Tensorflow"><a href="#Tensorflow" class="headerlink" title="Tensorflow"></a>Tensorflow</h2><p>打开终端，在conda环境中，默认安装2.8版本的tensorflow，也可以指定版本。最好默认</p><pre class=" language-shell"><code class="language-shell">conda install -c apple tensorflow-depspython -m pip install tensorflow-macospython -m pip install tensorflow-metal</code></pre><h2 id="PyCharm"><a href="#PyCharm" class="headerlink" title="PyCharm"></a>PyCharm</h2><p>将虚拟环境设置到IDE便于管理切换操作路径为<code>Preferences</code>  -&gt; <code>Project</code>  -&gt; <code>Python Interpreter</code>  点击设计图标 选择 <code>Add</code>  -&gt;  <code>Conda Environment</code> 涂鸦部分为电脑用户名。</p><p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220713110234.png"></p><p><strong>查看tensorflow版本</strong></p><pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> tensorflow <span class="token keyword">as</span> tf<span class="token keyword">def</span> <span class="token function">print_hi</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>    <span class="token comment" spellcheck="true"># Use a breakpoint in the code line below to debug your script.</span>    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">'Hi, &amp;#123;name&amp;#125;'</span><span class="token punctuation">)</span>  # Press ⌘F8 to toggle the breakpoint<span class="token punctuation">.</span><span class="token comment" spellcheck="true"># Press the green button in the gutter to run the script.</span><span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>    print_hi<span class="token punctuation">(</span><span class="token string">'PyCharm'</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"># 查看tensorflow版本</span>    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'tensorflow Version ：'</span><span class="token operator">+</span>tf<span class="token punctuation">.</span>__version__<span class="token punctuation">)</span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发环境 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 人工智能 </tag>
+            
+            <tag> Tensorflow </tag>
+            
+            <tag> Anaconda </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>深度学习数学符号</title>
       <link href="/2022/07/11/DeepLearningNotation/"/>
       <url>/2022/07/11/DeepLearningNotation/</url>
