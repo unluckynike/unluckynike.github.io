@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2022-07-13T03:09:11.184Z</updated>
+  <updated>2022-07-14T00:58:40.220Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Conda常用命令</title>
+    <link href="https://wulinzeng.vip/2022/07/14/CondaCommand/"/>
+    <id>https://wulinzeng.vip/2022/07/14/CondaCommand/</id>
+    <published>2022-07-14T00:49:07.000Z</published>
+    <updated>2022-07-14T00:58:40.220Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt; 常用的命令&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;查看conda版本&lt;/p&gt;
+&lt;pre class=&quot; language-bash&quot;&gt;&lt;code class=&quot;language-bash&quot;&gt;python --version
+
+conda</summary>
+        
+      
+    
+    
+    
+    <category term="开发环境" scheme="https://wulinzeng.vip/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    
+    
+    <category term="Anaconda" scheme="https://wulinzeng.vip/tags/Anaconda/"/>
+    
+    <category term="人工智能" scheme="https://wulinzeng.vip/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+  </entry>
   
   <entry>
     <title>M1配置Conda环境安装Tensorflow</title>
@@ -41,11 +74,11 @@
     <category term="开发环境" scheme="https://wulinzeng.vip/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
     
     
+    <category term="Anaconda" scheme="https://wulinzeng.vip/tags/Anaconda/"/>
+    
     <category term="人工智能" scheme="https://wulinzeng.vip/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
     <category term="Tensorflow" scheme="https://wulinzeng.vip/tags/Tensorflow/"/>
-    
-    <category term="Anaconda" scheme="https://wulinzeng.vip/tags/Anaconda/"/>
     
   </entry>
   
@@ -74,9 +107,9 @@
     
     <category term="人工智能" scheme="https://wulinzeng.vip/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
-    <category term="机器学习" scheme="https://wulinzeng.vip/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
     <category term="数学" scheme="https://wulinzeng.vip/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+    <category term="机器学习" scheme="https://wulinzeng.vip/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -102,11 +135,11 @@
     <category term="数学公式" scheme="https://wulinzeng.vip/categories/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F/"/>
     
     
+    <category term="数学" scheme="https://wulinzeng.vip/tags/%E6%95%B0%E5%AD%A6/"/>
+    
     <category term="Mathjax" scheme="https://wulinzeng.vip/tags/Mathjax/"/>
     
     <category term="Latex" scheme="https://wulinzeng.vip/tags/Latex/"/>
-    
-    <category term="数学" scheme="https://wulinzeng.vip/tags/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   
@@ -135,11 +168,11 @@
     <category term="深度学习" scheme="https://wulinzeng.vip/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="Andrew NG" scheme="https://wulinzeng.vip/tags/Andrew-NG/"/>
-    
     <category term="人工智能" scheme="https://wulinzeng.vip/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
     
     <category term="机器学习" scheme="https://wulinzeng.vip/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="Andrew NG" scheme="https://wulinzeng.vip/tags/Andrew-NG/"/>
     
   </entry>
   
@@ -510,7 +543,7 @@
     <link href="https://wulinzeng.vip/2021/02/27/HowToAskQuestions/"/>
     <id>https://wulinzeng.vip/2021/02/27/HowToAskQuestions/</id>
     <published>2021-02-27T01:28:53.000Z</published>
-    <updated>2022-05-24T02:06:30.695Z</updated>
+    <updated>2022-07-14T00:59:52.373Z</updated>
     
     
       
@@ -532,36 +565,6 @@
     <category term="学习方法" scheme="https://wulinzeng.vip/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
     
     <category term="认知升级" scheme="https://wulinzeng.vip/tags/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CentOS8MySQL</title>
-    <link href="https://wulinzeng.vip/2021/02/25/CentOS8MySQL/"/>
-    <id>https://wulinzeng.vip/2021/02/25/CentOS8MySQL/</id>
-    <published>2021-02-25T14:57:56.000Z</published>
-    <updated>2021-02-25T15:19:00.260Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;服务器安装mysql8.0&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="数据库" scheme="https://wulinzeng.vip/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="数据库" scheme="https://wulinzeng.vip/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="Linux" scheme="https://wulinzeng.vip/tags/Linux/"/>
     
   </entry>
   

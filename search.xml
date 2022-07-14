@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Conda常用命令</title>
+      <link href="/2022/07/14/CondaCommand/"/>
+      <url>/2022/07/14/CondaCommand/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p> 常用的命令</p></blockquote><p>查看conda版本</p><pre class=" language-bash"><code class="language-bash">python --versionconda --versio</code></pre><p>更新conda版本</p><pre class=" language-bash"><code class="language-bash">conda update conda</code></pre><p>查看都安装了那些依赖库</p><pre class=" language-bash"><code class="language-bash">conda list</code></pre><p>创建新的python环境</p><pre class=" language-bash"><code class="language-bash">conda create --name myenv</code></pre><p>并且还可以指定python的版本</p><pre class=" language-bash"><code class="language-bash">conda create -n myenv python<span class="token operator">=</span>3.7</code></pre><p>创建新环境并指定包含的库</p><pre class=" language-bash"><code class="language-bash">conda create -n myenv scipy</code></pre><p>并且还可以指定库的版本</p><pre class=" language-bash"><code class="language-bash">conda create -n myenv scipy<span class="token operator">=</span>0.15.0</code></pre><p>复制环境</p><pre class=" language-bash"><code class="language-bash">conda create --name myclone --clone myenv</code></pre><p>查看是不是复制成功了</p><pre class=" language-bash"><code class="language-bash">conda info --envs</code></pre><p>激活、进入某个环境</p><pre class=" language-bash"><code class="language-bash"><span class="token function">source</span> activate myenvconda activate myenv</code></pre><p>退出环境</p><pre class=" language-bash"><code class="language-bash"><span class="token function">source</span> deactivateconda deactivate</code></pre><p>删除环境</p><pre class=" language-bash"><code class="language-bash">conda remove --name myenv --all</code></pre><p>查看当前的环境列表</p><pre class=" language-bash"><code class="language-bash">conda info --envs conda <span class="token function">env</span> list</code></pre><p>查看某个环境下安装的库</p><pre class=" language-bash"><code class="language-bash">conda list -n myenv</code></pre><p>查找包</p><pre class=" language-bash"><code class="language-bash">conda search XXX</code></pre><p>安装包</p><pre class=" language-bash"><code class="language-bash">conda <span class="token function">install</span> XXX</code></pre><p>更新包</p><pre class=" language-bash"><code class="language-bash">conda update XXX</code></pre><p>删除包</p><pre class=" language-bash"><code class="language-bash">conda remove XXX</code></pre><p>安装到指定环境</p><pre class=" language-bash"><code class="language-bash">conda <span class="token function">install</span> -n myenv XXX</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发环境 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Anaconda </tag>
+            
+            <tag> 人工智能 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>M1配置Conda环境安装Tensorflow</title>
       <link href="/2022/07/13/MacOSM1CondaAndTensorflow/"/>
       <url>/2022/07/13/MacOSM1CondaAndTensorflow/</url>
@@ -20,11 +47,11 @@
       
         <tags>
             
+            <tag> Anaconda </tag>
+            
             <tag> 人工智能 </tag>
             
             <tag> Tensorflow </tag>
-            
-            <tag> Anaconda </tag>
             
         </tags>
       
@@ -51,9 +78,9 @@
             
             <tag> 人工智能 </tag>
             
-            <tag> 机器学习 </tag>
-            
             <tag> 数学 </tag>
+            
+            <tag> 机器学习 </tag>
             
         </tags>
       
@@ -78,11 +105,11 @@
       
         <tags>
             
+            <tag> 数学 </tag>
+            
             <tag> Mathjax </tag>
             
             <tag> Latex </tag>
-            
-            <tag> 数学 </tag>
             
         </tags>
       
@@ -107,11 +134,11 @@
       
         <tags>
             
-            <tag> Andrew NG </tag>
-            
             <tag> 人工智能 </tag>
             
             <tag> 机器学习 </tag>
+            
+            <tag> Andrew NG </tag>
             
         </tags>
       
