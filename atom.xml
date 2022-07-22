@@ -6,7 +6,7 @@
   <link href="https://wulinzeng.vip/atom.xml" rel="self"/>
   
   <link href="https://wulinzeng.vip/"/>
-  <updated>2022-07-14T00:58:40.220Z</updated>
+  <updated>2022-07-22T14:58:33.143Z</updated>
   <id>https://wulinzeng.vip/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>卷积神经网络基本结构</title>
+    <link href="https://wulinzeng.vip/2022/07/22/ConvolutionalNeuralNetworks/"/>
+    <id>https://wulinzeng.vip/2022/07/22/ConvolutionalNeuralNetworks/</id>
+    <published>2022-07-22T14:53:19.000Z</published>
+    <updated>2022-07-22T14:58:33.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;卷积神经网络（CNN）在计算机视觉领域取得了惊人的成就，其强大的特征学习和表示能力使得基于 CNN</summary>
+        
+      
+    
+    
+    
+    
+    <category term="人工智能" scheme="https://wulinzeng.vip/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+  </entry>
   
   <entry>
     <title>Conda常用命令</title>
@@ -535,36 +559,6 @@ conda</summary>
     <category term="部署上线" scheme="https://wulinzeng.vip/tags/%E9%83%A8%E7%BD%B2%E4%B8%8A%E7%BA%BF/"/>
     
     <category term="SpringBoot" scheme="https://wulinzeng.vip/tags/SpringBoot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>提问的智慧</title>
-    <link href="https://wulinzeng.vip/2021/02/27/HowToAskQuestions/"/>
-    <id>https://wulinzeng.vip/2021/02/27/HowToAskQuestions/</id>
-    <published>2021-02-27T01:28:53.000Z</published>
-    <updated>2022-07-14T00:59:52.373Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;提问的智慧&quot;&gt;&lt;a href=&quot;#提问的智慧&quot; class=&quot;headerlink&quot; title=&quot;提问的智慧&quot;&gt;&lt;/a&gt;提问的智慧&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;声明&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;strong&gt;How To Ask</summary>
-        
-      
-    
-    
-    
-    <category term="认知升级" scheme="https://wulinzeng.vip/categories/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/"/>
-    
-    
-    <category term="学习方法" scheme="https://wulinzeng.vip/tags/%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95/"/>
-    
-    <category term="认知升级" scheme="https://wulinzeng.vip/tags/%E8%AE%A4%E7%9F%A5%E5%8D%87%E7%BA%A7/"/>
     
   </entry>
   
