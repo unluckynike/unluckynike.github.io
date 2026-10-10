@@ -1,0 +1,1485 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Dialogue Systems Survey, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
+    <meta name="description" content="
+《A Survey of Natural Language Generation Techniques with a Focus on Dialogue Systems - Past, Present and Future Directi">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>Dialogue Systems Survey | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Dialogue Systems Survey</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Dialogue-Systems/">
+                                <span class="chip bg-color">Dialogue Systems</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">机器学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E7%BB%BC%E8%BF%B0/" class="post-category">
+                                论文综述
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-09-22
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-10
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    12.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    43 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>《A Survey of Natural Language Generation Techniques with a Focus on Dialogue Systems - Past, Present and Future Directions》</p>
+</blockquote>
+<p>论文: <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1906.00500">https://arxiv.org/abs/1906.00500</a></p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>自然语言处理和人工智能领域最困难的问题之一是自动生成连贯的、人类可以理解的语言。教机器如何像人类一样交谈属于自然语言生成的广泛范畴。近年来，学术和行业研究人员在会议和期刊上发表的关于这一主题的研究文章数量出现了前所未有的增长。此外，还专门针对这一问题与顶级的NLP会议一起举办许多研讨会。所有这些活动使得我们很难清楚地定义场的状态和对其未来方向的推理。在这项工作中，我们提供了这一重要和蓬勃发展的领域的概述，包括传统方法，统计方法，以及使用深度神经网络的方法。本文对自然语言生成的一个重要应用——开放领域对话系统的构建进行了全面的综述。我们发现，构建对话系统的方法主要使用seq2seq或语言模型架构。值得注意的是，我们确定了为建立更有效的对话体系而进一步研究的三个重要领域:1.融入更大的语境，包括对话语境和世界知识;2.在NLG系统中添加人物或个性;3.克服那些会影响系统生成的回答质量的乏味和通用的回答。我们提供了如何通过使用模仿人类语言理解和生成能力的认知架构来解决这些开放问题的指针。</p>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>语言生成是自20世纪60年代以来自然语言处理(NLP)、人工智能(AI)和认知科学(CS)领域的一个子领域。NLG不仅包含人工智能的基本方面，还包括认知科学。然而，它仍然是实现人工通用智能(AGI)的主要挑战之一。<br>在图1中，我们概述了可以归类在语言生成框架下的应用程序。在这项工作中，我们专注于对话系统领域，这是自然用户界面的基础。<br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220910104905.png"><br>语言生成领域的一些早期成功是建立了像Eliza (Weizenbaum, 1966)和PARRY (Colby, 1975)这样的系统。这些系统通过一套规则生成语言。然而，这种基于规则的系统太受约束且脆弱，不容易推广以及不易产生不同的回应。其他传统的NLG技术从结构化数据或知识库生成文本。例如，可以生成天气报告(Angeli et al.， 2010)和体育报告(Barzilay and Lee, 2004)的基于领域的系统。<br>文本生成系统的领域从传统方法转向了统计方法，其中重点是利用文本数据中的模式，并构建模型，根据所看到的文本进行预测。Mikolov等人认为，在使用统计方法建模语言方面还没有任何显著的进展。这一观察结果促使他进行了使用循环神经网络的实验，并取得了当时最好的结果，使神经网络成为对文本等顺序数据建模的首选模型。神经网络属于一类机器学习模型，能够识别文本中的模式，并识别有助于解决与计算机视觉、物体识别、图像字幕和语音识别相关的不同问题的特征(Sutskever et al.， 2014)。另一个与神经网络的兴起相适应的现象是大量的语料库和重要的计算资源变得可用。在语言生成的应用中，神经网络在机器翻译(Bahdanau等人，2014年)、故事讲述Holtzman等人(2018年)、对话系统(Wolf等人，2019年;邢等，2017;Dinan et al.， 2018)和诗歌生成(Zhang and Lapata, 2014)。<br>然而，即使神经网络在开发对话系统方面具有强大的性能，目前的系统仍然存在一些问题，如迟钝和通用的响应，缺乏编码上下文和缺乏一致的角色。目前大多数对话系统和对话模型缺乏风格，这可能是一个问题，因为用户可能对交互不完全满意。生成个性化对话是另一项相当困难的任务，因为生成的回应必须与对话的上下文相关，同时还必须传递准确的副语言特征。<br>为了明确该领域的发展方向，我们对开放领域对话系统领域进行了全面概述。我们的主要目标是确定该领域的研究差距，并为未来的研究确定明确的途径。而最近的一些有关调查论文也存在 (Gatt and Krahmer, 2017; Gao et al., 2019)，这些报告没有明确指出研究空白，也没有提供对开放领域对话系统领域的全面审查。<br>综上所述，本文的目的是:a.概述了从传统方法到基于深度学习方法的自然语言生成领域的研究(我们将在第2节和第3节中介绍);b.对开放领域对话系统领域进行全面概述(我们在第4节的表1中总结);c.提出解决这些开放性问题的未来研究途径(见第5节)。</p>
+<h2 id="2-Traditional-Approaches-to-Language-Generation"><a href="#2-Traditional-Approaches-to-Language-Generation" class="headerlink" title="2. Traditional Approaches to Language Generation"></a>2. Traditional Approaches to Language Generation</h2><p>Reiter和Dale(2000)将自然语言生成(Natural Language Generation, NLG)定义为“人工智能和计算语言学的子领域，它关注计算机系统的构建，从一些潜在的非语言信息表示中产生可理解的英语或其他人类语言文本”。他们还提出了开发NLG系统的标准架构(图2)，由六个组件组成，每个组件执行一个重要的任务，以产生一致的输出。<br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220910143643.png"><br>他们的架构的动机是这样一个事实:当时有许多NLG系统用于不同的应用程序，但没有定义良好的、全面的架构。在六阶段流程之前，Reiter引入了简单的三阶段流程:1. content determination;2. sentence planning；3. surface realisation，并将其命名为“ “consensus””架构(Reiter, 1994)。Cahill et al.(1999)进行了实验，认为管道过程不详细，架构过于受限。为了克服这些问题，作者提出了一种基于语言操作的更精细的架构，如1. lexicalisation;2. referring expression generation；3. aggregation(Cahill et al.， 1999)。Cahill等人(1999)提出的架构的一个缺点是没有提供关于系统如何获得输入以及以何种形式获得输入的细节。 Reiter和 Dale迭代了他们的初始架构，并为NLG系统提出了一个新的标准架构，包括4元组&lt; k, c, u, d &gt;，其中k是知识来源，c是交际模型，u是用户模型，d是话语理论(Evans et al.， 2002)，迭代模型还将Cahill等人(1999)的一些方面的工作实现到架构中。<br>在下面的小节中，我们将解释这六个组件的功能，以及为解决该组件而进行的广泛研究工作。</p>
+<h3 id="2-1-Content-Determination"><a href="#2-1-Content-Determination" class="headerlink" title="2.1 Content Determination"></a>2.1 Content Determination</h3><p>Content Determination是确定为给定输入生成文本所需的域的问题。Content Determination受交际目标的影响，即不同人群的不同交际目标可能需要满足交际各方需求的系统来表达不同的内容。Content Determination受到最终用户的专业知识的影响，也受到系统中存在的信息源的内容的影响(Reiter和Dale, 2000)。<br>本文从两个不同的角度探讨了内容确定的问题:1.Schemas or templates（模式或模板）;2. Statistical data driven approaches（统计数据驱动方法）。<br>Schema- or Template-based content determination方法侧重于通过对语料库的分析生成内容，它们在任务中非常突出，而它们是标准化的，如天气预报系统，如FOG (Goldberg et al.， 1994)，其中修辞关系可以编码为schemas or schemata(McKeown, 1985)。 schemata由identification, constituency, attributive and contrastive（认同、构成、定语和对比）四部分组成。模式的每个组件都用来描述不同的谓词模式(McKeown, 1985)。可以通过使用基于规则的方法来改进模式或模板。基于规则的内容确定方法已用于领域特定系统，其中领域专家的隐性知识被用于更多的知识获取(Reiter等人，2000;Elhadad and Robin, 1996)。Reiter等人(2000)列出了不同的技术，如分类、大声思考、专家修改STOP系统中获取知识的方法，该系统生成了个性化的戒烟传单。<br>随着更多数据的可用性，Content Determination的过程变得由数据驱动。Duboue和McKeown(2003)开发了一个系统，通过精确匹配和统计选择两阶段的过程，自动生成每个输入的约束，并决定它是否应该作为输出的一部分，其中语义数据被聚类，每个聚类对应的文本被用来衡量其对其他聚类的影响程度。Barzilay和Lee(2004)提出了另一种方法，通过使用一种新的隐马尔可夫模型的改编，内容选择可以应用于没有提供知识库的领域。在他们的方法中，隐马尔可夫模型的状态对应于感兴趣领域的信息特征类型。Barzilay和Lapata(2005)提出了另一种类似的方法，通过捕获输入项之间的上下文依赖关系，将内容选择视为一个集体分类问题。<br>Liang等人(2009)扩展了Barzilay和Lapata的工作，通过描述一个概率生成模型，该模型使用隐藏马尔可夫模型在一个统一的框架中结合文本分割和事实识别。他们提出了一个生成模型，包括三个阶段:选择一组记录，从记录中识别字段，并从字段中选择一组单词序列，每个阶段都使用期望最大化(EM)进行优化。Liang等人(2009)所做的工作证明了将含量测定过程结合起来是有帮助的并将语言实现转化为一个统一的框架。另一个例子是Angeli等人(2010)所做的工作，其中生成的过程被分解为一系列本地决策，并在决策上使用分类器，包括从数据库中选择记录、从记录中选择字段子集以及选择一个模板来呈现生成的文本。然而，Kim和Mooney(2010)发现了Liang等人(2009)提出的方法的缺点，即只使用词袋和一个简单的隐马尔可夫模型，没有考虑上下文无关的语言句法。为了解决这个问题，Kim和Mooney使用了带有混合树的生成模型，该模型表示自然语言中的单词和语法结构(意思表示)之间的对应关系，并使用迭代生成策略学习(一种类似于EM的方法，迭代地提高概率，以确定可能从人类输入的事件)。内容确定的另一个例子(在端到端系统中)是Konstas和Lapata(2012)所做的工作，其中一组记录被转换成描述数据库结构的概率上下文无关语法，语法被编码为加权超图。生成过程是基于找到超图的最佳推导。在下一节中，我们将讨论文档结构，即语言生成的下一个子问题。</p>
+<h3 id="2-2-Document-Structuring"><a href="#2-2-Document-Structuring" class="headerlink" title="2.2 Document Structuring"></a>2.2 Document Structuring</h3><p>Reiter和Dale(2000)指定的第二个子问题是 document or text structuring。这是在内容确定之后，确定文本返回给用户的顺序的过程。 Document Structuring 和 Content Determination是紧密相连的。<br>对解决这一问题有重要影响的方法是借助修辞结构理论（ Rhetorical Structure Theory，RST）来理解话语关系(Mann and Thompson, 1986)。RST有四个组成 “relations”的元素，以 Nuclei和 satellite的形式确定文本不同部分之间的关系。 Nuclei代表文本的重要部分， satellite代表文本的补充部分，“ “schemas””定义了文本部分中的模式，可以根据其他跨度(树的节点)、“schemas application”和“”structures””进行分析，并帮助创建连贯的文本(Mann和Thompson, 1987)。<br>Moore和Paris(1993)在试图使用单个片段和片段之间的修辞关系来构建对话系统的文本计划时发现了RST的问题。RST未能对后续问题产生适当的回答。由于RST的这些问题，Moore和Pollack(1992)提出了一个两层次的话语分析过程。第一个层次被称为“信息层次”，它涉及话语中两个句子之间传递的关系，第二个层次被称为“意图层次”，它处理产生的话语，以影响参与者的心理状态的变化(Moore and Pollack, 1992)。Dimitromanolaki和Androutsopoulos(2003)使用监督机器学习学习了一种新的document structuring task表示，并将这种方法应用于特定领域的document structuring task。许多其他研究人员已经将文本结构和内容确定的过程联系在一起，形成一个单独的过程，这在前面的小节中已经描述过。</p>
+<h3 id="2-3-Lexicalization"><a href="#2-3-Lexicalization" class="headerlink" title="2.3 Lexicalization"></a>2.3 Lexicalization</h3><p>词汇化或选择正确的词来表达信息内容的任务是Reiter和Dale(2000)定义的第三个子问题。他们把词汇化的任务分为两类，即概念词汇化和表达词汇化。概念词汇化是指将数据转换为语言上可表达的概念表达词汇化是指语言中可用的词汇如何被用来表示概念意义(Reiter和Dale, 2000)。为了解决选择最佳词素来实现意义的问题，Bangalore和Rambow(2000)建议使用句法结构的树表示和独立手工制作的语法。这种方法的缺点之一是没有使用词性标记，没有使用将同义词集合中的所有同义词组合在一起的机制。传统的NLG方法将词汇化过程与句子聚合和指称表达生成过程一起视为句子规划阶段，然而，最近的NLG研究将词汇化视为语言实现阶段的一部分(Gatt和Krahmer, 2017)。</p>
+<h3 id="2-4-Referring-Expression-Generation"><a href="#2-4-Referring-Expression-Generation" class="headerlink" title="2.4 Referring Expression Generation"></a>2.4 Referring Expression Generation</h3><p>参考表达式生成(reference Expression Generation, REG)是Reiter和Dale(2000)定义的第四个子问题，它与架构的句子规划阶段聚合在一起。REG是产生实体描述并将其与其他领域实体区分开来的能力(Reiter和Dale, 2000)。一个实体可以以许多不同的方式被引用。例如，考虑下面的句子，“Adrian arrived late to an event and he missed a majority of it”。可以有两种方法来引用实体。第一个是实体被引入话语时的初始引用(例子中的Adrian)，另一个是实体被引入话语后的后续引用(例子中的he) (Reiter and Dale, 2000)。Reiter和Dale(2000)建议的解决方案的第一步是确定目标的引用类型，例如代词、描述或专有名称。专有名词的识别是最容易的，而代词的识别则可以基于“目标在前一句中被提及，且该句中没有其他同性别实体”的规则(Krahmer and Van Deemter, 2012)。<br>目前已有多种用于REG任务的算法。Dale(1989)创建了Full Brevity algorithm，通过识别目标和干扰物，生成非常短的描述引用表达式。然而，该算法存在着主要的缺陷，如只能生成短引用表达式，并且计算这些短表达式具有较高的复杂性(NP-hard)(Krahmer and Van Deemter, 2012)。对完全简洁的改进是贪婪启发式算法（Greedy Heuristic algorithm），它选择目标的一个属性，排除大多数干扰(与目标没有共同引用的词)，并将该属性添加到描述中(Dale, 1992)。贪心算法在性能上被增量算法(Incremental algorithm, IA)所取代。增量算法依次挑选属性，然后排除干扰，直到产生一个可区分的表达式(Dale和Reiter, 1995)。但是，这些描述可能包含冗余属性，这成为增量算法的一个缺点。<br>为了解决这些缺陷，Kees和Van Deemter(2002)探索了如何通过两阶段算法生成布尔描述来克服IA的不完整性。第一个阶段是对IA进行泛化的过程，通过取一个有助于挑选出目标集的属性的联合，下一个阶段是优化产生的表达式(Van Deemter, 2002;Krahmer和Van Deemter, 2012)。这项工作未能解决的一个问题是Horacek(2005)的工作中解决的概念模糊性。Horacek(2005)引入了包括以下措施来表示不确定性:$p_k$ -用户熟悉提到的术语，$p_p$-用户可以感知说出的属性，$p_A$ -用户同意使用的术语的适用性。借助这三种概率，得到识别概率$p$被计算为三种概率的乘积，这有助于区分模糊、误解和歧义(Horacek, 2005)。后来，Khan等人(2008)以“形容词Noun1 Noun1”的形式解决了协调短语中结构歧义的问题，以确定该形容词与Noun1或Noun2相关联。Khan等人(2008)进行了用户研究，并建议如何避免这些问题。然而，Engonopoulos和Koller(2014)认为听众可能会误解生成的表达。为了解决这些问题，Engonopoulos和Koller(2014)提出了一种算法，在概率引用表达式模型$P(a|t)$的帮助下，最大化用户理解引用表达式的可能性，其中$t$指表达式，$a$指域中的对象。在下一小节中，我们将讨论依赖于REG算法能力的句子聚合。</p>
+<h3 id="2-5-Sentence-Aggregation"><a href="#2-5-Sentence-Aggregation" class="headerlink" title="2.5 Sentence Aggregation"></a>2.5 Sentence Aggregation</h3><p>句子聚合（Sentence Aggregation）的特点是在话语生成过程中去除冗余信息而不丢失任何信息，以简洁、流畅、可读的方式生成文本的过程(Dalianis, 1999)。Dalianis，在他的调查中指出，聚合可以在NLG过程的所有阶段完成，除了在内容确定和表面实现阶段。Reiter和Dale将这个子问题标记为属于句子计划或微计划阶段(Reiter和Dale, 2000)。Reiter和Dale将聚合问题与词汇化紧密联系在一起，因为两者都涉及对单词、短语和句子的知识来源和语言元素的理解(Reiter和Dale, 2000)。<br>Cheng和Mellish(2000)利用遗传算法(Genetic Algorithms)提出了解决句子聚合问题的初步方法之一，他们使用一个基于约束的程序，带有偏好函数来评估文本的连贯性。沃克et al . .(2001)使用数据驱动的方法克服了Cheng等人(2000)使用的手工制作偏好函数的问题。在他们的工作中，他们使用了两个阶段;第一阶段为输入生成大量的句子样本，下一阶段利用训练数据生成的规则对句子进行排序。Barzilay和Lapata(2006)提出了一种自动学习分组约束的方法，该方法利用并行语料库的句子及其对应的数据库条目，通过查看条目共享的属性数量来学习这些条目的分组约束。在下一节中，我们将介绍语言实现方面，这是流水线的最后阶段，以及在流水线早期阶段完成的工作上运行的不同机制。</p>
+<h3 id="2-6-Linguistic-Realization"><a href="#2-6-Linguistic-Realization" class="headerlink" title="2.6 Linguistic Realization"></a>2.6 Linguistic Realization</h3><p>Reiter和Dale将语言实现定义为对句子的不同部分进行排序，并使用正确的词法和标点符号，这些标点符号受语法规则的约束，以产生语法和正字法上正确的文本(Reiter和Dale, 2000)。在本节中，我们将介绍三种实现语言的方法。</p>
+<h4 id="2-6-1-HAND-CODED-GRAMMAR-BASED-SYSTEMS"><a href="#2-6-1-HAND-CODED-GRAMMAR-BASED-SYSTEMS" class="headerlink" title="2.6.1 HAND-CODED GRAMMAR-BASED SYSTEMS"></a>2.6.1 HAND-CODED GRAMMAR-BASED SYSTEMS</h4><p>基于语法的NLG系统是根据语言的语法做出选择的系统，可以在 multilingual realizers的帮助下手动编写语法。 multilingual realizers的一个例子是KPML，由贝特曼开发(Gatt和Krahmer, 2017;Bateman, 1997)，它依赖于系统语法来帮助理解一个句子的句法特征。另一个流行的 realizers SURGE是由Elhadad和Robin(1996)基于功能统一的形式主义开发的。另一种流行的 realizers是由Langkilde(2002)介绍的Halogen。该系统使用一组手工制作的语法规则作为特征来生成可选表示。使用这些实现器的一个缺点是它们使用起来很复杂，对用户来说有一个陡峭的学习曲线，这使得NLG社区转向了简单的realization engines。</p>
+<h4 id="2-6-2-TEMPLATES"><a href="#2-6-2-TEMPLATES" class="headerlink" title="2.6.2 TEMPLATES"></a>2.6.2 TEMPLATES</h4><p>模板常用于输出中对语法可变性要求有限的系统(Reiter和Dale, 1997)。假设模板 [person] is leaving [country] ，在此场景中，系统可以在输出阶段替换person和country值。基于模板的NLG系统的一个问题是模板在生成不同的生成文本集方面缺乏灵活性。McRoy等人(2003)提出了一种方法，可以通过声明式控件表达式来增强传统模板，从而克服这些问题。Van Deemter等人(2005)认为，随着新的NLG系统的开发，标准NLG系统和基于模板的系统之间的区别已经模糊，因为现代系统使用手工编写的语法来帮助实现。使用模板的另一个缺点是需要专业知识为系统构建模板(McRoy等人，2003;Gatt和Krahmer, 2017)。Angeli等人(2012)使用概率方法和组合语法来学习解析时间表达式的规则。Kondadadi等人(2013)使用k-means聚类创建了由命名实体标记和语义分析派生的模板库。尽管使用基于模板的方法具有优势，但大多数最近的NLG系统已经转向基于统计的方法。</p>
+<h4 id="2-6-3-STATISTICAL-APPROACHES"><a href="#2-6-3-STATISTICAL-APPROACHES" class="headerlink" title="2.6.3 STATISTICAL APPROACHES"></a>2.6.3 STATISTICAL APPROACHES</h4><p>统计方法已被用于NLG系统，以减少使用手写语法规则的人工工作，并处理大量语料库以获得概率语法，以更好地实现文本。Langkilde(2000)的工作是使用统计方法实现语言实现的开创性工作之一。在这种方法中，Langkilde(2000)使用基于语料库的统计知识和一个手工制作的小语法来生成一个句子的许多不同的表示形式，这些表示形式以树的形式包装起来。Langkilde(2000)通过计算评分对每个短语进行排名，评分被分解为内部评分和外部评分，前者已知是上下文无关的，后者是上下文相关的。Langkilde介绍的这种方法为后续该领域的研究奠定了基础。<br>Langkilde和Knight(1998)进行了另一项重要的工作，通过引入新的语法形式，从意义表示中计算词格，从而构建了一个生成器。Bangalore和Rambow(2000)建议通过引入基于树的语法表示模型和独立手工制作的语法规则来改进语法选择模块的性能。Cahill等人(2007)提出了一种不同的排序方法，并建议使用对数线性排序系统，他们表明对数线性排序比现有系统获得了更好的性能。<br>上面列出的这些方法的一个主要缺点是它们的计算成本很高，因为它们生成大量可能的句子，然后在排名机制的帮助下进行过滤。为了克服这个缺点，Belz和Anja(2008)引入了概率上下文无关表征不足( The Probabilistic Context-free Representationally Underspecified,pCRU)，它使用概率选择来通知生成，而不是列出所有的选择然后选择一个短语。<br>上面描述的方法都使用一组手工制作的规则作为基本生成，并且只使用统计方法过滤输出。另一种办法是在基本 base-generation systems上应用统计方法。已经有了从树库中衍生出语法规则的方法(Gatt和Krahmer, 2017)。Hockenmaier和Steedman(2007)提出了一种从Penn Treebank语料库中提取依赖项和组合范畴语法( combinatory categorical grammar,CCG)的方法。<br>在概述了用于NLG的传统方法以及处理语言生成过程的子组件的方法之后，在下一小节中，我们将介绍深度神经网络以及这些体系结构中最近涌现的解决自然语言生成问题的方法。</p>
+<h2 id="3-Deep-Learning-approaches-for-Language-Generation"><a href="#3-Deep-Learning-approaches-for-Language-Generation" class="headerlink" title="3. Deep Learning approaches for Language Generation"></a>3. Deep Learning approaches for Language Generation</h2><p>将深度神经网络应用于自然语言处理已经帮助实现了跨越不同任务的最先进性能，包括语言生成任务，因为神经网络有能力学习具有不同抽象级别的表示(LeCun et al.， 2015;戈德堡,2016)。最简单、应用最广泛的神经网络类型是前向神经网络或多层感知器(Rosenblatt, 1958)，其中数据流是单向的，前向神经网络是无环图结构。Bengio等人(2003)证明了前馈神经网络在语言建模任务中的能力。<br>另一种更适合处理顺序数据的神经网络结构是循环神经网络( the Recurrent Neural Network ,RNN)结构。RNN在循环连接的帮助下用于处理顺序数据，循环连接在每个序列上执行相同的任务(Goodfellow等人，2016)。与没有基于序列专门化的网络不同，RNN有能力使用从先前序列计算中获得的知识(“内存”)处理长序列。记忆在神经网络中的应用早在1982年就被证明了，通过Hopfield Network，它被用于从一组预先训练的模式或记忆中存储和检索记忆，类似于人类的大脑。该网络依赖于每个神经元产生的值为+1或-1，这取决于来自前一层的输入(Hopfield, 1982)。<br>Hopfield Network是Jordan网络(Jordan, 1986)(如图3A所示)背后的灵感来源，用于在单个隐藏层和特殊单元的帮助下对序列进行监督学习，这些单元从输出单元接收输入，然后将值转发到隐藏节点(Lipton等人，2015a)。Elman简化了Jordan的架构(如图3B所示)，他添加了一个上下文单元，每个隐藏单元在前一个时间步骤从单元接收输入。Elman表明网络可以通过训练3000位的序列来学习依赖关系。该模型在预测序列中的第三位时达到了66.7%的准确率(Elman, 1990;Lipton等人，2015a)。<br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220914135655.png"><br>Elman架构在发现长短期记忆网络( long short term memory networks, LSTM)中发挥了重要作用(Hochreiter和Schmidhuber, 1997)。在训练神经网络时，LSTMs有助于解决由反向传播引起的梯度消失和爆发的重要问题(Schmidhuber, 2015)。在反向传播过程中，神经网络的权重得到与误差函数梯度成比例的更新。这些梯度在不同的层间相乘，有时梯度变得太小或消失，在某些情况下，梯度呈指数增长并爆发。LSTM用一种叫做记忆细胞(memory cell)的新概念取代了神经网络的隐藏单元，它是围绕一个中央线性单元(内部状态)建立的，具有固定的自我连接，以确保梯度可以通过而不爆炸或消失。所述存储单元还包含输入输出门( input and output gate);后来， Gers等人(1999)将遗忘门添加到记忆细胞的结构中。门是规范结构，它小心地允许添加或删除内部状态的信息。<br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220914140947.png"><br>下面我们将描述图4所示的各个组件:</p>
+<ul>
+<li>输入节点( Input node)——输入节点接受来自当前层$x^{(t)}$的输入，$t$表示当前时间步长，也接受来自前一个时间步长$h^{(t−1)}$的隐藏层的值，并将所取的加权和输入通过激活函数“$sigmoid$”传递，随着LSTM架构的改进，激活函数“$sigmoid$”被“$tanh$”取代。</li>
+</ul>
+<p>$g^{(t)}<em>c &#x3D; σ (W_g.[x^{(t)}, h</em>{(t−1)}] + b_g)$       (1)</p>
+<ul>
+<li>输入门( Input gate gate)——输入门接受来自当前层$x^{(t)}$的输入和来自前一个时间步$h^{(t−1)}$的隐藏层的值，并对加权和应用一个“$sigmoid$”激活函数。在这种情况下，$sigmoid$被用作门，以确保任何为0的值，那么来自输入门的对应值也被切断，不会影响内部状态更新。</li>
+</ul>
+<p>$i^{(t)}<em>c &#x3D; σ (W_i.[x^{(t)}, h</em>{(t−1)}] + b_i)$             (2)</p>
+<ul>
+<li>遗忘门(Forget gate)——遗忘门被添加到LSTM架构中，以克服细胞状态线性增长的限制，当呈现连续流时，细胞状态可能在无界站中增长(Gers等人，1999)。遗忘门的主要工作是提供一种重置单元状态内容的方法。</li>
+</ul>
+<p>$f ^{(t)}<em>c &#x3D; σ (W_f .[x^{(t)}, h</em>{(t−1)}] + b_ f )$      (3)</p>
+<ul>
+<li>单元状态(Cell State)——单元状态是存储单元的核心，携带着它一直维持到当前时间步长$t$的信息，因此损失函数不仅依赖于当前时间步长的数据。</li>
+</ul>
+<p>$s^{(t)}_c &#x3D; s^{(t−1)}_c × f ^{(t)}_c + g^{(t)}_c × i^{(t)}_c$          (4)</p>
+<ul>
+<li>输出门(Output Gate)——输出门接受来自当前层$x^{(t)}$的输入和来自前一个时间步$h^{(t−1)}$的隐藏层的值，并对加权和应用$sigmoid$激活函数。在这种情况下，$sigmoid$被用作门，以确定单元格状态的单元格部分要输出什么值。</li>
+</ul>
+<p>$o^{(t)}_c &#x3D; σ (W_o.[x^{(t)}, h^{(t−1)}] + b_o)$          (5)</p>
+<ul>
+<li>输出节点(Output Node)——LSTM单元的最终输出是通过$tanh$激活函数传递单元状态并将其与输出门的内容相乘后获得的。</li>
+</ul>
+<p>$v^{(t)}<em>c &#x3D; o^{(t)}<em>c × tanh(s^{(t)}<em>c )$                     (6)<br>RNN模型的另一种变体称为GRU(见图5)由Cho等人(2014a)介绍，其灵感来自LSTM的功能。 Cho等人(2014)对LSTM和GRU之间的性能进行了比较，他们发现两者之间的性能具有可比性。GRU包含两个门，重置门(公式 7)和更新门(公式 8)，并在没有机制控制的情况下每次暴露整个状态。重置可以帮助隐藏单位忘记不需要的信息和更新门控制从以前的隐藏状态转出的信息的数量。实际激活被计算为先前激活和候选激活的线性插值(公式9)。<br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220914144806.png"><br>$r_j &#x3D; σ ([W_r.x]</em> j + [U_r.h</em>{(t−1)}]</em> j$       (7)<br>$z_j &#x3D; σ ([W_z.x]<em>j + [U_z.h</em>{(t−1)}]<em>j$      (8)<br>$h^j_t &#x3D; (1 − z^j_t).h^j</em>{t−1} + z^j_t.\tilde{h}^j_t$           (9)<br>$\tilde{h}^j_t&#x3D;tanh(W.x_t +U(r_t \odot h_{t−1)})^j$<br>在接下来的四个小节中，我们将列出不同的方法，如语言建模、编码器解码器、内存网络和基于转换模型的方法，这些方法已经应用到语言生成任务中。</p>
+<h3 id="3-1-Language-Models"><a href="#3-1-Language-Models" class="headerlink" title="3.1 Language Models"></a>3.1 Language Models</h3><p>语言模型是一种概率模型，它能够根据顺序中前面的单词预测下一个单词。语言模型被广泛应用于生成式建模任务中。语言模型使用前馈神经网络对固定长度上下文的顺序数据建模的能力在Bengio等人(2003)的工作中首次得到证明。然而，该方法的一个主要缺点，即使用固定长度的上下文，在Mikolov等人(2010)的重要工作中被克服，证明了基于RNN的语言模型的效率。类似地，语言模型领域的另一项开创性工作是Sutskever等人(2011)所做的工作，证明了LSTM在预测序列的下一个字符方面的有效性。条件语言模型也被用作语言模型的变体，在这种语言模型中，语言模型的条件不是前面的单词，比如根据情绪、作者、项目或类别生成产品评论(Lipton等人，2015b)或生成带有情绪上下文的文本(Ghosh等人，2017)。</p>
+<h3 id="3-2-Encoder-Decoder-Architecture"><a href="#3-2-Encoder-Decoder-Architecture" class="headerlink" title="3.2 Encoder-Decoder Architecture"></a>3.2 Encoder-Decoder Architecture</h3><p>另一个增强语言生成任务的重要架构是在端到端模型中使用两个RNN(图6)(Cho等人，2014b)，它克服了一个重要的限制其中神经网络只能应用于输入和目标可以用固定维度编码的问题。编码器通过公式10将输入序列转换为固定向量表示形式$c$，其中$h_t$表示时间步$t$的隐藏状态，$f$表示任意非线性函数，$x$表示输入序列。解码器试图在上下文向量$c$的帮助下预测符号的序列。解码器的隐藏状态依赖于上下文向量$c$，由公式11表示，下一个要预测的符号基于条件概率12，其中$g$是一个$softmax$函数。<br>$h_{(t)} &#x3D; f (h_{(t−1)}, x_t )$     (10)<br>$s_i &#x3D; f (s_{i−1}, y_{i−1}, c)$   (11)<br>$P(yt |yt−1, yt−2, …, y1, c) &#x3D; g(s(t), yt−1, c)$ (12)<br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220916110128.png"><br>语言生成任务的大部分工作都是使用编码器-解码器体系结构完成的。Zhang和Lapata(2014)提出了利用RNN生成中文诗歌的模型。在他们的工作中，他们把内容的确定过程和实现过程联合起来成为一个联合过程。<br>另一个例子是Wen等人(2015)开发的NLG系统，他们修改了LSTM的体系结构，以在语义上约束它，并能够预测对话上下文中的下一个话语。采用改进的LSTM单元结构进行表面实现，采用与记忆单元作用相似的对话行为单元进行句子规划。类似的还有Goyal等人(2016)的工作，他们提出了一个用于对话生成的字符级RNN，并解决了去语义化和稀疏性的问题。Mei等人(2015)使用编码器-解码器对齐器体系结构对一组天气数据库事件记录作为联合任务执行内容选择和实现任务。The aligner基于注意力机制(Xu et al.， 2015;Bahdanau et al.， 2014)。编码器-解码器架构也被用于生成情感文本，Asghar等人(2017)、Zhou等人(2018)和Ke等人(2018)所做的工作证明了这一点。</p>
+<h3 id="3-3-Memory-Networks"><a href="#3-3-Memory-Networks" class="headerlink" title="3.3 Memory Networks"></a>3.3 Memory Networks</h3><p>记忆网络是（Memory Networks） Weston et al.(2014)提出的一种学习模型，用于克服隐藏状态下编码的短记忆。这些网络被用于各种各样的问题回答任务，其中答案是由输入到模型中的一组事实生成的。模型生成的答案可以是一个单词的答案，也可以是一段文本。Weston等人(2014)提出的记忆网络有四个主要组成部分:输入特征映射、泛化（ generalisation）、输出特征映射和响应。Kumar等人(2016)介绍了一种不同类型的记忆网络，它基于情景记忆，能够解决更广泛的问题回答任务，也能解决与词性和情感分析相关的问题。Kumar等人(2016)所做的工作被Xiong等人(2016)扩展为可视化问题回答。其他关于视觉问题回答的工作包括在问题图像对上使用分层注意力(Lu等人，2016)，使用关系网络为视觉问题回答生成答案(Santoro等人，2017)，以及使用事实进行视觉问题回答(Wang等人，2016)</p>
+<h3 id="3-4-Transformer-Models"><a href="#3-4-Transformer-Models" class="headerlink" title="3.4 Transformer Models"></a>3.4 Transformer Models</h3><p>Vaswani等人(2017)引入的Transformer模型(图7)已经帮助实现了对大量NLP任务的改进。Transformer模型基于注意机制，它绘制了输入和输出之间的全局依赖关系。Transformer由编码器-解码器结构组成，但每个编码器是由六个编码器组成的堆栈，每个编码器包含一个自我注意和按点完全连接的前馈神经网络。解码器也是一个由六个解码器组成的堆栈，每个解码器包含与编码器相同的成分，但有一个额外的注意层，帮助解码器专注于输入句子的相关部分。使用变压器模型的工作仍处于初级阶段。Radford等人(2018)和Devlinet等人(2018)在几个NLP任务上显示了令人印象深刻的结果。他们的工作在广泛的任务中改进了现有的先进技术，如语言建模、儿童书籍测试、阅读理解、机器翻译、问题回答、建模长期依赖关系(LAMBADA)、Winograd模式挑战和总结。<br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220915165922.png"></p>
+<h2 id="4-Open-Domain-Dialogue-Systems-using-Deep-Learning"><a href="#4-Open-Domain-Dialogue-Systems-using-Deep-Learning" class="headerlink" title="4. Open Domain Dialogue Systems using Deep Learning"></a>4. Open Domain Dialogue Systems using Deep Learning</h2><p>对话系统或对话代理( conversational agents，CA)的设计目的是在系统与人类进行对话时，生成有意义的、连贯的、易于响应的、有信息的响应。一个被纳入会话代理的良好对话模型应该能够生成与人类交谈方式高度相似的对话(Li et al.， 2017)。会话代理对于许多应用程序都非常重要，可以分为两大类，即:(1)帮助用户实现特定目标的面向封闭域的系统，(2)与人类进行对话的开放域会话代理，也称为闲聊模型。致力于构建端到端系统使用神经网络近年来越来越多地出版，是本节的主要重点。<br>随着这一领域研究的快速发展，我们发现特别是在开放域对话系统领域缺乏全面的调查。为了弥补这一研究空白，我们通过分析2015年以来在顶级会议上发表的所有论文，总结了该领域的研究。我们关注这些论文的关键方面来总结当前的趋势:语料库的使用、体系结构的实现、优化策略的使用、评价指标的评价效果。<br>这些在表1中进行了总结，我们观察到以下趋势：<br>语料库（Corpora）是指论文中使用的语言数据。最常用的语料库是Open Subtitles, Twitter Conversation Dialogues, Movie Triples, Cornell Movie Dialogues。最近，新的数据集如PERSONA聊天数据集、Reddit数据集已经向社区提供。<br>体系结构（Architecture）概述了本文中使用的体系结构类型。在这一领域所做的大多数研究都使用了具有注意机制的seq2seq模型的变体。最近，随着 transformer模型的创建，研究人员已经开始在开放领域对话系统中使用这种体系结构，但这项工作仍处于初级阶段。<br>评估（Evaluation）是开放域对话系统最重要的方面之一。这仍然是一个开放的研究问题，因为没有适当的或标准化的指标来评估绩效。研究人员主要依赖于适应自动化指标，如BLEU (Papineni等人，2002)、METEOR (Banerjee和Lavie, 2005)和基于嵌入的指标Shen等人(2017);Lowe等人(2017)验证了性能。然而，研究表明，这些指标与人类的评价几乎没有关联(Novikova等人，2017;Lowe等人，2017)。我们发现，人的评价是该领域存在的另一个主要的评价指标，研究人员使用不同的标准，如语义相关性，适当性，趣味性，流畅性，语法。它们列在表1中。当论文中没有提出标准时，我们简单地列出了人的评价。这指的是研究人员让人们简单地判断生成的回答和基本事实的回答中哪一个更好。<br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220915194927.png"><br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220915194950.png"><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220915195036.png"><br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220915195101.png"><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220915195118.png"></p>
+<h2 id="5-Conclusio"><a href="#5-Conclusio" class="headerlink" title="5. Conclusio"></a>5. Conclusio</h2><p>在这项工作中，我们总结了在语言生成领域所做的工作，从传统方法开始，到最近使用深度学习方法的工作。尽管开放领域对话系统的自然语言生成这一子领域进展迅速，但许多方法都是基于历史发现和先前的研究。我们总结了标准Reiter和Dale (Reiter and Dale, 2000)体系结构的重要贡献，并提供了解释和针对体系结构的六个不同组件进行的研究。<br>这项总结工作的另一个重要方面是识别会话代理领域持续存在的潜在研究空白。我们建议，解决这些问题将进一步推动该领域的发展。</p>
+<h3 id="5-1-Open-Challenges-for-Open-Domain-Dialogue-Systems"><a href="#5-1-Open-Challenges-for-Open-Domain-Dialogue-Systems" class="headerlink" title="5.1 Open Challenges for Open-Domain Dialogue Systems"></a>5.1 Open Challenges for Open-Domain Dialogue Systems</h3><p>尽管之前在开放领域对话系统领域所做的工作有助于推动该领域的发展，但仍存在影响其质量的具体问题。我们发现了三个主要问题:<br>1.编码上下文（ Encoding Context）——编码上下文信息，如来自知识库的世界事实或对话的前几轮是重要的问题，以确保对话主体有足够的信息来产生一个连贯的、有信息的和新颖的响应，与对话的上下文协调一致。从表1中，我们发现很多之前的研究都使用了单个输入话语和生成的反应之间的一对一映射。这使得很难判断生成的响应的质量，或者根据对话的上下文判断模型的性能，或者当涉及到多回合对话时，模型将如何执行。<br>为了克服这一问题，研究人员将注意力集中在将对话的前几个回合作为模型的上下文信息。这是通过两种不同的方式实现的:通过顺序模型(Sordoni等人，2015年)和分层模型(Serban等人，2016年)。在上下文的顺序编码中，对话的前一轮被连接到当前输入的话语。在上下文的分层编码中，采用两步方法，分别执行话语级编码和话语间编码。Tian et al.，(2017)进行了一项实证研究，评估了顺序模型和层次模型的优缺点，表明在编码上下文信息时，层次模型优于顺序模型。<br>Dinan等人(2018)和Young等人(2018)分别使用 transformer模型和Tri-LSTM编码器方法对事实知识进行编码以增强模型。<br>2.融入个性（Incorporating Personality）——赋予对话代理连贯的人格是构建迷人和令人信服的对话代理的关键(Niu和Bansal, 2018)。人格的概念在心理学中得到了很好的研究。传统上，使用人格特征的研究一直基于标准的Big Five模型(外向性 extraversion、神经质 neuroticism、宜人性 agreeableness、尽责性 conscientiousness 和经验开放性 openness to experience )，一些早期构建个性化对话系统的工作也基于Big Five模型(Mairesse和Walker, 2007)。<br>然而，通过Big Five模型识别人格特征的获取是困难和昂贵(郑等人，2019;张等人，2018b)。利用心理语言学的替代方法仍处于初级阶段。为了解决这个问题，一些提出的方法是通过外显或内隐人格建模(Zheng等人，2019)。显式建模包括创建具有年龄、性别等特征的用户配置文件(Zheng等人，2019)或为用户分配人工角色并要求他们进行交互(Zhang等人，2018b)。人物角色的内隐建模涉及基于年龄、性别和其他个人信息等相似特征创建关于用户的向量(Li et al.， 2016a;Kottur等人，2017)。<br>最近， transformer模型已用于会话代理(Wolf等人，2019年;Dinan等，2018;拉什金等人，2018)。Wolf等人(2019)演示了在PERSONA-CHAT数据集上使用 transformer模型生成个性化响应该模型将每个人工角色与对话的话语连接起来。<br>3.枯燥和通用的响应（Dull and generic responses）——基于  vanilla seq2seq构建端到端对话代理的一个问题是，它们容易生成枯燥和通用的响应，如“ I don’t know, I am not sure. ”。等(Vinyals和Le, 2015;Li et al.， 2015)。这些琐碎的反应使得对话代理无法与人进行更长的对话。Li等人(2015)提出了一种通过优化函数克服这一问题的机制(见公式14，其中$T$T为目标句，$S$为源句)。当给定输入时，作者只考虑响应的似然性，并提出使用最大互信息(Maximum Mutual Information, MMI)作为优化目标函数(见式15)，其中$\lambda$是惩罚一般响应的超参数。<br>$\hat{T} &#x3D; arg \space max_T {logp(T \mid S)}$        (14)<br>$\hat{T} &#x3D; arg \space max_T {logp(T \mid S) − \lambda logp(T )}$    (15)<br>最近的会话建模方法都是通过使用之前的话语作为上下文信息，或借助专注于输入话语的特定部分的注意机制，或使用强化学习(当代理产生琐碎或重复的话语时惩罚代理)来解决枯燥反应问题(Li等人，2016b, 2017;刘等人，2018)。</p>
+<h3 id="5-2-Future-Directions"><a href="#5-2-Future-Directions" class="headerlink" title="5.2 Future Directions"></a>5.2 Future Directions</h3><p>在上述小节中确定了三个开放挑战之后，我们现在就如何应对这些开放挑战提出两个有希望的未来方向。<br>1.认知架构（Cognitive Architectures）———— 我们认为自然语言生成不仅需要整合人工智能的基本方面，还需要整合认知科学(Reiter和Dale, 2000;太阳,2007)。认知架构(Cognitive Architectures，CA)的作用提供了一个不同的视角，还没有探索深度学习架构。认知架构为通过模拟人类行为构建智能代理提供了蓝图。认知架构中一个突出的模型是标准模型(图8)(Norris, 2017;Laird等人，2017)。这个模型提供了一个框架，在概念上和实践上处理长期记忆和短期记忆(也称为工作记忆)，以及作为两者之间桥梁的动作选择机制。根据人类认知的这个模型，给定一个输入(例如，通过感知)，输出是通过考虑存储在工作记忆和长期存储中的元素而产生的。<br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/20220916201003.png"><br>2.编码情绪内容（ Encoding Emotional Content）———— 通过影响动机和行动选择，情绪被认为是决策的功能因此，计算情感模型应该建立在智能体决策体系结构的基础上。例如，Badoy等人(2014)提出使用四种基本情绪:快乐、悲伤、恐惧和愤怒来影响Qlearning代理。仿真结果表明，所提出的情感代理所需的步骤更少找到最优路径。在语言生成工作中，Zhuo等人(2018)提出了情绪聊天机(Emotional chat Machine, ECM)，它不仅可以在内容(相关和语法)上生成适当的响应，还可以在情感(情感一致)上生成适当的响应。ECM使用三种新机制来解决这一问题，它们分别是:(1)通过嵌入情绪类别来建模情绪表达的高级抽象，(2)捕捉内隐内部情绪状态的变化，以及(3)使用外部情绪词汇表来使用外显情绪表达。实验表明，该模型不仅能生成适合于内容的反应，而且能生成适合于情感的反应。然而，在较长时间的对话中产生适当的情感反应的问题仍有待探索。<br>我们假设，通过整合认知架构的元素和添加情感内容，研究人员可以解决我们在前面部分中确定的开放挑战。通过调整深度学习方法来密切反映标准模型(图8)所假设的记忆机制，对话系统可以利用较长的会话上下文以及数据库中的世界和领域知识。通过加入情感内容，可以解决让对话代理反映个性的挑战。在未来的工作中，我们的目标是通过这两个方向来解决开放挑战。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2022/09/22/ASurveyofNaturalLanguageGenerationTechniqueswithaFocusonDialogueSystems-PastPresentandFutureDirections/">https://unluckynike.github.io/2022/09/22/ASurveyofNaturalLanguageGenerationTechniqueswithaFocusonDialogueSystems-PastPresentandFutureDirections/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Dialogue-Systems/">
+                                    <span class="chip bg-color">Dialogue Systems</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">机器学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/09/VllmSglangOllamaDeploy/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/Gemini_Generated_Image_kwyur6kwyur6kwyu.jpg" class="responsive-img" alt="大模型推理部署：vLLM、SGLang 与 Ollama 对比">
+                        
+                        <span class="card-title">大模型推理部署：vLLM、SGLang 与 Ollama 对比</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            三个工具都能在本地跑大模型，但定位完全不同——Ollama 求"最快跑起来"，vLLM 求单机吞吐，SGLang 求高并发下的前缀复用。这篇整理三者的差异、上手命令和选型依据。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大模型</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">
+                        <span class="chip bg-color">模型部署</span>
+                    </a>
+                    
+                    <a href="/tags/vLLM/">
+                        <span class="chip bg-color">vLLM</span>
+                    </a>
+                    
+                    <a href="/tags/SGLang/">
+                        <span class="chip bg-color">SGLang</span>
+                    </a>
+                    
+                    <a href="/tags/Ollama/">
+                        <span class="chip bg-color">Ollama</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/08/26/MacM1ReadOnlyFileSystem/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="macbook M1 Read-only file system错误解决">
+                        
+                        <span class="card-title">macbook M1 Read-only file system错误解决</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="post-category">
+                                    开发工具
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Pycharm/">
+                        <span class="chip bg-color">Pycharm</span>
+                    </a>
+                    
+                    <a href="/tags/python3/">
+                        <span class="chip bg-color">python3</span>
+                    </a>
+                    
+                    <a href="/tags/Apple-Silicon/">
+                        <span class="chip bg-color">Apple Silicon</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">226.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a71f3b21244c8401ed833cf8a95be732";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

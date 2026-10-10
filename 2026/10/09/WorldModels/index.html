@@ -1,0 +1,1539 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="世界模型（World Models）：它是什么、用来干什么、现在到哪一步, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
+    <meta name="description" content="世界模型想让模型学会&#34;如果我这么做，世界接下来会变成什么样&#34;。它是机器人与自动驾驶里最被看重的一块，这篇按四条技术路线梳理它是什么、用在哪，以及现在的真实瓶颈。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>世界模型（World Models）：它是什么、用来干什么、现在到哪一步 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">世界模型（World Models）：它是什么、用来干什么、现在到哪一步</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">论文笔记</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">世界模型</span>
+                            </a>
+                        
+                            <a href="/tags/World-Models/">
+                                <span class="chip bg-color">World Models</span>
+                            </a>
+                        
+                            <a href="/tags/JEPA/">
+                                <span class="chip bg-color">JEPA</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD/">
+                                <span class="chip bg-color">具身智能</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-09
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-10
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    7 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>材料截至 2026-10-09</p>
+</blockquote>
+<h2 id="一、它和语言模型差在哪"><a href="#一、它和语言模型差在哪" class="headerlink" title="一、它和语言模型差在哪"></a>一、它和语言模型差在哪</h2><p>语言模型预测”下一个 token”，世界模型预测”下一个状态”：</p>
+<ul>
+<li>输入：当前观测（画面、传感器读数）+ 一个动作</li>
+<li>输出：未来的观测或未来的潜表征，也就是”这么做的后果”</li>
+<li>关键差别：它必须理解<strong>我的动作会改变世界</strong>，而且能回答反事实——如果我换个动作，会变成什么样</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B%E4%BB%8E%E6%84%9F%E7%9F%A5%E5%88%B0%E8%A1%8C%E5%8A%A8.png"></p>
+<p>要预测的其实不只是画面。真正难的是分清三件事：<strong>哪些东西受我控制、哪些不受我控制、哪些跟奖励有关</strong>。这三件事分不清，世界模型就只能拿来看，不能拿来决策。</p>
+<h2 id="二、起点是-2018-年那篇《World-Models》"><a href="#二、起点是-2018-年那篇《World-Models》" class="headerlink" title="二、起点是 2018 年那篇《World Models》"></a>二、起点是 2018 年那篇《World Models》</h2><p>Ha 和 Schmidhuber 在 2018 年给了这套三件套（arXiv:1803.10122）：</p>
+<ul>
+<li><strong>V（Vision）</strong>：一个 VAE，把每帧画面压成很小的潜向量</li>
+<li><strong>M（Memory）</strong>：一个 RNN，根据当前潜向量和动作，预测下一时刻的潜向量</li>
+<li><strong>C（Controller）</strong>：一个小小的策略网络，只吃潜向量</li>
+</ul>
+<p>最有名的是它的一个实验：<strong>完全在模型自己”幻觉出来的梦”里训练 agent，再把学到的策略迁移回真实环境</strong>——不用真实环境就能学开车、玩游戏。这句话基本定下了这个方向此后八年的目标。</p>
+<h2 id="三、四条技术路线"><a href="#三、四条技术路线" class="headerlink" title="三、四条技术路线"></a>三、四条技术路线</h2><table>
+<thead>
+<tr>
+<th>路线</th>
+<th>思路</th>
+<th>代表工作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>潜空间循环式</td>
+<td>在压缩后的潜空间里预测未来，再在里面用 RL 训策略</td>
+<td>Dreamer 系列，最新是 <strong>Dreamer 4</strong>（arXiv:2509.24527）：在 Minecraft 里能准确预测物体交互，并直接在世界模型内部做强化学习</td>
+</tr>
+<tr>
+<td>视频生成式</td>
+<td>直接生成未来的视频帧，并且可交互</td>
+<td><strong>Genie</strong>（arXiv:2402.15391）：从无标注互联网视频里学出”可以被动作控制的可交互环境”，11B 参数，作者称其为 foundation world model；多人版本见 <strong>WorldCast</strong>（arXiv:2610.12412）</td>
+</tr>
+<tr>
+<td>表征预测式（JEPA）</td>
+<td>不预测像素，只预测表征，绕开无关细节</td>
+<td>JEPA 线在 2026 年 10 月一周内出了好几篇：<strong>LeWAM</strong>（arXiv:2610.12407）、<strong>H-JEPA</strong>（arXiv:2610.06805，分层规划）、Atom-JEPA（arXiv:2610.08400，3D 原子体系）</td>
+</tr>
+<tr>
+<td>语言模型当世界模型</td>
+<td>用语言模型预测”某个动作&#x2F;实验会产生什么结果”</td>
+<td><strong>RWMs</strong>（arXiv:2610.12235）：预测候选干预的结果，用来省掉真实实验，服务于自改进 agent</td>
+</tr>
+</tbody></table>
+<h2 id="四、用在哪：几个具体到能记住的例子"><a href="#四、用在哪：几个具体到能记住的例子" class="headerlink" title="四、用在哪：几个具体到能记住的例子"></a>四、用在哪：几个具体到能记住的例子</h2><ul>
+<li><strong>机器人与 VLA 策略</strong>：DreamTrue（arXiv:2610.12468）做”动作忠实”的机器人世界模型，多视角、跨本体；PLaW-VLA（arXiv:2610.12285）在预训练的预测性表征空间里建模任务相关的未来状态</li>
+<li><strong>视觉导航</strong>：LiteNWM（arXiv:2610.12368）面向机载设备，一次编码多个候选轨迹再打分挑选</li>
+<li><strong>交通与自动驾驶</strong>：CosmosAlign（arXiv:2608.07693）基于预训练的 Cosmos3-Nano 世界基础模型做长时交通视频预测</li>
+<li><strong>GUI agent 的安全监控</strong>：这个例子我特别喜欢——《Right Screen, Wrong Transition》（arXiv:2610.11942）指出，同一个登录页，点”登录”之后出现是正常的，点”查看订单”之后出现就是攻击。<strong>安全性是”转移”的性质，不是”屏幕”的性质</strong>，所以需要一个能预测”本该出现什么”的模型来当监控器</li>
+<li><strong>连聚变装置也有</strong>：IGNITE（arXiv:2610.02515）用 DIII-D 装置十多年的无标注实验数据训练世界模型，能根据文本提示生成执行器轨迹、模拟放电过程</li>
+</ul>
+<h2 id="五、产业侧：谁在造世界模型"><a href="#五、产业侧：谁在造世界模型" class="headerlink" title="五、产业侧：谁在造世界模型"></a>五、产业侧：谁在造世界模型</h2><p>论文之外，几家公司推的是”产品化”这一步：</p>
+<ul>
+<li><strong>World Labs</strong>（李飞飞的团队）：产品 <strong>Marble</strong> 生成空间一致、高保真、可持久的 <strong>3D 世界</strong>，支持文本&#x2F;图像&#x2F;视频&#x2F;360 全景输入，可交互编辑、扩展合并、导出 2D 与 3D 资产。官网 2026-07 的访谈把这套路线叫”空间智能”；<strong>9 月 28 日宣布并入 AMD</strong>。</li>
+<li><strong>NVIDIA Cosmos 3</strong>：官方定位是首个原生融合推理、世界生成与动作生成的 omni-model（Mixture-of-Transformers 架构），面向机器人学习与自动驾驶训练；配套 Cosmos Curator（数据策管）、Cosmos Evaluator（评估）和 tokenizer，以及 NIM 微服务与 DGX Cloud。权重按 OpenMDW1.1 许可（Linux Foundation）开放，Hugging Face 上有模型库、GitHub 上有代码和 Cookbook。它自称的 World Action Model，正是上一节几条论文路线在工业界的名字。</li>
+<li><strong>AgentGarten</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12374">2610.12374</a>，2026-10）：把”模拟器管规则与状态、神经渲染器管画面”拆开——代码定义物理规则保证一致性，渲染器（从预训练视频模型蒸馏而来，用作者提出的 Adversarial Forcing 优化到实时）负责真实感。好处是<strong>新世界可以直接写成代码</strong>，于是环境的数量和难度能跟着 agent 一起扩张。</li>
+</ul>
+<h2 id="六、现在的真实瓶颈（这节比上面都重要）"><a href="#六、现在的真实瓶颈（这节比上面都重要）" class="headerlink" title="六、现在的真实瓶颈（这节比上面都重要）"></a>六、现在的真实瓶颈（这节比上面都重要）</h2><ol>
+<li><strong>物体保真度上不去</strong>。《What 30,000 Hours of Ego-centric Video Does Not Teach》（arXiv:2610.12464）做了个很诚实的实验：用 3 万小时第一视角人类视频训练，把数据量再放大 100 倍后，”agent”本身建模得不错，但<strong>物体交互的保真度依然明显偏低、且提升缓慢</strong>。结论是世界模型离实际部署还很远。</li>
+<li><strong>动作忠实性</strong>：预测得好看不等于听动作的话。DreamTrue 专门处理这个问题——标定不精确、失败样本覆盖不足，都会让模型偏向预测”成功”的结果。</li>
+<li><strong>潜空间里分不清可控与不可控</strong>。CausalDreamer（arXiv:2610.12016）指出 Dreamer 4 这类模型的 tokenizer 只有重建目标、没有动作和奖励监督，所以它的潜空间并没有把<strong>可控、不可控、与奖励相关</strong>这三类信息分开。</li>
+<li><strong>评估本身没有共识</strong>：多人世界模型 WorldCast 要保证每个玩家的独立视图和共享环境一致；而”怎么评判一个世界模型好不好”至今没有公认指标，有的工作干脆换个用法——拿它当验证器来用（2610.11942 的思路）。</li>
+</ol>
+<h2 id="七、和”递归自我改进”的咬合点"><a href="#七、和”递归自我改进”的咬合点" class="headerlink" title="七、和”递归自我改进”的咬合点"></a>七、和”递归自我改进”的咬合点</h2><p>世界模型是 agent 自我改进的<strong>环境接口</strong>：要自我改进就得大量低成本试错，而”试错的场地”要么是想象出来的（Dreamer 4 就是直接在模型内部做 RL），要么是用模型预测结果来省掉真实实验（RWMs、以及上篇提到的 Memento 3）。</p>
+<p>所以这两条线是配套的：一条管”怎么改自己”，一条管”怎么知道改了会怎样”。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1803.10122">1803.10122</a> — World Models — 预印本（无会议发表记录）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.15391">2402.15391</a> — Genie: Generative Interactive Environments — ICML 2024（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2509.24527">2509.24527</a> — Training Agents Inside of Scalable World Models（Dreamer 4） — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2608.07693">2608.07693</a> — CosmosAlign: Adapting a World Foundation Model for Generative Traffic Video Forecasting — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.02515">2610.02515</a> — IGNITE Tokamak World Model Architecture — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.06805">2610.06805</a> — H-JEPA: End-to-End Learning of Hierarchical World Models for Visual Planning — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.08400">2610.08400</a> — Atom-JEPA: Joint-Embedding Predictive Architecture for 3D Atomistic Systems — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.11942">2610.11942</a> — Right Screen, Wrong Transition: World Models as Verifiers for GUI Agents — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12016">2610.12016</a> — CausalDreamer: Learning Predictive World Models with Latent Disentanglement — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12235">2610.12235</a> — Language Models as AI Research World Models — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12285">2610.12285</a> — PLaW-VLA: Predictive Latent World Modeling for Vision-Language-Action Policies — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12368">2610.12368</a> — LiteNWM: Efficient Latent World Models for Onboard Visual Navigation in the Wild — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12407">2610.12407</a> — LeWAM: A JEPA World Action Model with Diffusion-Steering-Based MPC — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12412">2610.12412</a> — WorldCast: Distributed Multiplayer World Models — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12464">2610.12464</a> — What 30,000 Hours of Ego-centric Video Does Not Teach — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12468">2610.12468</a> — DreamTrue: Action-Faithful Robot World Model with Counterfactual Post-Training — 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.12374">2610.12374</a> — AgentGarten: Code Worlds for Evolving Agents — 预印本</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/09/WorldModels/">https://unluckynike.github.io/2026/10/09/WorldModels/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">论文笔记</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%B8%96%E7%95%8C%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">世界模型</span>
+                                </a>
+                            
+                                <a href="/tags/World-Models/">
+                                    <span class="chip bg-color">World Models</span>
+                                </a>
+                            
+                                <a href="/tags/JEPA/">
+                                    <span class="chip bg-color">JEPA</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD/">
+                                    <span class="chip bg-color">具身智能</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/10/PEFTIntro/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/Gemini_Generated_Image_e1x5ye1x5ye1x5ye.jpg" class="responsive-img" alt="高效微调（PEFT）：LoRA 家族是怎么把微调成本打下来的">
+                        
+                        <span class="card-title">高效微调（PEFT）：LoRA 家族是怎么把微调成本打下来的</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            全量微调一个 7B 模型要 120GB 显存，LoRA 只要约 16GB，4bit QLoRA 约 6GB——高效微调省下的不是一点半点。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">论文笔记</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大模型</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%AB%98%E6%95%88%E5%BE%AE%E8%B0%83/">
+                        <span class="chip bg-color">高效微调</span>
+                    </a>
+                    
+                    <a href="/tags/PEFT/">
+                        <span class="chip bg-color">PEFT</span>
+                    </a>
+                    
+                    <a href="/tags/LoRA/">
+                        <span class="chip bg-color">LoRA</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/09/RecursiveSelfImprovement/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="递归自我改进（RSI）：这个方向现在到哪一步了">
+                        
+                        <span class="card-title">递归自我改进（RSI）：这个方向现在到哪一步了</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            RSI 已经不只是哲学思辨——2025 年出现了能改写自己代码并在基准上涨分的 agent，2026 年 10 月又集中出现了一批"造自改进环境"的流水线和专门测"进化会不会跑偏"的基准。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Agent/">
+                        <span class="chip bg-color">AI Agent</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">论文笔记</span>
+                    </a>
+                    
+                    <a href="/tags/RSI/">
+                        <span class="chip bg-color">RSI</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%80%92%E5%BD%92%E8%87%AA%E6%88%91%E6%94%B9%E8%BF%9B/">
+                        <span class="chip bg-color">递归自我改进</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%87%AA%E6%88%91%E8%BF%9B%E5%8C%96/">
+                        <span class="chip bg-color">自我进化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">226.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a71f3b21244c8401ed833cf8a95be732";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

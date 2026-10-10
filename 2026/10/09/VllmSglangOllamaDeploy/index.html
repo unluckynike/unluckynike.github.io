@@ -1,0 +1,1879 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="大模型推理部署：vLLM、SGLang 与 Ollama 对比, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
+    <meta name="description" content="三个工具都能在本地跑大模型，但定位完全不同——Ollama 求&#34;最快跑起来&#34;，vLLM 求单机吞吐，SGLang 求高并发下的前缀复用。这篇整理三者的差异、上手命令和选型依据。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>大模型推理部署：vLLM、SGLang 与 Ollama 对比 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/Gemini_Generated_Image_kwyur6kwyur6kwyu.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">大模型推理部署：vLLM、SGLang 与 Ollama 对比</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大模型</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">
+                                <span class="chip bg-color">模型部署</span>
+                            </a>
+                        
+                            <a href="/tags/vLLM/">
+                                <span class="chip bg-color">vLLM</span>
+                            </a>
+                        
+                            <a href="/tags/SGLang/">
+                                <span class="chip bg-color">SGLang</span>
+                            </a>
+                        
+                            <a href="/tags/Ollama/">
+                                <span class="chip bg-color">Ollama</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-09
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-10
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    12 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>本文命令以 2026-10 的官方文档为准逐条核对过。这几个工具迭代很快，动手前建议再对一眼官方文档。</p>
+</blockquote>
+<h2 id="为什么要自己在本地部署"><a href="#为什么要自己在本地部署" class="headerlink" title="为什么要自己在本地部署"></a>为什么要自己在本地部署</h2><p>调用云端 API 简单，但有些场景绕不开自建：</p>
+<ul>
+<li><strong>数据不出内网</strong>：公司文档、代码、业务数据不方便传到第三方</li>
+<li><strong>可控性</strong>：固定版本的模型、固定上下文长度、自己控制并发与限流</li>
+<li><strong>成本</strong>：长期高并发下，自建 GPU 可能比按 token 计费更划算</li>
+<li><strong>折腾&#x2F;学习</strong>：想搞清楚 SFT 后的模型、量化版本到底表现如何</li>
+</ul>
+<p>代价也很直接：显存、电费、运维。所以第一个问题是——你到底需要哪一档。</p>
+<h2 id="一句话定位"><a href="#一句话定位" class="headerlink" title="一句话定位"></a>一句话定位</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>Ollama</th>
+<th>vLLM</th>
+<th>SGLang</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>面向场景</td>
+<td>个人本机使用</td>
+<td>服务化推理</td>
+<td>生产级高并发服务</td>
+</tr>
+<tr>
+<td>底层引擎</td>
+<td>llama.cpp</td>
+<td>自研（PyTorch）</td>
+<td>自研（PyTorch）</td>
+</tr>
+<tr>
+<td>模型来源</td>
+<td>官方模型库；可导入 GGUF &#x2F; Safetensors</td>
+<td>HuggingFace 权重</td>
+<td>HuggingFace 权重</td>
+</tr>
+<tr>
+<td>平台</td>
+<td>macOS &#x2F; Linux &#x2F; Windows</td>
+<td>Linux + NVIDIA（macOS 需 vLLM-Metal）</td>
+<td>Linux + NVIDIA</td>
+</tr>
+<tr>
+<td>招牌能力</td>
+<td>一条命令跑起来，集成 Claude Code、Codex 等客户端</td>
+<td>PagedAttention、连续批处理、前缀缓存</td>
+<td>RadixAttention、前缀缓存、多机多卡</td>
+</tr>
+<tr>
+<td>典型用法</td>
+<td>本地助手、离线试玩</td>
+<td>单机多并发 API</td>
+<td>多轮对话 &#x2F; Agent &#x2F; RAG 类高并发</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2%E6%8E%A8%E7%90%86%E5%B7%A5%E5%85%B7%E5%85%A8%E6%99%AF%E5%AF%B9%E6%AF%94.png"></p>
+<p>三者都提供 <strong>OpenAI 兼容接口</strong>，所以代码里通常只需要改 <code>base_url</code> 就能切换——可以先用 Ollama 在笔记本上开发，上线时再切到 vLLM 或 SGLang。</p>
+<h2 id="官方文档与仓库"><a href="#官方文档与仓库" class="headerlink" title="官方文档与仓库"></a>官方文档与仓库</h2><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>官方文档</th>
+<th>代码仓库</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ollama</td>
+<td><a target="_blank" rel="noopener" href="https://docs.ollama.com/">docs.ollama.com</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/ollama/ollama">ollama&#x2F;ollama</a></td>
+</tr>
+<tr>
+<td>vLLM</td>
+<td><a target="_blank" rel="noopener" href="https://docs.vllm.ai/">docs.vllm.ai</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/vllm-project/vllm">vllm-project&#x2F;vllm</a></td>
+</tr>
+<tr>
+<td>SGLang</td>
+<td><a target="_blank" rel="noopener" href="https://docs.sglang.io/">docs.sglang.io</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/sgl-project/sglang">sgl-project&#x2F;sglang</a></td>
+</tr>
+</tbody></table>
+<p>几个值得单独收藏的深链接：</p>
+<ul>
+<li>vLLM 全部引擎参数：<a target="_blank" rel="noopener" href="https://docs.vllm.ai/en/latest/configuration/engine_args/">docs.vllm.ai&#x2F;configuration&#x2F;engine_args</a></li>
+<li>vLLM OpenAI 兼容服务说明：<a target="_blank" rel="noopener" href="https://docs.vllm.ai/en/latest/serving/openai_compatible_server/">docs.vllm.ai&#x2F;serving&#x2F;openai_compatible_server</a></li>
+<li>PagedAttention 原始介绍（vLLM 博客）：<a target="_blank" rel="noopener" href="https://blog.vllm.ai/2023/06/20/vllm.html">blog.vllm.ai&#x2F;2023&#x2F;06&#x2F;20&#x2F;vllm.html</a></li>
+<li>SGLang 全部启动参数：<a target="_blank" rel="noopener" href="https://docs.sglang.io/docs/advanced_features/server_arguments">docs.sglang.io&#x2F;advanced_features&#x2F;server_arguments</a></li>
+<li>SGLang 快速开始：<a target="_blank" rel="noopener" href="https://docs.sglang.io/docs/get-started/quickstart">docs.sglang.io&#x2F;get-started&#x2F;quickstart</a></li>
+<li>Ollama CLI 手册：<a target="_blank" rel="noopener" href="https://docs.ollama.com/cli">docs.ollama.com&#x2F;cli</a></li>
+<li>Ollama OpenAI 兼容说明：<a target="_blank" rel="noopener" href="https://docs.ollama.com/api/openai-compatibility">docs.ollama.com&#x2F;api&#x2F;openai-compatibility</a></li>
+</ul>
+<h2 id="Ollama：五分钟跑起来"><a href="#Ollama：五分钟跑起来" class="headerlink" title="Ollama：五分钟跑起来"></a>Ollama：五分钟跑起来</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># macOS / Linux</span>
+curl -fsSL https://ollama.com/install.sh <span class="token operator">|</span> sh
+
+<span class="token comment" spellcheck="true"># Windows (PowerShell)</span>
+irm https://ollama.com/install.ps1 <span class="token operator">|</span> iex
+</code></pre>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><pre class=" language-bash"><code class="language-bash">ollama run gemma4          <span class="token comment" spellcheck="true"># 跑一个模型（首次会自动拉取）</span>
+ollama pull gemma4         <span class="token comment" spellcheck="true"># 只下载</span>
+ollama <span class="token function">ls</span>                  <span class="token comment" spellcheck="true"># 本地已有模型</span>
+ollama <span class="token function">ps</span>                  <span class="token comment" spellcheck="true"># 正在运行的模型</span>
+ollama stop gemma4         <span class="token comment" spellcheck="true"># 停止</span>
+ollama <span class="token function">rm</span> gemma4           <span class="token comment" spellcheck="true"># 删除</span>
+ollama serve               <span class="token comment" spellcheck="true"># 启动服务，默认监听 11434</span>
+</code></pre>
+<p>新版还带了 <code>ollama launch</code>，可以直接把本地模型接进常用客户端：</p>
+<pre class=" language-bash"><code class="language-bash">ollama launch                           <span class="token comment" spellcheck="true"># 交互式选择要接入的客户端</span>
+ollama launch claude                    <span class="token comment" spellcheck="true"># 接入 Claude Code</span>
+ollama launch claude --model qwen3.5    <span class="token comment" spellcheck="true"># 指定模型</span>
+</code></pre>
+<p>支持的客户端包括 OpenCode、Claude Code、Codex、VS Code、Droid；加 <code>--config</code> 可以只写配置不启动。</p>
+<h3 id="原生-API"><a href="#原生-API" class="headerlink" title="原生 API"></a>原生 API</h3><pre class=" language-bash"><code class="language-bash">curl http://localhost:11434/api/chat -d <span class="token string">'&amp;#123;
+  "model": "gemma4",
+  "messages": [&amp;#123; "role": "user", "content": "你好" &amp;#125;],
+  "stream": false
+&amp;#125;'</span>
+</code></pre>
+<h3 id="OpenAI-兼容接口"><a href="#OpenAI-兼容接口" class="headerlink" title="OpenAI 兼容接口"></a>OpenAI 兼容接口</h3><pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> openai <span class="token keyword">import</span> OpenAI
+
+client <span class="token operator">=</span> OpenAI<span class="token punctuation">(</span>
+    base_url<span class="token operator">=</span><span class="token string">"http://localhost:11434/v1/"</span><span class="token punctuation">,</span>
+    api_key<span class="token operator">=</span><span class="token string">"ollama"</span><span class="token punctuation">,</span>   <span class="token comment" spellcheck="true"># 必填，但 Ollama 会忽略</span>
+<span class="token punctuation">)</span>
+
+resp <span class="token operator">=</span> client<span class="token punctuation">.</span>chat<span class="token punctuation">.</span>completions<span class="token punctuation">.</span>create<span class="token punctuation">(</span>
+    model<span class="token operator">=</span><span class="token string">"gpt-oss:20b"</span><span class="token punctuation">,</span>
+    messages<span class="token operator">=</span><span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;"role": "user", "content": "你好"&amp;#125;],</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>resp<span class="token punctuation">.</span>choices<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>message<span class="token punctuation">.</span>content<span class="token punctuation">)</span>
+</code></pre>
+<h3 id="导入自己的模型"><a href="#导入自己的模型" class="headerlink" title="导入自己的模型"></a>导入自己的模型</h3><p>写一个 <code>Modelfile</code>：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 单个 GGUF 文件</span>
+FROM /path/to/model.gguf
+
+<span class="token comment" spellcheck="true"># 分片 GGUF</span>
+FROM /path/to/model-*.gguf
+
+<span class="token comment" spellcheck="true"># 或 Safetensors 权重目录</span>
+FROM /path/to/safetensors/dir
+</code></pre>
+<p>三种写法按你的权重形态<strong>任选其一</strong>（一个 Modelfile 只能有一个 <code>FROM</code>）。</p>
+<p>然后创建并用：</p>
+<pre class=" language-bash"><code class="language-bash">ollama create my-model
+ollama run my-model
+</code></pre>
+<p>注意：<strong>Ollama 导入时不会量化 GGUF</strong>，想控制量化等级得先用 llama.cpp 的 <code>llama-quantize</code> 处理，再导入。</p>
+<h3 id="局限（写进代码前先知道）"><a href="#局限（写进代码前先知道）" class="headerlink" title="局限（写进代码前先知道）"></a>局限（写进代码前先知道）</h3><ul>
+<li>OpenAI 兼容层不支持 <code>tool_choice</code>、<code>logit_bias</code>、<code>n</code>、<code>logprobs</code>；图片只接受 base64，不支持图片 URL</li>
+<li><strong>上下文长度没有 API 参数</strong>：要在 <code>Modelfile</code> 里写 <code>PARAMETER num_ctx</code>，再用 <code>ollama create</code> 生成一个自定义模型</li>
+<li>需要和 <code>gpt-3.5-turbo</code> 这类固定模型名的工具配合时，用 <code>ollama cp</code> 做个别名</li>
+<li>它的设计目标是本机单人使用，高并发服务化不是它的强项</li>
+</ul>
+<h2 id="vLLM：把单机吞吐拉满"><a href="#vLLM：把单机吞吐拉满" class="headerlink" title="vLLM：把单机吞吐拉满"></a>vLLM：把单机吞吐拉满</h2><h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># Linux + NVIDIA（Python 3.11 ~ 3.14）</span>
+uv pip <span class="token function">install</span> vllm --torch-backend<span class="token operator">=</span>auto
+
+<span class="token comment" spellcheck="true"># AMD GPU</span>
+uv pip <span class="token function">install</span> vllm --extra-index-url https://wheels.vllm.ai/rocm/
+
+<span class="token comment" spellcheck="true"># Google TPU</span>
+uv pip <span class="token function">install</span> vllm-tpu
+</code></pre>
+<h3 id="起服务"><a href="#起服务" class="headerlink" title="起服务"></a>起服务</h3><pre class=" language-bash"><code class="language-bash">vllm serve Qwen/Qwen2.5-1.5B-Instruct
+</code></pre>
+<p>默认在 <code>http://localhost:8000</code> 提供 OpenAI 兼容接口（<code>--host</code>、<code>--port</code> 可改）。要加鉴权就带 <code>--api-key</code>，或者设环境变量 <code>VLLM_API_KEY</code>。</p>
+<h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><pre class=" language-bash"><code class="language-bash">curl http://localhost:8000/v1/models
+
+curl http://localhost:8000/v1/chat/completions \
+  -H <span class="token string">"Content-Type: application/json"</span> \
+  -d <span class="token string">'&amp;#123;
+    "model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "messages": [&amp;#123;"role": "user", "content": "你好"&amp;#125;]
+  &amp;#125;'</span>
+</code></pre>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> openai <span class="token keyword">import</span> OpenAI
+
+client <span class="token operator">=</span> OpenAI<span class="token punctuation">(</span>base_url<span class="token operator">=</span><span class="token string">"http://localhost:8000/v1"</span><span class="token punctuation">,</span> api_key<span class="token operator">=</span><span class="token string">"EMPTY"</span><span class="token punctuation">)</span>
+</code></pre>
+<p>除了 OpenAI 兼容 API，新版还提供 Anthropic Messages API 和 gRPC。</p>
+<h3 id="常用部署参数"><a href="#常用部署参数" class="headerlink" title="常用部署参数"></a>常用部署参数</h3><p><code>vllm serve</code> 的旋钮基本都在引擎参数里，最常调的是下面这些（完整清单见上面列的 engine_args 文档页）：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--tensor-parallel-size</code> &#x2F; <code>-tp</code></td>
+<td><code>1</code></td>
+<td>张量并行组数，单机多卡最常用</td>
+</tr>
+<tr>
+<td><code>--pipeline-parallel-size</code> &#x2F; <code>-pp</code></td>
+<td><code>1</code></td>
+<td>流水线并行组数</td>
+</tr>
+<tr>
+<td><code>--max-model-len</code></td>
+<td>从模型 config 自动推导</td>
+<td>上下文长度（prompt + 输出）；支持 <code>1k</code>（1000）、<code>1K</code>（1024）这类写法，也可以给 <code>-1</code> &#x2F; <code>auto</code> 让它自己取显存能容下的最大值</td>
+</tr>
+<tr>
+<td><code>--gpu-memory-utilization</code></td>
+<td><code>0.92</code></td>
+<td>显存占用比例；注意它是<strong>按实例</strong>算的，不会感知同一张卡上的其他实例</td>
+</tr>
+<tr>
+<td><code>--max-num-seqs</code></td>
+<td>—</td>
+<td>单轮最多处理多少个序列；文档说明默认值主要图测试方便，生产环境建议显式设置</td>
+</tr>
+<tr>
+<td><code>--max-num-batched-tokens</code></td>
+<td>—</td>
+<td>单轮最多处理多少 token，同上建议显式设置</td>
+</tr>
+<tr>
+<td><code>--enable-prefix-caching</code></td>
+<td>—</td>
+<td>开前缀缓存，相同前缀只算一次</td>
+</tr>
+<tr>
+<td><code>--enable-chunked-prefill</code></td>
+<td>—</td>
+<td>分块预填充，长 prompt 不再独占一整轮</td>
+</tr>
+<tr>
+<td><code>--dtype</code></td>
+<td><code>auto</code></td>
+<td>权重与激活精度（<code>auto</code> &#x2F; <code>half</code> &#x2F; <code>bfloat16</code> &#x2F; <code>float</code> &#x2F; <code>float32</code>）</td>
+</tr>
+<tr>
+<td><code>--quantization</code> &#x2F; <code>-q</code></td>
+<td>无</td>
+<td>量化方法；不指定时读模型 config 里的 <code>quantization_config</code></td>
+</tr>
+<tr>
+<td><code>--kv-cache-dtype</code></td>
+<td><code>auto</code></td>
+<td>KV cache 的存储精度，想省显存可以设 fp8 系列</td>
+</tr>
+<tr>
+<td><code>--block-size</code></td>
+<td>用默认值</td>
+<td>连续 cache block 的 token 数</td>
+</tr>
+<tr>
+<td><code>--served-model-name</code></td>
+<td>同 <code>--model</code></td>
+<td>对外暴露的模型名，可以传多个</td>
+</tr>
+<tr>
+<td><code>--enforce-eager</code></td>
+<td>关</td>
+<td>关掉 CUDA graph &#x2F; torch.compile 跑 eager，排查问题时的开关</td>
+</tr>
+<tr>
+<td><code>--trust-remote-code</code></td>
+<td>关</td>
+<td>允许执行模型仓库里的自定义代码</td>
+</tr>
+<tr>
+<td><code>--download-dir</code></td>
+<td>HuggingFace 默认缓存</td>
+<td>权重下载目录</td>
+</tr>
+</tbody></table>
+<p>组合起来的一个例子：</p>
+<pre class=" language-bash"><code class="language-bash">vllm serve Qwen/Qwen2.5-7B-Instruct \
+  --tensor-parallel-size 2 \
+  --max-model-len 32768 \
+  --gpu-memory-utilization 0.90 \
+  --max-num-seqs 64 \
+  --enable-prefix-caching \
+  --served-model-name qwen2.5-7b
+</code></pre>
+<h3 id="为什么它吞吐高"><a href="#为什么它吞吐高" class="headerlink" title="为什么它吞吐高"></a>为什么它吞吐高</h3><ul>
+<li><strong>PagedAttention</strong>：把 KV cache 按页管理，显存碎片和浪费大幅降低（思路来自操作系统的虚拟内存分页）</li>
+<li><strong>连续批处理</strong>：请求随到随插，一个 batch 里的序列结束就立刻补新的，不用等整批跑完</li>
+<li><strong>分块预填充</strong>：长 prompt 的 prefill 拆块调度，避免长请求把整个 batch 卡住</li>
+<li><strong>前缀缓存</strong>：相同前缀（比如固定 system prompt）只算一次</li>
+<li>注意力后端可换：FLASH_ATTN &#x2F; FLASHINFER &#x2F; TRITON_ATTN</li>
+</ul>
+<p>这些机制的意义是：<strong>并发越高，它相对朴素实现的优势越明显</strong>；只有一个人在用的时候，差别不大。</p>
+<h2 id="SGLang：为前缀复用而生"><a href="#SGLang：为前缀复用而生" class="headerlink" title="SGLang：为前缀复用而生"></a>SGLang：为前缀复用而生</h2><h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><pre class=" language-bash"><code class="language-bash">uv venv --python 3.12 <span class="token operator">&amp;&amp;</span> <span class="token function">source</span> .venv/bin/activate
+
+<span class="token comment" spellcheck="true"># --prerelease=allow 不能省：少了它可能装上旧版本</span>
+uv pip <span class="token function">install</span> --prerelease<span class="token operator">=</span>allow sglang
+</code></pre>
+<p>要求 Python 3.10+，当前版本要求 <strong>CUDA 13</strong>（CUDA 12 的构建线已退役，0.5.19 是最后一个支持 CUDA 12 的版本），目标平台是 Linux + NVIDIA。默认注意力后端是 FlashInfer，需要 sm75 及以上。</p>
+<h3 id="起服务-1"><a href="#起服务-1" class="headerlink" title="起服务"></a>起服务</h3><pre class=" language-bash"><code class="language-bash">sglang serve meta-llama/Llama-3.1-8B-Instruct --host 0.0.0.0 --port 30000
+</code></pre>
+<p>等价的传统写法（文档里在容器、SkyPilot 等场景仍在用）：</p>
+<pre class=" language-bash"><code class="language-bash">python3 -m sglang.launch_server \
+  --model-path meta-llama/Llama-3.1-8B-Instruct \
+  --host 0.0.0.0 --port 30000
+</code></pre>
+<h3 id="调用-1"><a href="#调用-1" class="headerlink" title="调用"></a>调用</h3><pre class=" language-bash"><code class="language-bash">curl http://localhost:30000/v1/chat/completions \
+  -H <span class="token string">"Content-Type: application/json"</span> \
+  -d <span class="token string">'&amp;#123;
+    "model": "Qwen/Qwen3-0.6B",
+    "messages": [&amp;#123;"role": "user", "content": "你好"&amp;#125;]
+  &amp;#125;'</span>
+</code></pre>
+<p>它同样提供 OpenAI 兼容接口，所以 Python 里把 <code>base_url</code> 指到 <code>http://localhost:30000/v1</code> 即可。</p>
+<h3 id="常用部署参数-1"><a href="#常用部署参数-1" class="headerlink" title="常用部署参数"></a>常用部署参数</h3><p>完整清单可以跑 <code>python3 -m sglang.launch_server --help</code>，或者查上面列的 server_arguments 文档页。常用的这些：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--model-path</code> &#x2F; <code>--model</code></td>
+<td>—</td>
+<td>模型权重路径或 HuggingFace 仓库 ID</td>
+</tr>
+<tr>
+<td><code>--host</code></td>
+<td><code>127.0.0.1</code></td>
+<td>监听地址；要让外部访问就写 <code>0.0.0.0</code></td>
+</tr>
+<tr>
+<td><code>--port</code></td>
+<td><code>30000</code></td>
+<td>端口</td>
+</tr>
+<tr>
+<td><code>--api-key</code></td>
+<td>无</td>
+<td>接口鉴权</td>
+</tr>
+<tr>
+<td><code>--tensor-parallel-size</code> &#x2F; <code>--tp-size</code></td>
+<td><code>1</code></td>
+<td>张量并行度</td>
+</tr>
+<tr>
+<td><code>--pipeline-parallel-size</code> &#x2F; <code>--pp-size</code></td>
+<td><code>1</code></td>
+<td>流水线并行度</td>
+</tr>
+<tr>
+<td><code>--mem-fraction-static</code></td>
+<td>无</td>
+<td>权重 + KV cache 池占显存的比例；显存不够就调小</td>
+</tr>
+<tr>
+<td><code>--max-running-requests</code></td>
+<td>无</td>
+<td>同时在跑的请求数上限</td>
+</tr>
+<tr>
+<td><code>--max-total-tokens</code></td>
+<td>自动计算</td>
+<td>显存池里的 token 总数（文档标注为调试用）</td>
+</tr>
+<tr>
+<td><code>--chunked-prefill-size</code></td>
+<td>无</td>
+<td>分块预填充每块的 token 数，<code>-1</code> 表示关闭</td>
+</tr>
+<tr>
+<td><code>--context-length</code></td>
+<td>取模型 config.json</td>
+<td>最大上下文长度</td>
+</tr>
+<tr>
+<td><code>--dtype</code></td>
+<td><code>auto</code></td>
+<td>精度（<code>auto</code> &#x2F; <code>bfloat16</code> &#x2F; <code>float16</code> &#x2F; <code>float32</code> …）</td>
+</tr>
+<tr>
+<td><code>--quantization</code></td>
+<td>无</td>
+<td>量化方法（<code>awq</code> &#x2F; <code>fp8</code> &#x2F; <code>gptq</code> &#x2F; <code>marlin</code> &#x2F; <code>w8a8_int8</code> …）</td>
+</tr>
+<tr>
+<td><code>--kv-cache-dtype</code></td>
+<td><code>auto</code></td>
+<td>KV cache 精度（<code>fp8_e4m3</code> &#x2F; <code>fp8_e5m2</code> &#x2F; <code>bf16</code> &#x2F; <code>nvfp4</code> …）</td>
+</tr>
+<tr>
+<td><code>--schedule-policy</code></td>
+<td><code>fcfs</code></td>
+<td>调度策略（<code>fcfs</code> &#x2F; <code>lpm</code> &#x2F; <code>lof</code> &#x2F; <code>random</code> &#x2F; <code>priority</code> &#x2F; <code>dfs-weight</code> &#x2F; <code>routing-key</code>）</td>
+</tr>
+<tr>
+<td><code>--log-level</code></td>
+<td><code>info</code></td>
+<td>日志级别</td>
+</tr>
+</tbody></table>
+<p>组合起来的一个例子：</p>
+<pre class=" language-bash"><code class="language-bash">sglang serve Qwen/Qwen3-0.6B \
+  --host 0.0.0.0 --port 30000 \
+  --tp-size 2 \
+  --mem-fraction-static 0.85 \
+  --context-length 32768 \
+  --schedule-policy lpm
+</code></pre>
+<h3 id="核心是-RadixAttention"><a href="#核心是-RadixAttention" class="headerlink" title="核心是 RadixAttention"></a>核心是 RadixAttention</h3><p>SGLang 的招牌是 <strong>RadixAttention + 前缀缓存</strong>：用基数树（radix tree）管理 KV cache，把多个请求共享的前缀直接复用。这一点在多轮对话、Agent 循环、RAG 这类”一个长 system prompt 反复被用到”的场景里收益最大——同一段前缀不会每轮重算。它同时支持多机多卡并行（序列并行、DP attention、PD 分离），面向的是生产级服务。</p>
+<h2 id="选择示例"><a href="#选择示例" class="headerlink" title="选择示例"></a>选择示例</h2><ul>
+<li><strong>就在自己电脑上跑个助手、接 IDE</strong> → Ollama。装完一条命令能用，macOS 也能跑，不用折腾 CUDA</li>
+<li><strong>要给团队&#x2F;应用提供 API，单机扛并发</strong> → vLLM。OpenAI 兼容、生态成熟、显存利用率高</li>
+<li><strong>高并发且前缀重复多</strong>（多轮对话、Agent、RAG、固定 prompt 批量任务）→ SGLang，它的前缀复用正是为这个场景设计的</li>
+<li><strong>还没想好</strong> → 先用 Ollama 把流程跑通。反正三者都是 OpenAI 兼容接口，之后改 <code>base_url</code> 就能迁移</li>
+</ul>
+<h2 id="测试构建"><a href="#测试构建" class="headerlink" title="测试构建"></a>测试构建</h2><p>想在选型前拿到自己的数据，建议固定这几件事：</p>
+<ol>
+<li><strong>固定模型和量化版本</strong>（同一个权重，别拿 7B 和 72B 比）</li>
+<li><strong>固定 prompt 集</strong>：至少准备短&#x2F;中&#x2F;长三档输入，和固定输出长度</li>
+<li><strong>测四个指标</strong>：首 token 延迟（TTFT）、单请求输出速度（tokens&#x2F;s）、并发下的总吞吐、峰值显存占用</li>
+<li><strong>并发扫一遍</strong>：1 &#x2F; 4 &#x2F; 16 &#x2F; 32 路并发各跑一轮 —— 吞吐拐点才是选型依据</li>
+</ol>
+<h2 id="顺带一提：还有这些同类工具"><a href="#顺带一提：还有这些同类工具" class="headerlink" title="顺带一提：还有这些同类工具"></a>顺带一提：还有这些同类工具</h2><p>各自占一个生态位，这里只点名不展开：</p>
+<ul>
+<li><strong>llama.cpp</strong>：Ollama 底下那一层，最便携的 C&#x2F;C++ 推理实现，CPU 也能跑</li>
+<li><strong>LM Studio</strong>：图形界面的本地推理（也有 CLI），适合不想敲命令的人</li>
+<li><strong>TensorRT-LLM</strong>：NVIDIA 官方，把模型编译后在自家卡上榨性能</li>
+<li><strong>LMDeploy</strong>：压缩 + 部署一体的工具包（上海 AI Lab）</li>
+<li><strong>Xinference</strong>：一个平台把 LLM &#x2F; embedding &#x2F; rerank 一起管起来</li>
+<li><strong>LocalAI</strong>：自托管的 OpenAI 替代品</li>
+<li><strong>MLC LLM</strong>：用编译的方式把模型推到端侧（手机、浏览器）</li>
+<li><strong>ExLlamaV2</strong>：消费级显卡上跑 EXL2 量化模型</li>
+<li><strong>Triton Inference Server &#x2F; KServe</strong>：不是推理引擎，而是把多个引擎和模型编排起来对外服务的那一层</li>
+</ul>
+<p>另外提醒一句：HuggingFace 自家的 <strong>TGI（text-generation-inference）仓库已经归档</strong>，新项目不建议再从它起步。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>三个工具不是替代关系，而是三段：Ollama 负责”快速验证”，vLLM 负责”稳定扛量”，SGLang 负责”高并发下的前缀复用”。它们都收敛到 OpenAI 兼容接口这件事，让迁移成本变得很低——所以不必一开始就选对，先用起来，瓶颈出现时再换。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/09/VllmSglangOllamaDeploy/">https://unluckynike.github.io/2026/10/09/VllmSglangOllamaDeploy/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大模型</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">
+                                    <span class="chip bg-color">模型部署</span>
+                                </a>
+                            
+                                <a href="/tags/vLLM/">
+                                    <span class="chip bg-color">vLLM</span>
+                                </a>
+                            
+                                <a href="/tags/SGLang/">
+                                    <span class="chip bg-color">SGLang</span>
+                                </a>
+                            
+                                <a href="/tags/Ollama/">
+                                    <span class="chip bg-color">Ollama</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/09/RecursiveSelfImprovement/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="递归自我改进（RSI）：这个方向现在到哪一步了">
+                        
+                        <span class="card-title">递归自我改进（RSI）：这个方向现在到哪一步了</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            RSI 已经不只是哲学思辨——2025 年出现了能改写自己代码并在基准上涨分的 agent，2026 年 10 月又集中出现了一批"造自改进环境"的流水线和专门测"进化会不会跑偏"的基准。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Agent/">
+                        <span class="chip bg-color">AI Agent</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">论文笔记</span>
+                    </a>
+                    
+                    <a href="/tags/RSI/">
+                        <span class="chip bg-color">RSI</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%80%92%E5%BD%92%E8%87%AA%E6%88%91%E6%94%B9%E8%BF%9B/">
+                        <span class="chip bg-color">递归自我改进</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%87%AA%E6%88%91%E8%BF%9B%E5%8C%96/">
+                        <span class="chip bg-color">自我进化</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/09/22/ASurveyofNaturalLanguageGenerationTechniqueswithaFocusonDialogueSystems-PastPresentandFutureDirections/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Dialogue Systems Survey">
+                        
+                        <span class="card-title">Dialogue Systems Survey</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-09-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%BA%E6%96%87%E7%BB%BC%E8%BF%B0/" class="post-category">
+                                    论文综述
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Dialogue-Systems/">
+                        <span class="chip bg-color">Dialogue Systems</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">226.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a71f3b21244c8401ed833cf8a95be732";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

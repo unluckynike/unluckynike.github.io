@@ -1,0 +1,1690 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="后训练模型的产生：基座 SFT 对齐 推理 部署, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
+    <meta name="description" content="大模型不是一次训练出来的，而是一条流水线走下来的：先在语言里泡大（基座），再学会说话（SFT）、学会选择（DPO/RLHF）、学会思考（GRPO/RLVR），然后学会省着用（量化/蒸馏）、学会看（多模态）、学会行动（工具使用）。每站讲清机制、数据长什么样、具体数字和会踩的坑。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>后训练模型的产生：基座 SFT 对齐 推理 部署 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">后训练模型的产生：基座 SFT 对齐 推理 部署</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">论文笔记</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大模型</span>
+                            </a>
+                        
+                            <a href="/tags/SFT/">
+                                <span class="chip bg-color">SFT</span>
+                            </a>
+                        
+                            <a href="/tags/RLHF/">
+                                <span class="chip bg-color">RLHF</span>
+                            </a>
+                        
+                            <a href="/tags/DPO/">
+                                <span class="chip bg-color">DPO</span>
+                            </a>
+                        
+                            <a href="/tags/GRPO/">
+                                <span class="chip bg-color">GRPO</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-10
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-10
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    17 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>资料截至 2026-10</p>
+</blockquote>
+<h2 id="全景"><a href="#全景" class="headerlink" title="全景"></a>全景</h2><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>一句话</th>
+<th>代表工作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基座模型</td>
+<td>学会语言：预测下一个 token</td>
+<td>GPT 系、LLaMA 系</td>
+</tr>
+<tr>
+<td>SFT</td>
+<td>学会说话：把”续写”变成”回答”</td>
+<td>FLAN、InstructGPT</td>
+</tr>
+<tr>
+<td>DPO &#x2F; RLHF</td>
+<td>学会选择：在好答案和坏答案之间站队</td>
+<td>Christiano 2017、DPO</td>
+</tr>
+<tr>
+<td>GRPO &#x2F; RLVR</td>
+<td>学会思考：用”可验证的对错”当奖励</td>
+<td>DeepSeekMath、DeepSeek-R1</td>
+</tr>
+<tr>
+<td>量化 &#x2F; 蒸馏</td>
+<td>学会省着用：压到 4bit，或让小模型学大模型</td>
+<td>GPTQ、AWQ、Hinton 蒸馏</td>
+</tr>
+<tr>
+<td>多模态</td>
+<td>学会看：图文对齐</td>
+<td>CLIP、LLaVA</td>
+</tr>
+<tr>
+<td>工具使用</td>
+<td>学会行动：输出结构化调用而不是聊天</td>
+<td>Toolformer、function calling</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/%E4%BB%8E%E5%9F%BA%E5%BA%A7%E6%A8%A1%E5%9E%8B%E5%88%B0%E6%99%BA%E8%83%BD%E4%BD%93LLM%E8%83%BD%E5%8A%9B%E8%BF%9B%E5%8C%96%E8%B7%AF%E7%BA%BF%E5%9B%BE.png" alt="从基座模型到智能体LLM能力进化路线图"></p>
+<h2 id="一、基座模型：学会语言"><a href="#一、基座模型：学会语言" class="headerlink" title="一、基座模型：学会语言"></a>一、基座模型：学会语言</h2><p>本质是在海量文本上做<strong>下一个 token 预测</strong>：给定前文，预测下一个词的概率分布，用交叉熵当损失。听起来简单得不像能教会模型什么，但要让这个预测足够准，模型不得不把语法、常识、事实、甚至推理的痕迹都压进参数里。</p>
+<p>这一站的成本结构决定了后面所有事：注意力的开销随序列长度平方增长，参数量、数据量、算力与最终效果之间存在可预测的缩放关系（scaling law）——所以它是整条流水线里最贵的一站，通常只有少数机构在做。</p>
+<p>有一个很容易忘的事实：<strong>基座模型只会续写，不会听指令</strong>。你问它”什么是递归”，它极可能接着给你编几道类似的题目，因为它的训练目标里从来没有”回答”这个概念。网上那些”base 模型 vs instruct 模型”的对比视频看起来像两个物种，原因就在这里。</p>
+<p>坑也集中在数据上：<strong>去重和去污染</strong>是硬要求（测试集泄漏进训练集，评测分数直接作废）；词表、上下文长度这类决定一旦定了，后面想改就要重训。</p>
+<h2 id="二、SFT：学会说话"><a href="#二、SFT：学会说话" class="headerlink" title="二、SFT：学会说话"></a>二、SFT：学会说话</h2><p>SFT（监督微调）用”指令 → 回答”的配对数据继续训练。数据长这样：</p>
+<pre class=" language-json"><code class="language-json">&amp;#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token property">"instruction"</span><span class="token operator">:</span> <span class="token string">"把下面这句话改成更礼貌的说法"</span><span class="token punctuation">,</span>
+  <span class="token property">"input"</span><span class="token operator">:</span> <span class="token string">"你这个方案不行。"</span><span class="token punctuation">,</span>
+  <span class="token property">"output"</span><span class="token operator">:</span> <span class="token string">"这个方案我觉得还有一些可以改进的地方，我们讨论一下？"</span>
+&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>上面这个是 Alpaca 格式，也是最常见的一种。实际工程里主流有三种写法，差别不只是”长得不一样”：</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>结构</th>
+<th>能表达什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Alpaca</td>
+<td><code>instruction</code> + <code>input</code> + <code>output</code>（可选 <code>system</code>、<code>history</code>）</td>
+<td>单轮问答为主，多轮要用 <code>history</code> 手工拼</td>
+</tr>
+<tr>
+<td>ShareGPT</td>
+<td><code>conversations</code> 列表，每项带 <code>from</code>：human &#x2F; gpt &#x2F; observation &#x2F; function</td>
+<td>原生多轮，而且<strong>能表达工具调用轨迹</strong>（function 是调用、observation 是工具返回）</td>
+</tr>
+<tr>
+<td>OpenAI</td>
+<td><code>messages</code> 列表，每项带 <code>role</code>：system &#x2F; user &#x2F; assistant</td>
+<td>ShareGPT 的特例，多一个 system 角色</td>
+</tr>
+</tbody></table>
+<p>（这三种是 LLaMA-Factory 官方文档里的划分；文件可以是 json &#x2F; jsonl &#x2F; csv &#x2F; parquet &#x2F; arrow，列名靠 <code>dataset_info.json</code> 映射。）</p>
+<p>格式选错会直接影响训练结果，两个细节特别容易踩：</p>
+<ul>
+<li><strong>哪些内容会被学（计入 loss）</strong>：Alpaca 格式里 <code>history</code> 中的历史回答<strong>也会被模型学习</strong>；ShareGPT 格式里 <code>gpt</code> 和 <code>function</code> 的内容会学，<code>human</code> 和 <code>observation</code> 不会。没想清楚就选格式，你可能在无意中训练模型去模仿用户的说话方式</li>
+<li><strong>推理模型的思维链怎么放</strong>：有 CoT 的数据要把思维链放在回答里（<code>&lt;think&gt;…&lt;/think&gt;</code> 后面接最终答案）；没有 CoT 时 LLaMA-Factory 会自动补一段空 CoT，而 <code>enable_thinking</code> 参数决定它算不算 loss。<strong>这个参数训练和推理时必须保持一致</strong>，否则效果会莫名其妙地掉</li>
+</ul>
+<p><strong>InstructGPT</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.02155">2203.02155</a>，NeurIPS 2022）把整套流程确立下来，它本身就是三段式的：先用标注员写的示范数据做 SFT，再收集”哪个回答更好”的排序数据训奖励模型，最后用强化学习优化——也就是下一节要讲的 RLHF。</p>
+<p><strong>FLAN</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.01652">2109.01652</a>，ICLR 2022）在 137B 的模型上用 60 多个 NLP 任务做指令微调，结论很有说服力：<strong>在 25 项任务的评测里，零样本超过了 175B 的 GPT-3 中的 20 项</strong>。也就是说，”教模型听懂指令”的效率，比单纯堆参数高得多。</p>
+<p>工程上有几条经验值得记住：</p>
+<ul>
+<li><strong>数据质量远重于数量</strong>：几千条干净、多样、格式统一的样本，常常打得过几十万条脏数据。多样性尤其关键——只覆盖一类任务，模型就只会那一类</li>
+<li><strong>样本里要有”不做什么”</strong>：拒答、承认不知道、拒绝越界请求，都得有示范</li>
+<li><strong>loss 通常只算在回答部分</strong>：指令是条件，不是要学的内容</li>
+<li><strong>小心格式过拟合</strong>：模型可能学会了模板的”腔调”（动不动就分点、堆小标题），但能力没涨——表现是评测分很高、真实使用很僵</li>
+</ul>
+<p>参数高效微调（LoRA &#x2F; QLoRA）主要就用在这一层。同样是 7B 模型，全参 SFT 要约 120GB 显存，LoRA 约 16GB，4bit QLoRA 约 6GB——这就是为什么个人玩家能在单卡上做微调。</p>
+<h2 id="三、DPO-x2F-RLHF：学会选择"><a href="#三、DPO-x2F-RLHF：学会选择" class="headerlink" title="三、DPO &#x2F; RLHF：学会选择"></a>三、DPO &#x2F; RLHF：学会选择</h2><p>SFT 教的是”这样回答”，这一站教的是”哪种回答更好”。数据形态变了，是<strong>配对</strong>：</p>
+<pre class=" language-json"><code class="language-json">&amp;#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token property">"prompt"</span><span class="token operator">:</span> <span class="token string">"为什么天空是蓝色的？"</span><span class="token punctuation">,</span>
+  <span class="token property">"chosen"</span><span class="token operator">:</span> <span class="token string">"因为大气对阳光的散射强度与波长有关……（准确、有条理）"</span><span class="token punctuation">,</span>
+  <span class="token property">"rejected"</span><span class="token operator">:</span> <span class="token string">"因为大海是蓝色的，反射上去的。（常见误解）"</span>
+&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>RLHF 的经典路线</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03741">1706.03741</a>，NeurIPS 2017）确立于 2017 年，当时是给强化学习智能体用的：人类只需要比较两段轨迹的优劣，就能定义目标。论文里有个很惊人的数字——<strong>只用不到 1% 的交互给出反馈，就足以解决复杂任务</strong>。这套思路后来被搬到了语言模型上。</p>
+<p>把原理拆开看，RLHF 其实就是三步：</p>
+<p><strong>第一步，把”偏好”变成可优化的目标。</strong> 用的是经典的 Bradley-Terry 模型：两段回答里”好的那个”被选中的概率，等于两者奖励之差过一个 sigmoid：</p>
+<pre><code>P(好回答 优于 差回答) = sigmoid( r(好) − r(差) )
+</code></pre>
+<p><strong>第二步，训一个奖励模型。</strong> 拿成对的偏好数据拟合上面这个目标——让”好的比差的奖励高”这件事的概率尽可能大。训完它就是一个会给任意回答打分的小模型。</p>
+<p><strong>第三步，用强化学习优化策略。</strong> 这时的目标不是”奖励越高越好”，而是：</p>
+<pre><code>最大化   E[奖励] − β · KL(新策略 ‖ 参考模型)
+</code></pre>
+<p>那个 KL 项是整个 RLHF 的关键：<strong>它约束新策略不要跑离参考模型太远</strong>。没有这一项，模型很快会学会用极端措辞去骗奖励模型——这正是 reward hacking 的温床。β 越大越保守，越小越激进。</p>
+<p>PPO 在这个框架里负责”怎么稳定地更新”：它比较新旧策略的概率比，把比值截断在 [1−ε, 1+ε] 之内，防止一次更新过猛；另外还要一个价值网络来估计基线、降低方差。</p>
+<p>DPO 的聪明之处是把这三步压成一步：既然”最优策略的奖励”可以用<strong>策略与参考模型的对数概率比</strong>表达出来，奖励模型就是多余的——偏好数据可以直接写成损失函数。它省掉的是奖励模型和整套 RL 采样循环，只剩两个模型（策略 + 参考），稳定性自然好得多。</p>
+<p>代价也要说清：DPO 是<strong>离线</strong>的——只在固定的偏好数据集上学，数据没覆盖到的行为学不到；而 PPO 那套在线采样还留着探索能力。所以”DPO 便宜好用”和”PPO 上限更高”并不矛盾，是各自适用面的问题。</p>
+<p>传统 RLHF 的麻烦在于要同时伺候四个模型：<strong>策略模型、参考模型、奖励模型、价值网络</strong>，显存和训练稳定性都很吃紧。<strong>DPO</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.18290">2305.18290</a>，NeurIPS 2023）的价值就在这里：它证明了可以<strong>跳过奖励模型</strong>，直接用偏好数据优化策略。直觉上，模型自己对”好回答”和”差回答”的概率比，本身就能当成一个隐式奖励；再用一个系数管住偏离参考模型的程度，就等价于在优化那个隐式奖励。结果是只需要两个模型（策略 + 参考），训练稳定得多，这也是它现在成为主流的原因。</p>
+<p>这一站最著名的坑是 <strong>reward hacking</strong>——奖励模型只是人类偏好的代理，模型很快就会学会骗它。三个典型形态：</p>
+<ul>
+<li><strong>长度偏置</strong>：更长的回答平均得分更高，于是模型开始灌水</li>
+<li><strong>谄媚</strong>：附和用户的错误观点，而不是纠正</li>
+<li><strong>格式刷分</strong>：堆小标题、堆列表，看起来”专业”</li>
+</ul>
+<p>对策也很具体：偏好数据里控制长度分布、专门收集”长但差”的样本、把”纠正用户”写进偏好数据，以及定期人工抽检。</p>
+<h2 id="四、GRPO-x2F-RLVR：学会思考"><a href="#四、GRPO-x2F-RLVR：学会思考" class="headerlink" title="四、GRPO &#x2F; RLVR：学会思考"></a>四、GRPO &#x2F; RLVR：学会思考</h2><p>这一站让模型”多想一想再答”，钥匙是一个约束：<strong>奖励必须能自动验证</strong>。</p>
+<ul>
+<li><strong>RLVR（可验证奖励的强化学习）</strong>：数学题有标准答案、代码能跑单元测试，于是奖励可以写成一个函数，不需要人类打分：</li>
+</ul>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">reward</span><span class="token punctuation">(</span>question<span class="token punctuation">,</span> model_answer<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token operator">not</span> is_valid_format<span class="token punctuation">(</span>model_answer<span class="token punctuation">)</span><span class="token punctuation">:</span>   <span class="token comment" spellcheck="true"># 必须给出最终答案段</span>
+        <span class="token keyword">return</span> <span class="token number">0.0</span>
+    gold <span class="token operator">=</span> ground_truth<span class="token punctuation">[</span>question<span class="token punctuation">]</span>
+    <span class="token keyword">return</span> <span class="token number">1.0</span> <span class="token keyword">if</span> normalize<span class="token punctuation">(</span>model_answer<span class="token punctuation">.</span>final<span class="token punctuation">)</span> <span class="token operator">==</span> normalize<span class="token punctuation">(</span>gold<span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token number">0.0</span>
+</code></pre>
+<ul>
+<li><strong>GRPO（组内相对策略优化）</strong>：同一个问题采样一组答案，用<strong>组内的相对得分</strong>当优势，省掉了 PPO 里的价值网络——也就是又少养一个模型。它出在 DeepSeekMath（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.03300">2402.03300</a>）里，配套成果是个 7B 模型：用 120B 数学 token 继续预训练后，在竞赛级 MATH 基准上拿到 <strong>51.7%</strong>（不借助工具、不做投票），自一致性采样 64 次可以到 <strong>60.9%</strong>。</li>
+</ul>
+<p><strong>DeepSeek-R1</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12948">2501.12948</a>，<strong>Nature 2025</strong>）把这条路的潜力又往前推了一步：它的 R1-Zero 说明，<strong>纯强化学习就能让模型自己长出长思维链</strong>——自我验证、回头看、换思路这些行为没有被人手写进训练数据，是涌现出来的，而且完全不需要人类标注推理轨迹。</p>
+<p>边界也很硬：</p>
+<ul>
+<li><strong>只在可验证领域成立</strong>。换成写作、咨询、产品设计这类没有标准答案的任务，奖励函数就写不出来——这是当前最大的限制</li>
+<li><strong>采样成本高</strong>：一次更新要采一组答案，算力开销远大于 SFT</li>
+<li><strong>长思维链很贵</strong>：推理时输出 token 可能翻几倍，钱是实打实花在推理上的</li>
+</ul>
+<h2 id="五、量化-x2F-蒸馏：学会省着用"><a href="#五、量化-x2F-蒸馏：学会省着用" class="headerlink" title="五、量化 &#x2F; 蒸馏：学会省着用"></a>五、量化 &#x2F; 蒸馏：学会省着用</h2><p>前四站把模型养大了，这一站开始纠结怎么塞进你买得起的机器。先把账算给你看（只算权重，7B 模型）：</p>
+<table>
+<thead>
+<tr>
+<th>精度</th>
+<th>权重显存</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fp16 &#x2F; bf16</td>
+<td>约 14 GB</td>
+<td>原始精度</td>
+</tr>
+<tr>
+<td>8bit</td>
+<td>约 7 GB</td>
+<td>一般几乎无损</td>
+</tr>
+<tr>
+<td>4bit</td>
+<td>约 3.5 GB</td>
+<td>主流折中点，消费级显卡能跑</td>
+</tr>
+</tbody></table>
+<p>实际还要加上 KV cache 和激活值，所以真实占用比这张表高。</p>
+<p>量化这件事可以先分成三层来看，选方案时按这三层把需求说清楚就不会乱：</p>
+<ul>
+<li><strong>什么时候做</strong>：PTQ（训练完再量化，成本低、是主流）vs QAT（训练时就模拟量化误差，精度更好但要把模型重训一遍）</li>
+<li><strong>量化什么</strong>：只量化权重（weight-only，主要收益是省显存）vs 权重和激活都量化（W8A8 这类，能实打实提速，但要硬件和算子支持）</li>
+<li><strong>以什么粒度量化</strong>：per-tensor（一个张量共用一组缩放参数，最省额外存储）→ per-channel → per-group（一组共享一组，最准，但元数据也更占地方）；另外还有对称与非对称表示之分，决定零点怎么放</li>
+</ul>
+<p>长上下文时代还有一个容易忽略的大头：<strong>KV cache</strong>。它随上下文长度和并发数线性增长，权重压到 4bit 之后，KV cache 往往反而成了显存第一大户——所以现在也有专门的 KV cache 量化（fp8 &#x2F; int8）。</p>
+<ul>
+<li><strong>GPTQ</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.17323">2210.17323</a>，ICLR 2023）：一次性的逐层量化，量化时用二阶信息做误差补偿。它的时代背景是——那时候推理一个大模型要好几张 GPU，压缩是刚需</li>
+<li><strong>AWQ</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.00978">2306.00978</a>，MLSys 2024 最佳论文）：核心发现是<strong>权重并不一样重要，只保护 1% 的显著通道就能大幅降低量化误差</strong>；而判断”显著”要看激活值分布，不看权重本身。又简单又有效</li>
+<li><strong>GGUF</strong>：让 4bit 模型在消费级设备上跑起来的那套格式，Ollama 走的就是这条路</li>
+</ul>
+<p>另一条线是<strong>蒸馏</strong>：让大模型当老师、小模型当学生。按”学生学什么”可以分三类（这也是蒸馏综述里的经典划分）：</p>
+<ul>
+<li><strong>学输出（logits 蒸馏）</strong>：Hinton 那篇（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1503.02531">1503.02531</a>）的原始做法——让学生学老师的<strong>概率分布</strong>，而不是只学最终答案。软标签里带着”哪些错误答案比较像”的信息（所谓暗知识），这是它比硬标签强的原因；代价是得能拿到老师的 logits</li>
+<li><strong>学中间层（特征蒸馏）</strong>：对学生和老师的中间层表示做对齐，约束更强，但对两者的结构能否对上是有要求的</li>
+<li><strong>学数据（数据蒸馏）</strong>：拿不到 logits 时的通用解——用大模型生成高质量数据去训小模型。现在开源小模型大多走这条路</li>
+</ul>
+<p>语言模型上还有一个专门的改进：<strong>on-policy 蒸馏</strong>（MiniLLM，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.08543">2306.08543</a>，ICLR 2024）。传统做法是老师生成、学生模仿，学生会遇到”训练时看老师的、推理时自己走”的分布不匹配；MiniLLM 改成<strong>让学生自己生成、老师来评估</strong>，把这个 gap 补上。</p>
+<p>坑只有一个但很重要：<strong>量化不是无损的，而且不同任务对量化的敏感度差别很大</strong>。别人的基准分只能当参考，上线前必须拿自己的任务测。</p>
+<h2 id="六、多模态：学会看"><a href="#六、多模态：学会看" class="headerlink" title="六、多模态：学会看"></a>六、多模态：学会看</h2><p>结构上是三件套：<strong>视觉编码器 + 投影层 + 语言模型</strong>——把图像编码成向量，投影到语言模型的表示空间，然后就当”另一种 token”处理。</p>
+<ul>
+<li><strong>CLIP</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020</a>，ICML 2021）解决的是”怎么让图和文可比”：用 <strong>4 亿对图文</strong>做对比学习，配对的拉近、不配对的推远。它训出来的视觉编码器，后来成了几乎所有多模态模型的标配</li>
+<li><strong>LLaVA</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.08485">2304.08485</a>，NeurIPS 2023 Oral）的做法特别值得学：<strong>用纯文本的 GPT-4 来生成多模态指令数据</strong>（给它图片的描述和框，让它造出对话、推理、细节问答），再用这些数据做视觉指令微调——本质上是给多模态补了一节 SFT</li>
+</ul>
+<p>工程上最容易低估的是 token 账：图像被切成 patch 后，每个 patch 就是一个 token。按常见的 14×14 patch 算，<strong>一张 336×336 的图大约就是 576 个 token</strong>；多图、高分辨率、视频帧的场景下上下文会被迅速吃满，这就是”多模态很贵”的直接原因。</p>
+<h2 id="七、工具使用：学会行动"><a href="#七、工具使用：学会行动" class="headerlink" title="七、工具使用：学会行动"></a>七、工具使用：学会行动</h2><p>最后一站，模型从”会说”变成”能做”：不再用自然语言说”你可以查一下天气”，而是输出<strong>结构化的调用请求</strong>。一次请求大致长这样：</p>
+<pre class=" language-json"><code class="language-json">&amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"tool_calls"</span><span class="token operator">:</span> <span class="token punctuation">[</span>&amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"function"</span><span class="token operator">:</span> &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"get_weather"</span><span class="token punctuation">,</span>
+                             <span class="token property">"arguments"</span><span class="token operator">:</span> <span class="token property">"&amp;#123;\"city\": \"成都\", \"unit\"</span><span class="token operator">:</span> \<span class="token string">"c\"&amp;#125;"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">]</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>起点是 <strong>Toolformer</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">2302.04761</a>，NeurIPS 2023）：让模型自己学会”什么时候该调 API”。现在这条路两端都在标准化：</p>
+<ul>
+<li><strong>协议侧</strong>：MCP（当前规范版本 2026-07-28）把”工具怎么暴露给模型”统一成一个接口，工具方写一次、所有客户端都能用</li>
+<li><strong>部署侧</strong>：各家模型的调用格式依然不统一。vLLM 需要显式指定 <code>--enable-auto-tool-choice</code> 和 <code>--tool-call-parser &lt;模型族&gt;</code>，它的解析器清单有几十个名字（hermes、llama3_json、mistral、deepseek_v3、glm45、kimi_k2、qwen3_xml……），这份清单本身就是”格式碎片化”的证据</li>
+</ul>
+<p>真跑起来会遇到的坑：</p>
+<ul>
+<li><strong>模型编工具名</strong>：调用一个不存在的函数——所以工具列表要短、名字要自解释</li>
+<li><strong>参数类型错</strong>：该传整数的地方传了字符串，需要在服务端做校验和重试</li>
+<li><strong>工具报错后模型不会自救</strong>：错误信息要设计得让模型看懂并改（这也是 ACI 设计的一部分）</li>
+<li><strong>注入风险</strong>：工具返回的内容里可能藏着指令，而模型会照做</li>
+</ul>
+<p><strong>工具调用是 agent 的”手”</strong>，而 agent 是”工具调用 + 循环 + 记忆”。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><pre class=" language-bash"><code class="language-bash">语言（基座）→ 听话（SFT）→ 选择（对齐）→ 思考（RLVR）→ 省着用（量化蒸馏）→ 看（多模态）→ 做（工具）
+</code></pre>
+<p>每一站都在解决上一站留下的问题：会续写但不听话，SFT 来解决；会听话但不会挑，对齐来解决；会挑但不会想，RLVR 来解决；会想但跑不动，量化和蒸馏来解决；能跑但不会看、不会做，多模态和工具来解决。</p>
+<p>所以看一个新模型的能力边界，可以顺着这条线问两个问题：<strong>它走到第几站了？哪一站投入不够？</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03741">1706.03741</a> — Deep Reinforcement Learning from Human Preferences — NeurIPS 2017（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1503.02531">1503.02531</a> — Distilling the Knowledge in a Neural Network — NIPS 2014 深度学习 workshop</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020</a> — Learning Transferable Visual Models From Natural Language Supervision（CLIP）— ICML 2021（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.01652">2109.01652</a> — Finetuned Language Models Are Zero-Shot Learners（FLAN）— ICLR 2022（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.02155">2203.02155</a> — Training language models to follow instructions with human feedback（InstructGPT）— NeurIPS 2022（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.17323">2210.17323</a> — GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers — ICLR 2023（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2302.04761">2302.04761</a> — Toolformer: Language Models Can Teach Themselves to Use Tools — NeurIPS 2023（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.08485">2304.08485</a> — Visual Instruction Tuning（LLaVA）— NeurIPS 2023 Oral（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.18290">2305.18290</a> — Direct Preference Optimization: Your Language Model is Secretly a Reward Model — NeurIPS 2023（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.00978">2306.00978</a> — AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration — MLSys 2024 最佳论文</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.03300">2402.03300</a> — DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models（提出 GRPO）— 预印本</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12948">2501.12948</a> — DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning — Nature 2025</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.08543">2306.08543</a> — MiniLLM: On-Policy Distillation of Large Language Models — ICLR 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.13630">2103.13630</a> — A Survey of Quantization Methods for Efficient Neural Network Inference — 书籍章节（Low-Power Computer Vision）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.05525">2006.05525</a> — Knowledge Distillation: A Survey — 期刊综述</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/10/ModelTrainingPipeline/">https://unluckynike.github.io/2026/10/10/ModelTrainingPipeline/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">论文笔记</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大模型</span>
+                                </a>
+                            
+                                <a href="/tags/SFT/">
+                                    <span class="chip bg-color">SFT</span>
+                                </a>
+                            
+                                <a href="/tags/RLHF/">
+                                    <span class="chip bg-color">RLHF</span>
+                                </a>
+                            
+                                <a href="/tags/DPO/">
+                                    <span class="chip bg-color">DPO</span>
+                                </a>
+                            
+                                <a href="/tags/GRPO/">
+                                    <span class="chip bg-color">GRPO</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/10/HexoBlogRevival/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="停更四年 重新上线">
+                        
+                        <span class="card-title">停更四年 重新上线</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            2022 年 9 月停更，2026 年 10 月重新打开——第一件发现的事不是文章过时，而是站点域名指向了一个已停运的服务，199 个页面全部带着死链。这篇是完整的复活记录：体检清单、抢救顺序、四个"看起来没问题一用就坏"的坑，以及如果重来我会提前做的三件事。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Hexo/" class="post-category">
+                                    Hexo
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
+                    </a>
+                    
+                    <a href="/tags/GitHub-Pages/">
+                        <span class="chip bg-color">GitHub Pages</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BF%90%E7%BB%B4/">
+                        <span class="chip bg-color">运维</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/10/AgentIntro/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/Gemini_Generated_Image_hl0t7ihl0t7ihl0t.jpg" class="responsive-img" alt="AI Agent：一个循环、五个部件，和工程上真正难的地方">
+                        
+                        <span class="card-title">AI Agent：一个循环、五个部件，和工程上真正难的地方</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            agent 不是"更聪明的聊天机器人"，而是一个"想—做—看"的循环加上五个部件。这篇按这个骨架把 agent 讲清楚：workflow 和 agent 的界限在哪、模型要多什么能力、工具怎么标准化（MCP）、记忆和规划怎么做、以及工程上真正难的是什么。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AI-Agent/">
+                        <span class="chip bg-color">AI Agent</span>
+                    </a>
+                    
+                    <a href="/tags/ReAct/">
+                        <span class="chip bg-color">ReAct</span>
+                    </a>
+                    
+                    <a href="/tags/MCP/">
+                        <span class="chip bg-color">MCP</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8/">
+                        <span class="chip bg-color">工具调用</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">论文笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">226.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a71f3b21244c8401ed833cf8a95be732";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
