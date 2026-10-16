@@ -1,0 +1,1755 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="模型微调与对齐, java,HTML,CSS,JavaScript,JQuery,React,Vue.js等">
+    <meta name="description" content="微调和对齐是两条不同的轴：一个改&#34;会不会做&#34;，一个改&#34;愿不愿意做/怎么做&#34;。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>模型微调与对齐 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">模型微调与对齐</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%BE%AE%E8%B0%83/">
+                                <span class="chip bg-color">微调</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AF%B9%E9%BD%90/">
+                                <span class="chip bg-color">对齐</span>
+                            </a>
+                        
+                            <a href="/tags/SFT/">
+                                <span class="chip bg-color">SFT</span>
+                            </a>
+                        
+                            <a href="/tags/DPO/">
+                                <span class="chip bg-color">DPO</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-13
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-16
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    14 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="一、先分清：微调和对齐是两条轴"><a href="#一、先分清：微调和对齐是两条轴" class="headerlink" title="一、先分清：微调和对齐是两条轴"></a>一、先分清：微调和对齐是两条轴</h2><p>很多人把这两个词混着用，结果配置全写错了方向。它们的区别是：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>微调（Fine-tuning）</th>
+<th>对齐（Alignment）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改什么</td>
+<td><strong>会不会做</strong>（能力、格式、领域适配）</td>
+<td><strong>愿不愿意做、怎么做</strong>（偏好、风格、安全）</td>
+</tr>
+<tr>
+<td>数据形态</td>
+<td>输入 → 期望输出（一对一）</td>
+<td>好答案 vs 差答案（成对比较）</td>
+</tr>
+<tr>
+<td>典型方法</td>
+<td>SFT、LoRA、QLoRA</td>
+<td>DPO、RLHF、GRPO&#x2F;RLVR</td>
+</tr>
+<tr>
+<td>失败的信号</td>
+<td>做不对、格式不对、不覆盖领域</td>
+<td>会做但不好好做：啰嗦、谄媚、绕开限制</td>
+</tr>
+</tbody></table>
+<p>按”你要解决什么”对号入座：</p>
+<ul>
+<li><strong>想让模型按固定格式输出、懂你的领域术语</strong> → SFT</li>
+<li><strong>想让回答更简洁、更直接、更少谄媚</strong> → 对齐（DPO 起步）</li>
+<li><strong>想提升数学&#x2F;代码这类可验证能力</strong> → RLVR（GRPO）</li>
+<li><strong>想让模型知道新知识&#x2F;新文档</strong> → <strong>先考虑 RAG，不是微调</strong>（微调擅长”改变行为”，不擅长”注入事实”）</li>
+</ul>
+<h2 id="二、SFT-实操"><a href="#二、SFT-实操" class="headerlink" title="二、SFT 实操"></a>二、SFT 实操</h2><h3 id="数据：先管质量，再管数量"><a href="#数据：先管质量，再管数量" class="headerlink" title="数据：先管质量，再管数量"></a>数据：先管质量，再管数量</h3><p>起步规模：<strong>1k~10k 条</strong>。这个量级足够让模型学会一种输出风格；再多就是边际递减，而一条脏数据的代价可能超过一百条好数据。</p>
+<p>造数据的四条路子，按成本排序：</p>
+<ol>
+<li><strong>从真实日志里挖</strong>：把线上问答、客服记录、用户提问整理成 <code>指令 → 好回答</code>（最贴合真实分布）</li>
+<li><strong>人工写少量高质量示范</strong>：几百条统一的格式模板，效果常常超过一万条杂数据</li>
+<li><strong>用强模型批量生成 + 人工抽检</strong>：注意生成的结果要人工过一遍，否则会把强模型的坏习惯一起学进来</li>
+<li><strong>公开数据集</strong>：注意许可证和领域匹配度</li>
+</ol>
+<p><strong>数据检查清单</strong>（发布前逐条过）：</p>
+<ul>
+<li>格式统一吗（同一个域内不要混多种模板）</li>
+<li>有没有”正确但冗长””错误但漂亮”的样本</li>
+<li>覆盖了该覆盖的吗（简单&#x2F;边界&#x2F;拒答三类都要有）</li>
+<li>有没有把测试集混进训练集（会直接让评测失效）</li>
+</ul>
+<p><strong>模板（template）是比参数更容易踩的坑</strong>：示例配置里的 <code>template: qwen3_nothink</code> 不是随便填的——它决定训练时怎么把数据拼成”模型见过的那个格式”。填错有两种典型表现：训练 loss 正常下降但推理时行为异常（比如把系统提示当成用户说的话），或者多轮对话里角色错位。规则很简单：<strong>template 必须和目标模型的官方 chat 模板一致</strong>，而且同一模型的不同版本模板也可能不同。</p>
+<p><strong>一个多轮样本（带 system 和工具调用）长这样</strong>：</p>
+<pre class=" language-json"><code class="language-json">&amp;#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token property">"conversations"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"from"</span><span class="token operator">:</span> <span class="token string">"system"</span><span class="token punctuation">,</span> <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"你是一个严谨的技术助手，不确定时直接说不确定。"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+    &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"from"</span><span class="token operator">:</span> <span class="token string">"human"</span><span class="token punctuation">,</span> <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"帮我看下这个报错"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+    &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"from"</span><span class="token operator">:</span> <span class="token string">"function_call"</span><span class="token punctuation">,</span> <span class="token property">"value"</span><span class="token operator">:</span> <span class="token property">"&amp;#123;\"name\":\"read_log\",\"arguments\"</span><span class="token operator">:</span>&amp;#<span class="token number">123</span><span class="token punctuation">;</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span>"&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+    &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"from"</span><span class="token operator">:</span> <span class="token string">"observation"</span><span class="token punctuation">,</span> <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"java.lang.NullPointerException ..."</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+    &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"from"</span><span class="token operator">:</span> <span class="token string">"gpt"</span><span class="token punctuation">,</span> <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"空指针发生在第 42 行的 userService，先确认 userId 是否可能为 null。"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">]</span>
+&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>注意角色顺序，以及”哪些内容会被学”——只有 <code>gpt</code> 和 <code>function</code> 的内容计入 loss，<code>human</code> 和 <code>observation</code> 不计。</p>
+<p><strong>数据够不够，看两个信号</strong>：验证集 loss 是否还在降（不降了说明这批数据学到头了）；任务评测是否还在涨（不涨说明缺的不是数据量，而是别的东西）。</p>
+<h3 id="参数：照这个抄"><a href="#参数：照这个抄" class="headerlink" title="参数：照这个抄"></a>参数：照这个抄</h3><p>下面是 LLaMA-Factory 示例配置（<code>examples/train_lora/qwen3_lora_sft.yaml</code>）里的真实取值，可以直接作为起点：</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true">### 方法</span>
+<span class="token key atrule">finetuning_type</span><span class="token punctuation">:</span> lora
+<span class="token key atrule">lora_rank</span><span class="token punctuation">:</span> <span class="token number">8</span>
+<span class="token key atrule">lora_target</span><span class="token punctuation">:</span> all
+
+<span class="token comment" spellcheck="true">### 数据</span>
+<span class="token key atrule">template</span><span class="token punctuation">:</span> qwen3_nothink
+<span class="token key atrule">cutoff_len</span><span class="token punctuation">:</span> <span class="token number">2048          </span><span class="token comment" spellcheck="true"># 截断长度：按你的数据实际长度设，别默认往大里开</span>
+<span class="token key atrule">max_samples</span><span class="token punctuation">:</span> <span class="token number">1000</span>
+
+<span class="token comment" spellcheck="true">### 训练</span>
+<span class="token key atrule">per_device_train_batch_size</span><span class="token punctuation">:</span> <span class="token number">1</span>
+<span class="token key atrule">gradient_accumulation_steps</span><span class="token punctuation">:</span> <span class="token number">8   </span><span class="token comment" spellcheck="true"># 等效 batch = 1 × 8 × 卡数</span>
+<span class="token key atrule">learning_rate</span><span class="token punctuation">:</span> <span class="token number">1.0e-4</span>
+<span class="token key atrule">num_train_epochs</span><span class="token punctuation">:</span> <span class="token number">3.0</span>
+<span class="token key atrule">lr_scheduler_type</span><span class="token punctuation">:</span> cosine
+<span class="token key atrule">warmup_ratio</span><span class="token punctuation">:</span> <span class="token number">0.1</span>
+<span class="token key atrule">bf16</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+</code></pre>
+<p>几个经验值的来历和调整方向：</p>
+<ul>
+<li><strong>学习率 1e-4</strong>：LoRA 微调的常用档位。全参微调要低一个量级（1e-5 ~ 2e-5）</li>
+<li><strong>epoch 3</strong>：这是”跑几遍数据”的上限；如果你的数据小（几百条），可以到 3<del>5，数据大则 1</del>2</li>
+<li><strong>rank 8</strong>：LoRA 的秩，官方示例就用 8——先别急着往 64 上堆（「高效微调」那篇解释过 rank 太大会失去意义）</li>
+<li><strong>cutoff_len</strong>：这个参数最容易埋雷。设得太小，长样本会被截断（还可能在截断处学出”半句话就结束”的习惯）；设得太大，显存又爆</li>
+<li><strong>batch 1 + 梯度累积 8</strong>：显存不够时的标准做法，等效 batch 一样，只是慢一点</li>
+</ul>
+<h3 id="三个高频坑"><a href="#三个高频坑" class="headerlink" title="三个高频坑"></a>三个高频坑</h3><ol>
+<li><strong>loss 掩码搞错</strong>：只应训练”回答”部分，指令是条件。掩码写错会让模型学着模仿用户的语气</li>
+<li><strong>格式过拟合</strong>：模型把模板的腔调学会了（动不动分点、堆小标题），但能力没涨——评测分高、真实使用僵</li>
+<li><strong>忘了留验证集</strong>：官方示例里 eval 段默认是注释掉的，<strong>别真按默认来</strong>——把 <code>val_size: 0.1</code> 打开，否则你没有任何信号判断”该停在第几个 epoch”</li>
+</ol>
+<h3 id="训练时看什么"><a href="#训练时看什么" class="headerlink" title="训练时看什么"></a>训练时看什么</h3><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>判读</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>训练 loss 降，验证 loss 也降</td>
+<td>健康</td>
+<td>继续</td>
+</tr>
+<tr>
+<td>训练 loss 降，验证 loss 先降后升</td>
+<td>过拟合</td>
+<td>回退到验证 loss 最低的 checkpoint</td>
+</tr>
+<tr>
+<td>训练 loss 几乎不动</td>
+<td>学习率太小，或数据格式&#x2F;模板不对</td>
+<td>先查格式与模板，再调 lr</td>
+</tr>
+<tr>
+<td>loss 突然 NaN 或爆掉</td>
+<td>学习率太大、bf16 环境混入 fp16 数据、异常长样本</td>
+<td>降 lr + 检查数据长度分布</td>
+</tr>
+</tbody></table>
+<h2 id="三、DPO-实操"><a href="#三、DPO-实操" class="headerlink" title="三、DPO 实操"></a>三、DPO 实操</h2><p>DPO 是当前对齐的默认起点：比 RLHF 简单、比 SFT 更能改”偏好”。前提是<strong>先有一个 SFT 过的模型</strong>（对齐是在会做事的基础上调偏好）。</p>
+<h3 id="数据：成对，而且要成体系"><a href="#数据：成对，而且要成体系" class="headerlink" title="数据：成对，而且要成体系"></a>数据：成对，而且要成体系</h3><p>规模上 <strong>5k~50k 对</strong>是常见区间，但比数量更重要的是<strong>成对的构造质量</strong>——每一对的 <code>chosen</code> 和 <code>rejected</code> 应该只差在<strong>想改的那个维度</strong>上：</p>
+<p>想让回答更简洁 → chosen 是简洁版，rejected 是啰嗦版（内容都对）<br>想让模型不谄媚   → chosen 是礼貌纠正，rejected 是附和用户<br>想加安全边界     → chosen 是解释后拒答，rejected 是无条件配合</p>
+<p>如果 chosen 和 rejected 的差别五花八门，模型学到的偏好就是混乱的。</p>
+<p>同样列出组合的检查清单：</p>
+<ul>
+<li><strong>长度分布</strong>：统计 chosen 和 rejected 的长度——如果 chosen 普遍更长，你会训出一个话痨</li>
+<li><strong>多样性</strong>：每个维度的样本不要来自同一个模板或同一个生成模型</li>
+<li><strong>留一批”没见过的维度”</strong>：用于验证对齐没有把通用能力带坏</li>
+</ul>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p><strong>成对数据从哪来</strong>（按成本排序）：</p>
+<ol>
+<li><strong>人工标注</strong>：质量最高、成本最高，适合几千对但极关键的维度</li>
+<li><strong>强模型生成</strong>：给强模型明确的”分别写一个好回答和一个坏回答”的指令，再人工抽检</li>
+<li><strong>规则扰动</strong>：拿现成的好回答做可控破坏——抽掉关键信息、替换成错误事实、把简洁版扩写成啰嗦版。成本最低，而且天然满足”只差一个维度”这个要求</li>
+</ol>
+<p><strong>reference model 是谁</strong>：就是做 DPO 之前那个 <strong>SFT 模型的副本</strong>（权重冻结，不参与训练）。它给 beta 提供参照系——偏离它越多，惩罚越大。</p>
+<p><strong>DPO 的 loss 怎么看</strong>：正常是缓慢下降。如果很快降到接近 0，通常是 beta 太小或数据太单一——模型已经学会用极端表达刷分（reward hacking 的 DPO 版）。这时该做的不是接着训，而是回头把数据做多样。</p>
+<p><strong>顺手记住两个变体</strong>（都在往”去参考模型”方向走）：<strong>ORPO</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.07691">2403.07691</a>）把 SFT 和对齐合成一步、不需要参考模型；<strong>SimPO</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.14734">2405.14734</a>，NeurIPS 2024）用<strong>序列的平均对数概率</strong>当隐式奖励，同样去掉了参考模型。</p>
+<p>同样来自官方示例（<code>qwen3_lora_dpo.yaml</code>）：</p>
+<pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">pref_beta</span><span class="token punctuation">:</span> <span class="token number">0.1</span>
+<span class="token key atrule">pref_loss</span><span class="token punctuation">:</span> sigmoid      <span class="token comment" spellcheck="true"># 可选 sigmoid(dpo) / orpo / simpo</span>
+<span class="token key atrule">learning_rate</span><span class="token punctuation">:</span> <span class="token number">1.0e-4   </span><span class="token comment" spellcheck="true"># 与 SFT 同档；若在 SFT 模型上继续训，可再降一半</span>
+<span class="token key atrule">num_train_epochs</span><span class="token punctuation">:</span> <span class="token number">3.0</span>
+<span class="token key atrule">lr_scheduler_type</span><span class="token punctuation">:</span> cosine
+<span class="token key atrule">warmup_ratio</span><span class="token punctuation">:</span> <span class="token number">0.1</span>
+</code></pre>
+<ul>
+<li><strong>beta &#x3D; 0.1</strong>：控制”允许偏离参考模型多远”。<strong>调大更保守</strong>（学得慢但不容易跑偏），调小更激进</li>
+<li><strong>loss 可选 sigmoid &#x2F; orpo &#x2F; simpo</strong>：ORPO 和 SimPO 是后续的变体，思路是减少对参考模型的依赖；先从 sigmoid（标准 DPO）开始</li>
+<li>DPO 的坑集中在 beta：<strong>beta 太小 + 数据单一 &#x3D; 学会极端表达</strong>（同一句话反复加强），这是 reward hacking 在 DPO 上的表现形式</li>
+</ul>
+<h2 id="四、RLHF-与-RLVR：什么时候值得"><a href="#四、RLHF-与-RLVR：什么时候值得" class="headerlink" title="四、RLHF 与 RLVR：什么时候值得"></a>四、RLHF 与 RLVR：什么时候值得</h2><p><strong>RLHF（PPO）</strong>：要同时伺候策略、参考、奖励、价值四个模型，工程和显存成本都高。<strong>现在很少是首选</strong>——除非你要的偏好很难用成对数据表达（例如”整体对话质量”这种模糊标准）。如果真要做，先用一档：用 reward 模型（示例配置里 <code>stage: rm</code>，超参与 SFT 同档：<code>lora_rank 8</code>、<code>lr 1e-4</code>、<code>epoch 3</code>）把奖励模型训出来，再决定要不要上 PPO。</p>
+<p><strong>RLVR（可验证奖励）</strong>：只有一类任务适用——<strong>答案能被自动验证</strong>（数学题、代码题、结构化的抽取任务）。它的数据不是”输入 → 输出”，而是”题目 + 标准答案”，奖励由规则算出来：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">reward</span><span class="token punctuation">(</span>question<span class="token punctuation">,</span> answer<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    score <span class="token operator">=</span> <span class="token number">0.0</span>
+    <span class="token keyword">if</span> has_required_format<span class="token punctuation">(</span>answer<span class="token punctuation">)</span><span class="token punctuation">:</span>     <span class="token comment" spellcheck="true"># 格式分：逼出稳定的输出结构</span>
+        score <span class="token operator">+=</span> <span class="token number">0.2</span>
+    <span class="token keyword">if</span> normalize<span class="token punctuation">(</span>answer<span class="token punctuation">.</span>final<span class="token punctuation">)</span> <span class="token operator">==</span> normalize<span class="token punctuation">(</span>ground_truth<span class="token punctuation">[</span>question<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        score <span class="token operator">+=</span> <span class="token number">1.0</span>                    <span class="token comment" spellcheck="true"># 正确性分：占主导</span>
+    <span class="token keyword">return</span> score
+</code></pre>
+<p>三个实操要点：</p>
+<ol>
+<li><strong>奖励要分层</strong>：格式分给一点权重让训练稳定，正确性分占主导，别让两者量级混淆</li>
+<li><strong>题目难度要有分布</strong>：全是难题 → 全对或全错 → 没有梯度信号；全简单题 → 学不到东西。官方工作里会把难易混合</li>
+<li><strong>别指望它改风格</strong>：RLVR 只在”能判对错”的维度上生效，写作、咨询这类没有标准答案的任务写不出奖励函数</li>
+</ol>
+<p>LLaMA-Factory 的示例配置覆盖 SFT &#x2F; DPO &#x2F; KTO &#x2F; reward 这几档；更完整的 RL 算法需要用支持强化学习流程的框架来做。</p>
+<h2 id="五、评测：怎么知道有没有效果"><a href="#五、评测：怎么知道有没有效果" class="headerlink" title="五、评测：怎么知道有没有效果"></a>五、评测：怎么知道有没有效果</h2><p>这是最容易被跳过、也最影响成本的一步。<strong>没有评测，你就是在盲训。</strong></p>
+<p><strong>三件套，缺一不可：</strong></p>
+<p><strong>1. 任务指标</strong>：留一个<strong>训练里没出现过</strong>的测试集（200~500 条足够），比较微调前后的输出质量。评测时温度设 0、跑两三次看方差——<strong>跑一次的结果不可信</strong>。</p>
+<p><strong>2. 通用能力回归</strong>：同一个通用问题集（几十条就够），对比微调前后的表现。如果明显下降，说明学得太狠或数据太窄。这一步专门用来抓”灾难性遗忘”。</p>
+<p><strong>3. 人工盲评（最有效也最容易被忽略）</strong>：把 base 和微调后的输出<strong>打乱顺序</strong>放在一起，让人挑更好的那个。50~100 条就能看出趋势。要点：</p>
+<ul>
+<li>一定要<strong>盲</strong>（不告诉评审哪个是新模型）</li>
+<li>一定要<strong>打乱</strong>（人会对第一个回答有偏好）</li>
+<li>对齐任务的盲评要专门盯三个指标：<strong>长度、拒答率、是否附和</strong></li>
+</ul>
+<p><strong>用强模型当裁判（LLM-as-judge）</strong>：没有标准答案的任务，常见做法是让一个强模型按评分标准打分——便宜、可复现，但它有三个已知偏差，必须校准：</p>
+<table>
+<thead>
+<tr>
+<th>偏差</th>
+<th>表现</th>
+<th>对策</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>位置偏差</td>
+<td>更偏爱排在前面的回答</td>
+<td>两个回答对调顺序各评一次，只取两次一致的结论</td>
+</tr>
+<tr>
+<td>长度偏差</td>
+<td>更偏爱长回答</td>
+<td>评分标准里显式声明”简洁不加分”，或先按长度分层再比</td>
+</tr>
+<tr>
+<td>自我偏好</td>
+<td>偏爱同族模型的输出</td>
+<td>裁判模型不要用被评测模型同一族的</td>
+</tr>
+</tbody></table>
+<p><strong>人工盲评的最小可行做法</strong>：2 个评审 × 60 条 × 打乱顺序，先标”明显更好”和”分不出”，只统计”明显更好”的比例——60 条足够看出 20 个百分点以上的差异，不必追求统计学显著。</p>
+<p><strong>对齐专项检查</strong>（这三项能提前抓住 reward hacking）：</p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>怎么看</th>
+<th>异常信号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>平均回答长度</td>
+<td>对齐前后对比</td>
+<td>明显变长 &#x3D; 学成了话痨</td>
+</tr>
+<tr>
+<td>拒答率</td>
+<td>抽样统计</td>
+<td>该答的也不答 &#x2F; 该拒的全接</td>
+</tr>
+<tr>
+<td>附和倾向</td>
+<td>构造”用户说错”的样本</td>
+<td>一味认同用户</td>
+</tr>
+</tbody></table>
+<h2 id="六、完整路径"><a href="#六、完整路径" class="headerlink" title="六、完整路径"></a>六、完整路径</h2><p>把上面的东西串起来，从零到上线的顺序是：</p>
+<ol>
+<li>明确目标 → 判断是”能力问题”还是”偏好问题”（决定走 SFT 还是对齐）</li>
+<li>SFT → 造 1k~10k 条数据 → 官方示例参数起步 → 看验证集损失决定停在哪</li>
+<li>用评测三件套验收 SFT → 不达标先修数据，别急着上对齐</li>
+<li>需要改偏好 → 造 DPO 成对数据 → beta 0.1 起步 → 再跑一遍评测三件套</li>
+<li>需要提可验证能力 → 设计分层奖励 → 上 RLVR</li>
+<li>上线前：对齐专项检查（长度&#x2F;拒答&#x2F;附和）+ 一次盲评</li>
+</ol>
+<p><strong>每一档之间都要评测</strong>——不然出了问题无法判断是哪一步引入的。</p>
+<h2 id="七、汇总记录"><a href="#七、汇总记录" class="headerlink" title="七、汇总记录"></a>七、汇总记录</h2><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>坑</th>
+<th>表现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据（全程）</td>
+<td>测试集污染</td>
+<td>评测分虚高，上线就现原形</td>
+</tr>
+<tr>
+<td>SFT</td>
+<td>loss 掩码错</td>
+<td>学会了用户的语气</td>
+</tr>
+<tr>
+<td>SFT</td>
+<td>cutoff 太小</td>
+<td>长回答被腰斩，学出”半句话”习惯</td>
+</tr>
+<tr>
+<td>SFT</td>
+<td>没留验证集</td>
+<td>不知道该停在第几个 epoch</td>
+</tr>
+<tr>
+<td>SFT</td>
+<td>数据太窄</td>
+<td>通用能力掉、任务能力涨</td>
+</tr>
+<tr>
+<td>DPO</td>
+<td>chosen 都比 rejected 长</td>
+<td>训出话痨</td>
+</tr>
+<tr>
+<td>DPO</td>
+<td>beta 太小 + 数据单一</td>
+<td>极端表达（reward hacking）</td>
+</tr>
+<tr>
+<td>RLVR</td>
+<td>奖励不分层</td>
+<td>训练震荡、没有稳定梯度</td>
+</tr>
+<tr>
+<td>RLVR</td>
+<td>难度全在同一档</td>
+<td>全对或全错，学不到东西</td>
+</tr>
+<tr>
+<td>评测</td>
+<td>只看任务指标</td>
+<td>不知道通用能力掉没掉</td>
+</tr>
+<tr>
+<td>评测</td>
+<td>不盲评</td>
+<td>被自己的预期骗了</td>
+</tr>
+</tbody></table>
+<h2 id="八、高频追问"><a href="#八、高频追问" class="headerlink" title="八、高频追问"></a>八、高频追问</h2><p><strong>微调能让模型学会新知识吗？</strong><br>能记住一点，但很不可靠，还容易和已有知识打架。<strong>注入事实用 RAG，微调用来改行为和格式</strong>。 如果非要用微调记住，同一事实要在数据里以多种问法反复出现。</p>
+<p><strong>数据是不是越多越好？</strong><br>不是。1k 条干净数据常常打得过 10 万条杂数据。顺序是：先扩多样性，再扩数量。</p>
+<p><strong>能不能跳过 SFT 直接 DPO？</strong><br>技术上可以，实践上不建议。DPO 的参考模型通常就是 SFT 模型；没有它，模型连”该怎么回答”都还没建立，偏好学习就失去了稳固起点。</p>
+<p><strong>LoRA 和全参微调差多少？</strong><br>大多数任务上差距很小；差在”学新知识、学新语言”这类底层能力时。先上 LoRA，确实不够再动全参。</p>
+<p><strong>对齐会不会把模型变笨？</strong><br>会——如果学得太狠（灾难性遗忘）。对策：控制 epoch、混入一部分通用数据，并且用”通用能力回归”一直盯着。</p>
+<p><strong>怎么判断是不是 reward hacking 了？</strong><br>三个信号：回答明显变长、开始附和用户的错误观点、输出高度模板化。出现就先回去检查偏好数据和 beta，而不是继续训。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>微调改”会不会”，对齐改”愿不愿意”；数据质量比数量重要一个量级；参数照官方示例起步就好；而评测——尤其是盲评和通用能力回归——是把上面所有努力变现的那一步。</strong></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/13/FinetuningAndAlignment/">https://unluckynike.github.io/2026/10/13/FinetuningAndAlignment/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%BE%AE%E8%B0%83/">
+                                    <span class="chip bg-color">微调</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AF%B9%E9%BD%90/">
+                                    <span class="chip bg-color">对齐</span>
+                                </a>
+                            
+                                <a href="/tags/SFT/">
+                                    <span class="chip bg-color">SFT</span>
+                                </a>
+                            
+                                <a href="/tags/DPO/">
+                                    <span class="chip bg-color">DPO</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/14/MultimodalModels/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="多模态模型">
+                        
+                        <span class="card-title">多模态模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            文本是主模态，其它模态都要先被翻译成它——多模态的全部工程问题都从这句话长出来。文本是一种高效的压缩格式，但不是世界的全部格式
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">
+                        <span class="chip bg-color">多模态</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">视觉语言模型</span>
+                    </a>
+                    
+                    <a href="/tags/CLIP/">
+                        <span class="chip bg-color">CLIP</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">视觉</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/12/AIInfrastructure/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/Gemini_Generated_Image_e08wbhe08wbhe08w.jpg" class="responsive-img" alt="AI算力设施：算力服务器、数据存储、应用服务器">
+                        
+                        <span class="card-title">AI算力设施：算力服务器、数据存储、应用服务器</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            模型跑在什么上面。三类设施——算力服务器（发动机）、数据存储（油箱加仓库）、应用服务器（方向盘加仪表盘）——按数据流串起来看，各自的选型维度、要算的账和最容易撞的墙。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%AE%97%E5%8A%9B/">
+                        <span class="chip bg-color">算力</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%98%E5%82%A8/">
+                        <span class="chip bg-color">存储</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%8E%A8%E7%90%86%E9%83%A8%E7%BD%B2/">
+                        <span class="chip bg-color">推理部署</span>
+                    </a>
+                    
+                    <a href="/tags/AI-%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD/">
+                        <span class="chip bg-color">AI 基础设施</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">243.7k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
