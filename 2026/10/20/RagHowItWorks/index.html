@@ -1,0 +1,2473 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="RAG从文档切分到答案引用, Java,Python,Deep Learning,Artificial Intelligence,SQL,React,Vue.js等">
+    <meta name="description" content="检索增强生成要解决的不是&#34;让模型知道更多&#34;，而是在一个固定的上下文预算里，从百万级片段中挑出真正该进窗口的那几个——这是一个排序问题，也是一个误差会逐级累积的工程链路">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>RAG从文档切分到答案引用 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">RAG从文档切分到答案引用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/RAG/">
+                                <span class="chip bg-color">RAG</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/">
+                                <span class="chip bg-color">向量检索</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2/">
+                                <span class="chip bg-color">混合检索</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-24
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    14.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    51 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>语料有一百万个片段，上下文预算只够放五个。RAG 的全部工程问题，都是从这道算术题里长出来的。</p>
+</blockquote>
+<h2 id="一、RAG-要解决的不是”知道得更多”"><a href="#一、RAG-要解决的不是”知道得更多”" class="headerlink" title="一、RAG 要解决的不是”知道得更多”"></a>一、RAG 要解决的不是”知道得更多”</h2><p>大模型的知识编码在权重里，这种参数化记忆有三个绕不过去的限制。</p>
+<p>第一是更新成本。改一条事实要么等下一次预训练，要么做微调，而这两种手段的周期都跟不上业务数据的变化速度——产品文档昨天刚改，今天就该答对。</p>
+<p>第二是溯源困难。权重里没有出处信息，模型给出一个数字，没有任何办法指出它来自哪份文件的哪一页。审计场景里这一点是硬伤：合规、医疗、法务要的不是”大概对”，而是”依据在这里”。</p>
+<p>第三是容量。企业内部真正有价值的知识大多是私有的，量级在百万到上亿个片段，这类内容不会出现在任何模型的预训练数据里。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/wulinzengblog/RAG%E4%BB%8E%E6%96%87%E6%A1%A3%E5%88%87%E5%88%86%E5%88%B0%E7%AD%94%E6%A1%88%E5%BC%95%E7%94%A8.png" alt="RAG从文档切分到答案引用"></p>
+<p>一个常见的反应是把这些都归为”知识不够”，于是去微调。但对事实类知识，微调不是合适的工具：它擅长改变行为方式（输出格式、语气、领域术语习惯），不擅长精确地注入和更新事实。模型学会一条新事实需要反复暴露，而且新事实与旧事实会互相干扰。</p>
+<p>RAG 换了方向：知识留在外部，模型只负责读。检索器从语料里取出一小批相关片段放进上下文，让模型基于这些片段作答。原始设定（Lewis 等，NeurIPS 2020）是给预训练模型外挂一个稠密检索器并端到端训练，在开放域问答上刷新了当时的成绩；被继承下来的是这个结构本身——参数化记忆加非参数化记忆。</p>
+<p>需要说清的是一点：RAG 解决的不是知识总量问题，而是<strong>上下文选择</strong>问题。窗口不管多大都是有限的，语料是海量的，两者差了六到九个数量级：</p>
+<ul>
+<li>语料规模：10^6 到 10^9 个片段</li>
+<li>一次回答真正用得上的上下文：几千到几万个 token，通常对应 3 到 10 个片段</li>
+</ul>
+<p>所以这套系统的本质是一个在硬预算下的排序问题：从成千上万个候选里，挑出那几个真正该进窗口的。</p>
+<h2 id="二、长上下文为什么没有替掉检索"><a href="#二、长上下文为什么没有替掉检索" class="headerlink" title="二、长上下文为什么没有替掉检索"></a>二、长上下文为什么没有替掉检索</h2><p>上下文从 4k 涨到 128k，甚至出现百万级的窗口，一个自然的疑问是：把整份文档甚至整个知识库塞进去不就行了。三个原因让这条路走不通。</p>
+<p>第一是成本。注意力的计算量和显存随上下文长度平方增长，解码时每个新 token 还要对全部历史再做一次注意力。上下文长十倍，单次请求的成本涨得远不止十倍。</p>
+<p>第二是精度。把答案放进上下文，模型不一定用得上。对长上下文使用方式的系统评测发现，关键信息在开头和结尾时模型表现最好，落在中间时明显变差，这就是长上下文里的中间凹陷。另有专门评测长上下文有效长度的基准（RULER）测出模型的<strong>有效</strong>窗口远小于标称值：需要从长文本里聚合多条信息时，能力在远低于标称长度的位置就开始下降。</p>
+<p>第三是干扰。检索噪声不只是浪费 token，它会主动拉低答案质量。有工作专门研究了往 RAG 里塞不相关文档的影响，结论是无关内容会显著降低准确率，在某些设置下甚至不如不给任何上下文；另一项研究用筛选的方式丢掉无用文档，结果提升了鲁棒性。两件事合起来说明：少而准优于多而杂。</p>
+<p>长上下文改变的是检索的边界，没有取消检索。窗口越长，越需要一个机制来决定放什么进去——因为塞得越多，每一段的边际价值越低，噪声的代价越高。</p>
+<h2 id="三、系统的两条链路"><a href="#三、系统的两条链路" class="headerlink" title="三、系统的两条链路"></a>三、系统的两条链路</h2><p>RAG 系统由两条链路组成，一条离线跑，一条在线跑。</p>
+<p>离线链路（索引）：文档解析 → 清洗 → 分块 → 元数据抽取 → 向量化 → 建索引。</p>
+<p>在线链路（查询）：查询改写 → 检索召回 → 重排 → 上下文组装 → 生成 → 引用与校验。</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>目标</th>
+<th>常见做法</th>
+<th>常见失效</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解析</td>
+<td>从 PDF、HTML、表格里拿到正文与结构</td>
+<td>版面分析、OCR、保留结构</td>
+<td>表格被拉平、页眉页脚混入、跨页断句</td>
+</tr>
+<tr>
+<td>分块</td>
+<td>切成语义自洽的小单元</td>
+<td>按结构切、固定长度加重叠</td>
+<td>答案被切断、块内指代失去上下文</td>
+</tr>
+<tr>
+<td>向量化</td>
+<td>把片段映射到可比的空间</td>
+<td>嵌入模型加归一化</td>
+<td>查询与片段用了不对称的前缀</td>
+</tr>
+<tr>
+<td>索引</td>
+<td>在可接受的延迟内找到近邻</td>
+<td>HNSW、IVF、倒排</td>
+<td>参数用默认值、过滤与向量检索互相打架</td>
+</tr>
+<tr>
+<td>召回</td>
+<td>把相关片段捞进候选集</td>
+<td>稠密加稀疏混合</td>
+<td>专有名词、编号、数字召回不到</td>
+</tr>
+<tr>
+<td>重排</td>
+<td>把真正有用的排到前面</td>
+<td>交叉编码器</td>
+<td>直接跳过这一步</td>
+</tr>
+<tr>
+<td>组装</td>
+<td>在预算内组织上下文</td>
+<td>去重、排序、加编号</td>
+<td>关键证据被埋在中段</td>
+</tr>
+<tr>
+<td>生成</td>
+<td>基于证据作答，能说没有</td>
+<td>引用约束、允许拒答</td>
+<td>用参数记忆补答案、误读证据</td>
+</tr>
+</tbody></table>
+<p>这张表里最值得记住的一条是：<strong>误差会逐级累积</strong>。假设每个环节各自有九成的可靠度，五个环节串起来大约只剩六成：</p>
+<p>$$P_{\text{端到端}} \approx \prod_{i=1}^{5} p_i = 0.9^5 \approx 0.59$$</p>
+<p>只看最终答案对不对，就永远不知道该修哪一环。把每个环节单独量化，是这套系统能不能长期维护下去的分水岭。</p>
+<h2 id="四、技术架构与部署形态"><a href="#四、技术架构与部署形态" class="headerlink" title="四、技术架构与部署形态"></a>四、技术架构与部署形态</h2><p>链路清楚之后，接下来是这些环节在部署上怎么摆的问题。</p>
+<p>一次在线请求会经过这些组件：</p>
+<ol>
+<li>接入层：鉴权、限流，把用户身份、租户、权限标签解析出来。这些标签要一路传到检索层，成为过滤条件</li>
+<li>编排层：查询改写、判断要不要检索、路由到哪个知识库或哪几个库</li>
+<li>检索层：向量检索与全文检索并行执行，各自返回候选</li>
+<li>融合与重排：先把候选融合，再用重排模型收到 3 到 10 条</li>
+<li>组装与生成：拼上下文、调用生成模型、流式返回</li>
+<li>后处理：把引用编号映射回原文位置、敏感词过滤、埋点</li>
+</ol>
+<p>旁路有三块：缓存（嵌入、检索结果、答案）、可观测（每次请求落一条 trace）、反馈采集（点赞点踩、引用点击）。</p>
+<p>部署形态有三条路，判断依据是数据合规等级、日请求量，以及团队有没有 GPU 运维能力。</p>
+<table>
+<thead>
+<tr>
+<th>形态</th>
+<th>组成</th>
+<th>优势</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>全托管</td>
+<td>云向量库加模型接口</td>
+<td>上线快，无运维</td>
+<td>数据出境与合规风险，单次成本高，容易被厂商锁定</td>
+</tr>
+<tr>
+<td>全自建</td>
+<td>本地模型加自建向量库</td>
+<td>数据不出内网，单次成本可控</td>
+<td>要养 GPU 与运维，效果调优全靠自己</td>
+</tr>
+<tr>
+<td>混合</td>
+<td>本地嵌入与检索，云端生成</td>
+<td>兼顾合规与效果</td>
+<td>链路更长，两套运维</td>
+</tr>
+</tbody></table>
+<p>验证阶段用全托管最快；规模化之后，通常是每天几十万次请求这个量级，自建的边际成本才开始低于按次调用。金融、政务、医疗这类有数据出境约束的场景，嵌入模型必须本地部署——检索用的片段会进嵌入模型的输入，这一步同样算数据出境，容易被漏掉。</p>
+<p>同步与异步要分开。索引、重建、评测、批量回填都走异步任务队列，Web 进程只处理在线查询。把索引任务塞进 Web 进程是很常见的起步做法，代价是部署时会和查询抢资源，失败重试也没有地方挂。</p>
+<p>多租户的隔离有三个级别，选择取决于租户数量和合规要求。</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>做法</th>
+<th>隔离强度</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>库级</td>
+<td>每个租户一套库或索引</td>
+<td>最强，物理隔离</td>
+<td>资源浪费，跨租户检索做不了</td>
+</tr>
+<tr>
+<td>表级</td>
+<td>同库不同表或分区</td>
+<td>强，运维简单</td>
+<td>租户多时元数据膨胀</td>
+</tr>
+<tr>
+<td>行级</td>
+<td>同一张表加租户字段强制过滤</td>
+<td>最弱，依赖过滤条件不出错</td>
+<td>最省资源</td>
+</tr>
+</tbody></table>
+<p>行级隔离的失效方式很典型：某条查询路径忘了拼过滤条件，或者拼接条件时被注入绕开，结果就是越权。这件事必须在检索层做，而不是生成层——等到生成层再过滤，片段已经进了上下文，答案里可能已经带上去了。同时要为”过滤条件写漏”专门写测试用例。</p>
+<p>可观测的最低要求是每次请求落一条 trace：原问题、改写后的查询、两路召回的前若干候选及分数、重排后的顺序、最终进入上下文的片段 id、每部分 token 用量、首 token 延迟与总延迟、是否拒答、用户反馈。没有这条 trace，排查只能靠猜；有了它，后面那套按症状分类的排查方法才落得下去。</p>
+<p>缓存分四层，失效策略各不相同。嵌入缓存按内容哈希做键，基本不会失效；检索结果缓存按查询、权限标签、索引版本三者做键，索引更新时整体失效；答案缓存必须带权限维度，否则会越权；模型侧的前缀缓存由推理框架管理，对固定的系统提示词收益最大。</p>
+<h2 id="五、分块：最被低估的一步"><a href="#五、分块：最被低估的一步" class="headerlink" title="五、分块：最被低估的一步"></a>五、分块：最被低估的一步</h2><p>分块要把文档切成”语义自洽、又足够聚焦”的单元。这里有一对天然矛盾。</p>
+<p>检索希望块小。块越大，一个向量要承载的语义越多，向量越糊——检索本身是拿查询和块做相似度比较，块里混的主题越多，匹配越不准。</p>
+<p>生成希望块大。块太小，答案需要的上下文被切散，模型看到的证据不完整，容易答错或答不完整。</p>
+<p>同时满足两边做不到，工程上的出路是<strong>把检索粒度和生成粒度解耦</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>检索单元</th>
+<th>送给模型的单元</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>固定长度加重叠</td>
+<td>固定窗口</td>
+<td>同一个窗口</td>
+<td>起步方案，结构简单的文本</td>
+</tr>
+<tr>
+<td>按结构切分</td>
+<td>标题或段落</td>
+<td>同一段落</td>
+<td>Markdown、技术文档、法规</td>
+</tr>
+<tr>
+<td>小块检索大块生成</td>
+<td>句子或小块</td>
+<td>所在段落或整节</td>
+<td>通用方案，最稳妥</td>
+</tr>
+<tr>
+<td>命题级</td>
+<td>拆成原子陈述</td>
+<td>若干命题</td>
+<td>事实密集的语料</td>
+</tr>
+<tr>
+<td>上下文增强块</td>
+<td>块加所属文档摘要</td>
+<td>增强后的块</td>
+<td>指代缺失严重时</td>
+</tr>
+</tbody></table>
+<p>几条具体经验。</p>
+<p>重叠是廉价的保险。固定长度切分时留 10% 到 20% 的重叠，能明显减少答案正好被切在边界上的情况，代价是索引体积变大。</p>
+<p>按结构切优于按长度切。Markdown 标题、代码函数边界、合同的条款项都是天然语义边界，顺着它们切比按字符数切准确得多。</p>
+<p>小块检索加大块生成是通用解。用 256 token 左右的块做检索，命中后把它所在的段落或整节（800 到 2000 token）送给模型，检索的聚焦性和生成的完整性可以同时拿到。</p>
+<p>上下文缺失是这里最隐蔽的失败。一个片段写着”该参数默认为 5”，这个”该”指的是上一节讲的东西——片段被检索到了，模型依然不知道它在说什么。常见的修法有两种：给每个片段拼一段由模型生成的简短上下文说明，或者给块加上标题路径作为前缀。这类做法对召回的提升很明显，代价是索引阶段要为每个片段额外跑一次模型，成本按语料规模线性上升。</p>
+<p>元数据不是附属品。来源、章节路径、文档类型、生效时间、权限标签，这些字段决定了能不能做过滤，而过滤往往是企业场景里提升精度最快的手段。</p>
+<h3 id="参数起步值与按文档类型的切法"><a href="#参数起步值与按文档类型的切法" class="headerlink" title="参数起步值与按文档类型的切法"></a>参数起步值与按文档类型的切法</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>起步值</th>
+<th>调整方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检索块大小</td>
+<td>300 到 500 字（约 256 到 512 token）</td>
+<td>召回不足就再切小，证据不完整就切大</td>
+</tr>
+<tr>
+<td>块间重叠</td>
+<td>10% 到 20%</td>
+<td>边界切断答案的情况多就加大</td>
+</tr>
+<tr>
+<td>生成块大小</td>
+<td>800 到 2000 字</td>
+<td>答案常缺上下文就加大</td>
+</tr>
+<tr>
+<td>每块携带的元数据</td>
+<td>来源、章节路径、版本、权限标签</td>
+<td>按过滤需求加，这一层不要省</td>
+</tr>
+</tbody></table>
+<p>不同文档的切法差别很大：</p>
+<ul>
+<li>结构化文档（Markdown、HTML）：按标题层级切，把标题路径写进块的前缀</li>
+<li>合同与法规：按条、款、项切，条款编号必须留在块内，跨条款的引用也要保留</li>
+<li>代码：按函数、类、方法切，把文件路径和函数签名放进块里</li>
+<li>表格：不要按行切散。整表一块往往太大，常见做法是把表头与每一行拼成一句自然语言再切</li>
+<li>FAQ 与工单：一问一答一块。这类文档自带问答对，也是最省事的高质量语料</li>
+</ul>
+<h2 id="六、嵌入模型：怎么选、容易踩什么坑"><a href="#六、嵌入模型：怎么选、容易踩什么坑" class="headerlink" title="六、嵌入模型：怎么选、容易踩什么坑"></a>六、嵌入模型：怎么选、容易踩什么坑</h2><p>嵌入模型把文本映射到向量空间，语义相近的文本在这个空间里距离近。相似度通常用余弦相似度衡量：</p>
+<p>$$\text{sim}(q, d) = \frac{q \cdot d}{\lVert q \rVert \, \lVert d \rVert}$$</p>
+<p>训练方式是对比学习：一个问题与它对应的正确段落构成正样本对，同一批数据里其他段落作为负样本，训练目标是让正样本对的相似度高于负样本：</p>
+<p>$$\mathcal{L} = -\log \frac{\exp(\text{sim}(q, d^{+}) / \tau)}{\exp(\text{sim}(q, d^{+}) / \tau) + \sum_{i=1}^{n} \exp(\text{sim}(q, d_{i}^{-}) / \tau)}$$</p>
+<p>负样本的质量直接决定模型好坏，这也是后来大量工作在做难负样本挖掘的原因。</p>
+<p>选型要看这几个维度。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>语言与领域</td>
+<td>中文场景直接选在中文语料上训练过的模型；通用模型在法律、医疗、代码上普遍偏弱</td>
+</tr>
+<tr>
+<td>维度</td>
+<td>常见 384 到 4096 维。维度决定索引显存，支持截断的模型可以按需降维</td>
+</tr>
+<tr>
+<td>长度上限</td>
+<td>决定单块能有多大。多数模型上限 512 token，长块方案需要 8k 以上的模型</td>
+</tr>
+<tr>
+<td>是否指令化</td>
+<td>带指令的模型可以用一句任务描述换整体表现，指令写错会掉点</td>
+</tr>
+<tr>
+<td>输出类型</td>
+<td>有的模型同时输出稠密、稀疏、多向量三种表示，便于做混合检索</td>
+</tr>
+</tbody></table>
+<p>有三个坑值得单独说。</p>
+<p><strong>查询与文档不对称</strong>。相当一部分嵌入模型是按非对称检索训练的：查询侧和文档侧要加不同的前缀，或者走不同的编码路径。漏加前缀不会报错，只会让召回率凭空掉一截，而排查时很难想到是这个原因。这类约定写在模型的说明文档里，不在代码里。</p>
+<p><strong>换了模型没重建索引</strong>。索引里的向量和查询向量换模型后就不在同一个空间里了，相似度计算失去意义，但系统仍然能返回结果——只是全都无关。向量必须和模型版本绑定，版本号记在索引的元数据里。</p>
+<p><strong>拿榜单当结论</strong>。嵌入模型有大规模的公开评测榜（MTEB 一线），但榜单覆盖的任务和具体业务差得远，榜单本身也会被针对性优化。更可靠的做法是拿几百条真实查询做小规模评测，看在自己数据上的召回率。同一份数据上，一个针对性微调过的小模型经常打赢通用的大模型。</p>
+<p>把全量语料灌进索引是一次性批处理，工程上有几个必须处理好的点。</p>
+<p><strong>幂等</strong>。用内容哈希或”文档 id 加版本号”作为片段主键，重跑不会产生重复向量。批量任务中断是常态，正确性不能建立在”跑之前先清空”上。</p>
+<p><strong>限流与重试</strong>。嵌入接口有速率限制，批大小取 32 到 128 条、并发控制在个位数比较稳妥；失败的批次要能单独重试，而不是整批回滚。更常见的做法是按文档切批次、每篇文档独立提交，失败的文档进重试队列。</p>
+<p><strong>成本要提前算</strong>。嵌入按 token 计费，成本是语料总 token 数再乘一遍分块重叠带来的系数。一份一亿 token 的语料按 1.2 倍估算就是一点二亿 token 的输入量，这个数字决定了失败的代价和重建的频率。</p>
+<p><strong>归一化要统一</strong>。不少模型的输出没有归一化，而索引和距离度量默认按余弦相似度工作。入库前统一做 L2 归一化，距离度量选余弦或内积，能消掉这一层不确定性。</p>
+<h2 id="七、索引与最近邻检索"><a href="#七、索引与最近邻检索" class="headerlink" title="七、索引与最近邻检索"></a>七、索引与最近邻检索</h2><p>向量检索要解决的是最近邻问题，精确计算需要和每个向量比较一遍，复杂度是 O(N·d)，语料上千万时无法接受，所以都用近似最近邻，在召回率、延迟、内存之间做交易。</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>结构</th>
+<th>特点</th>
+<th>关键参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>扁平索引</td>
+<td>暴力计算</td>
+<td>召回百分之百，十万以内可用</td>
+<td>无</td>
+</tr>
+<tr>
+<td>HNSW</td>
+<td>分层图</td>
+<td>查询快、召回高、内存占用大</td>
+<td>M、ef_construction、ef_search</td>
+</tr>
+<tr>
+<td>IVF</td>
+<td>聚类倒排</td>
+<td>省内存、需要训练、召回依赖探测数</td>
+<td>nlist、nprobe</td>
+</tr>
+<tr>
+<td>IVF-PQ</td>
+<td>聚类加乘积量化</td>
+<td>内存能压到十分之一以下，有精度损失</td>
+<td>子空间数、每子空间比特数</td>
+</tr>
+<tr>
+<td>DiskANN</td>
+<td>图加磁盘</td>
+<td>单机可放十亿级，延迟略高</td>
+<td>内存驻留比例</td>
+</tr>
+</tbody></table>
+<p>实用的判断有这么几条。</p>
+<p>一百万向量以内，PostgreSQL 的 pgvector 就够用，没有必要上分布式向量库。单独运维一套系统的成本，通常超过它省下的那点延迟。</p>
+<p>HNSW 是默认选择，其中 ef_search 是延迟与召回之间的旋钮，调大召回上升、延迟上升。这个参数要按业务实测，不要用默认值直接上线。</p>
+<p>内存不够时先考虑量化，再考虑换系统。乘积量化把每个子空间用极少比特编码，代价是距离估计有误差，需要搭配重排来补回精度。</p>
+<p>过滤是这里最容易被忽略的陷阱。业务查询几乎都带条件——只看某个租户的、只看最近一年的、只看已发布版本的。在图的遍历过程中做过滤会出问题：符合条件的结果之间可能没有连边，图的搜索会走死，召回率断崖式下降；先向量检索再过滤，则可能过滤完只剩两条。较新的索引结构（ACORN 一线）把谓词和图的连接联合考虑来专门解决它。工程上常见的折中是：把高频过滤字段做成独立的子索引或分区，或者把候选集开得足够大再做过滤。</p>
+<p>以 PostgreSQL 加 pgvector 为例，最小可用的结构是这样：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> chunks <span class="token punctuation">(</span>
+  id           bigserial <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
+  doc_id       <span class="token keyword">text</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  content      <span class="token keyword">text</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  meta         jsonb <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true">-- 来源、章节路径、权限标签、生效时间</span>
+  embedding    vector<span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  content_hash <span class="token keyword">text</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">UNIQUE</span>   <span class="token comment" spellcheck="true">-- 幂等去重</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> <span class="token keyword">ON</span> chunks <span class="token keyword">USING</span> hnsw <span class="token punctuation">(</span>embedding vector_cosine_ops<span class="token punctuation">)</span>
+  <span class="token keyword">WITH</span> <span class="token punctuation">(</span>m <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">,</span> ef_construction <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> <span class="token keyword">ON</span> chunks <span class="token keyword">USING</span> gin <span class="token punctuation">(</span>meta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>参数起步值：m 取 16，召回不够往上调到 32 或 64，代价是内存；ef_construction 取 200，建索引慢一些但图的质量更好。在线延迟与召回的平衡由查询时的 <code>SET LOCAL hnsw.ef_search = 64</code> 控制，这个值必须按业务实测，从 40 开始往上试。</p>
+<p>容量算术要提前做。1024 维单精度向量是 4 KB，一百万条就是 4 GB，再加上图结构的连边开销，常驻内存通常在 6 GB 上下；换成半精度直接省一半。这就是”内存不够先量化”的具体含义。</p>
+<p>过滤条件要分层处理。高频、基数小的字段，比如租户、文档类型、是否删除，做成物理分区或独立子索引；时间范围这类条件留在查询的条件里；权限标签这类会频繁变化的过滤放在检索之后做二次筛选，同时把候选集开大一些，比如召回从 50 提到 200，来抵消过滤造成的损失。</p>
+<h2 id="八、混合检索：稠密不是全部"><a href="#八、混合检索：稠密不是全部" class="headerlink" title="八、混合检索：稠密不是全部"></a>八、混合检索：稠密不是全部</h2><p>稠密检索擅长语义相近，但有一类查询它系统性地做不好：精确匹配。产品型号、错误码、人名、函数名、合同编号、版本号这类 token 没有语义可循，靠向量相似度就是碰运气。反过来，纯词法检索对同义改写、跨语言、口语化提问无能为力。</p>
+<p>BM25 是词法检索的事实标准，也是被长期低估的基线。它给每个词算一个权重，再按词频和文档长度做衰减：</p>
+<p>$$\text{score}(q, d) = \sum_{t \in q} \text{idf}(t) \cdot \frac{f(t, d) \cdot (k_1 + 1)}{f(t, d) + k_1 \cdot \left(1 - b + b \cdot \frac{|d|}{\text{avgdl}}\right)}$$</p>
+<p>其中词权重衡量这个词有多罕见：</p>
+<p>$$\text{idf}(t) = \log \frac{N - n(t) + 0.5}{n(t) + 0.5}$$</p>
+<p>$k_1$（词频饱和，常用 1.2 到 2.0）和 $b$（长度归一化，常用 0.75）是两个按语料调的旋钮。BM25 的关键优势是：不需要训练、不需要 GPU、对罕见词天然敏感，而且被打磨了几十年。</p>
+<p>工程上的默认配置是两条路都跑，再融合结果。融合方式里最简单可靠的是倒数排名融合：</p>
+<p>$$\text{RRF}(d) = \sum_{r \in R} \frac{1}{k + \text{rank}_{r}(d)}$$</p>
+<p>它只用排名、不用分数，因此不需要在不同检索器的打分之间做归一化。这一点很重要：余弦相似度和 BM25 分数完全不在一个量纲上，硬做加权归一化既脆弱又难调。常数 $k$ 通常取 60。</p>
+<p>还有一条中间路线值得知道：可学习的稀疏表示（SPLADE 一线）。它保留倒排索引的形态，部署成本和 BM25 一样低，但词的权重由模型学出来，还支持把查询词扩展到相关词，因此兼顾了词法的精确和语义的泛化。</p>
+<p>参数起步值：BM25 的 k1 取 1.5、b 取 0.75，长文档居多的语料把 b 调到 0.5 到 0.7；两路各取 50 个候选；融合用 RRF 时 k 取 60；融合后进重排的候选控制在 50 到 100。</p>
+<p>有一类场景可以只用 BM25：语料里到处都是型号、编号、错误码，用户查询也基本是这类精确词。此时加一路向量检索收益很小，却要多维护一份索引、多一份延迟。反过来，如果查询以自然语言问句为主、语料是叙述性文本，向量检索是主力，BM25 的价值在于兜住那些被向量模型忽略的罕见词。</p>
+<h2 id="九、重排：投入产出比最高的一步"><a href="#九、重排：投入产出比最高的一步" class="headerlink" title="九、重排：投入产出比最高的一步"></a>九、重排：投入产出比最高的一步</h2><p>召回和排序对模型的要求不同。召回要快、要覆盖，所以用双塔结构：查询和文档各自独立编码成向量，相似度是事后算的点积。文档向量可以离线算好，代价是查询和文档从来没有真正见过面，无法建模词与词的交互。</p>
+<p>重排用交叉编码器：把查询和文档拼在一起送进模型，让注意力在两者之间自由交互，直接输出相关性分数。准确率明显更高，但每个候选都要单独跑一次前向，无法预计算，因此只能用在候选集上。</p>
+<p>标准的做法是两段式：先用便宜的方法召回 50 到 200 个候选，追求召回率；再用交叉编码器逐个打分，取前 3 到 10 个，追求精度。</p>
+<p>这一步的收益通常大于换嵌入模型。换嵌入模型的收益是渐进的，而且需要重建全量索引；加一个重排器是即时的，只影响在线链路。代价在延迟上：对 100 个候选做交叉编码通常在几十到几百毫秒，随候选数和文档长度增长。常见的折中是重排 50 个候选、每段截断到 512 token。</p>
+<p>介于两者之间还有一类方案：延迟交互（ColBERT 一线）。它为每个 token 生成向量，打分时对查询的每个 token 在文档里取最大相似度再求和：</p>
+<p>$$\text{score}(q, d) = \sum_{i \in q} \max_{j \in d} E_{q_{i}} \cdot E_{d_{j}}^{\top}$$</p>
+<p>文档侧可以离线预计算，所以既有双塔的速度，又有接近交叉编码器的精度。代价是存储膨胀——每个 token 一个向量，索引体积比单向量方案大一到两个数量级；后续工作用向量压缩和残差量化把这个代价压了下去。</p>
+<p>工程上的取值：候选 50 到 100 个，每个候选截断到 512 token（超出的部分对相关性判断贡献很小），批量打分而不是逐条调用，批大小 8 到 16。这样一组参数在中等规模的模型上，整段重排的延迟大致在 100 到 300 毫秒。</p>
+<p>重排模型不必和嵌入模型同源，但要用同一套标注数据评测。上线时必须留降级路径：重排服务超时就退回融合后的顺序，宁可用略差的排序，也不能让整个请求失败。</p>
+<h2 id="十、查询侧：用户的问题不能直接拿去检索"><a href="#十、查询侧：用户的问题不能直接拿去检索" class="headerlink" title="十、查询侧：用户的问题不能直接拿去检索"></a>十、查询侧：用户的问题不能直接拿去检索</h2><p>用户输入是对话，检索需要的是自洽的查询，两者之间通常要过一道转换。</p>
+<table>
+<thead>
+<tr>
+<th>处理</th>
+<th>解决的问题</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改写与指代消解</td>
+<td>多轮对话里的”它””那个方案”</td>
+<td>一次模型调用</td>
+</tr>
+<tr>
+<td>多查询扩展</td>
+<td>单次改写覆盖不全</td>
+<td>检索次数翻倍</td>
+</tr>
+<tr>
+<td>假设答案检索</td>
+<td>问句和文档措辞差距大</td>
+<td>生成内容偏了会带偏检索</td>
+</tr>
+<tr>
+<td>问题分解</td>
+<td>多跳问题需要多个子查询</td>
+<td>多轮检索与融合</td>
+</tr>
+<tr>
+<td>查询路由</td>
+<td>不知道该查哪个库、要不要查库</td>
+<td>需要规则或训练</td>
+</tr>
+<tr>
+<td>条件抽取</td>
+<td>从问题里抽时间、实体等过滤条件</td>
+<td>抽错会直接漏掉正确文档</td>
+</tr>
+</tbody></table>
+<p>几个值得展开的点。</p>
+<p>假设答案检索（HyDE 一线）的机制是让模型先写一段假设的答案，再拿这段答案去检索，而不是拿问题去检索。理由是问答文本和文档文本的措辞分布不同：问题短、口语化，文档长、陈述式，生成的假设答案在文体上更接近真实文档。机制也说明了它的风险——假设答案如果编错了方向，检索会被带到完全无关的区域。它适合”模型有相关知识但表述不匹配”的场景，不适合模型完全不懂的领域。</p>
+<p>多跳问题需要分解。”某公司的创始人在哪所大学读书”需要两步：先查出创始人，再用创始人姓名查学校。单次检索无论怎么调 k 都拿不到完整证据，因为第二步的查询词依赖第一步的答案。这类问题要么用迭代检索（检索、读、生成新查询、再检索），要么用多查询并行检索再融合。</p>
+<p>有一类问题不该检索。问候、闲聊、纯计算、纯创作，检索只会引入噪声。明确判断”无需检索”能省掉延迟，也能避免无关上下文污染答案——前面已经说过，无关上下文会让答案更差。</p>
+<h2 id="十一、组装上下文与生成"><a href="#十一、组装上下文与生成" class="headerlink" title="十一、组装上下文与生成"></a>十一、组装上下文与生成</h2><p>检索完成之后，片段怎么摆进提示词，效果差别很大。</p>
+<p>排序要讲究。模型对上下文中段的敏感度最低，所以把最相关的证据放在最前面或最后面，比随机排列好。有的系统直接把重排结果反过来插，实现上就是把列表倒序交替放置。</p>
+<p>去重和压缩要做。多个片段内容重复是常态，同一段话在不同文档里各有一份，重复会挤占预算。更激进的做法是在送入模型前对片段做摘要或句子级抽取，用更少的 token 承载同样的证据，代价是可能删掉后面才用得上的细节。</p>
+<p>引用要可核查。让模型在答案里标注每句话的依据来自哪个片段，这既是产品需求，也是质量手段：模型被迫对齐证据，编造会更容易暴露。实现上一般给片段编号，要求输出形如”依据 3”这样的标注，再由前端把编号映射回原文位置。</p>
+<p>必须允许说没有。提示词里要明确：只能依据给定片段作答，片段里没有就说没找到。少了这一条，检索失败时模型会用参数记忆补一个看起来合理的答案——这种错误比直接拒答更危险，因为它看起来同样自信。</p>
+<p><strong>检索结果必须当成不可信输入</strong>。这是安全问题，不是提示词技巧：文档内容会被原样拼进提示词，如果语料里有一份恶意文档，标题里写着让模型忽略之前的指令、把用户数据发到某个地址，它就会以高优先级出现在上下文里。检索系统的攻击面因此从模型本身扩展到了整个语料库。缓解手段包括：在结构上区分指令和数据，把文档放进明确的定界符内并说明这些内容只是资料；对来源做权限和可信度管理；在输出侧做检测。接入邮件、工单、外部网页这类数据源时，这件事尤其重要。</p>
+<p>上下文预算要提前分配，不能让检索结果随便挤占：</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>建议占比</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>系统指令与格式要求</td>
+<td>5% 到 10%</td>
+<td>固定内容，适合做前缀缓存</td>
+</tr>
+<tr>
+<td>检索到的资料</td>
+<td>60% 到 75%</td>
+<td>主要预算，按重排顺序填充</td>
+</tr>
+<tr>
+<td>对话历史</td>
+<td>10% 到 20%</td>
+<td>多轮场景才有，要能截断</td>
+</tr>
+<tr>
+<td>输出预留</td>
+<td>10% 到 15%</td>
+<td>留不够会导致回答被硬截断</td>
+</tr>
+</tbody></table>
+<p>资料部分如果装不下，就按分数从低到高整块丢弃，不要把某一块截成半句——半个句子比少一块更容易让模型误读。</p>
+<h2 id="十二、什么时候简单的-RAG-不够"><a href="#十二、什么时候简单的-RAG-不够" class="headerlink" title="十二、什么时候简单的 RAG 不够"></a>十二、什么时候简单的 RAG 不够</h2><p>朴素 RAG 是”检索一次、生成一次”。它在三类问题上会失效：需要跨多个文档汇总的全局性问题、需要多步推理的复杂问题，以及需要判断检索结果本身够不够好的场景。</p>
+<p><strong>迭代与自我纠错</strong>。Self-RAG 的思路是让模型输出反射标记：判断是否需要检索、检索到的片段是否相关、答案是否被证据支撑，用这些标记控制流程。CRAG 在外面挂一个轻量的检索评估器，先判断召回质量，质量差就触发补充检索。共同点是把”检索够不够好”变成一个可判断、可重试的步骤，而不是一个隐含假设。</p>
+<p><strong>图结构检索</strong>。GraphRAG 这类做法在索引阶段用模型抽实体和关系建成知识图，再对图做社区划分、为每个社区生成摘要。它解决的是全局性问题——这份语料主要在讲什么、哪几个主题之间存在关联——这类问题靠向量检索答不了，因为没有任何一个片段包含答案，答案分散在成百上千个片段里。代价是构建成本高，每个片段都要过一遍抽取，之后还要跑一轮社区摘要，增量更新也麻烦。它适合语料相对稳定、问题偏分析型的场景。</p>
+<p><strong>智能体式检索</strong>。把检索作为工具交给模型，由模型决定查不查、查什么、查几轮，中间可以读结果、改写查询、再查。灵活性最高，代价是延迟和成本都不可控，每一轮都要一次模型调用，而且需要防住死循环。</p>
+<p><strong>结构化数据</strong>。表格数据的正确解法通常不是 RAG。能写 SQL 的数据用文本到 SQL，把问题翻译成查询语句再执行，准确性和可解释性都更好；半结构化的表格可以先检索到相关行再做计算。把整张表塞进向量库做相似度检索是很常见的误用。</p>
+<h2 id="十三、评估：先量召回，再谈生成"><a href="#十三、评估：先量召回，再谈生成" class="headerlink" title="十三、评估：先量召回，再谈生成"></a>十三、评估：先量召回，再谈生成</h2><p>RAG 的评估难点在于”好”是多层的：检索对不对、答案有没有依据、有没有回答问题，是三个独立维度。</p>
+<p>先分开量。检索侧用召回@k，即 top-k 里包含正确片段的查询占比：</p>
+<p>$$\text{Recall@}k = \frac{|D_{\text{相关}} \cap D_{\text{top-}k}|}{|D_{\text{相关}}|}$$</p>
+<p>这一步不能省。如果召回@10 只有六成，那么无论提示词怎么写、模型换多强，四成的问题注定答不对，因为证据根本没进上下文。把召回和生成分开量，才知道该修哪一端。</p>
+<p>生成侧看两个维度：忠实度，即答案里的每个断言能否在检索到的上下文里找到依据；相关性，即答案是否回应了问题。公开的评测框架（RAGAS 一线）为这两个维度提供了自动化近似指标，做法是用模型充当裁判，把答案拆成原子断言再逐条核对上下文。</p>
+<p>用模型当裁判要留出误差预算。裁判模型有自己的偏好，倾向于给长答案和格式漂亮的答案更高分，也会偏向与自己风格一致的输出，同一份答案换个提示词模板就可能差几分。所以它适合做趋势对比——这个改动让忠实度上升还是下降——不适合当绝对分数，关键结论要抽样人工核对。</p>
+<p>测试集从哪来。真实查询日志最贴近生产，但项目早期没有；从文档反向生成问题能快速铺量，缺点是生成的问题和文档措辞高度相似，天然好检索，指标会虚高；人工标注最难，也最能发现真正的失败模式。常见的做法是从日志里取真实问题，让标注人员标出应该被检索到的片段，这个过程同时建立了检索侧的黄金集。</p>
+<p>把评测做成能重复跑的脚本，每次改动输出同一张表：召回@1、召回@5、引用准确率、平均延迟，以及每类问题的失败条数。黄金集起步 50 到 200 条真实问题，覆盖查询的主要类型：精确词查询、口语化改写、多跳、无答案。最后这一类必须专门放，它检验的是系统会不会编。</p>
+<p>线上要埋三种信号：用户有没有点开引用链接（说明证据被认可）、有没有重新提问（说明上一次没答好）、有没有转人工。这三个信号的绝对值意义不大，趋势才有意义。</p>
+<h2 id="十四、成本、延迟与运维"><a href="#十四、成本、延迟与运维" class="headerlink" title="十四、成本、延迟与运维"></a>十四、成本、延迟与运维</h2><p>延迟预算要拆开看，否则优化没有方向。一次普通的问答请求大致是这样：</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>典型量级</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查询改写与扩展</td>
+<td>100 到 500 毫秒</td>
+<td>一次小模型调用</td>
+</tr>
+<tr>
+<td>查询嵌入</td>
+<td>10 到 50 毫秒</td>
+<td>与嵌入模型大小相关</td>
+</tr>
+<tr>
+<td>向量检索</td>
+<td>5 到 50 毫秒</td>
+<td>与索引类型、ef_search 相关</td>
+</tr>
+<tr>
+<td>重排</td>
+<td>50 到 500 毫秒</td>
+<td>与候选数、模型大小强相关</td>
+</tr>
+<tr>
+<td>生成</td>
+<td>通常占大头</td>
+<td>与输出长度线性相关</td>
+</tr>
+</tbody></table>
+<p>几个能显著改变成本的点。</p>
+<p>前缀缓存。RAG 的提示词通常是一段固定的系统指令，加上变化很小的格式说明，再拼上检索到的片段。把固定前缀做成缓存，后续请求可以直接复用，在长系统提示词的场景下能省下大量首 token 延迟和计算。</p>
+<p>缓存要分层。查询嵌入可以缓存，同一句话重复出现的概率不低；检索结果也可以缓存，但要注意语料更新，需要设置过期或版本号；答案级缓存要谨慎，权限不同的用户拿到同一份缓存答案会直接造成越权。</p>
+<p>重建索引的代价。更换嵌入模型意味着全量重算向量，语料越大越贵。工程上要保留原始片段和模型版本号，让重建成为可以分批、可以灰度的事情，而不是一次停服操作。</p>
+<p>删除和权限必须传导到索引。文档被删掉、权限被收回之后，它在索引里必须同步消失，否则检索会把它当证据送给模型。这不是性能问题，是合规问题。多租户场景还要保证隔离在检索层就成立，而不是靠生成层过滤。</p>
+<p>嵌入不是匿名的。已经有研究证明，从嵌入向量可以还原出相当比例的原文。把嵌入当成”脱敏后的向量”处理是有风险的，敏感字段应当在入库前就处理掉。</p>
+<p>容量和时间的账要在动手之前算一遍：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>估算方式</th>
+<th>十万个片段、1024 维的举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>向量内存</td>
+<td>片段数 × 维度 × 4 字节</td>
+<td>400 MB，加图结构约 600 MB</td>
+</tr>
+<tr>
+<td>嵌入成本</td>
+<td>语料 token 数乘单价</td>
+<td>一次性支出，重建频率由语料更新速度决定</td>
+</tr>
+<tr>
+<td>全量重建耗时</td>
+<td>语料 token 数 ÷ 吞吐</td>
+<td>8 并发、每分钟 20 万 token，1.2 亿 token 约 10 小时</td>
+</tr>
+<tr>
+<td>增量写入</td>
+<td>单条或小批插入的延迟</td>
+<td>pgvector 单条毫秒级，小批更省</td>
+</tr>
+</tbody></table>
+<p>索引切换用双写加灰度，不要原地更新。做法是新建一份索引、按比例切流量过去、观察召回与延迟，确认后再下线旧索引。原地更新一旦出错，回滚要重建，代价远大于多留一份存储。</p>
+<p>增量更新要处理三类事件。新增文档直接插入片段；修改文档按 doc_id 删旧插新；删除文档必须同步删除，包括缓存里和已经拼好的上下文。修改还有一个细节：先删后插会出现短暂的空窗，先插后删会出现短暂的重复，两种都可以接受，但要明确选哪一种并在评测里容忍它。</p>
+<h2 id="十五、上线顺序与排查"><a href="#十五、上线顺序与排查" class="headerlink" title="十五、上线顺序与排查"></a>十五、上线顺序与排查</h2><p>从零搭一套 RAG 不需要一开始把所有环节都做齐。按收益排，顺序大致是：</p>
+<ol>
+<li>先让链路跑通：固定长度分块、只用 BM25、直接拼上下文。这一步的价值在于把评测跑起来，拿到第一版召回率</li>
+<li>补上向量检索与融合。通常带来最明显的一次召回提升</li>
+<li>加重排。候选从 50 缩到 5，精度提升明显，且只动在线链路</li>
+<li>修分块。按结构切、小块检索大块生成，这一步的收益常常大于换模型</li>
+<li>加查询改写。多轮对话场景必须做，单轮场景收益有限</li>
+<li>前面都做完之后再考虑图检索、智能体式检索这类架构</li>
+</ol>
+<p>每一档都要用同一份黄金集评测，否则无法判断改动是不是真的有效。</p>
+<p>排查按症状分四类，定位方法各不相同。</p>
+<p><strong>症状一：正确答案没被检索到</strong>。先查分块——把正确的文档切开看，答案是不是被切在两个块之间，或者块内出现了失去上下文的指代。再查查询——用户原话和文档表述差多远，差得远就该上改写或 HyDE。最后查检索——把两路召回的候选分别打出来，看正确块分别排在第几位。这一步最有效的手段是把前 20 个候选连同分数打印出来人工看一遍，比盲调参数快得多。</p>
+<p><strong>症状二：正确块被检索到，但排在后面</strong>。这是重排的用武之地。对照看重排前后的位置：如果重排前在第 8 位、重排后进了前 3，说明候选集是够的；如果重排前后都在第 8 位，说明这个重排模型不适用于该领域，需要换模型或补领域数据微调。</p>
+<p><strong>症状三：证据齐全，答案还是错的</strong>。问题多半在组装和提示词上。检查关键证据是不是被埋在了上下文中间，做法是拿最相关的块做一次放在开头、放在中间、放在结尾的对比实验；检查提示词有没有明确要求只用资料作答；检查资料和指令有没有在格式上混在一起。还有一种情况是资料里确实有答案但模型没识别出来，验证方法是把资料里的关键句单独拿出来问一遍，如果这样能答对，那就是上下文组织的问题。</p>
+<p><strong>症状四：答案对了但引用错</strong>。通常是编号与片段的映射出了问题，或者模型复述时挪用了别的片段。修法是缩短单块长度、减少同时给的片段数（3 到 5 块通常比 10 块更容易对齐），并在评测里单独统计引用准确率。</p>
+<p>还有一个跨症状的通用做法：每次失败案例都按上面四类归档，积累一段时间后，哪一类最多就先修哪一类。这条经验比任何单项调参都更省时间。</p>
+<h2 id="十六、技术选型"><a href="#十六、技术选型" class="headerlink" title="十六、技术选型"></a>十六、技术选型</h2><p>选型的原则是<strong>能少一个组件就少一个</strong>，而不是按功能列表逐项打勾。下面按层给出主流选择和各自的真实代价。</p>
+<h3 id="编排层"><a href="#编排层" class="headerlink" title="编排层"></a>编排层</h3><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>定位</th>
+<th>优势</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LangChain</td>
+<td>通用编排框架</td>
+<td>集成与连接器最多</td>
+<td>抽象层多、迭代快，出问题定位链路长</td>
+</tr>
+<tr>
+<td>LlamaIndex</td>
+<td>面向检索的数据框架</td>
+<td>索引与检索抽象成熟，RAG 组件齐</td>
+<td>深度定制时要读源码</td>
+</tr>
+<tr>
+<td>Haystack</td>
+<td>流水线式框架</td>
+<td>结构清晰，生产取向</td>
+<td>生态规模小一些</td>
+</tr>
+<tr>
+<td>Dify、RAGFlow、FastGPT</td>
+<td>开箱产品</td>
+<td>上手快，自带知识库管理与界面</td>
+<td>定制受产品形态限制</td>
+</tr>
+<tr>
+<td>只依赖向量库与模型 SDK</td>
+<td>手写编排</td>
+<td>可控、好排查、依赖少</td>
+<td>前期开发慢</td>
+</tr>
+</tbody></table>
+<p>一个常见的路径是：用产品或框架做原型，跑到生产之后逐步收敛成手写编排加成熟向量库加模型 SDK。原因是 RAG 的失败大多发生在数据层和参数层，而不是编排层，框架在这类问题上反而增加定位成本。</p>
+<h3 id="向量库与检索引擎"><a href="#向量库与检索引擎" class="headerlink" title="向量库与检索引擎"></a>向量库与检索引擎</h3><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>许可证</th>
+<th>适合规模</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pgvector</td>
+<td>PostgreSQL 许可</td>
+<td>百万级</td>
+<td>与业务数据同库，事务一致，运维零增量</td>
+</tr>
+<tr>
+<td>Qdrant</td>
+<td>Apache 2.0</td>
+<td>千万级</td>
+<td>过滤与混合检索设计扎实，单机部署轻</td>
+</tr>
+<tr>
+<td>Milvus</td>
+<td>Apache 2.0</td>
+<td>亿级</td>
+<td>分布式，组件多，运维复杂度高</td>
+</tr>
+<tr>
+<td>Weaviate</td>
+<td>BSD-3 与自有许可混合</td>
+<td>千万级</td>
+<td>内置混合检索与向量化模块</td>
+</tr>
+<tr>
+<td>Chroma、LanceDB</td>
+<td>Apache 2.0</td>
+<td>十万级</td>
+<td>嵌入式，适合单机应用与原型</td>
+</tr>
+<tr>
+<td>Elasticsearch</td>
+<td>Elastic 许可</td>
+<td>千万级</td>
+<td>全文检索最强，向量是后加的能力</td>
+</tr>
+<tr>
+<td>OpenSearch</td>
+<td>Apache 2.0</td>
+<td>千万级</td>
+<td>上一条的开源分支</td>
+</tr>
+<tr>
+<td>云托管服务</td>
+<td>商业</td>
+<td>不限</td>
+<td>免运维，要评估数据出境与长期成本</td>
+</tr>
+</tbody></table>
+<p>许可证这一列要看仔细。Elasticsearch 从 7.11 起改用 Elastic License 与 SSPL，对外提供托管服务有约束，OpenSearch 分支就是这么来的；Dify、FastGPT、MinerU 都是 Apache 2.0 加附加条款，明确限制了多租户 SaaS 场景和 LOGO 修改；Arize Phoenix 用的是 Elastic License 2.0，不属于开源许可证；Langfuse 主体是 MIT，ee 目录下是商业许可。选之前读一眼 LICENSE，比事后换组件便宜得多。</p>
+<h3 id="嵌入与重排"><a href="#嵌入与重排" class="headerlink" title="嵌入与重排"></a>嵌入与重排</h3><p>中文场景按尺寸分三档。选型时在同一份黄金集上跑召回对比，多数情况下”中等尺寸加一个重排器”优于”最大尺寸不加重排”。</p>
+<table>
+<thead>
+<tr>
+<th>档位</th>
+<th>代表</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>小</td>
+<td>bge-small-zh、m3e-small 一类</td>
+<td>延迟低，可 CPU 推理，适合海量语料的第一轮召回</td>
+</tr>
+<tr>
+<td>中</td>
+<td>bge-large-zh-v1.5、bge-m3、GTE 系列、Qwen3-Embedding 0.6B</td>
+<td>通用主力；bge-m3 同时输出稠密、稀疏、多向量</td>
+</tr>
+<tr>
+<td>大</td>
+<td>Qwen3-Embedding 4B 与 8B、各家接口的旗舰嵌入模型</td>
+<td>效果优先，需要 GPU，索引重建代价高</td>
+</tr>
+</tbody></table>
+<p>重排这一档：bge-reranker 系列（base 与 large）、mxbai-rerank，以及 Cohere、Jina 这类托管接口。本地部署的重排模型通常在 0.3B 到 2B 之间，延迟与效果同步上升。</p>
+<h3 id="文档解析"><a href="#文档解析" class="headerlink" title="文档解析"></a>文档解析</h3><table>
+<thead>
+<tr>
+<th>文档类型</th>
+<th>可选工具</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>纯文本、Markdown、HTML</td>
+<td>标准库或 unstructured 足够</td>
+</tr>
+<tr>
+<td>版式规整的 PDF</td>
+<td>PyMuPDF 一类直接抽取</td>
+</tr>
+<tr>
+<td>双栏、表格、公式的 PDF</td>
+<td>MinerU、marker、Docling，或云端版面分析接口</td>
+</tr>
+<tr>
+<td>扫描件</td>
+<td>先 OCR，再做版面分析</td>
+</tr>
+</tbody></table>
+<p>解析质量对最终效果的影响经常被低估。同一份 PDF，抽出来的正文顺序错了，后面再好的模型也救不回来。语料里有表格和扫描件时，解析环节值得单独评测。</p>
+<h2 id="十七、模型选择"><a href="#十七、模型选择" class="headerlink" title="十七、模型选择"></a>十七、模型选择</h2><h3 id="嵌入模型"><a href="#嵌入模型" class="headerlink" title="嵌入模型"></a>嵌入模型</h3><p>按顺序问五个问题就能把候选收到两三个：数据能不能出内网；语料主要是什么语言；领域词汇和通用语料差多远；单块最长多少 token；能接受的索引内存是多少。剩下的交给黄金集量化。</p>
+<p>需要微调嵌入模型的信号只有一类：在自己的数据上召回@10 明显低于同规模模型在公开基准上的水平，而且换分块方式、加查询改写都救不回来。做法是用查询与正例片段构成样本对做对比学习，负例取同批其他片段再加难负样本。代价是索引要全量重建，要先算清值不值。</p>
+<h3 id="重排模型"><a href="#重排模型" class="headerlink" title="重排模型"></a>重排模型</h3><p>选型看三个数：候选数、延迟预算、提升幅度。0.3B 级别的模型对 50 个候选打分通常在几十毫秒，2B 级别要到几百毫秒。有时值得做两级重排：小模型把 200 个候选收到 20 个，大模型再从 20 个收到 5 个，总延迟比让大模型直接处理 200 个低得多。</p>
+<h3 id="生成模型"><a href="#生成模型" class="headerlink" title="生成模型"></a>生成模型</h3><p>RAG 对生成模型的要求和通用对话不同，要专门看四点：</p>
+<ol>
+<li>指令遵循：能不能守住”只用资料作答”。这不是所有模型都做得到</li>
+<li>拒答倾向：资料里没有时会不会说没有，还是顺着问题编</li>
+<li>长上下文下的信息保持：资料变长之后，中间位置的证据还能不能用上</li>
+<li>引用与格式的稳定性：能否稳定输出规定的标注格式</li>
+</ol>
+<p>一个实用的顺序是先用能力最强的闭源模型跑通全链路，把上限和基线立起来；再用可自建的开源模型（Qwen、DeepSeek、Llama 这几条线）去逼近，差距用提示词和微调补。判断标准分三层：换模型后只有引用格式变差，微调格式就够；答案是散的、抓不住重点，先检查上下文组装；连”只用资料作答”都守不住，这个模型不适合这个位置。</p>
+<p>微调生成模型的时机要晚。语料质量、分块、检索参数都没调好之前做微调，等于把一个坏系统的行为固化下来。</p>
+<h2 id="十八、应用落地"><a href="#十八、应用落地" class="headerlink" title="十八、应用落地"></a>十八、应用落地</h2><p>不同场景的重点差别很大。</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>核心难点</th>
+<th>架构要点</th>
+<th>验收看什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>企业内部知识库</td>
+<td>权限复杂、语料来源杂、没人维护</td>
+<td>检索层做权限过滤，增量同步，解析流水线</td>
+<td>首答解决率、转人工率</td>
+</tr>
+<tr>
+<td>客服与售后</td>
+<td>要跟订单、工单这类结构化数据联动</td>
+<td>意图路由，结构化查询与 RAG 分工</td>
+<td>自助解决率、一次解决率</td>
+</tr>
+<tr>
+<td>法律与合规</td>
+<td>引用要精确到条款，版本时效性强</td>
+<td>条款级分块，按生效时间过滤，强制引用</td>
+<td>引用准确率、漏检率</td>
+</tr>
+<tr>
+<td>医疗与金融</td>
+<td>拒答优先，全程留痕</td>
+<td>提高拒答阈值，人工复核队列，审计日志</td>
+<td>有害回答率，这一项必须零容忍</td>
+</tr>
+<tr>
+<td>代码助手</td>
+<td>检索单元是符号而不是段落</td>
+<td>按函数与类切分，带上调用关系，与 IDE 集成</td>
+<td>采纳率、编译通过率</td>
+</tr>
+<tr>
+<td>数据分析</td>
+<td>表格与文本混在一起</td>
+<td>文本转查询与 RAG 分工，指标口径统一</td>
+<td>查询正确率</td>
+</tr>
+</tbody></table>
+<p>落地的顺序建议是这样：</p>
+<ol>
+<li>选一个窄场景，有明确的用户和可量化的目标。一上来做”全公司知识助手”的失败模式太多，没法定位</li>
+<li>用 50 到 200 条真实问题建黄金集，先量出基线</li>
+<li>内部灰度，收集失败案例并按前面四类归档</li>
+<li>按上线顺序逐项改进，每一项都用同一份黄金集验证是否真的有效</li>
+<li>接入业务指标——解决率、转人工率、平均处理时长，而不是只看回答质量</li>
+<li>明确语料维护责任：谁负责更新文档、谁批准权限、谁处理过期知识</li>
+</ol>
+<p>两个组织层面的坑值得提前说。一是<strong>语料没人维护比选错技术更致命</strong>，知识过期之后系统表现会持续下滑，而且没有技术手段能补。二是<strong>把 RAG 当搜索用</strong>：用户其实只想找到那份文档，系统却非要给一段总结，反而增加核对成本。有些场景里，把检索结果以列表加高亮的形式直接返回，比生成答案更有用。</p>
+<h2 id="十九、开源参考项目"><a href="#十九、开源参考项目" class="headerlink" title="十九、开源参考项目"></a>十九、开源参考项目</h2><p>下面这些项目的定位、许可证与活跃度数据取自各仓库（2026 年 10 月）。读这些项目时，先看它的分块实现和检索实现，那是 RAG 的核心；界面和部署脚本次要。</p>
+<p>全栈问答产品：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>star</th>
+<th>许可证</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RAGFlow</td>
+<td>92k</td>
+<td>Apache 2.0</td>
+<td>从深度文档理解切入的 RAG 引擎，解析环节做得最细</td>
+</tr>
+<tr>
+<td>Dify</td>
+<td>159k</td>
+<td>Apache 2.0 加附加条款</td>
+<td>LLMOps 平台，含 RAG 流水线与工作流编排</td>
+</tr>
+<tr>
+<td>Open WebUI</td>
+<td>156k</td>
+<td>自定义许可，BSD 风格加品牌条款</td>
+<td>面向自建模型的对话界面，带知识库能力</td>
+</tr>
+<tr>
+<td>AnythingLLM</td>
+<td>67k</td>
+<td>MIT</td>
+<td>桌面与自托管一体的个人或团队知识库</td>
+</tr>
+<tr>
+<td>Khoj</td>
+<td>38k</td>
+<td>AGPL-3.0</td>
+<td>面向个人知识（笔记、邮件、文档）的检索问答</td>
+</tr>
+<tr>
+<td>FastGPT</td>
+<td>30k</td>
+<td>Apache 2.0 加附加条款</td>
+<td>中文知识库问答，流程编排与知识库管理完整</td>
+</tr>
+<tr>
+<td>QAnything</td>
+<td>14k</td>
+<td>AGPL-3.0</td>
+<td>中文问答系统，中文语料处理有积累</td>
+</tr>
+</tbody></table>
+<p>框架与库：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>star</th>
+<th>许可证</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LangChain</td>
+<td>148k</td>
+<td>MIT</td>
+<td>通用编排框架，集成最多</td>
+</tr>
+<tr>
+<td>LlamaIndex</td>
+<td>53k</td>
+<td>MIT</td>
+<td>面向 RAG 的数据框架，索引与检索抽象最全</td>
+</tr>
+<tr>
+<td>Haystack</td>
+<td>27k</td>
+<td>Apache 2.0</td>
+<td>流水线式框架，生产取向</td>
+</tr>
+<tr>
+<td>txtai</td>
+<td>13k</td>
+<td>Apache 2.0</td>
+<td>语义搜索与检索一体，依赖轻</td>
+</tr>
+<tr>
+<td>R2R</td>
+<td>8k</td>
+<td>MIT</td>
+<td>生产取向的检索系统封装，更新节奏已放缓</td>
+</tr>
+</tbody></table>
+<p>向量检索：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>star</th>
+<th>许可证</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Milvus</td>
+<td>46k</td>
+<td>Apache 2.0</td>
+<td>分布式向量库，面向亿级规模</td>
+</tr>
+<tr>
+<td>Qdrant</td>
+<td>35k</td>
+<td>Apache 2.0</td>
+<td>过滤与混合检索做得扎实</td>
+</tr>
+<tr>
+<td>Chroma</td>
+<td>30k</td>
+<td>Apache 2.0</td>
+<td>轻量，适合原型与单机应用</td>
+</tr>
+<tr>
+<td>pgvector</td>
+<td>23k</td>
+<td>PostgreSQL 许可</td>
+<td>Postgres 的向量扩展，中小规模首选</td>
+</tr>
+<tr>
+<td>Weaviate</td>
+<td>17k</td>
+<td>BSD-3 与自有许可混合</td>
+<td>内置向量化模块与混合检索</td>
+</tr>
+<tr>
+<td>LanceDB</td>
+<td>12k</td>
+<td>Apache 2.0</td>
+<td>嵌入式，直接跑在文件之上</td>
+</tr>
+</tbody></table>
+<p>文档解析：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>star</th>
+<th>许可证</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MinerU</td>
+<td>82k</td>
+<td>Apache 2.0 加附加条款</td>
+<td>复杂 PDF 与 Office 文档转结构化，中文处理好</td>
+</tr>
+<tr>
+<td>Docling</td>
+<td>69k</td>
+<td>MIT</td>
+<td>通用文档转换与结构化</td>
+</tr>
+<tr>
+<td>marker</td>
+<td>41k</td>
+<td>Apache 2.0</td>
+<td>PDF 转 Markdown 与 JSON，速度与精度平衡</td>
+</tr>
+<tr>
+<td>unstructured</td>
+<td>16k</td>
+<td>Apache 2.0</td>
+<td>多格式抽取的通用库，集成面广</td>
+</tr>
+</tbody></table>
+<p>评测与可观测：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>star</th>
+<th>许可证</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Langfuse</td>
+<td>36k</td>
+<td>MIT，ee 目录为商业许可</td>
+<td>链路追踪与评测平台</td>
+</tr>
+<tr>
+<td>DeepEval</td>
+<td>19k</td>
+<td>Apache 2.0</td>
+<td>通用 LLM 评测框架，指标齐全</td>
+</tr>
+<tr>
+<td>RAGAS</td>
+<td>16k</td>
+<td>Apache 2.0</td>
+<td>RAG 专项评测指标，忠实度与相关性</td>
+</tr>
+<tr>
+<td>Phoenix</td>
+<td>12k</td>
+<td>Elastic License 2.0</td>
+<td>可观测与评测，注意许可证不属于开源范畴</td>
+</tr>
+<tr>
+<td>TruLens</td>
+<td>3.6k</td>
+<td>MIT</td>
+<td>评测与实验跟踪</td>
+</tr>
+</tbody></table>
+<p>中文场景可用的公开数据与基准：MTEB 与 C-MTEB 是嵌入模型的通用与中文评测集；BEIR 是跨领域检索基准；MS MARCO 是段落检索的经典训练与评测数据；CRUD-RAG 与 MultiHop-RAG 更贴近 RAG 的端到端评测，前者有中文覆盖。这些基准用来做初筛，最终判断仍要靠自己的数据。</p>
+<h2 id="二十、常见误解"><a href="#二十、常见误解" class="headerlink" title="二十、常见误解"></a>二十、常见误解</h2><p>“RAG 是让模型知道更多。” 它做的是上下文选择，模型的知识量没有变化。所以语料质量、分块方式、检索排序才是主线。</p>
+<p>“换个更强的嵌入模型就能解决召回。” 召回链路上有四个环节：分块、查询表述、检索算法、过滤条件。实际项目里问题出在后两者的概率，远高于出在嵌入模型上。</p>
+<p>“长上下文可以让 RAG 退休。” 上下文越长，噪声的边际代价越高，中间位置的证据越容易丢。检索的价值随窗口变长不降反升。</p>
+<p>“RAG 能消除幻觉。” 它把无依据的编造换成了误读检索到的证据，还引入一类新错误：引用了一个看起来相关、实际不支持的片段。前者容易发现，后者更隐蔽。</p>
+<p>“重排可以以后再加。” 它是单点收益最高的一步，改动小、见效快，通常应该优先于任何模型替换。</p>
+<p>“检索到的内容可以直接信。” 语料库是外部输入，它是攻击面，不是可信来源。</p>
+<p>“向量库得选一个专用的。” 一百万向量以内，PostgreSQL 加 pgvector 通常是最省事的选择。等真的遇到规模或功能瓶颈再迁移，成本远低于提前引入一套分布式系统的运维成本。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.11401">2005.11401</a> — Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks — NeurIPS 2020（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.08909">2002.08909</a> — REALM: Retrieval-Augmented Language Model Pre-Training — ICML 2020（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.04906">2004.04906</a> — Dense Passage Retrieval for Open-Domain Question Answering — EMNLP 2020</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2007.01282">2007.01282</a> — Leveraging Passage Retrieval with Generative Models for Open Domain Question Answering（FiD）— EACL 2021</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.03172">2307.03172</a> — Lost in the Middle: How Language Models Use Long Contexts — TACL</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.06654">2404.06654</a> — RULER: What’s the Real Context Size of Your Long-Context Language Models? — 预印本 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2401.14887">2401.14887</a> — The Power of Noise: Redefining Retrieval for RAG Systems — SIGIR 2024（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.01558">2310.01558</a> — Making Retrieval-Augmented Language Models Robust to Irrelevant Context — ICLR 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.06648">2312.06648</a> — Dense X Retrieval: What Retrieval Granularity Should We Use?（命题级检索）— EMNLP 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2409.04701">2409.04701</a> — Late Chunking: Contextual Chunk Embeddings Using Long-Context Embedding Models — 预印本 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2210.07316">2210.07316</a> — MTEB: Massive Text Embedding Benchmark — EACL 2023</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.03533">2212.03533</a> — Text Embeddings by Weakly-Supervised Contrastive Pre-training（E5）— 预印本 2022</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.13147">2205.13147</a> — Matryoshka Representation Learning — NeurIPS（arXiv 2022）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.03216">2402.03216</a> — M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings through Self-Knowledge Distillation（BGE-M3）— ACL 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1603.09320">1603.09320</a> — Efficient and Robust Approximate Nearest Neighbor Search Using Hierarchical Navigable Small World Graphs（HNSW）— IEEE TPAMI 2018</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1702.08734">1702.08734</a> — Billion-Scale Similarity Search with GPUs（FAISS）— IEEE Transactions on Big Data 2017</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.04871">2403.04871</a> — ACORN: Performant and Predicate-Agnostic Search Over Vector Embeddings and Structured Data — PACMMOD 2024</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1145/1571941.1572114">10.1145&#x2F;1571941.1572114</a> — Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods（RRF）— SIGIR 2009（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1561/1500000019">10.1561&#x2F;1500000019</a> — The Probabilistic Relevance Framework: BM25 and Beyond — Foundations and Trends in Information Retrieval 2009</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2107.05720">2107.05720</a> — SPLADE: Sparse Lexical and Expansion Model for First Stage Ranking — SIGIR 2021（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.12832">2004.12832</a> — ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT — SIGIR 2020（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.01488">2112.01488</a> — ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction — NAACL 2022</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.10496">2212.10496</a> — Precise Zero-Shot Dense Retrieval without Relevance Labels（HyDE）— ACL 2023（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.11511">2310.11511</a> — Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection — ICLR 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2401.15884">2401.15884</a> — Corrective Retrieval Augmented Generation — 预印本 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.16130">2404.16130</a> — From Local to Global: A Graph RAG Approach to Query-Focused Summarization — 预印本 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2309.15217">2309.15217</a> — RAGAS: Automated Evaluation of Retrieval Augmented Generation — EACL 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.06816">2310.06816</a> — Text Embeddings Reveal (Almost) As Much As Text — EMNLP 2023</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2401.05856">2401.05856</a> — Seven Failure Points When Engineering a Retrieval Augmented Generation System — CAIN 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.10997">2312.10997</a> — Retrieval-Augmented Generation for Large Language Models: A Survey — 预印本 2023</li>
+<li><a target="_blank" rel="noopener" href="https://www.anthropic.com/news/contextual-retrieval">上下文检索</a> — 工程博客 2024（给片段拼接上下文说明的做法与实测收益）</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/20/RagHowItWorks/">https://unluckynike.github.io/2026/10/20/RagHowItWorks/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/RAG/">
+                                    <span class="chip bg-color">RAG</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/">
+                                    <span class="chip bg-color">向量检索</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2/">
+                                    <span class="chip bg-color">混合检索</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/20/VectorDatabases/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="向量存储">
+                        
+                        <span class="card-title">向量存储</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            向量存储不只是"存向量"——它要在一个不能同时满足召回、延迟、内存的三角里做取舍，还要把标量过滤、增删改、权限和一致性一并解决。索引结构决定了前一半，工程能力决定了后一半
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/">
+                        <span class="chip bg-color">向量检索</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">向量数据库</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB/">
+                        <span class="chip bg-color">近似最近邻</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">索引结构</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/15/TransformerHowItWorks/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Transformer 是怎么工作的">
+                        
+                        <span class="card-title">Transformer 是怎么工作的</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            2017 年那篇论文真正拿掉的不是注意力，而是循环——把序列上不可并行的依赖换成一次矩阵乘法，让序列上任意两个位置直接相乘，此后所有主干模型都长在这个骨架上
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Transformer/">
+                        <span class="chip bg-color">Transformer</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">
+                        <span class="chip bg-color">注意力机制</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81/">
+                        <span class="chip bg-color">位置编码</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            tags: 'ams'
+        },
+        svg: {fontCache: 'global'},
+        options: {skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']}
+    };
+</script>
+<script id="MathJax-script" async src="/libs/mathjax/tex-svg-full.js"></script>
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">277.4k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,1666 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="多模态模型, Java,Python,Deep Learning,Artificial Intelligence,SQL,React,Vue.js等">
+    <meta name="description" content="文本是主模态，其它模态都要先被翻译成它——多模态的全部工程问题都从这句话长出来。文本是一种高效的压缩格式，但不是世界的全部格式">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>多模态模型 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">多模态模型</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">
+                                <span class="chip bg-color">多模态</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">视觉语言模型</span>
+                            </a>
+                        
+                            <a href="/tags/CLIP/">
+                                <span class="chip bg-color">CLIP</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%A7%86%E8%A7%89/">
+                                <span class="chip bg-color">视觉</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-14
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-24
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    13 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>文本是”主模态”，图像、音频、视频都要先被翻译成它能处理的形式——<strong>多模态的全部工程问题都从这句话长出来</strong>。</p>
+</blockquote>
+<h2 id="一、为什么需要多模态"><a href="#一、为什么需要多模态" class="headerlink" title="一、为什么需要多模态"></a>一、为什么需要多模态</h2><p>语言模型已经足够强，但信息并不只以文字存在——这是为什么仍要接入其它模态。原因可以归为三点。</p>
+<p><strong>因为信息本来就不只以文字存在。</strong> 文档的信息藏在排版里（表格的行列关系、图表里的趋势）；界面的状态全在像素里（按钮能不能点、报错在哪一行）；语音和视频带着时序和语气——硬把它们转成文字，等于主动丢信息。</p>
+<p><strong>因为人本身就是多模态学习者。</strong> 看图识字、听声辨意，单一模态从来不是人的默认设置。要求模型只从文本理解世界，是给模型加了一个人没有的限制。</p>
+<p><strong>最直接的还是工程动机。</strong> 企业里真正有价值的信息，大半躺在 PDF、扫描件、设计稿、监控视频里。文本模型碰不到它们，业务就上不了车这比前两条更能解释为什么这几年多模态投入这么大。</p>
+<h2 id="二、它是怎么走到今天的"><a href="#二、它是怎么走到今天的" class="headerlink" title="二、它是怎么走到今天的"></a>二、它是怎么走到今天的</h2><p>多模态不是新概念，但”大模型时代的多模态”有明显的分水岭。按”解决了什么问题”分四个阶段：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>时间</th>
+<th>关键节点</th>
+<th>解决了什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>任务专用期</td>
+<td>~2010 年代前中期</td>
+<td>视听语音识别、图像描述、视觉问答各自建模</td>
+<td>证明了跨模态联合建模有收益，但每个任务都要单独设计模型</td>
+</tr>
+<tr>
+<td>预训练期</td>
+<td>2019-2021</td>
+<td>双流&#x2F;单流两类视觉语言预训练模型；<strong>ViT</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.11929">2010.11929</a>，2020）；<strong>CLIP</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020</a>，2021）</td>
+<td>ViT 让”图 &#x3D; token 序列”成为事实标准；CLIP 给出可迁移的图文对齐空间</td>
+</tr>
+<tr>
+<td>大模型接入期</td>
+<td>2022-2023</td>
+<td><strong>Flamingo</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2204.14198">2204.14198</a>，2022）→ <strong>BLIP-2</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2301.12597">2301.12597</a>，2023 初）→ <strong>LLaVA</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.08485">2304.08485</a>，2023 中）</td>
+<td>把视觉接进语言模型；LLaVA 证明”一层投影 + 指令数据”就够，接入成本骤降</td>
+</tr>
+<tr>
+<td>原生与统一期</td>
+<td>2024-2026</td>
+<td>原生多模态、理解与生成合流、视觉 token 压缩（如 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18858">2610.18858</a>、<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18399">2610.18399</a>）</td>
+<td>从”给文本模型外挂眼睛”转向”同一个模型处理所有模态”，成本成为核心课题</td>
+</tr>
+</tbody></table>
+<p><strong>这条线上真正的转折点只有两个</strong>，其余都是渐进改良：</p>
+<ol>
+<li><strong>ViT 把图变成了 token 序列</strong>——从这一刻起，多模态不再是两套网络的拼接，而是同一个 Transformer 吃不同来源的 token。第三节的所有架构都建立在这个前提上</li>
+<li><strong>LLaVA 把接入成本打下来了</strong>——一层投影 + 用纯文本强模型合成的指令数据，个人和小团队也能做多模态微调。此前 Flamingo 那类方案要海量图文交错数据和复杂适配结构</li>
+</ol>
+<p>至于 2024 年之后的”原生多模态”，与其说是第三个转折点，不如说是<strong>在把这两个转折点的红利吃干净</strong>：结构同构了、接入选便宜了，下一步自然是合并模型，然后算成本账（第四节）。</p>
+<h2 id="三、技术上怎么工作：三步走"><a href="#三、技术上怎么工作：三步走" class="headerlink" title="三、技术上怎么工作：三步走"></a>三、技术上怎么工作：三步走</h2><p>抛开产品名词，任何多模态模型都在做三件事：<strong>把别的模态编码成 token → 把它和文本对齐 → 让它们进同一个模型</strong>。</p>
+<h3 id="第一步：图怎么变成-token"><a href="#第一步：图怎么变成-token" class="headerlink" title="第一步：图怎么变成 token"></a>第一步：图怎么变成 token</h3><p>这一步由 ViT 类编码器完成（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.11929">2010.11929</a>）：图被切成小块（patch），每块压平成一个 token，加位置编码，然后进 Transformer。</p>
+<p><strong>“图 &#x3D; token 序列”是多模态能成立的根本原因</strong>——文本本来就是这个形式，于是不同模态第一次可以走同一套结构。</p>
+<p>从这里长出两个工程要点：</p>
+<ul>
+<li><strong>patch 大小决定 token 数</strong>：16×16 的 patch 比 14×14 少约 30% 的 token（同一张图）——这是分辨率策略的第一颗螺丝</li>
+<li><strong>固定分辨率 vs 原生分辨率</strong>：早期做法把所有图缩放成固定尺寸，小字等信息损失在缩放里；NaViT（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.06304">2307.06304</a>）改成支持任意长宽比与分辨率（patch n’ pack），同时解决缩放损失和显存浪费——现在的高分辨率多模态基本都走这条路</li>
+</ul>
+<h3 id="第二步：怎么和文本对齐（三条路线）"><a href="#第二步：怎么和文本对齐（三条路线）" class="headerlink" title="第二步：怎么和文本对齐（三条路线）"></a>第二步：怎么和文本对齐（三条路线）</h3><p>这是多模态的核心技术分歧，三条路线的演进也是三代方案。</p>
+<p><strong>路线一：对比对齐。</strong> CLIP（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020</a>，ICML 2021）用 <strong>4 亿对图文</strong>做对比学习：配对的拉近、不配对的推远。它的产出不是”生成能力”，而是一个<strong>能比较图文的表示空间</strong>——这个空间成了几乎所有多模态模型的公共接口。SigLIP（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.15343">2303.15343</a>，ICCV 2023 Oral）把它改成 sigmoid 损失，去掉了全局归一化，训练更稳、更适合大规模。</p>
+<p><strong>路线二：适配器桥接。</strong> 让语言模型保持不动，只在中间加一层”翻译”：</p>
+<ul>
+<li><strong>Flamingo</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2204.14198">2204.14198</a>，NeurIPS 2022）：在冻结的语言模型层间插入交叉注意力，让文本能”查询”视觉特征</li>
+<li><strong>BLIP-2</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2301.12597">2301.12597</a>）：用一个小而专用的 Q-Former 把图像压成固定数量的查询向量，再喂给语言模型</li>
+</ul>
+<p><strong>路线三：投影 + 指令微调（今天的主流）。</strong> LLaVA（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.08485">2304.08485</a>，NeurIPS 2023 Oral）把 CLIP 的输出经一层投影接到语言模型上，再用<strong>纯文本 GPT-4 合成的多模态指令数据</strong>微调。它证明了一件事：<strong>不需要复杂桥接，一层投影加好数据就够了。</strong></p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>连接方式</th>
+<th>训什么</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对比对齐</td>
+<td>双塔 + 对比损失</td>
+<td>两个编码器</td>
+<td>高（要海量图文对）</td>
+</tr>
+<tr>
+<td>适配器桥接</td>
+<td>交叉注意力 &#x2F; Q-Former</td>
+<td>中间适配层</td>
+<td>中</td>
+</tr>
+<tr>
+<td>投影 + 指令微调</td>
+<td>一层投影</td>
+<td>投影层 + 语言模型（常用 LoRA）</td>
+<td>低（主流选择）</td>
+</tr>
+</tbody></table>
+<h3 id="第三步：怎么进同一个模型（以及生成侧）"><a href="#第三步：怎么进同一个模型（以及生成侧）" class="headerlink" title="第三步：怎么进同一个模型（以及生成侧）"></a>第三步：怎么进同一个模型（以及生成侧）</h3><p>理解侧走到”投影 + 指令微调”就够了。<strong>生成侧是另一套架构</strong>：文生图靠扩散——从噪声逐步去噪成图，不是逐 token 生成文本那种方式。</p>
+<p>而 <strong>DiT</strong>（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.09748">2212.09748</a>）把扩散的去噪过程也交给了 Transformer——于是”画图”和”读文本”在结构上站到了同一个屋檐下。</p>
+<p>这就是”统一型多模态”的底气：<strong>文本用语言模型的词表、图像用离散化后的视觉词表，让同一个自回归骨干既预测文本 token 也预测视觉 token。</strong> 2026 年”理解与生成合流”的趋势（第七节），根子在这里。</p>
+<h3 id="音频和视频：换个模态，接入方式就不一样"><a href="#音频和视频：换个模态，接入方式就不一样" class="headerlink" title="音频和视频：换个模态，接入方式就不一样"></a>音频和视频：换个模态，接入方式就不一样</h3><p><strong>音频</strong>三条路，成本从低到高：</p>
+<ol>
+<li><strong>级联</strong>：语音 → 专用 ASR 转文字（如 Whisper 类模型，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.04356">2212.04356</a>）→ 语言模型 → TTS。<strong>最稳最便宜</strong>，代价是丢掉语气、情绪、环境音</li>
+<li><strong>编码器 + 投影</strong>：把音频编码器输出投影进语言模型（同视觉做法），保住副语言信息，但对数据要求高</li>
+<li><strong>离散化</strong>：把音频压成离散 token，与文本共享同一自回归框架——最统一也最难</li>
+</ol>
+<p>现实里多数语音产品采用的是第 1 条：先级联跑通，再考虑端到端。</p>
+<p><strong>视频</strong>的难点不是”怎么接”（本质是一串图 + 音频），而是采样和时序：采样策略直接决定成本（每秒 1 帧和 8 帧差 8 倍）；时序位置编码决定模型分不分得清先后；音视频联合还要解决两条流的时间对齐。</p>
+<h2 id="四、成本：一张图占多少-token"><a href="#四、成本：一张图占多少-token" class="headerlink" title="四、成本：一张图占多少 token"></a>四、成本：一张图占多少 token</h2><p>多模态的第一道工程墙不在模型，而在 token 数。</p>
+<p>按 14×14 patch 计算：</p>
+<ul>
+<li>一张 <strong>336×336</strong> 的图 ≈ <strong>576 个 token</strong>（约等于一篇 500 字短文）</li>
+<li>一张 <strong>1344×1344</strong> 的高分辨率图（切 16 块）≈ <strong>576 × 16 ≈ 9200 个 token</strong></li>
+<li><strong>视频</strong>按每秒 2 帧 ≈ <strong>1152 token&#x2F;秒</strong>，一分钟就是 <strong>7 万 token</strong> 量级</li>
+</ul>
+<p>换算成工程影响：<strong>多图的上下文窗口会被迅速吃满，KV cache 随图片数量线性膨胀</strong>。所以 2026 年这个方向最热的课题就是省视觉 token——按需分配预算（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18858">2610.18858</a>）、混合粒度处理（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18399">2610.18399</a>）。</p>
+<p>由此得到一条工程结论：<strong>“最大分辨率”不应作为默认值</strong>——分辨率决定 token 数，token 数决定延迟、显存和成本。</p>
+<h2 id="五、怎么训：数据从哪来，分几个阶段"><a href="#五、怎么训：数据从哪来，分几个阶段" class="headerlink" title="五、怎么训：数据从哪来，分几个阶段"></a>五、怎么训：数据从哪来，分几个阶段</h2><h3 id="数据从哪来"><a href="#数据从哪来" class="headerlink" title="数据从哪来"></a>数据从哪来</h3><p>三条来源，按成本排序：</p>
+<ol>
+<li><strong>天然配对</strong>：网页图片的 alt 文本、文档的图文混排——量大但噪声高，通常先用模型打分（例如 CLIP 相似度）过滤一遍</li>
+<li><strong>人工标注 &#x2F; 指令构造</strong>：为特定任务写”图 + 问题 + 答案”，医疗、工业质检这类专业场景必须这么做</li>
+<li><strong>强模型合成</strong>：让纯文本的强模型看图片描述与检测框，造出对话、推理、细节问答（LLaVA 的做法）——性价比最高</li>
+</ol>
+<p><strong>交错图文数据（interleaved）</strong>：真实网页是”一段文字、一张图、再一段文字”。用这种数据训练，模型才学得会”图在文本的哪个位置被引用”——这是多模态助手从”看图问答”走向”能读文档”的关键一步。</p>
+<h3 id="三个阶段"><a href="#三个阶段" class="headerlink" title="三个阶段"></a>三个阶段</h3><p><strong>阶段一：对齐预训练。</strong> 冻结语言模型，只训投影层，让视觉特征落进语言模型的表示空间。便宜，几百到几千步通常就够。</p>
+<p><strong>阶段二：多模态指令微调。</strong> 用”图 + 指令 → 回答”的数据继续训（这时语言模型也参与）。数据形态和纯文本 SFT 同构，只是消息里多了图像占位符：</p>
+<pre class=" language-json"><code class="language-json">&amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"messages"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"role"</span><span class="token operator">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token property">"content"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"image"</span><span class="token punctuation">,</span> <span class="token property">"image"</span><span class="token operator">:</span> <span class="token string">"shot.png"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+      &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"text"</span><span class="token punctuation">,</span> <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"这个报错截图里，问题出在哪一行？"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+  <span class="token punctuation">]</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+  &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"role"</span><span class="token operator">:</span> <span class="token string">"assistant"</span><span class="token punctuation">,</span> <span class="token property">"content"</span><span class="token operator">:</span> <span class="token string">"第 42 行，userService 的调用没有判空。"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token punctuation">]</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>阶段三：偏好对齐。</strong> 思路和纯文本一样（DPO 或 RLHF），数据换成多模态的偏好对：同一张图，两个回答哪个更好。这一步专门治多模态的两个老毛病——<strong>幻觉</strong>和<strong>过度描述</strong>。</p>
+<h2 id="六、哪里会错：幻觉，和怎么评测"><a href="#六、哪里会错：幻觉，和怎么评测" class="headerlink" title="六、哪里会错：幻觉，和怎么评测"></a>六、哪里会错：幻觉，和怎么评测</h2><h3 id="幻觉是多模态的头号问题"><a href="#幻觉是多模态的头号问题" class="headerlink" title="幻觉是多模态的头号问题"></a>幻觉是多模态的头号问题</h3><p>它比纯文本的幻觉更”理直气壮”：<strong>图里没有的东西，模型也会说看到了</strong>——描述一个不存在的人、念一段不存在的文字。2026 年这个方向仍在活跃（例如 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18369">2610.18369</a> 在做”先定位证据区域、再回答”的忠实推理）。</p>
+<p>三个对策，按性价比排序：</p>
+<ol>
+<li><strong>要求引用证据</strong>：让模型先说出”从图的哪个区域看出来的”再给结论——一旦要指名位置，就编不出来了</li>
+<li><strong>能 OCR 就别让模型认字</strong>：文字识别交给专用工具，模型只做语义理解，能消掉一大类”念错、编造文字”的幻觉</li>
+<li><strong>提高有效分辨率</strong>：很多”幻觉”其实是看不清——小字被降采样糊掉后，模型只能猜</li>
+</ol>
+<h3 id="评测要分类看"><a href="#评测要分类看" class="headerlink" title="评测要分类看"></a>评测要分类看</h3><p>一个总分看不出问题出在哪，因此评测要分类。多模态能力至少分五类：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>考什么</th>
+<th>典型失败</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>感知</td>
+<td>认物体、颜色、位置</td>
+<td>说错物体在左还是右</td>
+</tr>
+<tr>
+<td>OCR &#x2F; 文档</td>
+<td>认字、读表</td>
+<td>编造数字、表格读串行</td>
+</tr>
+<tr>
+<td>知识</td>
+<td>图里的领域知识</td>
+<td>认得车但说不出型号</td>
+</tr>
+<tr>
+<td>推理</td>
+<td>多步推断</td>
+<td>数数、比大小、看图算账</td>
+</tr>
+<tr>
+<td>幻觉专项</td>
+<td>有没有说图里不存在的东西</td>
+<td>描述不存在的人或文字</td>
+</tr>
+</tbody></table>
+<p>工程做法：<strong>每类留 20~50 条自己的真实业务样本</strong>跑回归。公开榜只能当参考——污染和”榜单特化”都很常见。</p>
+<h2 id="七、往哪走（2026）"><a href="#七、往哪走（2026）" class="headerlink" title="七、往哪走（2026）"></a>七、往哪走（2026）</h2><ol>
+<li><strong>统一型在合流</strong>：理解和生成放进同一个模型（Omni-RS，<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18323">2610.18323</a> 在多任务上同时做理解与生成），被认为是下一代主流</li>
+<li><strong>视觉 token 的经济学</strong>：重心从”怎么看得懂”转向”怎么少看图还不丢信息”</li>
+<li><strong>多模态自进化</strong>：ReDiS（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18388">2610.18388</a>）让模型自己诊断推理错误并迭代</li>
+<li><strong>从”看图”到”操作界面”</strong>：GUI agent 把截图当输入、动作当输出，多模态由此进了闭环</li>
+</ol>
+<h2 id="八、怎么落地"><a href="#八、怎么落地" class="headerlink" title="八、怎么落地"></a>八、怎么落地</h2><h3 id="四个坑"><a href="#四个坑" class="headerlink" title="四个坑"></a>四个坑</h3><table>
+<thead>
+<tr>
+<th>坑</th>
+<th>表现</th>
+<th>对策</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分辨率设成默认最大值</td>
+<td>延迟和成本暴涨、窗口被吃满</td>
+<td>按任务给最小够用的分辨率</td>
+</tr>
+<tr>
+<td>图片顺序 &#x2F; 位置编码</td>
+<td>多图时模型张冠李戴</td>
+<td>在文本里显式编号（”图 1 &#x2F; 图 2”）</td>
+</tr>
+<tr>
+<td>长上下文的 KV cache</td>
+<td>多图 + 长对话显存爆炸</td>
+<td>按第四节那笔账算，必要时做 KV cache 分层</td>
+</tr>
+<tr>
+<td>拿公开榜当验收</td>
+<td>分数虚高</td>
+<td>自建 50~200 条真实任务样本做回归</td>
+</tr>
+</tbody></table>
+<h3 id="部署侧三件事"><a href="#部署侧三件事" class="headerlink" title="部署侧三件事"></a>部署侧三件事</h3><ul>
+<li><strong>图片预处理放在哪</strong>：缩放、裁剪、编码既吃 CPU 也吃 GPU，放错位置就是吞吐瓶颈——短文本 + 大图的场景下，视觉编码器的算力占比可能超过语言模型本身</li>
+<li><strong>多模态 RAG</strong>：图片和文档页也要能被检索——常见做法是把图先转成”描述文本 + 向量”入索引，命中时把图本身一起塞进上下文</li>
+<li><strong>降级策略</strong>：多模态请求容易超时（图大、token 多），要有兜底：先返回文字部分、图片后到，或者降分辨率重试</li>
+</ul>
+<h2 id="九、三个常见误解"><a href="#九、三个常见误解" class="headerlink" title="九、三个常见误解"></a>九、三个常见误解</h2><p><strong>“多模态就是能看图。”</strong><br>看图只是感知。真正的能力分三层：<strong>感知</strong>（认得）→ <strong>推理</strong>（看图能算能推）→ <strong>行动</strong>（按图操作界面）。很多所谓”多模态模型”只做到第一层，而业务价值往往在第二、三层。</p>
+<p><strong>“图片给得越多越好。”</strong><br>第四节的账就是为这条准备的：多图按”图数 × 每图 token 数”吃上下文和显存。<strong>少而精的图 + 明确的文字指代</strong>，通常比一股脑塞十张图效果好。</p>
+<p><strong>“统一型一定比拼接型强。”</strong><br>统一型（同一模型理解 + 生成）在结构上更优雅，但拼接型（成熟语言模型 + 视觉适配）在<strong>成本和可控性</strong>上仍有优势——尤其是只需理解、不需要生成时。选型看任务，不看潮流。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.11929">2010.11929</a> — An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale（ViT）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020</a> — Learning Transferable Visual Models From Natural Language Supervision（CLIP）— ICML 2021（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2204.14198">2204.14198</a> — Flamingo: a Visual Language Model for Few-Shot Learning — NeurIPS 2022</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.04356">2212.04356</a> — Robust Speech Recognition via Large-Scale Weak Supervision（Whisper）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.09748">2212.09748</a> — Scalable Diffusion Models with Transformers（DiT）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2301.12597">2301.12597</a> — BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.15343">2303.15343</a> — Sigmoid Loss for Language Image Pre-Training（SigLIP）— ICCV 2023 Oral（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.08485">2304.08485</a> — Visual Instruction Tuning（LLaVA）— NeurIPS 2023 Oral（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2307.06304">2307.06304</a> — Patch n’ Pack: NaViT, a Vision Transformer for any Aspect Ratio and Resolution</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18323">2610.18323</a> — Omni-RS: Unifying Multi-Task Understanding and Generation</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18369">2610.18369</a> — Hallucination-aware Faithful Reasoning</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18388">2610.18388</a> — ReDiS: Reasoning-Diagnosis Self-Evolution for Multimodal Models</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18399">2610.18399</a> — Bifocal: Training-Free Mixed Granularity Visual Token Processing</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18829">2610.18829</a> — OmniCompass: A Holistic Benchmark for Omni-Modal Understanding</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2610.18858">2610.18858</a> — Visual Tokens on Demand: Visual Budgeting for Scalable Multimodal Inference</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/14/MultimodalModels/">https://unluckynike.github.io/2026/10/14/MultimodalModels/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">
+                                    <span class="chip bg-color">多模态</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%A7%86%E8%A7%89%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">视觉语言模型</span>
+                                </a>
+                            
+                                <a href="/tags/CLIP/">
+                                    <span class="chip bg-color">CLIP</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%A7%86%E8%A7%89/">
+                                    <span class="chip bg-color">视觉</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/15/TransformerHowItWorks/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Transformer 是怎么工作的">
+                        
+                        <span class="card-title">Transformer 是怎么工作的</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            2017 年那篇论文真正拿掉的不是注意力，而是循环——把序列上不可并行的依赖换成一次矩阵乘法，让序列上任意两个位置直接相乘，此后所有主干模型都长在这个骨架上
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Transformer/">
+                        <span class="chip bg-color">Transformer</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">
+                        <span class="chip bg-color">注意力机制</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81/">
+                        <span class="chip bg-color">位置编码</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/13/FinetuningAndAlignment/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="模型微调与对齐">
+                        
+                        <span class="card-title">模型微调与对齐</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            微调和对齐是两条不同的轴：一个改"会不会做"，一个改"愿不愿意做/怎么做"。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-13
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%BE%AE%E8%B0%83/">
+                        <span class="chip bg-color">微调</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AF%B9%E9%BD%90/">
+                        <span class="chip bg-color">对齐</span>
+                    </a>
+                    
+                    <a href="/tags/SFT/">
+                        <span class="chip bg-color">SFT</span>
+                    </a>
+                    
+                    <a href="/tags/DPO/">
+                        <span class="chip bg-color">DPO</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">277.4k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
