@@ -1,0 +1,1713 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="YOLO 是怎么工作的：目标检测的原理与流程, Java,Python,Deep Learning,Artificial Intelligence,SQL,React,Vue.js等">
+    <meta name="description" content="目标检测要同时回答&#34;有什么&#34;和&#34;在哪里&#34;，而且答案的数量不固定。YOLO 把这两个问题压成一次前向传播的回归，十年间从七乘七网格走到免 NMS 的端到端，变化的是手段，不变的是实时这个约束">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>YOLO 是怎么工作的：目标检测的原理与流程 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book-open" style="zoom: 0.6;"></i>
+      
+      <span>阅读</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="https://unluckynike.github.io/ml-notes/" target="_blank" rel="noopener">
+          
+          <span>像搭积木一样了解AI-2026</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book-open"></i>
+			
+			阅读
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="https://unluckynike.github.io/ml-notes/ " style="margin-left:75px">
+				  
+		          <span>ml_notes</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">YOLO 是怎么工作的：目标检测的原理与流程</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                                <span class="chip bg-color">计算机视觉</span>
+                            </a>
+                        
+                            <a href="/tags/YOLO/">
+                                <span class="chip bg-color">YOLO</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">
+                                <span class="chip bg-color">目标检测</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-31
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    10.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    38 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>分类只需回答”是什么”，检测还要回答”在哪里”，并且一张图里有几个目标、是什么，事先都不知道。YOLO 的全部设计，都是围绕这三个”不知道”展开的。</p>
+</blockquote>
+<h2 id="一、目标检测是个什么问题"><a href="#一、目标检测是个什么问题" class="headerlink" title="一、目标检测是个什么问题"></a>一、目标检测是个什么问题</h2><p>把视觉任务排成一条谱线，从易到难是：图像分类、定位、目标检测、实例分割。分类只需要输出一个类别标签；定位在分类之外多输出一个框，但默认图里只有一个主目标；目标检测则要找出图中<strong>所有</strong>感兴趣的目标，每个目标给出一个框、一个类别和一个置信度——目标的数量在推理之前是未知的，这正是检测区别于定位的本质困难。<br>检测器的每条输出由四元组构成：边界框的位置与大小（三种常见表示：左上右下两个角点、中心点加宽高、以及中心点加到四条边的距离）、类别、置信度。评价两个框是否框住了同一个目标，用的是交并比：</p>
+<p>$$\text{IoU}(A, B) = \frac{|A \cap B|}{|A \cup B|}$$</p>
+<p>IoU 是一个介于 0 和 1 之间的数，两个完全重合的框为 1，完全不相交为 0。检测任务的几乎所有质量标准都建立在它上面：预测框与真实框的 IoU 超过某个阈值（常用 0.5），且类别一致，这条预测才算命中。</p>
+<h3 id="先把几种”框”说清"><a href="#先把几种”框”说清" class="headerlink" title="先把几种”框”说清"></a>先把几种”框”说清</h3><p>检测里的”框”按角色分三种，加上量它们的尺子，一共四个词，先把关系说清。</p>
+<p><strong>边界框（bounding box）</strong>是总称：把目标圈起来的矩形，由四个数确定，前面说的几种表示只是同一个矩形的不同写法。</p>
+<p><strong>真实框（ground truth）</strong>是人工标注的标准答案。训练集里每个目标都有一个标注员给出的框和类别，模型的全部学习目标就是逼近它。真实框是人标的、本身带噪声——框松了、紧了、漏了——所以常说标注质量封死模型上限。</p>
+<p><strong>预测框（prediction）</strong>是模型输出的框。评估的全部内容，就是拿预测框和真实框算重合度。</p>
+<p><strong>锚框（anchor box）</strong>既不是答案也不是输出，而是预设的参考框。让网络直接回归绝对坐标，框的宽可以是十几也可以是几百，数值跨度大、不好学；改成”相对一个预设框预测偏移量”，问题温和得多。锚框的形状来自对训练集真实框的聚类，一组锚框覆盖几种典型长宽比。v6 之后的去锚框设计去掉了它，让特征图上每个位置直接预测到四条边的距离——参照物从预设框换成了位置本身。三者的关系一句话：真实框是答案，锚框是参考线，预测框是答卷。</p>
+<p>IoU 的手算值得走一遍：两个框的交集，宽是右边界取小减左边界取大，高是下边界取小减上边界取大，任一为负即不相交。预测框 (200, 300, 450, 420) 与真实框 (198, 298, 452, 418) 几乎重合，IoU 接近 0.97；预测框整体偏出去一百像素，交集只剩一条边，IoU 跌到 0.3 上下——“命中”与”没命中”之间的距离就是这么具体。</p>
+<p>还有一个词会反复出现：<strong>NMS（非极大值抑制）</strong>。同一个目标周围，相邻的多个位置都会各自输出一个高置信度的框，直接输出就是一叠重复框。NMS 做的事：按置信度从高到低排序，保留最高的，删掉与它 IoU 超过阈值的其余框，对剩下的重复这一步，直到没有冗余。完整算法、它的缺陷与变体在第九节展开。</p>
+<p>有了命中的定义，就能定义精度与召回，进而定义 AP（平均精度，precision-recall 曲线下的面积）与 mAP（对各类别取平均）。行业基准 COCO 用的是 mAP@[.5:.95]：把 IoU 阈值从 0.5 到 0.95 每隔 0.05 取一档，共十档，分别算 mAP 再平均。这个指标比”IoU 大于 0.5 就算对”严格得多——后者只要求框得大概齐，前者要求框得越来越准。另外 COCO 还按目标面积分成小、中、大三档分别报告，因为<strong>小目标检测的难度和大目标完全不是一个量级</strong>，一个总 mAP 会把它们糊在一起。</p>
+<p>训练检测器比训练分类器多两类困难。一是类别极不平衡：一张图里真正的目标只占极少数位置，绝大多数位置是背景，损失函数如果平等对待所有位置，模型会学会永远预测”没有目标”。二是框的表示空间不友好：位置和大小是连续量，直接用分类损失去回归会收敛得很差。后文会看到，YOLO 十年间的多数改进，都是围绕这两点展开的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/yolo_v1_system.png" alt="YOLO 检测系统流程"></p>
+<p><em>图源：Redmon 等，You Only Look Once（CVPR 2016）</em></p>
+<h2 id="二、两条路线：两阶段与单阶段"><a href="#二、两条路线：两阶段与单阶段" class="headerlink" title="二、两条路线：两阶段与单阶段"></a>二、两条路线：两阶段与单阶段</h2><p>2014 年 R-CNN 给出的两阶段范式统治了早期检测：先用候选区域方法（ selective search）在图里挖出约两千个”可能有东西的框”，再对每个框做分类与框微调。这条路线的精度好，但两千次前向传播注定快不起来。后续的 Fast R-CNN 把共享卷积提出来，Faster R-CNN（NeurIPS 2015）用区域建议网络（RPN）替换了 selective search，让候选框也由网络生成，两阶段就此定型：快了很多，但结构上是两个网络的串联。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/frcnn_model.png" alt="Faster R-CNN 统一网络"></p>
+<p><em>图源：Ren 等，Faster R-CNN（NeurIPS 2015）</em></p>
+<p>YOLO 的立场写在标题里：You Only Look Once。<strong>把检测直接当成一个回归问题</strong>——一次前向传播，从整幅图直接输出所有框和类别，没有候选阶段。2016 年这篇论文（CVPR 2016）给出的理由是，人类看图一眼就能感知到有什么东西在哪，检测也应该是同一个量级的计算。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/20261024082656168.webp"></p>
+<p>单阶段的代价在早期是明显的：定位精度不如两阶段，小目标和密集目标容易漏。但它的上限是两阶段结构上达不到的——推理成本一次前向封顶。于是单阶段内部发生了三场关键的技术演进，撑起了精度缺口：锚框机制（v2）、多尺度预测（v3）、训练技巧的系统化（v4）。同期的 SSD（ECCV 2016）和 RetinaNet（ICCV 2017，Focal Loss）从另外的角度验证了单阶段的潜力——Focal Loss 用一个调制因子解决类别不平衡，让单阶段第一次在精度上超过两阶段。</p>
+<h2 id="三、YOLO-v1：把检测变成回归"><a href="#三、YOLO-v1：把检测变成回归" class="headerlink" title="三、YOLO v1：把检测变成回归"></a>三、YOLO v1：把检测变成回归</h2><p>v1 的设计非常直接：把输入图切成 S×S 的网格（论文里 S&#x3D;7），<strong>每个网格单元负责预测中心落在它里面的目标</strong>。每个单元预测固定数量的框（B&#x3D;2）和每框的置信度，再加一组类别条件概率（C&#x3D;20，对应 PASCAL VOC 的二十类）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/yolo_v1_model.webp" alt="v1 把检测建模为网格上的回归"></p>
+<p><em>图源：Redmon 等，You Only Look Once（CVPR 2016）</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/20261024083030336.webp"></p>
+<p>置信度的定义值得写下来，它把”有没有目标”和”框得准不准”合成一个数：</p>
+<p>$$\text{confidence} = P(\text{object}) \times \text{IoU}_{\text{pred}}^{\text{truth}}$$</p>
+<p>前半部分是这个单元里有目标的概率，后半部分是预测框与真实框的 IoU。</p>
+<h3 id="网络结构：24-个卷积加-2-个全连接"><a href="#网络结构：24-个卷积加-2-个全连接" class="headerlink" title="网络结构：24 个卷积加 2 个全连接"></a>网络结构：24 个卷积加 2 个全连接</h3><p>输入 448×448×3，整个网络由 24 个卷积层和 2 个全连接层组成。骨架模仿的是 GoogLeNet 而非 VGG——在 3×3 卷积之间大量插入 1×1 卷积做通道压缩，同样的感受野下层数更少、速度更快。论文原图就是这套结构的图纸：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/yolo_v1_architecture.png" alt="YOLOv1 网络架构"></p>
+<p><em>图源：Redmon 等，You Only Look Once（CVPR 2016）论文原图 Figure 3</em></p>
+<p>空间分辨率靠六次 2×2、步长 2 的最大池化从 448 一路压到 7：</p>
+<pre class=" language-text"><code class="language-text">输入 448×448×3
+  卷积 7×7、64 通道、步长 2   → 224×224×64    池化 → 112
+  卷积 3×3、192               → 112×112×192   池化 → 56
+  1×1 与 3×3 交替堆叠，通道 128→256→512       池化 → 28×28×512
+  1×1 与 3×3 交替堆叠                         池化 → 14×14×512
+  1×1 与 3×3 交替堆叠，通道升至 1024          池化 → 7×7×1024
+  连续数层 1024 通道的 3×3 卷积
+  展平 → 全连接 4096（Dropout 0.5）→ 全连接 1470
+  重排为 7×7×30
+</code></pre>
+<p>两个容易忽略的选择。激活全部用 LeakyReLU（负半轴斜率 0.1）：标准 ReLU 把负输入的梯度置零，而 v1 的输出全是回归量，保留一点负半轴的梯度更稳。v1 没有使用批归一化——BN 刚刚提出，论文的消融显示给卷积层加上它能带来约两个点的 mAP，但主线版本没有纳入，这也解释了它对训练技巧的敏感。</p>
+<p>最后那层 1470 维的全连接是设计的点睛之处：<strong>整张图的所有检测结果，被压成一个长度固定的向量</strong>，由一次矩阵乘法直接给出。</p>
+<h3 id="30-个数怎么解读"><a href="#30-个数怎么解读" class="headerlink" title="30 个数怎么解读"></a>30 个数怎么解读</h3><p>1470 &#x3D; 7×7×30，每个网格单元 30 个数：</p>
+<pre class=" language-text"><code class="language-text">30 = (x, y, w, h, confidence) × 2 个框 + 20 个类别条件概率
+</code></pre>
+<p>怎么读：x、y 是框中心相对所在网格单元的偏移，归一化到 0 到 1；w、h 是相对整张图的宽高；confidence 就是前面定义的”有目标概率乘 IoU”。20 个类别概率<strong>每个格子一份、由该格的两个框共享</strong>——这就是后面要讲的”一格一类”限制的根源。7×7 个格子合计 98 个候选框。</p>
+<p>测试时，把类别条件概率与框置信度相乘，得到每个框在每个类别上的分数；过置信度阈值、做 NMS，就是最终输出。</p>
+<h3 id="损失函数的四个细节"><a href="#损失函数的四个细节" class="headerlink" title="损失函数的四个细节"></a>损失函数的四个细节</h3><p>损失是全部输出上的平方和误差，但有四个精心设计的地方。</p>
+<p><strong>责任框</strong>。一个目标只由中心落在的格子负责；格子的两个框里，又只让当前与真实框 IoU 最高的那个承担坐标损失，另一个不学坐标、只学置信度。训练中两个框会逐渐分化出不同的长宽比偏好（一个偏宽一个偏高），变相扩大了单格的表达范围。</p>
+<p><strong>坐标加权 λ_coord &#x3D; 5</strong>。30 个输出里坐标只占 10 个，平等对待的话定位会被类别与置信度项淹没，所以坐标项权重放大五倍。</p>
+<p><strong>无目标格子的置信度降权到 0.5</strong>。49 个格子里绝大多数没有目标，置信度目标是 0；不降权的话，这些容易学对的项会占满梯度，模型会偏向永远预测”没有目标”。</p>
+<p><strong>宽高取平方根</strong>。平方误差下，同样 10 像素的偏差在大框上无关紧要、在小框上是灾难。对 w、h 取根号再算平方差，同样的绝对偏差在小框上损失更大，等于给小框加权。</p>
+<h3 id="成绩与遗留问题"><a href="#成绩与遗留问题" class="headerlink" title="成绩与遗留问题"></a>成绩与遗留问题</h3><p>训练流程也值得一记：先在 ImageNet 上以 224×224 的分类任务预训练前 20 个卷积层，再随机初始化其余 4 个卷积层和 2 个全连接层，把输入切到 448×448，在 PASCAL VOC 上训练约 135 个 epoch（batch 64，学习率先升后分三段衰减）。</p>
+<p>结果是把检测做到了实时：VOC 2007 上 63.4 mAP、45 FPS；砍掉一半层数的 Fast YOLO 以 52.7 mAP 换 155 FPS。同期 Fast R-CNN 精度 66.9，但一帧约 0.3 秒。更有意思的一个结论是组合：用 YOLO 先扫一遍”背景里可能的漏网目标”再喂给 Fast R-CNN，mAP 涨到 70.7，超过任何一个单模型——YOLO 的漏检模式与两阶段模型不同，恰好构成互补。</p>
+<p>短板也很清楚：每个网格单元只预测固定数量的框，<strong>一个单元里有多个小目标时必然漏检</strong>（一群鸟挤进一格只出两个框）；类别概率每格一份，<strong>一格只能出一个类别</strong>；网格 7×7 粒度太粗，定位精度有限；对长宽比悬殊的目标泛化差。这四条短板，恰好对应了后面几代人的修补方向。</p>
+<h2 id="四、v2-与-v3：锚框、多尺度与主干定型"><a href="#四、v2-与-v3：锚框、多尺度与主干定型" class="headerlink" title="四、v2 与 v3：锚框、多尺度与主干定型"></a>四、v2 与 v3：锚框、多尺度与主干定型</h2><p>v2（YOLO9000，CVPR 2017）补了 v1 的三个洞。</p>
+<p>对长宽比泛化差，答案是<strong>锚框</strong>：不再直接回归框的绝对位置，而是预设一组先验框，网络只预测相对先验框的偏移和缩放。锚框的形状不是拍脑袋定的——用 k 均值在训练集的真实框上聚类，聚出几个”数据里最常见的形状”作为先验，距离度量用 1 减 IoU（而不是欧氏距离，因为 IoU 才和最终评价标准一致）。这个”用聚类决定锚框”的做法成了 v2 到 v5 的标准流程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/yolo9000_anchor_kmeans.png" alt="锚框 k 均值聚类"></p>
+<p><em>图源：Redmon 等，YOLO9000（CVPR 2017）。左为 VOC 数据集、右为 COCO 数据集上的聚类结果，k 取 5 时长宽比分布覆盖最好。</em></p>
+<p>小目标漏检，答案是<strong>更高的输入分辨率</strong>（448 训练、544 推理）配合更强的主干 Darknet-19，加上批归一化——v1 没有用 BN，加了之后训练稳定性和精度都有明显提升。定位粗，答案是<strong>直接位置预测</strong>：偏移量过 sigmoid 压到 0 到 1 之间，保证每个框的中心落在自己的网格单元内，收敛比无约束回归稳定得多。</p>
+<p>v2 还有一个有名的大动作：用 WordTree 把检测数据集和分类数据集组织成同一个层级，用 COCO 学检测、用 ImageNet 的四千多个分类学类别概念，得到能识别九千多类的 YOLO9000。这条”检测与分类联合”的路线后来没有成为主流，但它是多任务与层级标签的早期认真尝试。</p>
+<p>v3（2018，作者以技术报告形式发布，未投会议）做了两件影响深远的事。</p>
+<p>一是<strong>多尺度预测</strong>。借鉴特征金字塔网络（FPN，CVPR 2017）的思想，在主干的三个不同深度各接一个检测头，分别负责大、中、小目标——深层特征语义强、分辨率低，适合大目标；浅层特征细节多，适合小目标。每个尺度配三个锚框，共九个，锚框同样来自对训练集的聚类。小目标漏检这个 v1 遗留问题，从 v3 起才算真正缓解。</p>
+<p>二是主干换代。Darknet-53 用残差连接把网络加深到 53 层卷积，论文里的对比显示它的精度与更深的 ResNet 相当而速度更快——原因是没有残差块里那些额外的池化和全连接开销。</p>
+<p>还有一个容易被忽略的细节：v3 把类别预测从 softmax 换成了每个类别独立的二元逻辑回归。softmax 隐含”各类别互斥”的假设，而现实里一个目标可以同时是”女人”和”人”，多标签化之后这个假设被去掉了。这个改动很小，方向性很强。</p>
+<h2 id="五、v4-与-v5：训练技巧的系统化"><a href="#五、v4-与-v5：训练技巧的系统化" class="headerlink" title="五、v4 与 v5：训练技巧的系统化"></a>五、v4 与 v5：训练技巧的系统化</h2><p>到 2020 年，检测社区积累了一大堆零散的训练技巧，散落在各个论文和开源实现里。YOLOv4（2020，预印本）的贡献是把它们整理成体系，并分了类：<strong>免费提升</strong>（bag of freebies，只改训练、不改推理成本）和<strong>微小代价提升</strong>（bag of specials，推理成本小幅增加、精度明显上涨）。</p>
+<p>免费提升里最出名的是 <strong>Mosaic 数据增强</strong>：把四张图拼成一张再训练，模型在同一张图里见到更多尺度的目标组合，对”目标扎堆”的鲁棒性明显提高。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/yolo_v4_mosaic.png" alt="Mosaic 数据增强"></p>
+<p><em>图源：Bochkovskiy 等，YOLOv4（arXiv 2020）</em><br>其余包括 MixUp、HSV 色域扰动、余弦学习率退火、标签平滑等。损失函数上，框回归从 IoU 损失升级到 CIoU 损失（AAAI 2020 的 Distance-IoU 工作）——普通 IoU 损失在两个框不相交时梯度为零，CIoU 把重叠面积、中心点距离、长宽比三项都纳入惩罚，解决了”不相交就没有梯度”的问题。</p>
+<p>结构上的变化是主干换成 CSPDarknet53（CSP 结构把特征图分两半、只对一半做卷积再拼接，减少重复梯度信息），颈部用 SPP 空间金字塔池化和 PANet（CVPR 2018）的自底向上再加自顶向下的特征融合。这版把”主干—颈部—头部”的三段式结构定型，之后所有 YOLO 都长这个样子。</p>
+<p>v5（Ultralytics，2020，开源项目、无论文）做的事不在算法而在工程：把框架从 Darknet 迁到 PyTorch，提供 n&#x2F;s&#x2F;m&#x2F;l&#x2F;x 五档模型规模（同一套结构，按宽度和深度缩放），配置全 YAML 化，训练推理一条命令，导出 ONNX&#x2F;TensorRT 顺畅，锚框自动聚类。它没有论文，却是把 YOLO 从”研究者能训”变成”工程师能用”的一代，生态优势延续至今。</p>
+<h2 id="六、YOLOX-到-v8：去锚框与解耦头"><a href="#六、YOLOX-到-v8：去锚框与解耦头" class="headerlink" title="六、YOLOX 到 v8：去锚框与解耦头"></a>六、YOLOX 到 v8：去锚框与解耦头</h2><p>2021 年之后，YOLO 系列发生了两个结构性变化，此后成为默认设计。</p>
+<p>第一个是<strong>去锚框</strong>。锚框带来一批超参（数量、形状、每尺度分配），也带来正负样本匹配的复杂度。YOLOX（2021，预印本）取消锚框，每个位置的头部直接预测框的中心和到四边的距离；同时把分类和回归拆成两条并行分支（解耦头）——此前分类和回归共享特征，但这两个任务关注的特征并不相同，解耦后两边都更干净。正样本分配换成 SimOTA：按预测与真实的代价矩阵动态决定每个真实框由哪些位置负责学习，取代固定的 IoU 阈值规则。</p>
+<p>第二个是<strong>损失函数的离散化</strong>。框的回归从直接预测一个连续数，改成预测”到四条边的距离”在若干离散档位上的分布，再用分布的期望作为最终距离（Generalized Focal Loss，NeurIPS 2020 的 Distribution Focal Loss）。直觉是：数据集里框的标注本身有模糊性（边界到底在哪一像素），预测一个分布比预测一个点更贴近真实。</p>
+<p>这两项在 v8（Ultralytics，2023，开源项目）里合流并成为默认：anchor-free 的解耦头、DFL 框回归、CIoU 损失、任务对齐分配器（Task-Aligned Assigner，按分类得分与 IoU 的加权挑正样本）。v8 同时把框架扩展成多任务：检测、实例分割、姿态、旋转框（OBB）、分类共用一套结构。它的发布没有论文，但凭借与 v5 同级的易用性，成为目前工业界使用最广的一代。</p>
+<h2 id="七、v9-之后：效率优化与免-NMS"><a href="#七、v9-之后：效率优化与免-NMS" class="headerlink" title="七、v9 之后：效率优化与免 NMS"></a>七、v9 之后：效率优化与免 NMS</h2><p>2024 年之后，几个方向值得关注，各代表一种思路。</p>
+<p><strong>v9</strong>（2024，预印本）提出可编程梯度信息（PGI）：深层网络训练时梯度经过多层传播会丢失定位所需的信息，PGI 用一个辅助可逆分支保证梯度能带回浅层；配合新的骨干 GELAN，在更少的参数量和计算量下拿到当时的最高精度（论文报告参数量与计算量分别下降约四成，而 AP 反而更高）。</p>
+<p><strong>v10</strong>（2024，预印本）攻击的是 NMS：推理流程里唯一不是网络的部分就是后处理，而 NMS 的阈值要调、在密集场景下会误删重叠的真目标。v10 用”一致双分配”的训练策略让网络本身学会抑制冗余预测，实现免 NMS 的端到端检测，论文报告在精度持平的情况下端到端延迟明显下降。对部署在边缘设备、后处理逻辑越简单越好的场景，这个方向的价值会越来越大。</p>
+<p><strong>v11 与 v12</strong>。v11（Ultralytics，2024）换上更高效的特征模块与空间注意力，延续多任务框架；v12（2025，预印本）把主干改成以注意力为中心的设计，把视觉 transformer 里验证过的注意力机制做成了实时可行的版本。它们代表同一种张力：注意力机制的容量更大，但要塞进”实时”的预算里，必须做大量结构裁剪。</p>
+<p>还有两条不是 YOLO 编号、但绕不开的线。一是 <strong>RT-DETR</strong>（CVPR 2024）：transformer 检测器（DETR 家族）一直以”免 NMS、端到端集合预测”为卖点，RT-DETR 把它做到了实时，官方标题就是”DETR 在实时检测上超过了 YOLO”。二是 <strong>YOLO-World</strong>（CVPR 2024）：把开放词表检测做到实时——不再限于训练时见过的固定类别，而是文本编码类别名、按嵌入相似度匹配，类别可以运行时更换。这两条线共同指向一个问题：固定类别、闭合集合的检测范式，正在被更强的范式在特定场景下替代。</p>
+<h2 id="八、训练流程：从数据到损失"><a href="#八、训练流程：从数据到损失" class="headerlink" title="八、训练流程：从数据到损失"></a>八、训练流程：从数据到损失</h2><p>训练一个检测模型的完整流程，比分类多出好几个环节，逐个说。</p>
+<p><strong>标注</strong>。目标检测需要的是框级标注。COCO 用 JSON 存多边形与框，Pascal VOC 用 XML 每图一文件，YOLO 格式是每图一个同名 txt，每行一个目标：</p>
+<pre class=" language-text"><code class="language-text"><class_id> <cx> <cy> <w> <h>
+0 0.512 0.343 0.281 0.412
+</code></pre>
+<p>坐标全部按图片宽高归一化到 0 到 1，用的是”中心点加宽高”的表示。标注成本是检测任务最真实的门槛：分类贴标签点一下就行，检测要框；框的质量直接封顶模型上限——框得松，IoU 阈值高的指标永远上不去。</p>
+<p><strong>数据增强</strong>。检测的增强比分类复杂，因为<strong>所有几何变换必须同步作用于框的坐标</strong>。翻转、缩放、仿射、HSV 扰动是基础；Mosaic 四图拼接是 YOLO 系的招牌；MixUp 按透明度混合两张图。一个重要的实践细节：Mosaic 在训练的最后若干轮要关闭（close_mosaic），让模型最后阶段见到的是真实分布的数据，否则增强带来的分布偏移会留在最终权重里。</p>
+<p><strong>标签分配</strong>。这是检测训练里最”玄”也最关键的环节：一个真实框，该由特征图上哪些位置来负责学习它？早期规则是固定的——中心落在哪个网格、与哪个锚框 IoU 最高就算哪个。后来发展成动态分配：按”当前预测的质量”（分类得分乘 IoU）给候选打分，动态挑出每个真实框的最优负责者（SimOTA、TAL 这一族）。直觉是：同一个真实框，让此刻已经学得最像它的位置来学，收敛更快也更稳。</p>
+<p><strong>损失</strong>。现代 YOLO 的损失由三部分加权求和：框回归损失（CIoU 加 DFL）、分类损失（二元交叉熵）、以及 v5 系独有的目标置信度损失。三者的权重比本身是需要调的超参。</p>
+<p><strong>训练节奏</strong>。优化器从 SGD 走向 AdamW；学习率经过若干轮 warmup 再衰减；EMA（指数滑动平均）保留一份更平滑的权重用于评估与导出；混合精度训练是标配。批次大小受显存限制，显存不够时用梯度累积凑。</p>
+<p>整个流程串起来是：准备图像与标注 → 按上述增强生成训练样本 → 前向得到所有位置的预测 → 分配器决定每个真实框由哪些预测负责 → 按三部分损失回传 → 循环，直到验证集的 mAP 不再上涨。</p>
+<h2 id="九、推理流程：从预处理到-NMS"><a href="#九、推理流程：从预处理到-NMS" class="headerlink" title="九、推理流程：从预处理到 NMS"></a>九、推理流程：从预处理到 NMS</h2><p>推理是一条固定的流水线，逐站说清楚。</p>
+<p><strong>预处理</strong>。输入图的宽高比和模型要求的不一致，直接缩放会拉伸目标。标准做法是 letterbox：等比缩放到目标尺寸内，空出的部分填灰。这一步的坐标换算必须在输出端原样还原，任何一处忘了除回缩放系数，框就会整体偏移。</p>
+<p><strong>前向</strong>。一次前向传播输出所有检测头在所有位置的原始预测：类别分数、框的回归分布。v8 一类 anchor-free 结构，每个位置直接输出四个距离值。</p>
+<p><strong>解码与过滤</strong>。把回归分布的期望乘回锚框（或加上位置偏移）得到框坐标；置信度低于阈值的预测直接丢弃。阈值是精度与召回的直接旋钮：调高，误检少但漏检多；调低反之。这个阈值应该按业务对两类错误的代价来定，而不是套用默认值。</p>
+<p><strong>NMS</strong>。同一目标周围的相邻位置会各自输出一个高置信度的框，NMS 负责去掉冗余：按置信度从高到低排序，取最高的框保留，删掉与它 IoU 超过阈值（常用 0.45 到 0.65）的其余框，再在剩下的框里重复这个过程。NMS 的类别处理有两种模式：各类别独立做（默认），或跨类别一起做（同一位置”既是人又是车”时需要）。NMS 的已知缺陷在密集场景：两个真目标高度重叠时，低置信度的那个会被误删。补救办法有 Soft-NMS（ICCV 2019，把”删除”改成按 IoU 衰减置信度，一行代码的改动）和 DIoU-NMS（相邻且中心距离远的两个框更可能是不同目标）。v10 一类免 NMS 设计则直接从训练层面消除这一步。</p>
+<p><strong>部署</strong>。训练框架和部署框架是两回事。常见路径是导出 ONNX，再转 TensorRT（NVIDIA）、CoreML 或 OpenVINO，中间通常伴随量化（fp16 或 int8）。这里有一个反复被验证的经验：<strong>FLOPs 低不等于延迟低</strong>。访存量、算子融合程度、硬件对特定结构的支持，都会让参数量相近的两个模型在同一块卡上差出几倍。选型要看部署目标硬件上的实测延迟，不要看论文里的计算量。</p>
+<h2 id="十、评估与调优"><a href="#十、评估与调优" class="headerlink" title="十、评估与调优"></a>十、评估与调优</h2><p>检测的全部评估指标都从 IoU 生长出来，先一一说清，再说训练工具输出的那些图怎么读，最后回到聚合数的拆读与错误归因。</p>
+<h3 id="指标一一说明"><a href="#指标一一说明" class="headerlink" title="指标一一说明"></a>指标一一说明</h3><p><strong>IoU（交并比）</strong>。预测框与真实框的交集面积除以并集面积，是”命中”的定义基础。它不看类别，只衡量两个框的重合程度。</p>
+<p><strong>TP、FP、FN，以及为什么没有 TN</strong>。以 IoU 阈值（常用 0.5）加类别一致为命中条件：预测框命中某个真实框、且这个真实框此前没被匹配过，是 TP——一个真实框只能被吃掉一次，第二个预测它的框算 FP；没命中任何真实框的预测是 FP，包括 IoU 不够的、类别错的、以及重复框；没被任何预测命中的真实框是 FN。真负例在检测里不存在：背景”正确地什么都没预测”不产生任何输出，所以检测的评估体系里没有 TN，也没有分类任务那种整体 accuracy。这是检测评估与分类评估在骨架上的差别。</p>
+<p><strong>Precision 与 Recall</strong>：</p>
+<p>$$P = \frac{TP}{TP + FP}, \qquad R = \frac{TP}{TP + FN}$$</p>
+<p>前者回答”报出来的框有多少是对的”，后者回答”该找的目标找到了多少”。关键在于它们都是<strong>某个置信度阈值下</strong>的数：阈值从 0.9 降到 0.1，两个数会从”很少但很准”滑向”很多但很脏”。单点的 P 和 R 意义有限，完整的刻画是把阈值从高到低扫一遍。</p>
+<p><strong>P-R 曲线与 AP</strong>。把每个阈值下的一对 (R, P) 画成曲线就是 P-R 曲线，曲线下面积是该类别的 AP。COCO 用 101 点插值：在召回轴上取 101 个等距点，每点取其右侧的最大精度再平均，避免曲线锯齿干扰面积。曲线形状本身就是诊断：右上角饱满说明高分段干净；高召回区精度塌得早，说明置信度中段全是误检。</p>
+<p><strong>mAP 与两个口径</strong>。各类别 AP 的平均是 mAP。<a href="mailto:&#x6d;&#65;&#x50;&#64;&#x30;&#x2e;&#x35;">&#x6d;&#65;&#x50;&#64;&#x30;&#x2e;&#x35;</a> 把 IoU 阈值固定在 0.5（PASCAL VOC 口径），框个大概就算对；mAP@[.5:.95] 从 0.5 到 0.95 每隔 0.05 一档取十档平均（COCO 口径），要求框越来越准。<strong>两个数的差值本身是诊断信息</strong>：差得越大，说明”能框到但框不准”，短板在定位而不在找。</p>
+<p><strong>按目标尺寸拆分</strong>。COCO 把目标按面积分成小（小于 32 平方像素）、中、大三档，分别报告 AP_small、AP_medium、AP_large。小目标的 AP 常常只有大目标的一半甚至更低，糊在一个总分里会掩盖这个事实。</p>
+<p><strong>AR（平均召回）</strong>。限定每张图最多检测 N 个目标（AR@1、AR@10、AR@100）时的平均召回，不惩罚误检。做”候选预筛”类业务（后面还有模型接力）时，AR 比 mAP 更贴近真实需求。</p>
+<p><strong>速度三件套</strong>：FPS、单帧延迟、吞吐。要分清论文口径和业务口径——论文的 FPS 通常不含前后处理、在旗舰卡上测得；业务该量的是目标硬件上端到端延迟的分布（p50 与 p99）和并发下的吞吐。</p>
+<p><strong>F1 与 F1 曲线</strong>：</p>
+<p>$$F_1 = \frac{2PR}{P + R}$$</p>
+<p>精度与召回的调和平均。对每个置信度阈值算一对 (P, R) 与对应的 F1，得到 F1-阈值曲线；峰值对应的阈值就是”使 F1 最大的置信度阈值”，通常直接用作部署默认值。所以 F1 曲线的用途不是给模型排名（那是 mAP 的事），而是<strong>给已选定的模型挑部署阈值</strong>：业务更怕漏检（安防），阈值往召回高的方向移；更怕误报（自动拦截），阈值往精度高的方向移。</p>
+<h3 id="训练输出的图怎么读"><a href="#训练输出的图怎么读" class="headerlink" title="训练输出的图怎么读"></a>训练输出的图怎么读</h3><p>主流框架跑完训练和验证会输出一组图，逐张说读法。</p>
+<p><strong>results.png（训练曲线）</strong>。框回归损失、分类损失、DFL 损失与各项指标随轮数的变化。三个看点：验证损失是否已经平台化（平台了就该早停）；验证损失是否掉头向上（过拟合信号）；训练损失还在降而验证指标不动，是典型的过拟合或增强过度。</p>
+<p><strong>PR_curve.png</strong>。每个类别一条 P-R 曲线加汇总的 <a href="mailto:&#x6d;&#65;&#80;&#64;&#48;&#46;&#x35;">&#x6d;&#65;&#80;&#64;&#48;&#46;&#x35;</a>。看两处：哪条曲线塌得早（那类在高召回区误检多）、哪条整体贴着右上角（那类基本没问题）。</p>
+<p><strong>F1_curve.png</strong>。如上，峰值横坐标就是推荐的部署阈值。</p>
+<p><strong>confusion_matrix.png 与归一化版</strong>。检测版混淆矩阵：把命中（IoU 过阈值且类别一致）的预测按”真实类别 × 预测类别”计数，另加一行一列 background——预测了框但没匹配上任何真实框的进 background 列，真实框没被任何预测命中的进 background 行。读法：对角线是各类命中比例；<strong>对角线以外最亮的格子是两类互混的直接证据</strong>（比如卡车被认成公交车）；background 列亮说明该类误检多，background 行亮说明该类漏检多。归一化版按行除以总数，类别样本量悬殊时只看归一化版。注意它对定位质量是盲的——IoU 过阈值就算对，定位问题要靠 mAP 两个口径的差值暴露。</p>
+<p><strong>labels.jpg 与 labels_correlogram.jpg</strong>。数据集体检图：各类别的框数（是否平衡）、框中心的位置热图（目标惯常出现在画面哪里）、框宽高的直方图，以及四个量的联合相关图。用途是在训练前发现标注的系统性问题：框总贴着图像边缘（标注习惯或裁切问题）、宽高集中在某几个值（复制粘贴式标注）、某些类样本数只有别类的零头（先补数据再谈调参）。</p>
+<p><strong>train_batch 与 val_batch 可视化</strong>。前者是增强后的训练样本，肉眼确认增强没有把目标破坏掉；后者是验证集上的预测叠加，快速感受模型”看起来”对不对，再决定是否进入细致的错误分析。</p>
+<h3 id="聚合数要拆开读"><a href="#聚合数要拆开读" class="headerlink" title="聚合数要拆开读"></a>聚合数要拆开读</h3><p>mAP@[.5:.95] 是主要指标，但它是一个聚合数，会掩盖具体问题。有效的做法是拆开看三组数：按类别拆（哪些类的 AP 低，是标注少了还是类间易混）、按目标尺寸拆（小目标的 AP 通常低一大截，对应增强和分辨率的问题）、按置信度阈值拆（precision-recall 曲线上哪一段塌了）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/yolo_v3_baddet2.webp" alt="两个 mAP 相同的假想检测器，实际表现不同"></p>
+<p><em>图源：Redmon 等，YOLOv3（arXiv 2018）</em></p>
+<p>错误分析的分类也是固定的三种：<strong>漏检</strong>（有目标没框出来）、<strong>误检</strong>（框了不存在的东西）、<strong>定位不准</strong>（类别对、框的 IoU 不够高）。三种问题对应完全不同的修法：漏检先查标注覆盖和增强强度，误检先查负样本和置信度阈值，定位不准先查小目标占比和输入分辨率。见到 mAP 不涨就盲调超参，不如先花一小时把验证集上的一百条错误人工过一遍——每条错误归进这三类之一，哪类多修哪类。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/yolo_v1_error_analysis.png" alt="Fast R-CNN 与 YOLO 的误差构成对比"></p>
+<p><em>图源：Redmon 等，You Only Look Once（CVPR 2016）</em></p>
+<p>换到自己的数据上时，预训练模型的迁移是起点：目标类别与 COCO 重合的部分几乎不用教，业务特有的类别（工业件、医学影像里的病灶）需要几百到几千张标注量级才够，且类别间样本数要尽量平衡。类别不平衡时，不是调损失权重就能解决的，采样和增强层面的补足更有效。</p>
+<h2 id="十一、做一个目标检测任务的完整步骤"><a href="#十一、做一个目标检测任务的完整步骤" class="headerlink" title="十一、做一个目标检测任务的完整步骤"></a>十一、做一个目标检测任务的完整步骤</h2><p>把前文的原理和指标串成一个可执行的项目流程。每一步的关键不是”做什么”，而是”这一步做错会拖垮什么”。</p>
+<p><strong>1. 定义任务</strong>。写下三件事：类别清单（闭集固定类别，还是会长出新类别）；业务上的”命中”标准（IoU 阈值取 0.5 还是更严）；漏检与误报哪个代价更高。这三条决定后面所有的阈值与取舍，写下来，不要让它们停留在感觉里。</p>
+<p><strong>2. 收集数据</strong>。覆盖业务会遇到的全部场景差异：光照、时段、角度、天气、设备、密度。数量级的经验值：每类几百张能到”能用”，几千张能到”好用”，而跨场景泛化的瓶颈往往是场景覆盖不是总张数。另外留 5% 到 10% 的纯负样本（图里没有目标的图），对压误检有直接帮助。</p>
+<p><strong>3. 标注</strong>。工具用 labelimg、labelme 或 CVAT；格式选 YOLO txt 或 COCO JSON，前者配 YOLO 系训练最省事。比工具更重要的是<strong>标注规范</strong>：遮挡目标框到可见部分还是整体轮廓、截断目标怎么处理、框要贴多紧——写成文档。多人标注时，规范的一致性比个人手艺重要。标注完抽查一批，框的质量封死模型的上限。</p>
+<p><strong>4. 划分数据集</strong>。train、val、test 三份，比例常见 8:1:1 或 7:2:1。关键原则是<strong>按场景划分而不是按图片划分</strong>：同一场景的连拍如果一部分进训练集、一部分进验证集，验证指标会虚高得毫无意义。test 只在整个迭代结束、要出最终数字时才碰。</p>
+<p><strong>5. 搭环境与准备配置</strong>。安装训练框架（Ultralytics 一条命令装好），把数据整理成目录加 data.yaml（路径、类别数、类别名）。模型规模按部署硬件倒推：边缘设备从 n 档起步，服务器可以 s 或 m。</p>
+<p><strong>6. 训练</strong>。加载预训练权重，迁移几乎总是划算；先小规模跑通流程再放量。核心参数是轮数、批次、输入尺寸与增强开关，其中输入尺寸对小目标的影响立竿见影。训练时盯 results.png，验证指标平台化即可早停。</p>
+<p><strong>7. 评估</strong>。看四张图：PR 曲线（哪类弱）、混淆矩阵（谁和谁混、误检漏检的分布）、F1 曲线（部署阈值）、按类别拆的 AP 表。加上 mAP 两个口径的差值，判断定位是不是短板。</p>
+<p><strong>8. 错误分析迭代</strong>。把验证集上的错误人工过一遍，每条归进三类：漏检、误检、定位不准。修法各不相同：漏检先查场景覆盖与标注，误检先查负样本与阈值，定位不准先查小目标占比与输入尺寸。<strong>一次只改一件事</strong>，改完用同一份验证集重评，否则无法归因。</p>
+<p><strong>9. 测试集终评</strong>。迭代收敛后，在从未参与任何决策的 test 上出最终数字，这份报告才是上线依据。</p>
+<p><strong>10. 部署</strong>。导出 ONNX，转目标硬件的推理格式（TensorRT、CoreML、OpenVINO），按需量化——fp16 的精度损失几乎可忽略，int8 要重新验证。实测部署硬件上的延迟分布；置信度阈值按第 1 步定义的错误代价来定，而不是沿用验证时使 F1 最大的值。</p>
+<p><strong>11. 上线与回流</strong>。数据分布会漂移：新设备、新季节、新场景都会让线上效果悄悄下滑。建立回流机制，把线上低置信度和人工纠错的样本收集回来，定期重复第 2 到第 8 步。检测模型不是训完就结束的项目，是持续喂养的系统。</p>
+<h2 id="十二、怎么选、什么时候不用它"><a href="#十二、怎么选、什么时候不用它" class="headerlink" title="十二、怎么选、什么时候不用它"></a>十二、怎么选、什么时候不用它</h2><p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/yolo_v4_ap_tradeoff.png" alt="精度与速度的权衡"></p>
+<p><em>图源：Bochkovskiy 等，YOLOv4（arXiv 2020）</em></p>
+<p>在 YOLO 系内部选型，可以按这几条走：</p>
+<ul>
+<li><strong>没有历史包袱的新项目</strong>：v8 或 v11 起步。生态最全（训练、评估、导出、多任务一套 API），文档完整，社区答案多</li>
+<li><strong>边缘设备、极致延迟</strong>：优先考虑 v10 的免 NMS 设计，后处理少一环；模型规模选 nano 档再配合 int8 量化</li>
+<li><strong>密集重叠目标</strong>（人群、车流）：NMS 是主要矛盾，v10 一类免 NMS 方案或 Soft-NMS 变体值得优先验证</li>
+<li><strong>需要旋转框</strong>（遥感、文档）：用支持 OBB 任务的版本，不要自己拿水平框硬拟合</li>
+<li><strong>部署环境受限</strong>：v5 一代反而是经验上最”皮实”的选择，导出链路最成熟</li>
+</ul>
+<p>什么时候不用 YOLO 系：<strong>类别不固定</strong>（开放词表场景）用 YOLO-World 一类视觉语言检测器；<strong>需要目标之间的关系推理</strong>（场景理解而非单纯检测）时，transformer 检测器的集合预测更自然；<strong>需要像素级轮廓</strong>时检测本身不够，要接实例分割。</p>
+<h2 id="十三、常见误解"><a href="#十三、常见误解" class="headerlink" title="十三、常见误解"></a>十三、常见误解</h2><p>“YOLO 只能检测大目标。” v3 的多尺度预测专门为此设计，小目标检测从那时起就是标配能力。真正的短板在极小目标（几十像素以下），这受限于输入分辨率，任何检测器都一样——把输入开大比换模型有效。</p>
+<p>“mAP 高就是检测得好。” mAP@[.5:.95] 与 <a href="mailto:&#109;&#x41;&#x50;&#64;&#48;&#46;&#x35;">&#109;&#x41;&#x50;&#64;&#48;&#46;&#x35;</a> 可能差出二十个点，前者要求的框精确得多。业务上”框个大概就行”的场景看 <a href="mailto:&#109;&#65;&#x50;&#64;&#x30;&#x2e;&#x35;">&#109;&#65;&#x50;&#64;&#x30;&#x2e;&#x35;</a> 即可，但拿 <a href="mailto:&#x6d;&#65;&#80;&#64;&#x30;&#x2e;&#x35;">&#x6d;&#65;&#80;&#64;&#x30;&#x2e;&#x35;</a> 的模型去做需要精确边界的任务（测量、抠图）会失望。</p>
+<p>“FLOPs 低就一定快。” 计算量是理论值，延迟由访存、算子、硬件共同决定。同一代模型在不同硬件上的速度排序可能完全不同，部署目标上的实测才是唯一可信的数字。</p>
+<p>“anchor-free 就没有先验了。” 去掉的是显式的锚框超参，但框的表示方式（到四边的距离）、正样本分配的规则，都是另一种形式的先验。结构变简单是真的，”没有假设”是假的。</p>
+<p>“NMS 阈值随便设。” 它直接决定密集场景下的误删率。人群、交通这类目标重叠频繁的业务，NMS 阈值和变体是必须单独验证的项。</p>
+<p>“训练集标注越满越好。” 框的质量比数量重要——边界框松散的数据集，训练出的模型在 IoU 阈值严格的指标上永远上不去。宁可选一批框得准的数据，也不要一批框得糙的数据。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.02640">1506.02640</a> — You Only Look Once: Unified, Real-Time Object Detection — CVPR 2016（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1612.08242">1612.08242</a> — YOLO9000: Better, Faster, Stronger — CVPR 2017（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1804.02767">1804.02767</a> — YOLOv3: An Incremental Improvement — 预印本 2018</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.10934">2004.10934</a> — YOLOv4: Optimal Speed and Accuracy of Object Detection — 预印本 2020</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ultralytics/yolov5">Ultralytics YOLOv5</a> — 开源项目，无论文</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2107.08430">2107.08430</a> — YOLOX: Exceeding YOLO Series in 2021 — 预印本 2021</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.02976">2209.02976</a> — YOLOv6: A Single-Stage Object Detection Framework for Industrial Applications — 预印本 2022</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2207.02696">2207.02696</a> — YOLOv7: Trainable Bag-of-Freebies Sets New State-of-the-Art for Real-Time Object Detectors — CVPR 2023（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ultralytics/ultralytics">Ultralytics YOLOv8 与 YOLO11</a> — 开源项目，无论文</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.13616">2402.13616</a> — YOLOv9: Learning What You Want to Learn Using Programmable Gradient Information — 预印本 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.14458">2405.14458</a> — YOLOv10: Real-Time End-to-End Object Detection — 预印本 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2502.12524">2502.12524</a> — YOLOv12: Attention-Centric Real-Time Object Detectors — 预印本 2025</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1506.01497">1506.01497</a> — Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks — NeurIPS 2015（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1708.02002">1708.02002</a> — Focal Loss for Dense Object Detection（RetinaNet）— ICCV 2017（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1512.02325">1512.02325</a> — SSD: Single Shot MultiBox Detector — ECCV 2016</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1612.03144">1612.03144</a> — Feature Pyramid Networks for Object Detection — CVPR 2017（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.11929">1911.11929</a> — CSPNet: A New Backbone that can Enhance Learning Capability of CNN — CVPR Workshops 2020</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1803.01534">1803.01534</a> — Path Aggregation Network for Instance Segmentation — CVPR 2018（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1406.4729">1406.4729</a> — Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition — ECCV 2014</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1902.09630">1902.09630</a> — Generalized Intersection over Union: A Metric and a Loss — CVPR 2019（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.08287">1911.08287</a> — Distance-IoU Loss: Faster and Better Learning for Bounding Box Regression（DIoU 与 CIoU）— AAAI 2020（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.04388">2006.04388</a> — Generalized Focal Loss: Learning Qualified and Distributed Bounding Boxes for Dense Object Prediction — NeurIPS 2020（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1405.0312">1405.0312</a> — Microsoft COCO: Common Objects in Context — ECCV 2014</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1704.04503">1704.04503</a> — Soft-NMS — Improving Object Detection with One Line of Code — ICCV 2019（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2401.17270">2401.17270</a> — YOLO-World: Real-Time Open-Vocabulary Object Detection — CVPR 2024（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.08069">2304.08069</a> — DETRs Beat YOLOs on Real-time Object Detection（RT-DETR）— CVPR 2024（CCF-A）</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/20/YoloHowItWorks/">https://unluckynike.github.io/2026/10/20/YoloHowItWorks/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                                    <span class="chip bg-color">计算机视觉</span>
+                                </a>
+                            
+                                <a href="/tags/YOLO/">
+                                    <span class="chip bg-color">YOLO</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">
+                                    <span class="chip bg-color">目标检测</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/24/Yolov8Practice/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="YOLOv8 实战：环境、数据、训练与部署">
+                        
+                        <span class="card-title">YOLOv8 实战：环境、数据、训练与部署</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            从一个空环境开始：装依赖、跑通第一次推理、标注自己的数据、训练、读懂训练产物、导出部署——每一步给命令、预期输出和踩坑提示，全程不需要先懂检测原理
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">
+                        <span class="chip bg-color">模型部署</span>
+                    </a>
+                    
+                    <a href="/tags/YOLO/">
+                        <span class="chip bg-color">YOLO</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">
+                        <span class="chip bg-color">目标检测</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+                        <span class="chip bg-color">模型训练</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/20/VectorDatabases/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="向量存储">
+                        
+                        <span class="card-title">向量存储</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            向量存储不只是"存向量"——它要在一个不能同时满足召回、延迟、内存的三角里做取舍，还要把标量过滤、增删改、权限和一致性一并解决。索引结构决定了前一半，工程能力决定了后一半
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/">
+                        <span class="chip bg-color">向量检索</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">向量数据库</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB/">
+                        <span class="chip bg-color">近似最近邻</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84/">
+                        <span class="chip bg-color">索引结构</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+    
+
+
+<div class="related-posts">
+    <div class="related-title"><i class="fas fa-book-reader"></i>&nbsp;&nbsp;相关文章</div>
+    <div class="related-list">
+        
+        <a class="related-item" href="/2026/10/24/Yolov8Practice/" title="YOLOv8 实战：环境、数据、训练与部署">
+            <span class="related-item-title">YOLOv8 实战：环境、数据、训练与部署</span>
+            <span class="related-item-meta">2026-10-24</span>
+        </a>
+        
+        <a class="related-item" href="/2026/10/25/InstanceSegmentation/" title="实例分割：从语义分割到分割一切">
+            <span class="related-item-title">实例分割：从语义分割到分割一切</span>
+            <span class="related-item-meta">2026-10-25</span>
+        </a>
+        
+        <a class="related-item" href="/2022/09/22/ASurveyofNaturalLanguageGenerationTechniqueswithaFocusonDialogueSystems-PastPresentandFutureDirections/" title="Dialogue Systems Survey">
+            <span class="related-item-title">Dialogue Systems Survey</span>
+            <span class="related-item-meta">2022-09-22</span>
+        </a>
+        
+        <a class="related-item" href="/2022/08/09/PytorchTensor/" title="Pytorch Tensor">
+            <span class="related-item-title">Pytorch Tensor</span>
+            <span class="related-item-meta">2022-08-09</span>
+        </a>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            tags: 'ams'
+        },
+        svg: {fontCache: 'global'},
+        options: {skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']}
+    };
+</script>
+<script id="MathJax-script" async src="/libs/mathjax/tex-svg-full.js"></script>
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">309k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -1,0 +1,2040 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="向量存储, Java,Python,Deep Learning,Artificial Intelligence,SQL,React,Vue.js等">
+    <meta name="description" content="向量存储不只是&#34;存向量&#34;——它要在一个不能同时满足召回、延迟、内存的三角里做取舍，还要把标量过滤、增删改、权限和一致性一并解决。索引结构决定了前一半，工程能力决定了后一半">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>向量存储 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book-open" style="zoom: 0.6;"></i>
+      
+      <span>阅读</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="https://unluckynike.github.io/ml-notes/" target="_blank" rel="noopener">
+          
+          <span>像搭积木一样了解AI-2026</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book-open"></i>
+			
+			阅读
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="https://unluckynike.github.io/ml-notes/ " style="margin-left:75px">
+				  
+		          <span>ml_notes</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">向量存储</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/">
+                                <span class="chip bg-color">向量检索</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">向量数据库</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB/">
+                                <span class="chip bg-color">近似最近邻</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84/">
+                                <span class="chip bg-color">索引结构</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-31
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    30 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>存向量这件事本身很简单，难的是带着过滤条件、在可接受的延迟内、用能负担得起的内存，找到”差不多最近”的那几条。索引结构解决前半句，工程能力解决后半句。</p>
+</blockquote>
+<h2 id="一、向量存储在系统里承担什么"><a href="#一、向量存储在系统里承担什么" class="headerlink" title="一、向量存储在系统里承担什么"></a>一、向量存储在系统里承担什么</h2><p>从调用方的角度看，向量存储要提供的接口只有几个：写入一批向量和它的元数据、按某个向量找最近邻、带过滤条件找、删除。看起来很薄，实际上每个都能展开成一堆取舍。</p>
+<p>它和普通数据库的差别在于”最近邻”这件事只能近似。精确的 k 近邻要与每个向量算一遍距离，复杂度 O(N·d)，一千万条 1024 维向量就是一万亿次乘加，任何硬件都吃不下。于是全部转向近似最近邻（ANN），用一小部分召回率换几个数量级的加速。</p>
+<p>这带来一个必须一开始就建立的认知：<strong>向量检索的召回率和延迟不是调优问题，而是配置问题</strong>。同一份数据、同一个索引，把参数调大一档，召回上升、延迟上升、内存不变；换一种索引结构，则是另一种形状的取舍曲线。没有”最优配置”，只有”在给定资源和延迟预算下的最优点”。</p>
+<p>规模这一维值得单独说，因为每跨一个数量级，工程重心都会变：</p>
+<table>
+<thead>
+<tr>
+<th>规模</th>
+<th>工程重心</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>十万以内</td>
+<td>别引入新组件，用已有的数据库加扩展就够</td>
+</tr>
+<tr>
+<td>百万级</td>
+<td>索引参数与内存预算开始重要，量化值得考虑</td>
+</tr>
+<tr>
+<td>千万级</td>
+<td>单机内存开始吃紧，要上磁盘索引或分片</td>
+</tr>
+<tr>
+<td>亿级及以上</td>
+<td>变成分布式存储与运维问题，选型空间收窄到少数几个系统</td>
+</tr>
+</tbody></table>
+<h2 id="二、三种索引结构"><a href="#二、三种索引结构" class="headerlink" title="二、三种索引结构"></a>二、三种索引结构</h2><p>近邻检索的索引结构经过几十年演进，工程上真正在用的收敛成三类。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/20261022155859228.jpeg"></p>
+<h3 id="暴力检索"><a href="#暴力检索" class="headerlink" title="暴力检索"></a>暴力检索</h3><p>不算索引，就是把所有向量存下来，查询时逐个算距离。召回率百分之百，结果精确，延迟随数据量线性增长。</p>
+<p>它的工程价值在于两点：一是给其他索引当”精确率基准”，用来量近似索引到底丢了多少召回；二是十万条以内的规模，它常常比建索引更快，省掉了构建时间和图结构的内存开销。很多向量库把它叫 FLAT 或 brute force。</p>
+<h3 id="聚类加倒排：IVF-家族"><a href="#聚类加倒排：IVF-家族" class="headerlink" title="聚类加倒排：IVF 家族"></a>聚类加倒排：IVF 家族</h3><p>先用 k 均值把向量聚成 nlist 个簇，每个簇有一个中心点，所有向量按所属簇存进倒排列表。查询时只算查询向量与簇中心的距离，选最近的 nprobe 个簇，只在簇内做精确比较。</p>
+<p>复杂度从 O(N·d) 降到大约 O(nprobe&#x2F;nlist × N·d)。nlist 和 nprobe 是唯一的两个旋钮：nlist 越大簇越细、召回越依赖 nprobe；nprobe 越大召回越高、延迟越高。</p>
+<p>IVF 的两个工程约束要注意。一是<strong>需要训练</strong>：簇中心由数据决定，所以建索引前要先跑一遍聚类，训练数据的质量和数量会影响索引效果。二是<strong>边界效应</strong>：正确答案如果落在相邻簇的边界上，而那个簇没被选中，就永远召不回来——这不是参数没调好，是结构本身的特性。</p>
+<p>在 IVF 之上叠一层乘积量化就得到 IVF-PQ：把向量切成若干子空间，每个子空间用少量比特编码成聚类中心的编号，于是向量被压成几十个字节。压缩比可以做到十几到几十倍，代价是距离计算变成查表近似，召回进一步下降。</p>
+<h3 id="图：HNSW-与它的家族"><a href="#图：HNSW-与它的家族" class="headerlink" title="图：HNSW 与它的家族"></a>图：HNSW 与它的家族</h3><p>HNSW 是分层可导航小世界图。每个点在第 0 层有最多 2M 条连边，上层最多 M 条；上层点稀疏、边长长，用来做粗跳转，下层点密、边短，用来做精确定位。查询从最上层的入口开始，每层贪心走到局部最近的点，再下沉到下一层，像跳表一样逐层细化。</p>
+<p>三个参数决定它的行为：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+<th>调大的代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>M</td>
+<td>每个点的连边数</td>
+<td>内存和构建时间上升，召回上升</td>
+</tr>
+<tr>
+<td>ef_construction</td>
+<td>建图时的候选队列长度</td>
+<td>建索引变慢，图的质量变好</td>
+</tr>
+<tr>
+<td>ef_search</td>
+<td>查询时的候选队列长度</td>
+<td>延迟上升，召回上升</td>
+</tr>
+</tbody></table>
+<p>它的优点很直观：查询接近对数复杂度，召回率通常明显高于同规模的 IVF，而且是纯内存结构、不依赖训练。缺点同样直接：<strong>图结构吃内存</strong>，而且<strong>删除很别扭</strong>——删掉一个点会破坏图的连通性，所以多数实现是打墓碑标记，查询时跳过，空间不回收，到一定程度需要重建。</p>
+<p>内存这部分值得算清楚，因为它常被误解成”很大”。图结构的开销主要在第 0 层的连边：每个点最多 2M 条边、每条边存一个 4 字节的节点编号，M 取 16 时就是约 128 字节&#x2F;点；上层贡献的连边总数与点数同量级，可以忽略。一百万点的图结构约 128 MB，而 1024 维单精度向量本身是 4 GB——图只占百分之三。但如果把向量量化到每点 1 KB，同样的图就占到 12%，这时候它就不能再被当成零头。</p>
+<p>三类结构的对比：</p>
+<table>
+<thead>
+<tr>
+<th>结构</th>
+<th>查询复杂度</th>
+<th>内存</th>
+<th>是否需训练</th>
+<th>增删改</th>
+<th>典型召回</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力（FLAT）</td>
+<td>O(N·d)</td>
+<td>仅向量</td>
+<td>否</td>
+<td>自由</td>
+<td>100%（精确）</td>
+</tr>
+<tr>
+<td>IVF &#x2F; IVF-PQ</td>
+<td>约 O(nprobe&#x2F;nlist·N·d)</td>
+<td>低</td>
+<td>是</td>
+<td>较自由</td>
+<td>中到高</td>
+</tr>
+<tr>
+<td>HNSW</td>
+<td>约 O(log N)</td>
+<td>高</td>
+<td>否</td>
+<td>插入容易，删除要墓碑</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<p>还有一类结构面向单机放不下十亿级的场景：<strong>磁盘索引</strong>（DiskANN 一线）。它把图和向量放在 SSD 上，靠精心设计的布局把随机读次数压到可接受的范围，用延迟换容量。当内存装不下全量向量时，这是比”加机器”更常见的选择。</p>
+<h3 id="参数的起点值"><a href="#参数的起点值" class="headerlink" title="参数的起点值"></a>参数的起点值</h3><p>索引参数的默认值通常偏保守，直接上线会得到”能用但不够好”的结果。下面这些是有据可依的起点，实际值要靠自己的数据量出来。</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>参数</th>
+<th>起点</th>
+<th>调整方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HNSW</td>
+<td>M</td>
+<td>16（通用）、32 到 64（高召回要求）</td>
+<td>调大：召回升、内存升、构建变慢</td>
+</tr>
+<tr>
+<td>HNSW</td>
+<td>ef_construction</td>
+<td>200</td>
+<td>调大：图质量更好、构建更慢</td>
+</tr>
+<tr>
+<td>HNSW</td>
+<td>ef_search</td>
+<td>40 到 64 起步，按召回目标最高调到 200 上下</td>
+<td>调大：召回升、延迟升</td>
+</tr>
+<tr>
+<td>IVF</td>
+<td>nlist</td>
+<td>取 √N 的若干倍（常见做法在四倍上下）</td>
+<td>调大：簇更细，需要同时提高 nprobe</td>
+</tr>
+<tr>
+<td>IVF</td>
+<td>nprobe</td>
+<td>从 nlist 的百分之一量级起</td>
+<td>调大：召回升、延迟升</td>
+</tr>
+<tr>
+<td>PQ</td>
+<td>子空间数</td>
+<td>每子空间放 4 维（即维度除以 4）</td>
+<td>子空间越多越准，压缩比越低</td>
+</tr>
+<tr>
+<td>PQ</td>
+<td>每子空间比特</td>
+<td>8</td>
+<td>调大：更准、更占内存</td>
+</tr>
+</tbody></table>
+<p>调参的经验顺序是：先固定 ef_search 测召回曲线，确定达标所需的最小值；再用这个值去测延迟是否满足预算；两者冲突时回头改索引结构或量化方式，而不是在两个参数之间反复拉锯。</p>
+<h3 id="稀疏向量与倒排"><a href="#稀疏向量与倒排" class="headerlink" title="稀疏向量与倒排"></a>稀疏向量与倒排</h3><p>词法检索的倒排索引本身就是一种稀疏向量检索：词表维度可以是几万到几十万，每个文档只有其中很少的维度非零。学习到的稀疏表示（SPLADE 一线）把这种倒排索引用了起来，只不过权重由模型学出来，还支持把查询扩展成相关词。</p>
+<p>它的价值在于和稠密检索互补：稠密向量擅长语义泛化，稀疏表示对精确词、罕见词、编号这类 token 更敏感。多数向量库对稀疏向量的支持和稠密向量不在一个层次上，接入前要确认清楚——能存稀疏向量不等于能高效地做稀疏检索。</p>
+<h2 id="三、量化：把内存降下来"><a href="#三、量化：把内存降下来" class="headerlink" title="三、量化：把内存降下来"></a>三、量化：把内存降下来</h2><p>向量本身是内存的大头，所以压缩的收益最直接。常见做法按压缩比排序：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>每点内存（1024 维）</th>
+<th>相对单精度</th>
+<th>召回影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单精度 fp32</td>
+<td>4 KB</td>
+<td>1×</td>
+<td>基准</td>
+</tr>
+<tr>
+<td>半精度 fp16</td>
+<td>2 KB</td>
+<td>2×</td>
+<td>几乎无损</td>
+</tr>
+<tr>
+<td>标量量化 int8</td>
+<td>1 KB</td>
+<td>4×</td>
+<td>很小</td>
+</tr>
+<tr>
+<td>二值量化</td>
+<td>128 字节</td>
+<td>32×</td>
+<td>明显，需要重排补偿</td>
+</tr>
+<tr>
+<td>乘积量化</td>
+<td>8 到 64 字节</td>
+<td>64 到 500×</td>
+<td>中等，取决于子空间数与比特数</td>
+</tr>
+</tbody></table>
+<p>百万级向量、1024 维的账很好算：单精度 4 GB、半精度 2 GB、int8 1 GB、二值 128 MB。这就是为什么”内存不够先量化”是对的默认动作，加机器的性价比通常不如压缩。</p>
+<p>二值量与乘积量化都会让距离估计失真，标准的补偿方式是<strong>两段式检索</strong>：先用压缩向量召回一个较大的候选集（比如 200 条），再用原始向量（或半精度向量）对候选重算距离并取前 k 条。原始向量要不要留在库里，是选型时要确认的一个能力点——有些系统压缩后不保留原向量，就无法做这一步补偿。</p>
+<h2 id="四、过滤：最容易被低估的一块"><a href="#四、过滤：最容易被低估的一块" class="headerlink" title="四、过滤：最容易被低估的一块"></a>四、过滤：最容易被低估的一块</h2><p>业务查询几乎都带条件：只看某个租户的、只看最近一年的、只看已发布版本的。过滤和向量检索的交互方式有三种，代价差别很大。</p>
+<p><strong>先过滤再检索</strong>（pre-filter）。先用条件筛出候选集合，再在集合内做向量检索。召回率理论上最高，但如果条件筛完只剩几百条，向量索引就没意义了；更麻烦的是多数图索引无法在”只包含部分点”的子图上高效遍历。</p>
+<p><strong>先检索再过滤</strong>（post-filter）。先按向量找出 top-k 再筛条件。实现最简单，但结果数不可控——pgvector 的文档里给过一个很清楚的例子：条件只匹配 10% 的行、HNSW 的 ef_search 取默认的 40 时，平均只有 4 行能通过过滤。用户要的是 10 条，返回 4 条，看起来就是”检索坏了”。</p>
+<p><strong>过滤感知的检索</strong>（in-filter）。把谓词下沉到索引遍历里，图在搜索时会跳过不满足条件的点，但仍然沿着连通性继续走，直到凑够候选。这是效果最好的做法，也是实现难度最高的：图索引需要专门设计（ACORN 一线就是这个方向的工作），倒排类索引相对容易。</p>
+<p>工程上的处理手段有这么几种，可以组合用：</p>
+<ul>
+<li><strong>提高候选量</strong>。把召回数从 50 提到 200 或 500，让过滤后有足够的存活结果。代价是延迟和重排成本</li>
+<li><strong>迭代式扫描</strong>。pgvector 从 0.8.0 起支持这个模式：过滤后行数不够时自动继续往索引深处扫描，直到凑够结果或达到上限。这是”先检索再过滤”的补救</li>
+<li><strong>把高频过滤字段做成物理结构</strong>。按租户分区、按时间分表、按类型建独立集合，让过滤在进入检索前就完成</li>
+<li><strong>候选集放大加二次筛选</strong>，用于权限这类会变化的标签</li>
+</ul>
+<p>判断自己是否踩了这个坑，有个简单的办法：统计”返回结果数少于请求数”的请求占比。这个比例高，说明过滤和检索在打架，调索引参数没有用。</p>
+<h2 id="五、度量与数据类型"><a href="#五、度量与数据类型" class="headerlink" title="五、度量与数据类型"></a>五、度量与数据类型</h2><p>距离度量必须和嵌入模型的训练目标一致，这是最容易出错又最难发现的一类问题。</p>
+<p>余弦相似度和内积在向量归一化之后是等价的：</p>
+<p>$$\cos(\mathbf{q}, \mathbf{d}) = \frac{\mathbf{q} \cdot \mathbf{d}}{\lVert \mathbf{q} \rVert \lVert \mathbf{d} \rVert} = \mathbf{q}_{\text{norm}} \cdot \mathbf{d}_{\text{norm}}$$</p>
+<p>所以入库时统一做归一化、距离度量选内积或余弦，能消掉一层不确定性。欧氏距离则在归一化后有单调关系 $\lVert \mathbf{q} - \mathbf{d} \rVert^2 = 2 - 2\cos(\mathbf{q}, \mathbf{d})$，排序结果一致，但不等价于可以为所欲为地混用——很多库把”内积”和”余弦”实现成两套代码路径，选错会得到完全无意义的结果，而且不报错。</p>
+<p>维度上限是另一个容易撞上的墙。不是所有库都能索引任意维度的向量，pgvector 的清单很典型：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>可索引的最大维度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vector（单精度）</td>
+<td>2000</td>
+<td>超了只能存不能索引</td>
+</tr>
+<tr>
+<td>halfvec（半精度）</td>
+<td>4000</td>
+<td>高维模型的常见出路</td>
+</tr>
+<tr>
+<td>bit（二值）</td>
+<td>64000</td>
+<td>配合二值量化使用</td>
+</tr>
+</tbody></table>
+<p>维度越高的模型（比如 3072 维、4096 维）越容易撞上限。有的模型支持套娃式截断（先按低维检索再补算），有的库支持降维索引，这些都要在选型时确认。</p>
+<h2 id="六、选型要看的能力清单"><a href="#六、选型要看的能力清单" class="headerlink" title="六、选型要看的能力清单"></a>六、选型要看的能力清单</h2><p>索引类型和性能只是选型的一部分，真正会让项目卡住的往往是下面这些。</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>要确认什么</th>
+<th>踩坑后果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>过滤方式</td>
+<td>是 pre、post 还是过滤感知；是否支持迭代扫描</td>
+<td>过滤后结果数不足，召回断崖</td>
+</tr>
+<tr>
+<td>更新语义</td>
+<td>是否支持原地更新；删除是真删还是墓碑；空间回收方式</td>
+<td>大量更新后索引退化、空间不释放</td>
+</tr>
+<tr>
+<td>一致性与持久化</td>
+<td>是否有 WAL、崩溃恢复、与业务库的一致性方案</td>
+<td>重启丢数据、向量与业务数据不一致</td>
+</tr>
+<tr>
+<td>多租户</td>
+<td>集合隔离、分区、行过滤，以及租户数量上限</td>
+<td>租户多时元数据或连接数爆炸</td>
+</tr>
+<tr>
+<td>混合检索</td>
+<td>是否内置全文检索与融合；稀疏向量支持到什么程度</td>
+<td>要把两套系统拼起来，一致性自己解决</td>
+</tr>
+<tr>
+<td>量化与重排</td>
+<td>压缩后是否保留原始向量</td>
+<td>无法做二段式重排补偿召回</td>
+</tr>
+<tr>
+<td>扩展方式</td>
+<td>单机到分布式的路径、分片与副本、扩容是否需要停机</td>
+<td>到千万级才发现要重搭</td>
+</tr>
+<tr>
+<td>生态与迁移</td>
+<td>SDK 完整度、与编排框架的集成、导入导出的便利程度</td>
+<td>迁移成本高于预期</td>
+</tr>
+<tr>
+<td>许可证</td>
+<td>商用限制、多租户 SaaS 限制、品牌条款</td>
+<td>商用后被迫重构</td>
+</tr>
+<tr>
+<td>成本结构</td>
+<td>内存型还是磁盘型；托管是按节点还是按用量</td>
+<td>账单随数据量非线性上涨</td>
+</tr>
+</tbody></table>
+<h2 id="七、主流系统逐个说"><a href="#七、主流系统逐个说" class="headerlink" title="七、主流系统逐个说"></a>七、主流系统逐个说</h2><p>下面按类别过一遍目前主流的选择。定位和许可证取自各仓库当前状态（2026 年 10 月）。先给一张横向总表，细节在后面。</p>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>许可证</th>
+<th>索引</th>
+<th>过滤</th>
+<th>适合规模</th>
+<th>运维成本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pgvector</td>
+<td>PostgreSQL</td>
+<td>HNSW、IVFFlat</td>
+<td>SQL WHERE 加迭代扫描</td>
+<td>百万到千万</td>
+<td>无（挂在现有库上）</td>
+</tr>
+<tr>
+<td>pgvectorscale</td>
+<td>PostgreSQL</td>
+<td>DiskANN 思路</td>
+<td>同上</td>
+<td>千万到亿</td>
+<td>低</td>
+</tr>
+<tr>
+<td>Qdrant</td>
+<td>Apache 2.0</td>
+<td>HNSW（过滤感知）</td>
+<td>过滤下沉进图遍历</td>
+<td>千万</td>
+<td>中</td>
+</tr>
+<tr>
+<td>Milvus</td>
+<td>Apache 2.0</td>
+<td>HNSW、IVF、DiskANN、SCANN、GPU</td>
+<td>标量索引加范围检索</td>
+<td>亿级以上</td>
+<td>高</td>
+</tr>
+<tr>
+<td>Weaviate</td>
+<td>BSD-3 与自有许可混合</td>
+<td>HNSW、FLAT</td>
+<td>过滤与混合检索内建</td>
+<td>千万</td>
+<td>中</td>
+</tr>
+<tr>
+<td>Vespa</td>
+<td>Apache 2.0</td>
+<td>HNSW</td>
+<td>搜索出身，能力完整</td>
+<td>千万到亿</td>
+<td>中高</td>
+</tr>
+<tr>
+<td>Elasticsearch</td>
+<td>Elastic License 2.0 与 SSPL</td>
+<td>HNSW</td>
+<td>极强（倒排加列存）</td>
+<td>千万</td>
+<td>中，已有则低</td>
+</tr>
+<tr>
+<td>OpenSearch</td>
+<td>Apache 2.0</td>
+<td>HNSW</td>
+<td>同上</td>
+<td>千万</td>
+<td>中</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>分段变化，见下文</td>
+<td>HNSW、FLAT</td>
+<td>有限</td>
+<td>百万</td>
+<td>低</td>
+</tr>
+<tr>
+<td>LanceDB</td>
+<td>Apache 2.0</td>
+<td>IVF-PQ、HNSW</td>
+<td>支持</td>
+<td>单机磁盘容量内</td>
+<td>极低</td>
+</tr>
+<tr>
+<td>Chroma</td>
+<td>Apache 2.0</td>
+<td>HNSW</td>
+<td>基础</td>
+<td>十万以内</td>
+<td>极低</td>
+</tr>
+<tr>
+<td>Typesense</td>
+<td>GPL-3.0</td>
+<td>HNSW</td>
+<td>强（搜索出身）</td>
+<td>百万到千万</td>
+<td>低</td>
+</tr>
+<tr>
+<td>Meilisearch</td>
+<td>MIT</td>
+<td>HNSW（较新）</td>
+<td>强</td>
+<td>百万级</td>
+<td>低</td>
+</tr>
+<tr>
+<td>ClickHouse</td>
+<td>Apache 2.0</td>
+<td>HNSW（25.8 起）</td>
+<td>极强（SQL）</td>
+<td>千万，偏分析</td>
+<td>中</td>
+</tr>
+<tr>
+<td>Apache Doris</td>
+<td>Apache 2.0</td>
+<td>HNSW、IVF、IVF On-Disk</td>
+<td>先过滤再检索，要求二级索引</td>
+<td>千万，偏分析</td>
+<td>中</td>
+</tr>
+<tr>
+<td>DuckDB VSS、sqlite-vec</td>
+<td>MIT、Apache 2.0</td>
+<td>HNSW、暴力</td>
+<td>基础</td>
+<td>十万以内</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<h3 id="数据库型"><a href="#数据库型" class="headerlink" title="数据库型"></a>数据库型</h3><p><strong>pgvector</strong>（PostgreSQL 许可）。Postgres 的向量扩展，支持 HNSW 与 IVFFlat 两种索引，向量类型有单精度、半精度、稀疏、位四种，索引维度上限分别是 2000、4000、64000。它最大的优势不是性能，而是<strong>向量和业务数据在同一个库里</strong>：同一次事务写业务表和向量表，过滤条件就是普通的 SQL WHERE，权限体系、备份、监控全部复用。从 0.8.0 起支持迭代式索引扫描，缓解了过滤后行数不足的问题。</p>
+<p>适合的规模是一百万到一千万条向量，判断依据是单表索引的内存与构建时间。要注意的是维度上限、以及过滤条件的选择性——选择性差的条件会让 Postgres 的查询计划在向量索引和常规索引之间选错，需要人工干预。</p>
+<p>配置上有几个关键项值得记住：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">SET</span> hnsw<span class="token punctuation">.</span>ef_search <span class="token operator">=</span> <span class="token number">64</span><span class="token punctuation">;</span>                 <span class="token comment" spellcheck="true">-- 查询期召回与延迟的主要旋钮</span>
+<span class="token keyword">SET</span> hnsw<span class="token punctuation">.</span>iterative_scan <span class="token operator">=</span> strict_order<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">-- 过滤后结果不足时继续向索引深处扫描</span>
+<span class="token keyword">SET</span> hnsw<span class="token punctuation">.</span>max_scan_tuples <span class="token operator">=</span> <span class="token number">20000</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">-- 迭代扫描的上限，防止一次查询扫太久</span>
+<span class="token keyword">SET</span> ivfflat<span class="token punctuation">.</span>max_probes <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">-- 用 IVFFlat 时对应的上限</span>
+</code></pre>
+<p>建索引时不要漏掉并行：<code>CREATE INDEX ... USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 200)</code> 配合 <code>max_parallel_maintenance_workers</code>，是百万元素级构建时间的主要差别来源。</p>
+<p>配套的 <strong>pgvectorscale</strong>（PostgreSQL 许可）用 DiskANN 思路的索引把单机容量推到更大规模，是 pgvector 内存不够时的自然升级路径。</p>
+<p><strong>Qdrant</strong>（Apache 2.0）。Rust 实现，主打”过滤与向量检索一起做好”：过滤条件在 HNSW 遍历中生效，不需要靠放大候选来补。支持稠密、稀疏、多向量三种表示，支持标量、乘积、二值三种量化，也能把向量放在磁盘上。单机性能强，分布式是分片加副本的常规设计，运维复杂度明显低于 Milvus。默认选择里最”没有明显短板”的一个，适合需要强过滤、千万级规模、又不想扛分布式运维的场景。</p>
+<p><strong>Milvus</strong>（Apache 2.0）。云原生分布式向量库，把系统与检索引擎分离，支持 HNSW、IVF、FLAT、SCANN、DiskANN 以及各自的量化变体，还支持 mmap 降低内存占用和 GPU 索引（NVIDIA CAGRA）。元数据有标量索引、支持范围检索。它的定位是亿级及以上：组件多（依赖 etcd、对象存储、消息队列），运维成本高，换来的是水平扩展能力和完整的周边（GUI、CDC 同步、监控、Spark&#x2F;Kafka 连接器）。</p>
+<p><strong>Weaviate</strong>（BSD-3 与自有许可混合）。模块化设计，可以内置向量化模块（在库侧调用嵌入模型），内置 BM25 与向量混合检索并在服务端完成融合，多租户是内建能力，向量压缩支持量化与多向量编码。适合希望少写编排代码、把混合检索和租户隔离交给数据库的场景。要留意的是许可：主体是 BSD-3，部分企业功能在自有许可下；某些版本的许可调整也发生过，商用前读一眼 LICENSE。</p>
+<p><strong>Vespa</strong>（Apache 2.0）。老牌的检索引擎，向量只是它能力的一部分。它真正的强项是排序表达式：可以把向量相似度、BM25 分数、业务字段、机器学习模型输出写进同一个排序函数里，做高度定制的相关性排序。实时写入与检索能力强，适合”排序逻辑复杂、需要在线调整权重”的场景。代价是概念多、学习曲线陡。</p>
+<p><strong>Elasticsearch &#x2F; OpenSearch</strong>。全文检索领域的老牌选手，向量是后加的能力：<code>dense_vector</code> 字段配 HNSW 索引，支持量化压缩，能与 BM25 做混合检索。过滤能力是它相对向量库的绝对优势——倒排索引与列存支持的复杂条件、聚合、排序都是成熟的。许可证需要分清：Elasticsearch 从 7.11 起使用 Elastic License 2.0 与 SSPL 双许可，对外提供托管服务有约束；OpenSearch 是它的 Apache 2.0 分支，能力接近但生态略小。已有 ES 的团队用它起步通常比引入新组件划算。</p>
+<p><strong>Redis</strong>（许可情况复杂）。内存数据库加向量检索（HNSW 与 FLAT），延迟极低，适合缓存与向量检索共存的场景。许可证要特别看清楚：7.2 及以前是 BSD-3，7.4 到 7.8 是 RSALv2 或 SSPLv1 二选一，8.0 起提供 AGPLv3 选项；另外部分 Intel 优化（Leanvec 之类）是闭源的、只在 RSALv2 下可用。内存成本高是它作为向量库的固有短板。</p>
+<p><strong>LanceDB</strong>（Apache 2.0）。嵌入式向量库，底层是 Lance 列式格式，向量和原始数据（图片、音频、文本）放在一起，支持 IVF-PQ 与 HNSW。定位是本地与边缘：单进程、零运维、直接从磁盘检索，适合桌面应用、单机分析、以及把向量数据当作”带索引的数据文件”来管理的场景。</p>
+<p><strong>Chroma</strong>（Apache 2.0）。开发体验优先的嵌入式向量库，API 简单，在原型和教学场景里出镜率很高。定位是单机与中小规模，把”带过滤的向量查询”做得很顺手。生产环境大规模使用前建议评估它的持久化与并发能力。</p>
+<p><strong>Typesense &#x2F; Meilisearch</strong>。轻量全文检索引擎，都在近两年补上了向量与混合检索。Typesense 采用 GPL-3.0，它的文档里专门解释了理由：GPL 对”作为独立服务运行”的用法是宽松的，只有当修改并分发时才触发义务；如果要把引擎代码嵌进自己的程序里，这条许可就要重新评估。Meilisearch 是 MIT，语义检索与混合检索是较新的能力，适合从全文检索起步、逐步加上语义的路径。</p>
+<p><strong>ClickHouse</strong>（Apache 2.0）。分析型数据库，25.8 起提供原生的向量相似度索引（基于 usearch 的 HNSW）。它的价值在分析场景：先用 SQL 做大规模过滤与聚合，再对筛出来的子集做向量检索，或者反过来把向量检索结果与业务指标做关联分析。不适合当作纯粹的向量库来用。</p>
+<p><strong>Apache Doris</strong>（Apache 2.0）。MPP 架构的实时分析数据库，4.0 起原生支持 ANN 向量检索，底层基于 Faiss，索引有 HNSW、内存版 IVF，以及把倒排列表放磁盘、靠缓存服务的 IVF On-Disk 三种。向量以定长数组存储，没有引入新的数据类型。它和 ClickHouse 属于同一类：向量是分析引擎的一个扩展，价值在于<strong>向量检索、关键词检索和结构化分析写在同一条 SQL 里</strong>——倒排索引做过滤、ANN 做语义召回、聚合与关联分析都在同一个引擎内完成。</p>
+<p>几个实现细节值得记：它采用<strong>先过滤再检索</strong>（pre-filter）语义，代价是<strong>过滤字段必须建过二级索引（例如倒排索引），否则会退化成暴力计算</strong>以保证结果正确；支持按距离范围检索，也能和 TopN 组合；量化有标量（int8、int4）和乘积量化，官方给出的对比里，768 维百万级数据集上 int8 把索引从 3.1 GB 压到 1 GB 左右。约束上有两点要注意：ANN 索引只能建在 Duplicate Key 表模型，或者开启 merge-on-write 的 Unique Key 表上；查询时距离函数必须和索引的度量类型一致，内积还必须配合降序排序才会走索引。</p>
+<p>官方文档里还贴了一组压测数据（32 核 64 GB 双节点、百万级 768 维数据集）：240 并发下约 3300 QPS、平均延迟 71 毫秒、召回率 91%；换成 int8 量化后召回降到 88%，暴力检索则只有不到 4 QPS。厂商公布的数据不能直接替代自测，但这组数字的量级能说明它的定位——它不是要和专用向量库比单点性能，而是把”分析库已有的数据”直接变成可检索的向量库。</p>
+<p>部署形态上，它的经典架构是<strong>存算一体</strong>：只需要部署 FE 和 BE 两类进程，不依赖外部对象存储或共享文件系统，一套集群自己管自己的存储。3.0 起增加了<strong>存算分离</strong>模式，元数据与数据落到对象存储、计算节点无状态，换来弹性伸缩和成本优化。对向量检索而言这个区别的实际影响是：存算一体模式下索引常驻本地内存，延迟更可控；存算分离模式下要关注索引缓存的命中率，冷启动后的第一次查询会明显更慢。</p>
+<p><strong>DuckDB 与 SQLite 系</strong>。嵌入式数据库的向量扩展：DuckDB 的 VSS 扩展提供 HNSW 索引，SQLite 生态里有 sqlite-vec 这类扩展。适合数据量不大、希望”零依赖、单文件”的场景，比如本地工具、离线分析、桌面上跑的检索。</p>
+<h3 id="服务化的库（不是数据库）"><a href="#服务化的库（不是数据库）" class="headerlink" title="服务化的库（不是数据库）"></a>服务化的库（不是数据库）</h3><p><strong>FAISS</strong>（MIT）、<strong>hnswlib</strong>（Apache 2.0）、<strong>DiskANN</strong>（MIT）、<strong>cuVS</strong>（Apache 2.0）、<strong>USearch</strong>（Apache 2.0）这些是索引库而不是数据库。它们只提供”建索引、查近邻”的能力，持久化、并发控制、过滤、更新、监控都要自己写。适合两类场景：研究评测（换索引结构做对比），以及把索引嵌入到自己系统里的深度定制。直接拿它们当服务层用，通常会在元数据管理、崩溃恢复、在线更新这些地方反复踩坑。</p>
+<p><strong>Annoy</strong>（Apache 2.0）值得单独提一句：它是早期广泛使用的内存型索引，只读、适合构建后不再变化的场景，但仓库更新已经很慢，新项目不建议选它。</p>
+<h3 id="托管服务"><a href="#托管服务" class="headerlink" title="托管服务"></a>托管服务</h3><p><strong>Pinecone</strong>。托管向量库的代表，serverless 架构把存储与计算分离，按用量计费，不需要关心分片和副本。适合不想运维、快速验证的场景；数据出境、长期成本、厂商锁定是三个要在决策里写明的问题。</p>
+<p><strong>Zilliz Cloud</strong>（Milvus 的商业版）、<strong>Azure AI Search</strong>（内置混合检索与语义排序）、<strong>MongoDB Atlas Vector Search</strong>（向量与文档数据同库）、<strong>AWS 的 OpenSearch Serverless 与 Aurora pgvector</strong> 属于同一类：把开源自建形态做成了托管。如果已经在用对应的云生态，这类服务往往是阻力最小的选择。国内云厂商（阿里云、腾讯云、百度等）也都有托管向量检索服务，合规和网络延迟上有优势，接口与生态的成熟度需要单独评估。</p>
+<h2 id="八、按场景选"><a href="#八、按场景选" class="headerlink" title="八、按场景选"></a>八、按场景选</h2><p>把上面的内容压成一条决策路径：</p>
+<ol>
+<li><strong>已经在用 PostgreSQL、数据量在千万以内</strong>：直接上 pgvector，不引入新组件。内存不够就加 pgvectorscale 或开量化</li>
+<li><strong>已经在用 Elasticsearch&#x2F;OpenSearch、且全文检索是刚需</strong>：用它的向量能力做混合检索，不要为了向量再引一套系统</li>
+<li><strong>过滤条件复杂、需要千万级单机</strong>：Qdrant 是默认答案，过滤感知是它区别于通用向量库的地方</li>
+<li><strong>亿级以上、团队有分布式运维能力</strong>：Milvus 或直接买托管</li>
+<li><strong>本地、边缘、桌面应用</strong>：LanceDB、DuckDB VSS、sqlite-vec 这类嵌入式方案</li>
+<li><strong>数据本来就在分析库里</strong>（Doris、ClickHouse）：用引擎自带的向量能力，省掉一次数据搬运和一条同步链路，代价是索引能力不如专用库</li>
+<li><strong>排序逻辑复杂、要在线调权重</strong>：Vespa</li>
+<li><strong>完全不想运维、且合规允许</strong>：托管服务</li>
+<li><strong>只是做算法评测</strong>：FAISS 或 hnswlib，别搭服务</li>
+</ol>
+<p>反过来的三种反模式也值得记住：为十万条向量上分布式系统；先定向量库再定嵌入模型（两者耦合，换了模型要全量重建）；只看索引性能不看过滤能力（过滤才是生产环境里的主要矛盾）。</p>
+<h2 id="九、容量与性能怎么算"><a href="#九、容量与性能怎么算" class="headerlink" title="九、容量与性能怎么算"></a>九、容量与性能怎么算</h2><p>动手前先把内存算清楚，这是唯一能在选型阶段精确计算的指标。</p>
+<p>$$\text{内存} \approx N \times d \times b_{\text{向量}} + N \times b_{\text{图}} + \text{元数据开销}$$</p>
+<p>举个例子：一亿条 1024 维单精度向量，向量本身 400 GB，图结构（M 取 16，约 128 字节&#x2F;点）再加 13 GB。这个量级决定了必须走量化或者磁盘索引——量化到 int8 是 100 GB，二值量化到 128 字节&#x2F;点是 13 GB，加上图结构的 13 GB 只有 26 GB，单机就能放下。</p>
+<p>延迟这一侧无法靠公式给出可信答案，只能实测。要测的项有四个：</p>
+<ul>
+<li><strong>召回率</strong>。拿黄金查询集，用暴力检索做基准，量近似索引到底丢了多少。这一项必须自测，任何厂商的公开数据都不能替代</li>
+<li><strong>p50 与 p99 延迟</strong>，以及在目标 QPS 下的延迟曲线（多数系统在低并发下延迟很好看，到 50% 负载时会翻倍）</li>
+<li><strong>过滤条件下的召回与延迟</strong>。用真实的选择性分布测（比如选择性 10%、1%、0.1% 各测一组），这是最容易出问题的一组数据</li>
+<li><strong>索引构建时间与内存峰值</strong>。构建过程往往比查询更吃资源，在线扩容时的构建时间直接决定运维窗口</li>
+</ul>
+<h2 id="十、运维"><a href="#十、运维" class="headerlink" title="十、运维"></a>十、运维</h2><p><strong>索引构建</strong>。大批量导入后再建索引，比边导入边建快得多。构建过程要预留内存峰值，多数实现会同时持有原始数据和图结构。能做到并行构建的（pgvector 支持并行建索引）要把并行度利用起来，构建时间常常是小时和分钟的区别。</p>
+<p><strong>增量写入与退化</strong>。图索引在持续插入后会退化：新点只和邻近的少数点连边，逐渐形成”孤岛”，召回率缓慢下降。缓解办法是控制写入模式（尽量批量）、定期重建、以及在写入量大的系统里把索引分成”历史段”与”增量段”。</p>
+<p><strong>删除</strong>。多数实现的删除是墓碑标记，空间不回收，需要定期重建或触发空间的整理。删除率高的系统要专门设计这个流程，否则磁盘和内存会只涨不降。</p>
+<p><strong>一致性</strong>。向量库和业务库的双写很难保证原子性。常见的做法是以业务库为准，用变更日志（CDC 或消息队列）异步同步到向量库，并保证同步是幂等的（按内容哈希或版本号去重）；对一致性要求高的场景，接受”检索结果可能陈旧几秒”并在产品上明说。</p>
+<p><strong>迁移与升级</strong>。索引格式会随版本变化，大版本升级常常需要重建索引；更换嵌入模型更是必然全量重建。把”重建”设计成常规能力：保留原始片段、记录模型版本、支持双索引灰度切换，比任何一次性的优化都重要。</p>
+<p><strong>监控</strong>。至少要盯这几项：召回率（用固定的黄金集定期跑）、p99 延迟、内存与磁盘水位、索引构建队列长度、返回结果数为零的请求占比（过滤打架的信号）、向量与业务数据的行数差（同步滞后的信号）。</p>
+<h2 id="十一、常见误解"><a href="#十一、常见误解" class="headerlink" title="十一、常见误解"></a>十一、常见误解</h2><p>“向量库就是存向量。” 存向量是最简单的部分，难点在带过滤的近邻查询、更新与删除语义、以及和数据的一致性。</p>
+<p>“选召回率最高的索引就行。” 索引性能的差异常常被过滤条件的交互掩盖。先量清楚过滤的选择性分布，再谈索引。</p>
+<p>“内存越大越好。” 量化加两段式重排是更划算的路线：省下的是持续的成本，付出的是可控的召回损失。</p>
+<p>“量化一定掉点。” 半精度几乎无损，int8 的损失通常很小。只有二值量化和激进的乘积量化需要认真评估，并且用重排补偿。</p>
+<p>“托管一定贵，自建一定便宜。” 小规模下托管的账单通常低于自建的人力与机器；规模上去之后才反过来。分界线大致在”是否需要专人运维”这个判断上。</p>
+<p>“向量库能顺带做全文检索。” 多数系统的全文能力是后来补的，和成熟的搜索引擎不在一个水平。混合检索是刚需时，选型的天平应该偏向搜索出身的系统。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/pgvector/pgvector">pgvector</a> — HNSW 与 IVFFlat 索引、向量类型与维度上限、迭代式索引扫描（README 中的过滤算术）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/timescale/pgvectorscale">pgvectorscale</a> — 基于 DiskANN 思路的 Postgres 向量索引扩展</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/qdrant/qdrant">Qdrant</a> — 过滤感知检索、量化、稀疏与多向量支持</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/milvus-io/milvus">Milvus</a> — 分布式架构、索引类型清单与 GPU 索引</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/weaviate/weaviate">Weaviate</a> — 混合检索、多租户与向量压缩</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vespa-engine/vespa">Vespa</a> — 排序表达式与向量检索的结合</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/elastic/elasticsearch">Elasticsearch</a> &#x2F; <a target="_blank" rel="noopener" href="https://github.com/opensearch-project/OpenSearch">OpenSearch</a> — dense_vector 与混合检索，注意两者的许可差异</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/redis/redis">Redis</a> — 向量检索能力与各版本的许可差异（LICENSE 中列明）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lancedb/lancedb">LanceDB</a> — 嵌入式列式向量库</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/chroma-core/chroma">Chroma</a> — 轻量嵌入式向量库</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/typesense/typesense">Typesense</a> — GPL-3.0 的检索引擎，README 中有许可选择的解释</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/meilisearch/meilisearch">Meilisearch</a> — MIT，全文加语义的混合检索</li>
+<li><a target="_blank" rel="noopener" href="https://clickhouse.com/docs/reference/engines/table-engines/mergetree-family/annindexes">ClickHouse 向量相似度索引文档</a> — 基于 usearch 的 HNSW 索引</li>
+<li><a target="_blank" rel="noopener" href="https://doris.apache.org/docs/4.x/table-design/index/vector-index/overview/">Apache Doris 向量检索文档</a> — 4.0 起的 ANN 索引、pre-filter 语义、量化对比与压测数据</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/duckdb/duckdb">DuckDB</a> — 嵌入式分析数据库，向量检索由 VSS 扩展提供</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/asg017/sqlite-vec">sqlite-vec</a> — SQLite 的向量检索扩展</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/faiss">FAISS</a> &#x2F; <a target="_blank" rel="noopener" href="https://github.com/nmslib/hnswlib">hnswlib</a> &#x2F; <a target="_blank" rel="noopener" href="https://github.com/microsoft/DiskANN">DiskANN</a> &#x2F; <a target="_blank" rel="noopener" href="https://github.com/NVIDIA/cuvs">cuVS</a> &#x2F; <a target="_blank" rel="noopener" href="https://github.com/unum-cloud/USearch">USearch</a> — 索引库而非数据库</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spotify/annoy">Annoy</a> — 早期的内存型索引，仓库更新已放缓</li>
+<li><a target="_blank" rel="noopener" href="https://docs.pinecone.io/">Pinecone 文档</a> — serverless 架构与存储计算分离</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/20/VectorDatabases/">https://unluckynike.github.io/2026/10/20/VectorDatabases/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/">
+                                    <span class="chip bg-color">向量检索</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">向量数据库</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB/">
+                                    <span class="chip bg-color">近似最近邻</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%B4%A2%E5%BC%95%E7%BB%93%E6%9E%84/">
+                                    <span class="chip bg-color">索引结构</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/20/YoloHowItWorks/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="YOLO 是怎么工作的：目标检测的原理与流程">
+                        
+                        <span class="card-title">YOLO 是怎么工作的：目标检测的原理与流程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            目标检测要同时回答"有什么"和"在哪里"，而且答案的数量不固定。YOLO 把这两个问题压成一次前向传播的回归，十年间从七乘七网格走到免 NMS 的端到端，变化的是手段，不变的是实时这个约束
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">计算机视觉</span>
+                    </a>
+                    
+                    <a href="/tags/YOLO/">
+                        <span class="chip bg-color">YOLO</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">
+                        <span class="chip bg-color">目标检测</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/20/RagHowItWorks/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="RAG从文档切分到答案引用">
+                        
+                        <span class="card-title">RAG从文档切分到答案引用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            检索增强生成要解决的不是"让模型知道更多"，而是在一个固定的上下文预算里，从百万级片段中挑出真正该进窗口的那几个——这是一个排序问题，也是一个误差会逐级累积的工程链路
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/RAG/">
+                        <span class="chip bg-color">RAG</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/">
+                        <span class="chip bg-color">向量检索</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B7%E5%90%88%E6%A3%80%E7%B4%A2/">
+                        <span class="chip bg-color">混合检索</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+    
+
+
+<div class="related-posts">
+    <div class="related-title"><i class="fas fa-book-reader"></i>&nbsp;&nbsp;相关文章</div>
+    <div class="related-list">
+        
+        <a class="related-item" href="/2026/10/20/RagHowItWorks/" title="RAG从文档切分到答案引用">
+            <span class="related-item-title">RAG从文档切分到答案引用</span>
+            <span class="related-item-meta">2026-10-20</span>
+        </a>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            tags: 'ams'
+        },
+        svg: {fontCache: 'global'},
+        options: {skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']}
+    };
+</script>
+<script id="MathJax-script" async src="/libs/mathjax/tex-svg-full.js"></script>
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">309k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

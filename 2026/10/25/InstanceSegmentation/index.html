@@ -1,0 +1,1661 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="实例分割：从语义分割到分割一切, Java,Python,Deep Learning,Artificial Intelligence,SQL,React,Vue.js等">
+    <meta name="description" content="检测给出&#34;框住目标的矩形&#34;，分割要给出&#34;目标本身的轮廓&#34;——像素级的输出让任务的难度、指标和标注成本都换了量级。从 FCN 到 Mask R-CNN 再到提示式的 SAM，这篇把分割家族的谱系、评估与工程落地讲清">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>实例分割：从语义分割到分割一切 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book-open" style="zoom: 0.6;"></i>
+      
+      <span>阅读</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="https://unluckynike.github.io/ml-notes/" target="_blank" rel="noopener">
+          
+          <span>像搭积木一样了解AI-2026</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book-open"></i>
+			
+			阅读
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="https://unluckynike.github.io/ml-notes/ " style="margin-left:75px">
+				  
+		          <span>ml_notes</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">实例分割：从语义分割到分割一切</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">
+                                <span class="chip bg-color">实例分割</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/">
+                                <span class="chip bg-color">图像分割</span>
+                            </a>
+                        
+                            <a href="/tags/SAM/">
+                                <span class="chip bg-color">SAM</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                                <span class="chip bg-color">计算机视觉</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-25
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-31
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    22 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>同一张街景图，分类说”这是街道”，检测说”这里有一个人、两辆车”，分割要回答的是：人的轮廓是哪些像素、每辆车的轮廓是哪些像素。输出从几个数变成几十万个像素的分类结果，这是分割与检测最本质的差别。</p>
+</blockquote>
+<h2 id="一、三种分割任务"><a href="#一、三种分割任务" class="headerlink" title="一、三种分割任务"></a>一、三种分割任务</h2><p>分割家族有三个成员，区分它们最直接的方式是看”同一张图各自输出什么”。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/seg_panoptic_original.jpg" alt="街景原图"></p>
+<p><em>图源：Kirillov 等，Panoptic Segmentation（CVPR 2019），本节四张配图均截自该文示例</em></p>
+<p><strong>语义分割</strong>（semantic segmentation）：给每个像素一个类别标签，但不区分同类别的不同个体。图里三只羊，全部标成”羊”，在像素层面是同一个标签。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/seg_panoptic_semantic.jpg" alt="语义分割输出"></p>
+<p><strong>实例分割</strong>（instance segmentation）：先找出每个目标实例，再给出每个实例的像素级掩码。三只羊是三个独立的掩码，各带类别与置信度。它和检测的关系是直接的：实例分割等于在检测的框之外，把矩形升级成像素轮廓。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/seg_panoptic_instance.jpg" alt="实例分割输出"></p>
+<p><strong>全景分割</strong>（panoptic segmentation）：两者的合体。画面被完整切分——既区分实例（可数的”东西”：行人、车辆），也覆盖无实例的背景（不可数的”stuff”：天空、路面、植被），每个像素都有一个归属，没有”没分到的像素”。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/seg_panoptic_panoptic.jpg" alt="全景分割输出"></p>
+<p>输出形态决定了一切：分类的标注是每图一个标签，检测是每图若干个框，分割是<strong>逐像素的轮廓标注</strong>——标注成本差一到两个数量级，这也解释了分割领域几个标志性事件（后文的 SAM 数据引擎）为什么都围绕”怎么便宜地造标注”。</p>
+<h2 id="二、从分类到逐像素：FCN-与编解码结构"><a href="#二、从分类到逐像素：FCN-与编解码结构" class="headerlink" title="二、从分类到逐像素：FCN 与编解码结构"></a>二、从分类到逐像素：FCN 与编解码结构</h2><p>分类网络的输出是”一列类别分数”，它靠全连接层把特征图压成一个向量。2015 年的全卷积网络（FCN，CVPR 2015）做了那个时代最重要的改造：<strong>把全连接层全部换成卷积层</strong>，让网络输出的是一张”分数图”而不是一个向量——每个空间位置对应一个类别分布，等于对每个像素做分类。输入也不再要求固定尺寸。</p>
+<p>但卷积和池化会把分辨率一路降下来，最终输出的分数图比原图小几十倍。把它放大回原图是粗糙的，于是编解码结构成为标配：<strong>编码器</strong>不断降分辨率提语义，<strong>解码器</strong>逐步把分辨率还原回来。U-Net（MICCAI 2015）在此之上加了<strong>跳跃连接</strong>——把编码器浅层的细节特征直接接到解码器对应尺度上，语义来自深层、位置细节来自浅层。这个结构诞生于医学影像，因为那里训练样本少、轮廓精确性要求极高，跳跃连接的”细节直通”恰好补了深层网络丢失的细节。医学影像分割至今仍是 U-Net 家族的天下。</p>
+<p>DeepLab 系列走了另一条路：空洞卷积在不下采样、不增加参数的前提下扩大感受野，保住分辨率；配合条件随机场做边界细化。它的多尺度并行的空洞卷积（ASPP）后来也被各家借鉴。</p>
+<p>到这一步，语义分割的范式成型：逐像素分类。但实例分割需要的不止这些——同一类的三个个体要分出彼此，”逐像素分类”这个框架天然做不到，因为分类不含”这是第几只”的概念。</p>
+<h2 id="三、实例分割的两条实现路线"><a href="#三、实例分割的两条实现路线" class="headerlink" title="三、实例分割的两条实现路线"></a>三、实例分割的两条实现路线</h2><p><strong>自上而下：先检测，再分割</strong>。既然检测已经能定位每个实例，就在每个实例的区域里再做一次”前景&#x2F;背景”的像素分类。代表是 Mask R-CNN（ICCV 2017）：在 Faster R-CNN 之上加第三条分支，与分类、框回归并行，对每个候选区域输出一个掩码。</p>
+<p>它的技术贡献是 <strong>RoIAlign</strong>。此前的 RoIPool 在把不规则区域映射到固定网格时做了两次取整，特征和原图之间错位可达数个像素——对框回归无所谓，对逐像素的掩码是致命的。RoIAlign 用插值取消取整，特征与像素严格对齐。这个改动让掩码精度提升明显，也成了之后所有”在区域内做像素任务”的标准件。另两个设计：掩码分支对每个类别独立输出一张二值掩码（避免类别间的竞争），掩码损失只用该真实类别那一支算二值交叉熵。</p>
+<p>
+<img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/seg_maskrcnn_teaser.png" alt="Mask R-CNN 框架" style="width:100%">
+</p>
+<em>图源：He 等，Mask R-CNN（ICCV 2017）。骨架是 Faster R-CNN，橙色新增的分支即掩码预测。</em>
+
+<p>自上而下的质量依赖检测框：框偏了，掩码整体跟着偏。</p>
+<p><strong>自下而上：先逐像素分类，再聚合成实例</strong>。对每个像素同时预测语义标签和一个”嵌入向量”，同一实例的像素嵌入彼此靠近、不同实例远离，最后按嵌入聚类分组。这种方式不受检测框限制、天然对称，但分组是个不稳定的环节。</p>
+<p><strong>实时路线</strong>。YOLACT（ICCV 2019）找到了一个聪明的折中：网络只生成 k 个”原型掩码”（整图级的掩码模板）和每个实例的 k 个组合系数，实例掩码就是原型的线性组合——原型可以整批算，系数很轻，于是分割第一次跑到了实时。SOLOv2（NeurIPS 2020）更进一步：直接按”位置 × 类别”输出掩码，卷积核也由网络动态生成。这两条思路延续到了实时检测器身上——今天 YOLO 系的分割版本（模型名带 -seg）用的就是”检测头加轻量掩码分支”的同族设计，在固定类别的实时场景里非常常用。</p>
+<h2 id="四、通用架构：一个网络管三种分割"><a href="#四、通用架构：一个网络管三种分割" class="headerlink" title="四、通用架构：一个网络管三种分割"></a>四、通用架构：一个网络管三种分割</h2><p>三种分割各自一套结构，直到 mask classification 范式出现。DETR（ECCV 2020）在检测上验证了”一组可学习 query、集合预测、二分匹配”的可行性；Mask2Former（CVPR 2022）把这个范式搬进分割：<strong>一组可学习的 query，每个 query 负责一个实例（或一个语义区域），通过掩码注意力逐步聚焦，训练时用二分匹配决定谁对应哪个真实掩码</strong>。</p>
+<p>它的意义在于统一：语义分割、实例分割、全景分割用同一套架构、同一个损失，只是后处理的读法不同。此前三种任务三个模型库的局面就此结束，此后新一代分割模型基本都长这个样子。</p>
+<h2 id="五、分割一切：SAM-与它的生态"><a href="#五、分割一切：SAM-与它的生态" class="headerlink" title="五、分割一切：SAM 与它的生态"></a>五、分割一切：SAM 与它的生态</h2><p>2023 年的 Segment Anything（SAM，ICCV 2023）把分割带进了”基础模型”时代，它的两件事都值得细说。</p>
+<p><strong>数据引擎</strong>。分割的标注太贵，SAM 用三阶段滚雪球：第一阶段模型辅助人工标注，攒下 12 万张图、430 万掩码；第二阶段让人只标模型不确定的部分，扩到 18 万张图、590 万掩码；第三阶段全自动标注，最终产出 SA-1B 数据集——<strong>1100 万张图、11 亿个掩码</strong>，全部公开。模型和数据互喂的循环，是它区别于以往分割论文的地方。</p>
+<p><strong>提示式架构</strong>。SAM 的三件套是重量级图像编码器（ViT-H，占算力大头）、轻量的提示编码器（点、框、掩码都可以作为提示）和毫秒级的掩码解码器。这个配比的设计意图：<strong>贵的部分对每张图只算一次，便宜的解码器可以反复跑</strong>——用户点一下、框一下，掩码立刻更新，交互式修正是设计目标而不是附加功能。同一个提示有歧义时（”这个点”可能指整个物体或物体的一部分），模型输出三个候选掩码让用户选。</p>
+<p>
+<img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/seg_sam_masks1.webp" alt="SAM 演示一" style="width:49%">
+<img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/seg_sam_masks2.jpg" alt="SAM 演示二" style="width:49%">
+</p>
+<em>图源：Segment Anything 官方仓库。点、框作为提示，掩码即时生成。</em>
+
+<p>SAM 的零样本能力是跨数据集和域的，但有两个边界要知道：<strong>它不输出语义类别</strong>——掩码是类别无关的，它说不出这块是”羊”还是”狗”；对细长的凹陷结构、精确边缘的表现也有限。</p>
+<p>在这两个边界之上还有一条产线里最先撞上的坑：<strong>SAM 按”视觉边界”分割，而业务要的是”语义边界”</strong>。它的训练信号是”哪些像素在视觉上属于同一个整体”，不是”哪些像素属于同一个语义概念”。三种典型表现：外观不同的两个目标连在一起，它能切开（视觉边界清晰）；外观相同的目标排成一排（一排同款产品、一列相似的车），它可能整排切成一块；一个目标被栏杆之类的细物横穿、纹理断裂，它可能切成两块。处理思路也由此而来：纯视觉线索不够时，要么补位置与业务规则做后处理合并或拆分，要么用文本提示把语义先定位再分割，要么干脆为这个场景微调专用模型。</p>
+<p>围绕它的效率线很快出现：MobileSAM（预印本）把图像编码器换成轻量网络，编码降到毫秒级、整体可上移动端；FastSAM（预印本）干脆用实时检测器的分割版本在 SA-1B 子集上重训，速度提升明显、精度有折损。两条路都是”保留提示式用法、把编码器便宜化”。</p>
+<p>视频把分割的难度又抬了一级：目标会动、会互相遮挡、会出画再入画。视频分割的典型工作方式是<strong>第一帧给一个提示（点、框或掩码），模型把该目标在后续帧里自动传播下去</strong>——难的全在传播里：被遮挡后重新出现时要认得出来，几个外观相似的目标交叉穿行时要跟得住，目标自身形态变化（转身、缩放）时要跟得上。</p>
+<p><strong>SAM 2</strong>（ICLR 2025）就是为这条链路设计的：引入流式记忆模块，把过去帧的高质量特征存进记忆库供当前帧查询，处理跨帧的目标遮挡与重现；标注以掩码形式随帧传递，速度做到实时（论文报告 44 FPS）。图像任务上它同样更强——用约六分之一的图像数据训练，表现超过了 SAM 一代。<p><br><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/seg_sam2_model.png" alt="SAM 2 架构" style="width:100%"></p>
+</p>
+<em>图源：Ravi 等，SAM 2（ICLR 2025）。上半部分是图像编码器与记忆编码器，下半部分的记忆注意与掩码解码器构成流式传播。</em>
+
+<p>
+<img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/seg_sam2_video.webp" alt="SAM 2 视频交互" style="width:100%">
+</p>
+<em>图源：同上。第一帧点选目标，后续帧掩码自动传播，中途遮挡靠记忆库找回。</em>
+
+<p>配套的 SA-V 视频数据集约 5 万段视频、64 万个掩码标注。</p>
+<p>落地选型就在这几个变体里转：全量 SAM 精度最好、编码最重（单张图的编码在百毫秒到秒级，取决于硬件）；MobileSAM 把编码压到毫秒级、可上移动端；FastSAM 用实时检测器结构换速度，掩码质量有折损；SAM 2 图像视频通吃，多数新项目可以直接从它起步。共同点是提示式用法不变——选型时先确认交互方式：用户点选修正的交互式场景，哪个变体都合适；全自动批量处理时，编码器成本乘以数据总量，压缩立刻从可选项变成必选项。</p>
+<h2 id="六、开放词表分割：给掩码接上语义"><a href="#六、开放词表分割：给掩码接上语义" class="headerlink" title="六、开放词表分割：给掩码接上语义"></a>六、开放词表分割：给掩码接上语义</h2><p>这里要把两个常被混在一起的模型分开。<strong>CLIP（ICML 2021）是图文对齐模型</strong>：它把图像和文本映射到同一个嵌入空间，能判断”这张图和这句话是否匹配”，但它不做像素级输出，也不做分割。<strong>“分割一切”是 SAM</strong>，是 Meta 的提示式分割模型，与 CLIP 是两家不同公司的两条工作。</p>
+<p>不过 CLIP 的思想确实长出了分割分支。CLIPseg（CVPR 2022）把文本编码成嵌入，与图像每个位置的像素特征算相似度，得到”这个像素与这段文字的匹配程度”——于是分割的类别不再是固定的 N 类，而是<strong>任意一句描述</strong>。这类开放词表分割解决了 SAM 的另一半问题：SAM 给得出掩码、说不出语义，文本给得出语义、（CLIPseg 一类）像素质量一般。</p>
+<p>两条腿拼起来就是目前最常用的组合：<strong>Grounding DINO（ECCV 2024）按文本定位出框，SAM 沿框生成掩码</strong>。文本给了类别语义，SAM 给了像素质量，这个组合已成为开放词表分割的事实标准，也是大量”自动标注”工具的内核。</p>
+<h2 id="七、评估指标：三个任务三套尺子"><a href="#七、评估指标：三个任务三套尺子" class="headerlink" title="七、评估指标：三个任务三套尺子"></a>七、评估指标：三个任务三套尺子</h2><p><strong>语义分割用 mIoU</strong>。对每个像素算预测与真值的交并比，按类别聚合：</p>
+<p>$$\text{IoU} = \frac{\text{TP}}{\text{TP} + \text{FP} + \text{FN}}$$</p>
+<p>对每个类别算一个 IoU 再平均就是 mIoU。它对类别不平衡敏感——小类一个像素的错漏在大类面前几乎不可见，所以报告时通常连每类的 IoU 一起看。整体像素准确率（accuracy）在分割里几乎没有参考价值：背景占绝对多数时它天然很高。</p>
+<p><strong>实例分割用 mask AP</strong>。与检测的 AP 完全同构，只把匹配标准从框的 IoU 换成掩码的 IoU，同样是 0.5 到 0.95 十档取平均，同样按类别与尺寸拆分报告。掩码 AP 天然比框 AP 低——掩码的匹配严格得多。</p>
+<p><strong>全景分割用 PQ</strong>（panoptic quality）。它把匹配上的区域的平均 IoU（分割质量）乘上匹配的覆盖比例（识别质量）：</p>
+<p>$$\text{PQ} = \underbrace{\frac{\sum_{(p,g) \in \text{匹配}} \text{IoU}(p, g)}{|\text{匹配}|}}_{\text{分割质量}} \times \underbrace{\frac{|\text{匹配}|}{|\text{匹配}| + 0.5|\text{FP}| + 0.5|\text{FN}|}}_{\text{识别质量}}$$</p>
+<p>一个指标同时惩罚分割不准和识别错误。</p>
+<p>标注成本也顺着三套尺子看：语义分割要逐像素涂，实例分割逐实例涂，SAM 类模型带来的改变是”点几个点出一个掩码、人工只做修正”——成本降了一个量级，但固定类别的生产任务里，高质量的逐实例标注仍然是绕不开的投入。</p>
+<h2 id="八、应用与落地"><a href="#八、应用与落地" class="headerlink" title="八、应用与落地"></a>八、应用与落地</h2><p><strong>医学影像</strong>是分割最成熟的应用域：器官轮廓、病灶边界都需要像素级输出。U-Net 从这里起家，小数据、高精度要求、边界敏感的域特征与它的结构特点高度匹配。落地时域偏移（不同医院、不同设备）是主要难点。</p>
+<p><strong>自动驾驶</strong>需要全景分割：可行驶区域是 stuff，车辆行人是 thing，BEV 感知管线里分割是常见组件。</p>
+<p><strong>抠图与图像编辑</strong>是 SAM 最直接的大众应用：点一下得到掩码，接生成模型做局部重绘，或做商品图处理。SAM 在这条链路里更像”交互式工具”而不是”自动系统”。</p>
+<p><strong>自动标注</strong>是 SAM 改变行业的方式：Grounding DINO 加 SAM 的组合给数据集做初标，人工只做修正——数据飞轮转起来的速度比纯人工快一个量级。前面 YOLO 实战里”标注质量封死模型上限”的问题，在这条链路里被显著缓解。</p>
+<p><strong>自动标注的飞轮</strong>是 SAM 们改变行业的方式，值得单独写成一个流程：用 Grounding DINO 加 SAM 的组合给新数据做初标，人工只做掩码修正；修正后的数据训一个轻量的专用模型（实时检测器的分割版本一类）；模型成熟后替代组合模型上产线，SAM 们退到处理新类别、新场景的位置。基础模型负责广度，专用模型负责速度与成本，各司其职。</p>
+<p>选型的判断顺序：业务只需要”有&#x2F;没有目标”和位置，检测就够；需要像素归属（抠图、测量、区域统计）才上分割；类别固定且实时，用检测器的分割版本；类别开放或需要交互式，用 SAM 系或文本提示组合；三种分割都要，Mask2Former 一线的通用架构。</p>
+<h2 id="九、工程实践：从标注到上线"><a href="#九、工程实践：从标注到上线" class="headerlink" title="九、工程实践：从标注到上线"></a>九、工程实践：从标注到上线</h2><h3 id="标注与数据格式"><a href="#标注与数据格式" class="headerlink" title="标注与数据格式"></a>标注与数据格式</h3><p>分割标注的两种主流格式各有位置。COCO 格式是 JSON：一个图像列表、一个标注列表、一个类别表，每个标注的多边形是顶点坐标的列表：</p>
+<pre class=" language-json"><code class="language-json">&amp;#<span class="token number">123</span><span class="token punctuation">;</span>
+  <span class="token property">"images"</span><span class="token operator">:</span>    <span class="token punctuation">[</span>&amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">"file_name"</span><span class="token operator">:</span> <span class="token string">"a.jpg"</span><span class="token punctuation">,</span> <span class="token property">"width"</span><span class="token operator">:</span> <span class="token number">640</span><span class="token punctuation">,</span> <span class="token property">"height"</span><span class="token operator">:</span> <span class="token number">480</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"annotations"</span><span class="token operator">:</span> <span class="token punctuation">[</span>&amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">"image_id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">"category_id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                   <span class="token property">"segmentation"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">312.1</span><span class="token punctuation">,</span> <span class="token number">96.4</span><span class="token punctuation">,</span> <span class="token number">358.7</span><span class="token punctuation">,</span> <span class="token number">99.2</span><span class="token punctuation">,</span> <span class="token number">355.0</span><span class="token punctuation">,</span> <span class="token number">180.5</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                   <span class="token property">"bbox"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">312</span><span class="token punctuation">,</span> <span class="token number">96</span><span class="token punctuation">,</span> <span class="token number">47</span><span class="token punctuation">,</span> <span class="token number">85</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token property">"area"</span><span class="token operator">:</span> <span class="token number">2380</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"categories"</span><span class="token operator">:</span> <span class="token punctuation">[</span>&amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"helmet"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">]</span>
+&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>实时检测器的分割版本（YOLO 系的 -seg）用更简单的文本格式，每行一个实例，类别 id 后跟归一化的多边形顶点：</p>
+<pre class=" language-text"><code class="language-text">0 0.49 0.20 0.56 0.20 0.55 0.38 0.49 0.37
+</code></pre>
+<p>存储上还有一层选择：多边形适合人看与前端渲染，<strong>RLE（行程长度编码）适合存储</strong>——一个不规则的掩码用 RLE 往往只有多边形 JSON 的几分之一，COCO 官方工具链（pycocotools）的编解码就是围绕 RLE 设计的。数据量大时这个差别会直接体现在磁盘与加载速度上。</p>
+<h3 id="用-ultralytics-训练自己的分割模型"><a href="#用-ultralytics-训练自己的分割模型" class="headerlink" title="用 ultralytics 训练自己的分割模型"></a>用 ultralytics 训练自己的分割模型</h3><p>目录结构与检测完全一致（images 与 labels 对应、txt 同名），只是标注内容从四个数变成多边形顶点。data.yaml 的写法也一样，训练命令把任务换成 segment：</p>
+<pre class=" language-bash"><code class="language-bash">yolo segment train model<span class="token operator">=</span>yolov8n-seg.pt data<span class="token operator">=</span>/absolute/path/to/myseg.yaml epochs<span class="token operator">=</span>150 imgsz<span class="token operator">=</span>640
+yolo segment val   model<span class="token operator">=</span>runs/segment/train/weights/best.pt
+yolo segment predict model<span class="token operator">=</span>runs/segment/train/weights/best.pt source<span class="token operator">=</span>test.jpg
+</code></pre>
+<p>预测结果里除框与类别外，每个实例多一个掩码掩膜，可以直接做面积统计、区域抠图、上下游业务判断。</p>
+<p>数据增强上实例分割有个专属技巧：<strong>copy-paste</strong>——把一个实例连同它的掩码从图上抠下来，贴到另一张图里并同步搬标注，稀有类别的样本量由此直接扩充（CVPR 2021 的 Simple Copy-Paste 工作把它做成了标准方法，配合大规模数据能带来显著增益）。它也解释了分割增强的一条铁律：<strong>所有几何变换必须同时作用于图像与掩码坐标</strong>——图翻转了掩码不翻、图缩放了多边形不缩，标注立刻全错。</p>
+<h3 id="SAM-的三种工程用法"><a href="#SAM-的三种工程用法" class="headerlink" title="SAM 的三种工程用法"></a>SAM 的三种工程用法</h3><p><strong>自动全图分割</strong>：不给提示，在图上按网格撒点，把能分出来的掩码全部输出。适合”不知道图里有什么、先把所有东西分出来”的场景：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> segment_anything <span class="token keyword">import</span> sam_model_registry<span class="token punctuation">,</span> SamAutomaticMaskGenerator
+
+sam <span class="token operator">=</span> sam_model_registry<span class="token punctuation">[</span><span class="token string">"vit_h"</span><span class="token punctuation">]</span><span class="token punctuation">(</span>checkpoint<span class="token operator">=</span><span class="token string">"sam_vit_h.pth"</span><span class="token punctuation">)</span>
+generator <span class="token operator">=</span> SamAutomaticMaskGenerator<span class="token punctuation">(</span>
+    sam<span class="token punctuation">,</span>
+    points_per_side<span class="token operator">=</span><span class="token number">32</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true"># 撒点密度，越大越全、越慢</span>
+    pred_iou_thresh<span class="token operator">=</span><span class="token number">0.88</span><span class="token punctuation">,</span>      <span class="token comment" spellcheck="true"># 按预测 IoU 过滤低质量掩码</span>
+    stability_score_thresh<span class="token operator">=</span><span class="token number">0.95</span><span class="token punctuation">)</span>
+masks <span class="token operator">=</span> generator<span class="token punctuation">.</span>generate<span class="token punctuation">(</span>image_rgb<span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 每个元素含 segmentation、bbox、area、predicted_iou</span>
+</code></pre>
+<p>注意输出的掩码<strong>没有类别、没有语义</strong>，只有”这里有一块东西”。</p>
+<p><strong>交互式提示</strong>：重的图像编码只做一次，之后每次点选只跑轻量解码器——这是 SAM 交互体验的工程基础：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> segment_anything <span class="token keyword">import</span> SamPredictor
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+predictor <span class="token operator">=</span> SamPredictor<span class="token punctuation">(</span>sam<span class="token punctuation">)</span>
+predictor<span class="token punctuation">.</span>set_image<span class="token punctuation">(</span>image_rgb<span class="token punctuation">)</span>                    <span class="token comment" spellcheck="true"># 重：编码一次</span>
+masks<span class="token punctuation">,</span> scores<span class="token punctuation">,</span> _ <span class="token operator">=</span> predictor<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>             <span class="token comment" spellcheck="true"># 轻：可反复调用</span>
+    point_coords<span class="token operator">=</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">375</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    point_labels<span class="token operator">=</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                   <span class="token comment" spellcheck="true"># 1 是前景点，0 是背景点</span>
+    multimask_output<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>                        <span class="token comment" spellcheck="true"># 提示有歧义时返回三个候选</span>
+</code></pre>
+<p><strong>文本组合（Grounded-SAM 模式）</strong>：文本定位模型出框，SAM 沿框出掩码，类别语义来自文本：</p>
+<pre class=" language-python"><code class="language-python">boxes<span class="token punctuation">,</span> phrases <span class="token operator">=</span> grounding_dino<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>image_rgb<span class="token punctuation">,</span> text<span class="token operator">=</span><span class="token string">"helmet . head ."</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 类别以句点分隔</span>
+predictor<span class="token punctuation">.</span>set_image<span class="token punctuation">(</span>image_rgb<span class="token punctuation">)</span>
+masks<span class="token punctuation">,</span> scores<span class="token punctuation">,</span> _ <span class="token operator">=</span> predictor<span class="token punctuation">.</span>predict<span class="token punctuation">(</span>box<span class="token operator">=</span>boxes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> multimask_output<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+</code></pre>
+<p>三种用法的选型：批处理走自动分割加过滤；有用户在环走交互式；类别固定但掩码质量要求高，走文本组合或直接训专用模型。</p>
+<h3 id="掩码的后处理与一个完整链路"><a href="#掩码的后处理与一个完整链路" class="headerlink" title="掩码的后处理与一个完整链路"></a>掩码的后处理与一个完整链路</h3><p>原始掩码通常要过一遍后处理再用：形态学开闭去掉毛刺与孔洞、按连通域面积过滤小噪声、边缘做一至两像素的平滑。这一步代码量很小，对观感的提升立竿见影。</p>
+<p>后处理之前还要知道拿到手的掩码是什么分辨率。SAM 一类模型输出的掩码是<strong>低分辨率 logits 上采样</strong>来的（内部 256 级别再放大到输入尺度），不是原图分辨率——边缘的精度被这个上限框死。做面积统计、尺寸测量这类应用时，边缘几个像素的差异不能当真；需要精确边界时，要么上更高分辨率的专用模型，要么把任务交给 matting 一线（那是一个以边缘为评估核心的独立任务）。</p>
+<p>一个完整的产线例子是<strong>产品计数加缺陷区域定位</strong>：相机采集 → 轻量分割模型（用上文飞轮流程训好）出掩码 → 按连通域计数得到产品数 → 掩码区域的纹理特征交给下游判断缺陷 → 结果图叠加掩码返回。这条链路里分割模型只负责”把区域分出来”，面积、形状、纹理的判断都是普通代码——<strong>分割解决像素归属，业务逻辑用常规编程解决</strong>，两层分工清楚，系统才好维护。</p>
+<p>SAM 类模型的产线角色则是前端的自动标注与新品类的冷启动：新产线、新缺陷类型出现时，组合模型先把初标做完，人工修正后转成专用模型的训练数据。全量 SAM 的权重有 2.4 GB 上下、单图编码在数百毫秒量级，常驻产线不划算，但它做初标的速度远超人工。</p>
+<h2 id="十、常见误解"><a href="#十、常见误解" class="headerlink" title="十、常见误解"></a>十、常见误解</h2><p>“CLIP 能分割一切。” 分割一切是 SAM。CLIP 是图文对齐模型，输出的是”图与文本的匹配程度”，没有像素级输出；它的思想延伸出了 CLIPseg 一类文本提示分割，但那是另一个模型。</p>
+<p>“SAM 知道它分割的是什么。” SAM 是类别无关的：给点给框就出掩码，但掩码没有语义标签。要类别，要么配文本定位模型，要么自己训。</p>
+<p>“实例分割就是更细的语义分割。” 两者目标不同：语义分割不分个体，实例分割不分背景。把两者合起来的是全景分割。</p>
+<p>“掩码 AP 高，抠图效果就好。” mask AP 对边缘一两像素的差异不敏感（十档 IoU 平均会稀释它），人眼对边缘极其敏感。像素级的发丝级抠图是另一个任务（matting），有自己的评估体系。</p>
+<p>“SAM 2 只是加了视频。” SAM 2 的流式记忆让它用更少的图像数据在图像任务上也超过了 SAM 一代，图像场景同样值得换。</p>
+<p>“基础模型让标注失业了。” 固定类别的生产任务仍需要精确的逐实例标注和领域微调；SAM 们降低的是标注成本，不是对标注质量的要求。自动标注的正确用法是”机器初标、人工把关”，而不是直接信任。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1411.4038">1411.4038</a> — Fully Convolutional Networks for Semantic Segmentation（FCN）— CVPR 2015（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1505.04597">1505.04597</a> — U-Net: Convolutional Networks for Biomedical Image Segmentation — MICCAI 2015</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1703.06870">1703.06870</a> — Mask R-CNN — ICCV 2017（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1904.02689">1904.02689</a> — YOLACT: Real-time Instance Segmentation — ICCV 2019（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2003.10152">2003.10152</a> — SOLOv2: Dynamic and Fast Instance Segmentation — NeurIPS 2020（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.12872">2005.12872</a> — End-to-End Object Detection with Transformers（DETR）— ECCV 2020</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.01527">2112.01527</a> — Masked-attention Mask Transformer for Universal Image Segmentation（Mask2Former）— CVPR 2022（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1801.00868">1801.00868</a> — Panoptic Segmentation（全景分割任务定义与 PQ 指标）— CVPR 2019（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1901.02446">1901.02446</a> — Panoptic Feature Pyramid Networks — CVPR 2019（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.07177">2012.07177</a> — Simple Copy-Paste is a Strong Data Augmentation Method for Instance Segmentation — CVPR 2021 Oral（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.02643">2304.02643</a> — Segment Anything（SAM）— ICCV 2023（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2408.00714">2408.00714</a> — SAM 2: Segment Anything in Images and Videos — ICLR 2025</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.12156">2306.12156</a> — Fast Segment Anything（FastSAM）— 预印本 2023</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2306.14289">2306.14289</a> — MobileSAM: Efficient Segment Anything — 预印本 2023</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.11929">2010.11929</a> — An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale（ViT，SAM 图像编码器的基础）— ICLR 2021</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020</a> — Learning Transferable Visual Models From Natural Language Supervision（CLIP）— ICML 2021（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.10003">2112.10003</a> — Image Segmentation Using Text and Image Prompts（CLIPseg）— CVPR 2022（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2303.05499">2303.05499</a> — Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection — ECCV 2024</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/25/InstanceSegmentation/">https://unluckynike.github.io/2026/10/25/InstanceSegmentation/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">
+                                    <span class="chip bg-color">实例分割</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/">
+                                    <span class="chip bg-color">图像分割</span>
+                                </a>
+                            
+                                <a href="/tags/SAM/">
+                                    <span class="chip bg-color">SAM</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                                    <span class="chip bg-color">计算机视觉</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/27/KnowledgeGraphs/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="知识图谱：三元组、构建流水线与大模型时代">
+                        
+                        <span class="card-title">知识图谱：三元组、构建流水线与大模型时代</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            知识图谱回答的是"谁和谁有什么关系"——把世界拆成实体和关系，存成图，再让机器查询和推理。难点从来不在存图，而在把混乱的自然语言变成干净的三元组：实体抽取、关系抽取、实体消歧，每一步都在跟歧义作战
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-27
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                        <span class="chip bg-color">知识图谱</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/">
+                        <span class="chip bg-color">实体识别</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AE%9E%E4%BD%93%E9%93%BE%E6%8E%A5/">
+                        <span class="chip bg-color">实体链接</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                        <span class="chip bg-color">图数据库</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/24/Yolov8Practice/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="YOLOv8 实战：环境、数据、训练与部署">
+                        
+                        <span class="card-title">YOLOv8 实战：环境、数据、训练与部署</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            从一个空环境开始：装依赖、跑通第一次推理、标注自己的数据、训练、读懂训练产物、导出部署——每一步给命令、预期输出和踩坑提示，全程不需要先懂检测原理
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2/">
+                        <span class="chip bg-color">模型部署</span>
+                    </a>
+                    
+                    <a href="/tags/YOLO/">
+                        <span class="chip bg-color">YOLO</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/">
+                        <span class="chip bg-color">目标检测</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83/">
+                        <span class="chip bg-color">模型训练</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+    
+
+
+<div class="related-posts">
+    <div class="related-title"><i class="fas fa-book-reader"></i>&nbsp;&nbsp;相关文章</div>
+    <div class="related-list">
+        
+        <a class="related-item" href="/2026/10/20/YoloHowItWorks/" title="YOLO 是怎么工作的：目标检测的原理与流程">
+            <span class="related-item-title">YOLO 是怎么工作的：目标检测的原理与流程</span>
+            <span class="related-item-meta">2026-10-20</span>
+        </a>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            tags: 'ams'
+        },
+        svg: {fontCache: 'global'},
+        options: {skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']}
+    };
+</script>
+<script id="MathJax-script" async src="/libs/mathjax/tex-svg-full.js"></script>
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">309k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

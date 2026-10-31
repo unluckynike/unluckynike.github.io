@@ -1,0 +1,1917 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="知识图谱：三元组、构建流水线与大模型时代, Java,Python,Deep Learning,Artificial Intelligence,SQL,React,Vue.js等">
+    <meta name="description" content="知识图谱回答的是&#34;谁和谁有什么关系&#34;——把世界拆成实体和关系，存成图，再让机器查询和推理。难点从来不在存图，而在把混乱的自然语言变成干净的三元组：实体抽取、关系抽取、实体消歧，每一步都在跟歧义作战">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>知识图谱：三元组、构建流水线与大模型时代 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book-open" style="zoom: 0.6;"></i>
+      
+      <span>阅读</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="https://unluckynike.github.io/ml-notes/" target="_blank" rel="noopener">
+          
+          <span>像搭积木一样了解AI-2026</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            正在学习编程的小猿，热爱生活，更爱学习
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book-open"></i>
+			
+			阅读
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="https://unluckynike.github.io/ml-notes/ " style="margin-left:75px">
+				  
+		          <span>ml_notes</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">知识图谱：三元组、构建流水线与大模型时代</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                                <span class="chip bg-color">知识图谱</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/">
+                                <span class="chip bg-color">实体识别</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AE%9E%E4%BD%93%E9%93%BE%E6%8E%A5/">
+                                <span class="chip bg-color">实体链接</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                <span class="chip bg-color">图数据库</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-10-27
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-10-31
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    13.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    48 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>把”姚明效力于休斯敦火箭”写成一条机器可查的数据，中间要跨过实体识别、关系抽取、实体消歧三道坎——每一道都在跟歧义作战。</p>
+</blockquote>
+<h2 id="一、知识图谱是什么"><a href="#一、知识图谱是什么" class="headerlink" title="一、知识图谱是什么"></a>一、知识图谱是什么</h2><p>知识图谱用图结构表示知识：<strong>节点是实体</strong>（人、公司、城市、概念），<strong>边是关系</strong>（效力于、位于、收购），部分节点和边上还挂属性。最小的知识单元是三元组：</p>
+<pre class=" language-text"><code class="language-text">（姚明，效力于，休斯敦火箭）
+（休斯敦火箭，位于，休斯敦）
+（姚明，身高，2.26 米）
+</code></pre>
+<p>成千上万条三元组连起来，就是一张图。它的价值不在”存了”，而在”连了”：多跳查询可以从”姚明”出发走到”休斯敦火箭”再走到”NBA”再走到其他球队，这种跨实体的关联查询，关系数据库要写多层 JOIN，文档数据库表达不了 schema 之外的关系，文本检索更是只能靠词面匹配。</p>
+<p>Google 在 2012 年推出知识图谱时给过一个准确的定位：”things, not strings”——搜索的终点不该是字符串匹配，而应该是字符串背后那个<strong>有唯一身份的东西</strong>。”苹果”这个词指向的是公司还是水果，取决于它背后连接的实体节点，而不是字符串本身。这句话点出了知识图谱的全部核心：实体要有唯一身份，关系要有明确定义。</p>
+<p>和关系数据库对比一句：关系库的 schema 是先定的、强类型的，查询是结构化的；知识图谱的 schema（本体）相对灵活，实体和关系可以增量生长，查询既有结构化语义（图模式匹配）也兼容模糊语义（嵌入相似度）。它不是替代关系数据库，而是解决”关系复杂、语义多样、持续演化”那类问题。</p>
+<h2 id="二、标志性工程与数据来源"><a href="#二、标志性工程与数据来源" class="headerlink" title="二、标志性工程与数据来源"></a>二、标志性工程与数据来源</h2><p>通用的知识图谱大多从百科起家。</p>
+<p>Freebase（SIGMOD 2008）是早期影响最大的尝试：社区协作、以实体为中心组织数据，后来被 Google 收购并成为知识图谱最初的底座，2016 年停止维护后数据迁移给了 Wikidata。DBpedia（ISWC 2007）的思路不同：自动抽取维基百科信息框的结构化内容，证明”从现有百科机械地造图”可行。YAGO（WWW 2007）把维基百科与 WordNet 的类别体系对齐，兼顾了规模与语义层级。Wikidata（CACM 2014）是现在最大的 freely 可编辑知识库：中央化、多语言、带引用来源，数据以 CC0 发布。</p>
+<p>领域知识图谱是另一条线：金融（股权、担保、供应链关系）、医疗（疾病、症状、药物、指南）、公安（人、案件、组织）、工业（设备、工艺、故障）。领域图谱的实体规模通常小得多，但 schema 更深、关系类型更专业、对准确率的要求更苛刻——通用图谱可以容忍 5% 的错误，风控图谱里一条错误的股权关系就是真金白银。</p>
+<h2 id="三、构建流水线之一：实体抽取"><a href="#三、构建流水线之一：实体抽取" class="headerlink" title="三、构建流水线之一：实体抽取"></a>三、构建流水线之一：实体抽取</h2><p>从原始文本到知识图谱，第一站是把文本里的<strong>实体提及</strong>（mention）找出来——这就是命名实体识别（NER），也叫实体抽取。它通常建模为序列标注任务：给每个 token 打一个标签（B-PER、I-PER、O 这类），标签序列解码出实体的边界和类型。</p>
+<p>深度学习时代的标准结构是 BiLSTM 加条件随机场（Lample 与 Devine，NAACL 2016）：BiLSTM 负责上下文表征，CRF 负责标签之间的转移约束（比如 I-PER 不能直接跟在 B-LOC 后面）。BERT 一类的预训练模型出现后，结构简化为”预训练编码器加线性层加 CRF”，主流场景的 F1 能到 90% 以上。</p>
+<p>工程上真正难的不是模型，是三件外围的事：<strong>领域实体</strong>（产品型号、零件编号、疾病名称不在通用预训练的视野里，要么加词典匹配、要么标注微调）；<strong>嵌套实体</strong>（”北京大学计算机系”里套着”北京大学”，扁平标注范式处理不了，需要嵌套 NER 的专门设计）；<strong>边界歧义</strong>（”长江大桥”是一个实体还是”长江”加”大桥”两个）。NER 的错误会沿着流水线向下游传播——实体找错了，后面的关系和消歧全部白做，所以构建流水线里它值得最先打磨。</p>
+<p>大模型时代 NER 又有了新做法：把实体抽取改写成指令跟随任务（从文本里抽出所有机构名，输出 JSON），少量标注加提示就能到不错的水平，特别适合冷启动；生产上常见的组合是大模型初抽加人工修正，再把修正数据沉淀给小模型。</p>
+<h2 id="四、构建流水线之二：关系抽取与事件抽取"><a href="#四、构建流水线之二：关系抽取与事件抽取" class="headerlink" title="四、构建流水线之二：关系抽取与事件抽取"></a>四、构建流水线之二：关系抽取与事件抽取</h2><p>实体之间没有关系就成不了图。关系抽取的任务是判断两个实体之间存在什么关系——给定”姚明”和”休斯敦火箭”，输出”效力于”。</p>
+<p>有监督关系抽取效果最好，前提是有标注数据。标注成本高，于是有<strong>远程监督</strong>（Mintz 等，ACL 2009）：用已有的知识图谱反向对齐文本——图里已有（姚明，效力于，休斯敦火箭），就找所有同时包含这两个实体的句子自动打上”效力于”标签。它解决标注成本的方式也埋了雷：对齐到的句子未必真的在表达这个关系（提到姚明和火箭的句子可能在说身高），噪声标注需要专门处理。</p>
+<p>OpenIE 一线的信息抽取走的是另一条路：不预定关系类型，直接从句子里抽出（主语，关系短语，宾语）三元组，优点是完全开放、什么都抽，缺点是关系短语没法归一——“效力于””加入””签约”是三个不同的短语，指的可能是同一件事。</p>
+<p>大模型时代关系抽取被改写成了指令任务，零样本和小样本能力都不错，尤其在 schema 复杂、类别多的场景。要留意的还是老问题：大模型会”顺理成章地补全”不存在的关系，验证环节不能省。</p>
+<p>比关系抽取更上一层的<strong>事件抽取</strong>：不止抽取二元关系，还要识别”某时某地某人做了某事”这样的事件结构（触发词、论元角色）。金融风控里的担保链、供应链转移这类多主体场景，事件抽取是比关系抽取更贴切的工具。</p>
+<h2 id="五、构建流水线之三：实体消歧与实体链接"><a href="#五、构建流水线之三：实体消歧与实体链接" class="headerlink" title="五、构建流水线之三：实体消歧与实体链接"></a>五、构建流水线之三：实体消歧与实体链接</h2><p>这是流水线里最容易被低估、也最见功力的一环。<strong>实体链接</strong>要解决的问题是：文本里提到的那个 mention，对应知识图谱里的哪个实体节点？</p>
+<p>难在歧义无处不在，双向都有。<strong>一名多实</strong>（同名不同物）：文本里的”苹果”可能指公司、水果或电影；”华盛顿”可能是人、城市或州。<strong>多实一名</strong>（别名问题）：同一个实体有全称、简称、译名、绰号——“腾讯””腾讯控股””鹅厂”都指向一个节点，英文文本里”NYC”和”New York City”也是。</p>
+<p>实体链接的流水线通常分三步：<strong>候选生成</strong>（用别名表、拼写纠错、检索把 mention 映射到一批候选实体）；<strong>消歧打分</strong>（对每个候选算一个分数——上下文相似度、流行度先验、与已链接实体的连贯性）；<strong>决策</strong>（取最高分或留给人工）。消歧打分的直觉是看上下文：”苹果发布了新手机”里出现”手机””发布会”，公司实体的得分就压过水果。</p>
+<p>消歧错误的代价分布很不均匀。把用户的”苹果”链到水果，搜索结果只是不对；把一条”某公司法人变更”的信息链到同名的无关人员，风控图谱就多了一条假股权线。<strong>消歧的置信度阈值必须按业务的错误代价来定</strong>，低置信度的链接宁可悬空等人工确认，而不是自动进图。</p>
+<p>消歧之后的<strong>知识融合</strong>还要处理属性冲突和模式对齐：同一实体在两个数据源里的出生日期不一致信谁；A 源的”法人”关系怎么对应 B 源的”legal representative”。多源融合的常规做法是给属性标可信级、保留出处（provenance）、冲突时按规则仲裁——答案不一定要唯一，但每条知识都要能说出”我从哪来”。</p>
+<h2 id="六、存储与查询"><a href="#六、存储与查询" class="headerlink" title="六、存储与查询"></a>六、存储与查询</h2><p>三元组存下来之后，用什么查、怎么查，决定了图谱好不好用。</p>
+<p>一条路线是 <strong>RDF 与 SPARQL</strong>（W3C 标准）：数据是三元组集合，查询用 SPARQL 写图模式。它的优势是标准化、开放数据生态（Wikidata、DBpedia 都以 RDF 发布）、对分布式数据集成的支持；代价是工程生态相对小众，高性能查询需要对存储引擎的理解。</p>
+<p>另一条路线是<strong>属性图与图数据库</strong>：Neo4j 是代表，节点和关系都可以挂属性，查询语言 Cypher 用 ASCII 箭头描述图模式（<code>(a:Person)-[:WORKS_FOR]-&gt;(c:Company)</code>），上手快，可视化工具成熟。生产里的领域图谱大量长在 Neo4j 或国产图数据库上。</p>
+<p>选型的实用判断：<strong>数据已有关系数据库且查询以多表 JOIN 为主，深度在三四层以内，PostgreSQL 加递归查询往往够用</strong>；需要频繁变 schema、多跳遍历、图算法（最短路、社区发现），图数据库才体现出价值；要对接开放数据和语义网标准，选 RDF 栈。也有折中形态：关系数据库里用邻接表存边，配合递归 CTE 做遍历——规模不大时这是运维成本最低的方案。</p>
+<h2 id="七、表示学习与推理"><a href="#七、表示学习与推理" class="headerlink" title="七、表示学习与推理"></a>七、表示学习与推理</h2><p>图查得到”已有”的知识，推理要回答”没写出来”的知识。表示学习（知识图谱嵌入）的思路：把实体和关系都映射成低维向量，让”头实体加关系应该接近尾实体”在向量空间里成立。TransE（NeurIPS 2013）是开山之作——把关系建模为向量空间里的平移：如果（姚明，效力于，休斯敦火箭）成立，那么”姚明的向量 + 效力于的向量”应该落在”火箭的向量”附近。</p>
+<p>后续十年沿着三个方向修补 TransE 的表达力：对称关系（”夫妻”关系正反等价）平移模型处理不好，ComplEx 一线引入复数空间、RotatE（ICLR 2019）把关系建模为复平面上的旋转，对称、反对称、互逆、组合这些关系模式都能表达</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/kg_rotate_complex.png" alt="RotatE：把关系建模为复平面上的旋转"></p>
+<p><em>图源：Sun 等，RotatE: Knowledge Graph Embedding by Relational Rotation in Complex Space（ICLR 2019）论文原图</em>；多关系图上的图神经网络（R-GCN 一线，ESWC 2018）让邻域信息直接参与实体表示；加上文本描述的联合训练（KG-BERT 一线）让模型”读过”实体的文字定义。</p>
+<p>这类嵌入的直接用途是<strong>链接预测</strong>：给定头实体和关系，给所有尾实体打分排序，补全图谱里缺失的边。评估用 MRR（正确答案排名倒数的平均）与 Hits@k（排名前 k 内命中正确答案的比例）——它们回答的是”图谱缺的知识，模型能不能猜回来”，这和业务查询的准确率是两回事，报告时要分开。</p>
+<h2 id="八、知识图谱与大模型"><a href="#八、知识图谱与大模型" class="headerlink" title="八、知识图谱与大模型"></a>八、知识图谱与大模型</h2><p>大模型与知识图谱的互补关系是目前最清晰的一条线。大模型的知识编码在权重里：不可更新、不可溯源、会幻觉。知识图谱恰好相反：知识显式、可溯源、可增量更新，但表达受限、查询是刚性的。两个方向都在发生。</p>
+<p><strong>用图谱增强大模型</strong>：检索增强生成里，把知识图谱作为检索源——子图检索（从问题出发在图上走几跳，取回一个子图而不是几个孤立片段）、图增强的上下文组织（按图谱结构组织证据，而不是拍平的文本列表）。GraphRAG（预印本 2024）用社区摘要回答全局性问题——“这批文档主要在讲什么”这类没有单个片段能回答的问题，—<br>title: 知识图谱：三元组、构建流水线与大模型时代<br>date: 2026-10-27 09:30:00<br>tags:<br>    - 知识图谱<br>    - 实体识别<br>    - 实体链接<br>    - 图数据库<br>categories: 人工智能<br>summary: 知识图谱回答的是”谁和谁有什么关系”——把世界拆成实体和关系，存成图，再让机器查询和推理。难点从来不在存图，而在把混乱的自然语言变成干净的三元组：实体抽取、关系抽取、实体消歧，每一步都在跟歧义作战</p>
+<hr>
+<blockquote>
+<p>把”姚明效力于休斯敦火箭”写成一条机器可查的数据，中间要跨过实体识别、关系抽取、实体消歧三道坎——每一道都在跟歧义作战。</p>
+</blockquote>
+<h2 id="一、知识图谱是什么-1"><a href="#一、知识图谱是什么-1" class="headerlink" title="一、知识图谱是什么"></a>一、知识图谱是什么</h2><p>知识图谱用图结构表示知识：<strong>节点是实体</strong>（人、公司、城市、概念），<strong>边是关系</strong>（效力于、位于、收购），部分节点和边上还挂属性。最小的知识单元是三元组：</p>
+<pre class=" language-text"><code class="language-text">（姚明，效力于，休斯敦火箭）
+（休斯敦火箭，位于，休斯敦）
+（姚明，身高，2.26 米）
+</code></pre>
+<p>成千上万条三元组连起来，就是一张图。它的价值不在”存了”，而在”连了”：多跳查询可以从”姚明”出发走到”休斯敦火箭”再走到”NBA”再走到其他球队，这种跨实体的关联查询，关系数据库要写多层 JOIN，文档数据库表达不了 schema 之外的关系，文本检索更是只能靠词面匹配。</p>
+<p>Google 在 2012 年推出知识图谱时给过一个准确的定位：”things, not strings”——搜索的终点不该是字符串匹配，而应该是字符串背后那个<strong>有唯一身份的东西</strong>。”苹果”这个词指向的是公司还是水果，取决于它背后连接的实体节点，而不是字符串本身。这句话点出了知识图谱的全部核心：实体要有唯一身份，关系要有明确定义。</p>
+<p>和关系数据库对比一句：关系库的 schema 是先定的、强类型的，查询是结构化的；知识图谱的 schema（本体）相对灵活，实体和关系可以增量生长，查询既有结构化语义（图模式匹配）也兼容模糊语义（嵌入相似度）。它不是替代关系数据库，而是解决”关系复杂、语义多样、持续演化”那类问题。</p>
+<h2 id="二、标志性工程与数据来源-1"><a href="#二、标志性工程与数据来源-1" class="headerlink" title="二、标志性工程与数据来源"></a>二、标志性工程与数据来源</h2><p>通用的知识图谱大多从百科起家。</p>
+<p>Freebase（SIGMOD 2008）是早期影响最大的尝试：社区协作、以实体为中心组织数据，后来被 Google 收购并成为知识图谱最初的底座，2016 年停止维护后数据迁移给了 Wikidata。DBpedia（ISWC 2007）的思路不同：自动抽取维基百科信息框的结构化内容，证明”从现有百科机械地造图”可行。YAGO（WWW 2007）把维基百科与 WordNet 的类别体系对齐，兼顾了规模与语义层级。Wikidata（CACM 2014）是现在最大的 freely 可编辑知识库：中央化、多语言、带引用来源，数据以 CC0 发布。</p>
+<p>领域知识图谱是另一条线：金融（股权、担保、供应链关系）、医疗（疾病、症状、药物、指南）、公安（人、案件、组织）、工业（设备、工艺、故障）。领域图谱的实体规模通常小得多，但 schema 更深、关系类型更专业、对准确率的要求更苛刻——通用图谱可以容忍 5% 的错误，风控图谱里一条错误的股权关系就是真金白银。</p>
+<h2 id="三、构建流水线之一：实体抽取-1"><a href="#三、构建流水线之一：实体抽取-1" class="headerlink" title="三、构建流水线之一：实体抽取"></a>三、构建流水线之一：实体抽取</h2><p>从原始文本到知识图谱，第一站是把文本里的<strong>实体提及</strong>（mention）找出来——这就是命名实体识别（NER），也叫实体抽取。它通常建模为序列标注任务：给每个 token 打一个标签（B-PER、I-PER、O 这类），标签序列解码出实体的边界和类型。</p>
+<p>深度学习时代的标准结构是 BiLSTM 加条件随机场（Lample 与 Devine，NAACL 2016）：BiLSTM 负责上下文表征，CRF 负责标签之间的转移约束（比如 I-PER 不能直接跟在 B-LOC 后面）。BERT 一类的预训练模型出现后，结构简化为”预训练编码器加线性层加 CRF”，主流场景的 F1 能到 90% 以上。</p>
+<p>工程上真正难的不是模型，是三件外围的事：<strong>领域实体</strong>（产品型号、零件编号、疾病名称不在通用预训练的视野里，要么加词典匹配、要么标注微调）；<strong>嵌套实体</strong>（”北京大学计算机系”里套着”北京大学”，扁平标注范式处理不了，需要嵌套 NER 的专门设计）；<strong>边界歧义</strong>（”长江大桥”是一个实体还是”长江”加”大桥”两个）。NER 的错误会沿着流水线向下游传播——实体找错了，后面的关系和消歧全部白做，所以构建流水线里它值得最先打磨。</p>
+<p>大模型时代 NER 又有了新做法：把实体抽取改写成指令跟随任务（从文本里抽出所有机构名，输出 JSON），少量标注加提示就能到不错的水平，特别适合冷启动；生产上常见的组合是大模型初抽加人工修正，再把修正数据沉淀给小模型。</p>
+<h2 id="四、构建流水线之二：关系抽取与事件抽取-1"><a href="#四、构建流水线之二：关系抽取与事件抽取-1" class="headerlink" title="四、构建流水线之二：关系抽取与事件抽取"></a>四、构建流水线之二：关系抽取与事件抽取</h2><p>实体之间没有关系就成不了图。关系抽取的任务是判断两个实体之间存在什么关系——给定”姚明”和”休斯敦火箭”，输出”效力于”。</p>
+<p>有监督关系抽取效果最好，前提是有标注数据。标注成本高，于是有<strong>远程监督</strong>（Mintz 等，ACL 2009）：用已有的知识图谱反向对齐文本——图里已有（姚明，效力于，休斯敦火箭），就找所有同时包含这两个实体的句子自动打上”效力于”标签。它解决标注成本的方式也埋了雷：对齐到的句子未必真的在表达这个关系（提到姚明和火箭的句子可能在说身高），噪声标注需要专门处理。</p>
+<p>OpenIE 一线的信息抽取走的是另一条路：不预定关系类型，直接从句子里抽出（主语，关系短语，宾语）三元组，优点是完全开放、什么都抽，缺点是关系短语没法归一——“效力于””加入””签约”是三个不同的短语，指的可能是同一件事。</p>
+<p>大模型时代关系抽取被改写成了指令任务，零样本和小样本能力都不错，尤其在 schema 复杂、类别多的场景。要留意的还是老问题：大模型会”顺理成章地补全”不存在的关系，验证环节不能省。</p>
+<p>比关系抽取更上一层的<strong>事件抽取</strong>：不止抽取二元关系，还要识别”某时某地某人做了某事”这样的事件结构（触发词、论元角色）。金融风控里的担保链、供应链转移这类多主体场景，事件抽取是比关系抽取更贴切的工具。</p>
+<h2 id="五、构建流水线之三：实体消歧与实体链接-1"><a href="#五、构建流水线之三：实体消歧与实体链接-1" class="headerlink" title="五、构建流水线之三：实体消歧与实体链接"></a>五、构建流水线之三：实体消歧与实体链接</h2><p>这是流水线里最容易被低估、也最见功力的一环。<strong>实体链接</strong>要解决的问题是：文本里提到的那个 mention，对应知识图谱里的哪个实体节点？</p>
+<p>难在歧义无处不在，双向都有。<strong>一名多实</strong>（同名不同物）：文本里的”苹果”可能指公司、水果或电影；”华盛顿”可能是人、城市或州。<strong>多实一名</strong>（别名问题）：同一个实体有全称、简称、译名、绰号——“腾讯””腾讯控股””鹅厂”都指向一个节点，英文文本里”NYC”和”New York City”也是。</p>
+<p>实体链接的流水线通常分三步：<strong>候选生成</strong>（用别名表、拼写纠错、检索把 mention 映射到一批候选实体）；<strong>消歧打分</strong>（对每个候选算一个分数——上下文相似度、流行度先验、与已链接实体的连贯性）；<strong>决策</strong>（取最高分或留给人工）。消歧打分的直觉是看上下文：”苹果发布了新手机”里出现”手机””发布会”，公司实体的得分就压过水果。</p>
+<p>消歧错误的代价分布很不均匀。把用户的”苹果”链到水果，搜索结果只是不对；把一条”某公司法人变更”的信息链到同名的无关人员，风控图谱就多了一条假股权线。<strong>消歧的置信度阈值必须按业务的错误代价来定</strong>，低置信度的链接宁可悬空等人工确认，而不是自动进图。</p>
+<p>消歧之后的<strong>知识融合</strong>还要处理属性冲突和模式对齐：同一实体在两个数据源里的出生日期不一致信谁；A 源的”法人”关系怎么对应 B 源的”legal representative”。多源融合的常规做法是给属性标可信级、保留出处（provenance）、冲突时按规则仲裁——答案不一定要唯一，但每条知识都要能说出”我从哪来”。</p>
+<h2 id="六、存储与查询-1"><a href="#六、存储与查询-1" class="headerlink" title="六、存储与查询"></a>六、存储与查询</h2><p>三元组存下来之后，用什么查、怎么查，决定了图谱好不好用。</p>
+<p>一条路线是 <strong>RDF 与 SPARQL</strong>（W3C 标准）：数据是三元组集合，查询用 SPARQL 写图模式。它的优势是标准化、开放数据生态（Wikidata、DBpedia 都以 RDF 发布）、对分布式数据集成的支持；代价是工程生态相对小众，高性能查询需要对存储引擎的理解。</p>
+<p>另一条路线是<strong>属性图与图数据库</strong>：Neo4j 是代表，节点和关系都可以挂属性，查询语言 Cypher 用 ASCII 箭头描述图模式（<code>(a:Person)-[:WORKS_FOR]-&gt;(c:Company)</code>），上手快，可视化工具成熟。生产里的领域图谱大量长在 Neo4j 或国产图数据库上。</p>
+<p>选型的实用判断：<strong>数据已有关系数据库且查询以多表 JOIN 为主，深度在三四层以内，PostgreSQL 加递归查询往往够用</strong>；需要频繁变 schema、多跳遍历、图算法（最短路、社区发现），图数据库才体现出价值；要对接开放数据和语义网标准，选 RDF 栈。也有折中形态：关系数据库里用邻接表存边，配合递归 CTE 做遍历——规模不大时这是运维成本最低的方案。</p>
+<h2 id="七、表示学习与推理-1"><a href="#七、表示学习与推理-1" class="headerlink" title="七、表示学习与推理"></a>七、表示学习与推理</h2><p>图查得到”已有”的知识，推理要回答”没写出来”的知识。表示学习（知识图谱嵌入）的思路：把实体和关系都映射成低维向量，让”头实体加关系应该接近尾实体”在向量空间里成立。TransE（NeurIPS 2013）是开山之作——把关系建模为向量空间里的平移：如果（姚明，效力于，休斯敦火箭）成立，那么”姚明的向量 + 效力于的向量”应该落在”火箭的向量”附近。</p>
+<p>后续十年沿着三个方向修补 TransE 的表达力：对称关系（”夫妻”关系正反等价）平移模型处理不好，ComplEx 一线引入复数空间、RotatE（ICLR 2019）把关系建模为复平面上的旋转，对称、反对称、互逆、组合这些关系模式都能表达</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/kg_rotate_complex.png" alt="RotatE：把关系建模为复平面上的旋转"></p>
+<p><em>图源：Sun 等，RotatE: Knowledge Graph Embedding by Relational Rotation in Complex Space（ICLR 2019）论文原图</em>；多关系图上的图神经网络（R-GCN 一线，ESWC 2018）让邻域信息直接参与实体表示；加上文本描述的联合训练（KG-BERT 一线）让模型”读过”实体的文字定义。</p>
+<p>这类嵌入的直接用途是<strong>链接预测</strong>：给定头实体和关系，给所有尾实体打分排序，补全图谱里缺失的边。评估用 MRR（正确答案排名倒数的平均）与 Hits@k（排名前 k 内命中正确答案的比例）——它们回答的是”图谱缺的知识，模型能不能猜回来”，这和业务查询的准确率是两回事，报告时要分开。</p>
+<h2 id="八、知识图谱与大模型-1"><a href="#八、知识图谱与大模型-1" class="headerlink" title="八、知识图谱与大模型"></a>八、知识图谱与大模型</h2><p>大模型与知识图谱的互补关系是目前最清晰的一条线。大模型的知识编码在权重里：不可更新、不可溯源、会幻觉。知识图谱恰好相反：知识显式、可溯源、可增量更新，但表达受限、查询是刚性的。两个方向都在发生。</p>
+<p><strong>用图谱增强大模型</strong>：检索增强生成里，把知识图谱作为检索源——子图检索（从问题出发在图上走几跳，取回一个子图而不是几个孤立片段）、图增强的上下文组织（按图谱结构组织证据，而不是拍平的文本列表）。GraphRAG（预印本 2024）用社区摘要回答全局性问题——“这批文档主要在讲什么”这类没有单个片段能回答的问题，靠的是图谱预先聚合出的社区级摘要。</p>
+<p>而今天很多系统里图谱参与 RAG 的实际形态是<strong>混合检索</strong>：先用向量检索从问题找到种子实体或片段，再沿图扩几跳把关联子图取回来——向量的语义召回负责”从哪进图”，图的遍历负责”把相关的结构带全”。纯向量、纯图遍历、混合三种形态的选择，取决于问题偏语义（开放问答）还是偏结构（多跳关系）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/kg_graphrag_l0.jpg" alt="GraphRAG：社区级摘要回答全局性问题的示意"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/kg_graphrag_l1.jpg" alt="GraphRAG：多跳查询的层次化组织"></p>
+<p><em>图源：Edge 等，From Local to Global: A Graph RAG Approach to Query-Focused Summarization（预印本 2024）论文原图</em>图谱还有个隐性价值：<strong>给幻觉一个校验器</strong>——生成的答案先过一遍图谱核对实体与关系，不一致就拦下。</p>
+<p><strong>用大模型增强图谱</strong>：第三到五节的构建流水线（实体抽取、关系抽取、实体链接）如今都可以由大模型完成初版，人工只做修正——这反过来降低了构建领域图谱的门槛，让过去”标注成本撑不起”的图谱项目变得可行。</p>
+<p>两者的边界也要说清：图谱不解决大模型的推理能力问题，大模型也不自动带来图谱需要的准确性。<strong>图谱提供经过治理的事实与关系结构，大模型提供语言理解与生成</strong>——把两者当成互补组件来设计，比争论”谁替代谁”有用得多。</p>
+<h2 id="九、应用"><a href="#九、应用" class="headerlink" title="九、应用"></a>九、应用</h2><p>搜索与问答是最早也最广的落点：实体卡片、多跳问答（”姚明效力的球队的主场在哪个城市”要跨两跳）、对话里的实体跟踪。</p>
+<p><strong>金融风控</strong>是价值最硬的场景之一：股权穿透（往上找实际控制人）、担保圈识别（循环担保的环检测）、关联方挖掘。图谱的图结构在这里不是锦上添花——循环担保用 SQL 写多层自连接几乎不可维护，图上是一步遍历。这类图谱对关系准确率极度敏感，构建时的消歧阈值与人工审核流程就是核心工程。</p>
+<p><strong>医疗</strong>：疾病-症状-药品-检查的关联图谱支撑辅助诊断与用药审查，知识来源是指南与文献，对”每条知识带引用”的要求最严格。</p>
+<p><strong>推荐</strong>：把用户行为与物品属性图谱连接，用图路径解释”为什么推荐这个”——可解释性是图谱推荐相对向量召回的差异化优势。</p>
+<p>共同点是：这些场景里图谱都承担”事实与关系的单一可信来源”角色，模型和检索都围着它转。图谱建得乱，上层的智能就无从谈起。</p>
+<h2 id="十、工程实践：工具链与代码"><a href="#十、工程实践：工具链与代码" class="headerlink" title="十、工程实践：工具链与代码"></a>十、工程实践：工具链与代码</h2><h3 id="先设计-schema，再抽数据"><a href="#先设计-schema，再抽数据" class="headerlink" title="先设计 schema，再抽数据"></a>先设计 schema，再抽数据</h3><p>抽三元组之前，先回答”图谱里允许存在什么”——本体（ontology）或 schema 设计。四个决策决定后面所有的返工率。</p>
+<p><strong>实体类型怎么定</strong>。从业务问题倒推，而不是从数据倒推：风控图谱要回答”实际控制人是谁”，就必须有”自然人&#x2F;法人&#x2F;股权”这些类型；问答图谱要回答”怎么配置”，类型就按文档章节走。类型清单要写文档（每个类型的定义、必填属性、与其他类型的关系），这份文档就是后面消歧的判定依据。</p>
+<p><strong>关系类型怎么定</strong>。每个关系要有方向约定（谁指向谁）与语义定义（”合作”太含糊，要拆成”供货””联合研发”这类可判定关系）。关系类型宜精不宜多——二十个定义清晰的关系，比一百个互相重叠的关系有用得多。</p>
+<p><strong>属性挂哪边</strong>。同样的信息可以做成属性（节点上的字段）或关系（连到另一个节点），判断标准是”这个信息要不要参与图遍历、要不要挂自己的属性”。会参与遍历的（公司到法人）做成关系；只是描述性的（公司到成立日期）做成属性。</p>
+<p><strong>要不要复用现成本体</strong>。通用领域有 schema.org、Wikidata 的属性体系可以借用；领域本体（FIBO 之于金融、SNOMED 之于医疗）起步参考结构即可，通常要按业务大幅裁剪。自建本体时，先在纸面用三个真实业务问题做”查询演练”——能用设计好的 schema 表达这三个问题，再动手建库；表达不出来就说明类型设计有缺口。</p>
+<p>schema 一定会演化。做法是给 schema 记版本（类型与关系的增删改都留记录）、新增向后兼容（旧数据不改也能查）、废弃先标记后删除——和数据库的 schema 演化是同一套纪律。</p>
+<h3 id="工具链全景"><a href="#工具链全景" class="headerlink" title="工具链全景"></a>工具链全景</h3><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>常用工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>本体设计</td>
+<td>Protégé</td>
+<td>schema 先行的项目从这里起步，可视化编辑类与属性</td>
+</tr>
+<tr>
+<td>实体抽取</td>
+<td>DeepKE、OpenNRE、大模型指令抽取</td>
+<td>DeepKE 覆盖 NER&#x2F;关系&#x2F;事件抽取，支持低资源场景</td>
+</tr>
+<tr>
+<td>知识融合</td>
+<td>Dedupe、大模型辅助对齐</td>
+<td>实体去重与属性仲裁</td>
+</tr>
+<tr>
+<td>存储</td>
+<td>Neo4j、NebulaGraph、GraphDB、PostgreSQL 加 Apache AGE</td>
+<td>按规模、查询语言与团队生态选</td>
+</tr>
+<tr>
+<td>表示学习</td>
+<td>PyKEEN、DGL-KE、LibKGE</td>
+<td>训练 TransE、RotatE 一族的标准库</td>
+</tr>
+<tr>
+<td>可视化</td>
+<td>yEd、Gephi、Neo4j Bloom</td>
+<td>中小规模图谱的人工检视</td>
+</tr>
+</tbody></table>
+<p>选型的主线就一条：<strong>先定查询语言，再定存储</strong>。团队写 Cypher 顺手就选属性图系，要对接开放数据与 W3C 标准就选 RDF 系——这个决定比具体用哪一家产品重要得多，迁移成本主要在查询语言上。</p>
+<h3 id="用-Neo4j-建图与查询"><a href="#用-Neo4j-建图与查询" class="headerlink" title="用 Neo4j 建图与查询"></a>用 Neo4j 建图与查询</h3><p>以第一节的三元组为例，Cypher 的建图与查询：</p>
+<pre class=" language-cypher"><code class="language-cypher">// 建实体与关系
+CREATE (y:Person &#123;name: '姚明'&#125;)
+CREATE (r:Team &#123;name: '休斯敦火箭'&#125;)
+CREATE (y)-[:WORKS_FOR &#123;since: 2002&#125;]->(r);
+</code></pre>
+<pre class=" language-cypher"><code class="language-cypher">// 多跳查询：姚明效力的球队所在联盟里的其他球队
+MATCH (p:Person &#123;name: '姚明'&#125;)-[:WORKS_FOR]->(t)-[:IN_LEAGUE]->(l)
+      <-[:IN_LEAGUE]-(t2)
+RETURN t2.name;
+</code></pre>
+<p>这种跨实体的遍历正是图谱相对关系数据库的甜区——同样的查询用 SQL 写多层自连接，每加一跳就多一层 JOIN，图上只是多写一段箭头。</p>
+<p>真实业务问题的查询再具体一步——风控里”找出某公司经两层股权控制触及的全部实体，只看持股超过 20% 的路径”：</p>
+<pre class=" language-cypher"><code class="language-cypher">MATCH path = (a:Company &#123;name: '某公司'&#125;)-[c:OWNS*1..2]->(b)
+WHERE all(rel IN relationships(path) WHERE rel.share > 0.2)
+RETURN b.name, [rel IN relationships(path) | rel.share] AS 持股链;
+</code></pre>
+<p>变长路径（*1..2）、路径级过滤（all）、按业务字段聚合——这类查询是图谱在风控场景里的日常。</p>
+<h3 id="用-PyKEEN-训练一个知识图谱嵌入"><a href="#用-PyKEEN-训练一个知识图谱嵌入" class="headerlink" title="用 PyKEEN 训练一个知识图谱嵌入"></a>用 PyKEEN 训练一个知识图谱嵌入</h3><p>表示学习的标准库是 PyKEEN，内置数据集、模型与评测，十几行跑通 TransE：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pykeen<span class="token punctuation">.</span>pipeline <span class="token keyword">import</span> pipeline
+
+result <span class="token operator">=</span> pipeline<span class="token punctuation">(</span>
+    dataset<span class="token operator">=</span><span class="token string">'Nations'</span><span class="token punctuation">,</span>          <span class="token comment" spellcheck="true"># 内置小数据集（国家关系），几分钟跑完</span>
+    model<span class="token operator">=</span><span class="token string">'TransE'</span><span class="token punctuation">,</span>
+    training_loop<span class="token operator">=</span><span class="token string">'SLCWA'</span><span class="token punctuation">,</span>
+    epochs<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>get_metric<span class="token punctuation">(</span><span class="token string">'hits@10'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>get_metric<span class="token punctuation">(</span><span class="token string">'mean_reciprocal_rank'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>换 RotatE 只改 model 参数，其余不动——这也是同一批嵌入模型被标准化评测的前提。真实项目把 dataset 换成自己的三元组文件（CSV：头实体、关系、尾实体三列），训练前先按第七节的 MRR 与 Hits@k 定出基线。</p>
+<h3 id="用大模型做抽取的落地写法"><a href="#用大模型做抽取的落地写法" class="headerlink" title="用大模型做抽取的落地写法"></a>用大模型做抽取的落地写法</h3><p>第三到五节的流水线，今天最省力的做法是把抽取交给大模型，但要给足约束。提示词的骨架是”schema 在前、文本在后、输出 JSON”：</p>
+<pre class=" language-text"><code class="language-text">从下面的文本中抽取三元组。
+实体类型限定为：人物、球队、联盟、城市。
+关系类型限定为：效力于、位于、加盟。
+文本里没有的信息不要输出，输出 JSON 数组，
+每个元素为 &#123;"head": "", "relation": "", "tail": ""&#125;。
+
+文本：姚明在 2002 年以状元身份加入 NBA 的休斯敦火箭队。
+</code></pre>
+<p>拿到输出后必须做三道校验，缺一不可：</p>
+<ul>
+<li><strong>schema 校验</strong>：头尾实体的类型、关系的名称是否都在限定清单里——大模型会即兴发明关系名</li>
+<li><strong>锚定校验</strong>：头尾实体是否真的在原文里出现过（防”合理但不存在”的补全）</li>
+<li><strong>置信度分级</strong>：低置信度的进人工队列，而不是直接进图</li>
+</ul>
+<p>三道校验之后的三元组再走第五节的消歧与链接流程，落到图数据库里。这套”大模型初抽、规则校验、人工兜底”的分层，是当前构建领域图谱性价比最高的方式。</p>
+<h3 id="上线之后"><a href="#上线之后" class="headerlink" title="上线之后"></a>上线之后</h3><p>图谱的更新管道沿用 CDC 的思路：业务库的增删改事件驱动图谱的增量更新，按内容哈希幂等。图谱的 schema 也需要版本管理——关系类型的新增、废弃都要记录，否则下游查询会悄悄失效。权限做到属性级（哪个角色能看到哪些节点的哪些属性），比整库开关更贴近业务，但也要求查询层的每个入口都接入同一套权限判定。</p>
+<h3 id="本体设计与-schema-演化"><a href="#本体设计与-schema-演化" class="headerlink" title="本体设计与 schema 演化"></a>本体设计与 schema 演化</h3><p>抽三元组之前，先回答”图谱里允许存在什么”——这就是本体（ontology）或 schema 设计。四个决策决定了后面所有的返工率。</p>
+<p><strong>实体类型怎么定</strong>。从业务问题倒推，而不是从数据倒推：风控图谱要回答”实际控制人是谁”，就必须有”自然人&#x2F;法人&#x2F;股权”这些类型；问答图谱要回答”怎么配置”，类型就按文档章节走。类型清单要写文档（每个类型的定义、必填属性、与其他类型的关系），这份文档就是后面消歧的判定依据。</p>
+<p><strong>关系类型怎么定</strong>。每个关系要有方向约定（谁指向谁）与语义定义（”合作”太含糊，要拆成”供货””联合研发”这类可判定关系）。关系类型宜精不宜多——二十个定义清晰的关系，比一百个互相重叠的关系有用得多。</p>
+<p><strong>属性挂哪边</strong>。同样的信息可以做成属性（节点上的字段）或关系（连到另一个节点），判断标准是”这个信息要不要参与图遍历、要不要挂自己的属性”。会参与遍历的（公司→法人）做成关系；只是描述性的（公司→成立日期）做成属性。</p>
+<p><strong>要不要复用现成本体</strong>。通用领域有 schema.org、Wikidata 的属性体系可以借用；领域本体（FIBO 之于金融、SNOMED 之于医疗）起步参考结构即可，通常要按业务大幅裁剪。自建本体时，先在纸面用三个真实业务问题做”查询演练”——能用设计好的 schema 表达这三个问题，再动手建库；表达不出来就说明类型设计有缺口。</p>
+<p>schema 一定会演化。做法是给 schema 记版本（类型与关系的增删改都留记录）、新增向后兼容（旧数据不改也能查）、废弃先标记后删除——和数据库的 schema 演化是同一套纪律。</p>
+<h3 id="图谱质量怎么量"><a href="#图谱质量怎么量" class="headerlink" title="图谱质量怎么量"></a>图谱质量怎么量</h3><p>“图谱建得好不好”要有可操作的度量，上线前与上线后都定期跑一遍：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>指标</th>
+<th>健康信号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>消歧准确率</td>
+<td>抽样人工核对的链接正确比例</td>
+<td>生产级要求 95% 以上，低于就收紧阈值</td>
+</tr>
+<tr>
+<td>关系抽取质量</td>
+<td>抽样 P&#x2F;R 按关系类型拆开看</td>
+<td>哪类关系低修哪类的数据</td>
+</tr>
+<tr>
+<td>schema 覆盖率</td>
+<td>实体都有合法类型的比例</td>
+<td>接近 100%，有缺口就补类型定义</td>
+</tr>
+<tr>
+<td>孤立节点占比</td>
+<td>没有任何边的节点</td>
+<td>占比高说明抽取漏了关系或数据源没对齐</td>
+</tr>
+<tr>
+<td>属性完整率</td>
+<td>必填属性的非空比例</td>
+<td>按属性逐个看，缺得多的回头改抽取模板</td>
+</tr>
+<tr>
+<td>冲突率</td>
+<td>多源属性互相矛盾的比例</td>
+<td>升高说明数据源质量或仲裁规则出了问题</td>
+</tr>
+</tbody></table>
+<p>这张表建议做成流水线的一部分：每次批量入库后自动重算，数字变差就是流水线某环节退化的信号——比等用户投诉再排查早得多。</p>
+<h2 id="十一、常见误解"><a href="#十一、常见误解" class="headerlink" title="十一、常见误解"></a>十一、常见误解</h2><p>“知识图谱就是把数据存成图。” 存图是最简单的部分。实体消歧、知识融合、质量控制这些让”存进来的每条知识可信”的工程，才是知识图谱的主要成本。</p>
+<p>“大模型时代不需要知识图谱了。” 大模型的语言能力和图谱的结构化事实是互补的：一个会说不准，一个准但表达受限。需要溯源、需要增量更新、需要精确关系的场景，图谱不但没被替代，反而因为大模型降低了构建成本而更容易落地。</p>
+<p>“实体消歧就是实体链接的同义词。” 链接是完整的流水线（候选生成、消歧、确认），消歧只是其中的打分环节。工程里候选生成漏了正确答案，消歧做得再好也没用。</p>
+<p>“有了大模型，抽取就不用标注了。” 大模型把冷启动成本降了一个量级，但领域实体、精确 schema 的生产级抽取，仍然需要标注数据做微调和评测；大模型的输出同样需要验证。</p>
+<p>“图谱推理能发现新知识。” 嵌入模型的链接预测是给缺失边打分排序，它的输出是假设，不是事实；进图谱前必须有人工或业务规则的确认。把预测分数当成已验证知识，是图谱质量崩坏的常见起点。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1705.02488">1705.02488</a> — Knowledge Graphs（Hogan 等，知识图谱系统性综述）— ACM Computing Surveys 2021</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1145/1376616.1376746">10.1145&#x2F;1376616.1376746</a> — Freebase: A Collaboratively Created Graph Database for Structuring Human Knowledge — SIGMOD 2008（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1007/978-3-540-76298-0_52">DBpedia</a> — DBpedia: A Nucleus for a Web of Open Data — ISWC 2007</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1145/1242572.1242667">10.1145&#x2F;1242572.1242667</a> — YAGO: A Core of Semantic Knowledge — WWW 2007</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1145/2629489">Wikidata</a> — Wikidata: A Free Collaborative Knowledgebase — CACM 2014</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1301.3780">1301.3780</a> — Translating Embeddings for Modeling Multi-relational Data（TransE）— NeurIPS 2013（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1902.10197">1902.10197</a> — RotatE: Knowledge Graph Embedding by Relational Rotation in Complex Space — ICLR 2019</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tkipf/relational-gcn">tkipf&#x2F;relational-gcn</a> — Modeling Relational Data using Graph Convolutional Networks（R-GCN）— ESWC 2018</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1603.01360">1603.01360</a> — Neural Architectures for Named Entity Recognition（BiLSTM-CRF）— NAACL 2016</li>
+<li><a target="_blank" rel="noopener" href="https://aclanthology.org/P09-1013/">P09-1013</a> — Distant Supervision for Relation Extraction without Labeled Data — ACL 2009（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.03814">1911.03814</a> — Scalable Zero-shot Entity Linking with Dense Entity Retrieval（BLINK）— EMNLP 2020</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.16130">2404.16130</a> — From Local to Global: A Graph RAG Approach to Query-Focused Summarization — 预印本 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1909.03136">1909.03136</a> — KG-BERT: BERT for Knowledge Graph Completion — 预印本 2019</li>
+<li><a target="_blank" rel="noopener" href="https://blog.google/products/search/introducing-knowledge-graph-things-not/">things not strings</a> — Google 官方博客：Introducing the Knowledge Graph — 2012</li>
+<li><a target="_blank" rel="noopener" href="https://neo4j.com/docs/">Neo4j 文档</a> — 属性图模型与 Cypher 查询语言</li>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/sparql11-query/">SPARQL 1.1 规范</a> — W3C 标准</li>
+</ul>
+<p>而今天很多系统里图谱参与 RAG 的实际形态是<strong>混合检索</strong>：先用向量检索从问题找到种子实体或片段，再沿图扩几跳把关联子图取回来——向量的语义召回负责”从哪进图”，图的遍历负责”把相关的结构带全”。纯向量、纯图遍历、混合三种形态的选择，取决于问题偏语义（开放问答）还是偏结构（多跳关系）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/kg_graphrag_l0.jpg" alt="GraphRAG：社区级摘要回答全局性问题的示意"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/kg_graphrag_l1.jpg" alt="GraphRAG：多跳查询的层次化组织"></p>
+<p><em>图源：Edge 等，From Local to Global: A Graph RAG Approach to Query-Focused Summarization（预印本 2024）论文原图</em>图谱还有个隐性价值：<strong>给幻觉一个校验器</strong>——生成的答案先过一遍图谱核对实体与关系，不一致就拦下。</p>
+<p><strong>用大模型增强图谱</strong>：第三到五节的构建流水线（实体抽取、关系抽取、实体链接）如今都可以由大模型完成初版，人工只做修正——这反过来降低了构建领域图谱的门槛，让过去”标注成本撑不起”的图谱项目变得可行。</p>
+<p>两者的边界也要说清：图谱不解决大模型的推理能力问题，大模型也不自动带来图谱需要的准确性。<strong>图谱提供经过治理的事实与关系结构，大模型提供语言理解与生成</strong>——把两者当成互补组件来设计，比争论”谁替代谁”有用得多。</p>
+<h2 id="九、应用-1"><a href="#九、应用-1" class="headerlink" title="九、应用"></a>九、应用</h2><p>搜索与问答是最早也最广的落点：实体卡片、多跳问答（”姚明效力的球队的主场在哪个城市”要跨两跳）、对话里的实体跟踪。</p>
+<p><strong>金融风控</strong>是价值最硬的场景之一：股权穿透（往上找实际控制人）、担保圈识别（循环担保的环检测）、关联方挖掘。图谱的图结构在这里不是锦上添花——循环担保用 SQL 写多层自连接几乎不可维护，图上是一步遍历。这类图谱对关系准确率极度敏感，构建时的消歧阈值与人工审核流程就是核心工程。</p>
+<p><strong>医疗</strong>：疾病-症状-药品-检查的关联图谱支撑辅助诊断与用药审查，知识来源是指南与文献，对”每条知识带引用”的要求最严格。</p>
+<p><strong>推荐</strong>：把用户行为与物品属性图谱连接，用图路径解释”为什么推荐这个”——可解释性是图谱推荐相对向量召回的差异化优势。</p>
+<p>共同点是：这些场景里图谱都承担”事实与关系的单一可信来源”角色，模型和检索都围着它转。图谱建得乱，上层的智能就无从谈起。</p>
+<h2 id="十、工程实践：工具链与代码-1"><a href="#十、工程实践：工具链与代码-1" class="headerlink" title="十、工程实践：工具链与代码"></a>十、工程实践：工具链与代码</h2><h3 id="先设计-schema，再抽数据-1"><a href="#先设计-schema，再抽数据-1" class="headerlink" title="先设计 schema，再抽数据"></a>先设计 schema，再抽数据</h3><p>抽三元组之前，先回答”图谱里允许存在什么”——本体（ontology）或 schema 设计。四个决策决定后面所有的返工率。</p>
+<p><strong>实体类型怎么定</strong>。从业务问题倒推，而不是从数据倒推：风控图谱要回答”实际控制人是谁”，就必须有”自然人&#x2F;法人&#x2F;股权”这些类型；问答图谱要回答”怎么配置”，类型就按文档章节走。类型清单要写文档（每个类型的定义、必填属性、与其他类型的关系），这份文档就是后面消歧的判定依据。</p>
+<p><strong>关系类型怎么定</strong>。每个关系要有方向约定（谁指向谁）与语义定义（”合作”太含糊，要拆成”供货””联合研发”这类可判定关系）。关系类型宜精不宜多——二十个定义清晰的关系，比一百个互相重叠的关系有用得多。</p>
+<p><strong>属性挂哪边</strong>。同样的信息可以做成属性（节点上的字段）或关系（连到另一个节点），判断标准是”这个信息要不要参与图遍历、要不要挂自己的属性”。会参与遍历的（公司到法人）做成关系；只是描述性的（公司到成立日期）做成属性。</p>
+<p><strong>要不要复用现成本体</strong>。通用领域有 schema.org、Wikidata 的属性体系可以借用；领域本体（FIBO 之于金融、SNOMED 之于医疗）起步参考结构即可，通常要按业务大幅裁剪。自建本体时，先在纸面用三个真实业务问题做”查询演练”——能用设计好的 schema 表达这三个问题，再动手建库；表达不出来就说明类型设计有缺口。</p>
+<p>schema 一定会演化。做法是给 schema 记版本（类型与关系的增删改都留记录）、新增向后兼容（旧数据不改也能查）、废弃先标记后删除——和数据库的 schema 演化是同一套纪律。</p>
+<h3 id="工具链全景-1"><a href="#工具链全景-1" class="headerlink" title="工具链全景"></a>工具链全景</h3><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>常用工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>本体设计</td>
+<td>Protégé</td>
+<td>schema 先行的项目从这里起步，可视化编辑类与属性</td>
+</tr>
+<tr>
+<td>实体抽取</td>
+<td>DeepKE、OpenNRE、大模型指令抽取</td>
+<td>DeepKE 覆盖 NER&#x2F;关系&#x2F;事件抽取，支持低资源场景</td>
+</tr>
+<tr>
+<td>知识融合</td>
+<td>Dedupe、大模型辅助对齐</td>
+<td>实体去重与属性仲裁</td>
+</tr>
+<tr>
+<td>存储</td>
+<td>Neo4j、NebulaGraph、GraphDB、PostgreSQL 加 Apache AGE</td>
+<td>按规模、查询语言与团队生态选</td>
+</tr>
+<tr>
+<td>表示学习</td>
+<td>PyKEEN、DGL-KE、LibKGE</td>
+<td>训练 TransE、RotatE 一族的标准库</td>
+</tr>
+<tr>
+<td>可视化</td>
+<td>yEd、Gephi、Neo4j Bloom</td>
+<td>中小规模图谱的人工检视</td>
+</tr>
+</tbody></table>
+<p>选型的主线就一条：<strong>先定查询语言，再定存储</strong>。团队写 Cypher 顺手就选属性图系，要对接开放数据与 W3C 标准就选 RDF 系——这个决定比具体用哪一家产品重要得多，迁移成本主要在查询语言上。</p>
+<h3 id="用-Neo4j-建图与查询-1"><a href="#用-Neo4j-建图与查询-1" class="headerlink" title="用 Neo4j 建图与查询"></a>用 Neo4j 建图与查询</h3><p>以第一节的三元组为例，Cypher 的建图与查询：</p>
+<pre class=" language-cypher"><code class="language-cypher">// 建实体与关系
+CREATE (y:Person &#123;name: '姚明'&#125;)
+CREATE (r:Team &#123;name: '休斯敦火箭'&#125;)
+CREATE (y)-[:WORKS_FOR &#123;since: 2002&#125;]->(r);
+</code></pre>
+<pre class=" language-cypher"><code class="language-cypher">// 多跳查询：姚明效力的球队所在联盟里的其他球队
+MATCH (p:Person &#123;name: '姚明'&#125;)-[:WORKS_FOR]->(t)-[:IN_LEAGUE]->(l)
+      <-[:IN_LEAGUE]-(t2)
+RETURN t2.name;
+</code></pre>
+<p>这种跨实体的遍历正是图谱相对关系数据库的甜区——同样的查询用 SQL 写多层自连接，每加一跳就多一层 JOIN，图上只是多写一段箭头。</p>
+<p>真实业务问题的查询再具体一步——风控里”找出某公司经两层股权控制触及的全部实体，只看持股超过 20% 的路径”：</p>
+<pre class=" language-cypher"><code class="language-cypher">MATCH path = (a:Company &#123;name: '某公司'&#125;)-[c:OWNS*1..2]->(b)
+WHERE all(rel IN relationships(path) WHERE rel.share > 0.2)
+RETURN b.name, [rel IN relationships(path) | rel.share] AS 持股链;
+</code></pre>
+<p>变长路径（*1..2）、路径级过滤（all）、按业务字段聚合——这类查询是图谱在风控场景里的日常。</p>
+<h3 id="用-PyKEEN-训练一个知识图谱嵌入-1"><a href="#用-PyKEEN-训练一个知识图谱嵌入-1" class="headerlink" title="用 PyKEEN 训练一个知识图谱嵌入"></a>用 PyKEEN 训练一个知识图谱嵌入</h3><p>表示学习的标准库是 PyKEEN，内置数据集、模型与评测，十几行跑通 TransE：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> pykeen<span class="token punctuation">.</span>pipeline <span class="token keyword">import</span> pipeline
+
+result <span class="token operator">=</span> pipeline<span class="token punctuation">(</span>
+    dataset<span class="token operator">=</span><span class="token string">'Nations'</span><span class="token punctuation">,</span>          <span class="token comment" spellcheck="true"># 内置小数据集（国家关系），几分钟跑完</span>
+    model<span class="token operator">=</span><span class="token string">'TransE'</span><span class="token punctuation">,</span>
+    training_loop<span class="token operator">=</span><span class="token string">'SLCWA'</span><span class="token punctuation">,</span>
+    epochs<span class="token operator">=</span><span class="token number">200</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>get_metric<span class="token punctuation">(</span><span class="token string">'hits@10'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>get_metric<span class="token punctuation">(</span><span class="token string">'mean_reciprocal_rank'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<p>换 RotatE 只改 model 参数，其余不动——这也是同一批嵌入模型被标准化评测的前提。真实项目把 dataset 换成自己的三元组文件（CSV：头实体、关系、尾实体三列），训练前先按第七节的 MRR 与 Hits@k 定出基线。</p>
+<h3 id="用大模型做抽取的落地写法-1"><a href="#用大模型做抽取的落地写法-1" class="headerlink" title="用大模型做抽取的落地写法"></a>用大模型做抽取的落地写法</h3><p>第三到五节的流水线，今天最省力的做法是把抽取交给大模型，但要给足约束。提示词的骨架是”schema 在前、文本在后、输出 JSON”：</p>
+<pre class=" language-text"><code class="language-text">从下面的文本中抽取三元组。
+实体类型限定为：人物、球队、联盟、城市。
+关系类型限定为：效力于、位于、加盟。
+文本里没有的信息不要输出，输出 JSON 数组，
+每个元素为 &#123;"head": "", "relation": "", "tail": ""&#125;。
+
+文本：姚明在 2002 年以状元身份加入 NBA 的休斯敦火箭队。
+</code></pre>
+<p>拿到输出后必须做三道校验，缺一不可：</p>
+<ul>
+<li><strong>schema 校验</strong>：头尾实体的类型、关系的名称是否都在限定清单里——大模型会即兴发明关系名</li>
+<li><strong>锚定校验</strong>：头尾实体是否真的在原文里出现过（防”合理但不存在”的补全）</li>
+<li><strong>置信度分级</strong>：低置信度的进人工队列，而不是直接进图</li>
+</ul>
+<p>三道校验之后的三元组再走第五节的消歧与链接流程，落到图数据库里。这套”大模型初抽、规则校验、人工兜底”的分层，是当前构建领域图谱性价比最高的方式。</p>
+<h3 id="上线之后-1"><a href="#上线之后-1" class="headerlink" title="上线之后"></a>上线之后</h3><p>图谱的更新管道沿用 CDC 的思路：业务库的增删改事件驱动图谱的增量更新，按内容哈希幂等。图谱的 schema 也需要版本管理——关系类型的新增、废弃都要记录，否则下游查询会悄悄失效。权限做到属性级（哪个角色能看到哪些节点的哪些属性），比整库开关更贴近业务，但也要求查询层的每个入口都接入同一套权限判定。</p>
+<h3 id="本体设计与-schema-演化-1"><a href="#本体设计与-schema-演化-1" class="headerlink" title="本体设计与 schema 演化"></a>本体设计与 schema 演化</h3><p>抽三元组之前，先回答”图谱里允许存在什么”——这就是本体（ontology）或 schema 设计。四个决策决定了后面所有的返工率。</p>
+<p><strong>实体类型怎么定</strong>。从业务问题倒推，而不是从数据倒推：风控图谱要回答”实际控制人是谁”，就必须有”自然人&#x2F;法人&#x2F;股权”这些类型；问答图谱要回答”怎么配置”，类型就按文档章节走。类型清单要写文档（每个类型的定义、必填属性、与其他类型的关系），这份文档就是后面消歧的判定依据。</p>
+<p><strong>关系类型怎么定</strong>。每个关系要有方向约定（谁指向谁）与语义定义（”合作”太含糊，要拆成”供货””联合研发”这类可判定关系）。关系类型宜精不宜多——二十个定义清晰的关系，比一百个互相重叠的关系有用得多。</p>
+<p><strong>属性挂哪边</strong>。同样的信息可以做成属性（节点上的字段）或关系（连到另一个节点），判断标准是”这个信息要不要参与图遍历、要不要挂自己的属性”。会参与遍历的（公司→法人）做成关系；只是描述性的（公司→成立日期）做成属性。</p>
+<p><strong>要不要复用现成本体</strong>。通用领域有 schema.org、Wikidata 的属性体系可以借用；领域本体（FIBO 之于金融、SNOMED 之于医疗）起步参考结构即可，通常要按业务大幅裁剪。自建本体时，先在纸面用三个真实业务问题做”查询演练”——能用设计好的 schema 表达这三个问题，再动手建库；表达不出来就说明类型设计有缺口。</p>
+<p>schema 一定会演化。做法是给 schema 记版本（类型与关系的增删改都留记录）、新增向后兼容（旧数据不改也能查）、废弃先标记后删除——和数据库的 schema 演化是同一套纪律。</p>
+<h3 id="图谱质量怎么量-1"><a href="#图谱质量怎么量-1" class="headerlink" title="图谱质量怎么量"></a>图谱质量怎么量</h3><p>“图谱建得好不好”要有可操作的度量，上线前与上线后都定期跑一遍：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>指标</th>
+<th>健康信号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>消歧准确率</td>
+<td>抽样人工核对的链接正确比例</td>
+<td>生产级要求 95% 以上，低于就收紧阈值</td>
+</tr>
+<tr>
+<td>关系抽取质量</td>
+<td>抽样 P&#x2F;R 按关系类型拆开看</td>
+<td>哪类关系低修哪类的数据</td>
+</tr>
+<tr>
+<td>schema 覆盖率</td>
+<td>实体都有合法类型的比例</td>
+<td>接近 100%，有缺口就补类型定义</td>
+</tr>
+<tr>
+<td>孤立节点占比</td>
+<td>没有任何边的节点</td>
+<td>占比高说明抽取漏了关系或数据源没对齐</td>
+</tr>
+<tr>
+<td>属性完整率</td>
+<td>必填属性的非空比例</td>
+<td>按属性逐个看，缺得多的回头改抽取模板</td>
+</tr>
+<tr>
+<td>冲突率</td>
+<td>多源属性互相矛盾的比例</td>
+<td>升高说明数据源质量或仲裁规则出了问题</td>
+</tr>
+</tbody></table>
+<p>这张表建议做成流水线的一部分：每次批量入库后自动重算，数字变差就是流水线某环节退化的信号——比等用户投诉再排查早得多。</p>
+<h2 id="十一、常见误解-1"><a href="#十一、常见误解-1" class="headerlink" title="十一、常见误解"></a>十一、常见误解</h2><p>“知识图谱就是把数据存成图。” 存图是最简单的部分。实体消歧、知识融合、质量控制这些让”存进来的每条知识可信”的工程，才是知识图谱的主要成本。</p>
+<p>“大模型时代不需要知识图谱了。” 大模型的语言能力和图谱的结构化事实是互补的：一个会说不准，一个准但表达受限。需要溯源、需要增量更新、需要精确关系的场景，图谱不但没被替代，反而因为大模型降低了构建成本而更容易落地。</p>
+<p>“实体消歧就是实体链接的同义词。” 链接是完整的流水线（候选生成、消歧、确认），消歧只是其中的打分环节。工程里候选生成漏了正确答案，消歧做得再好也没用。</p>
+<p>“有了大模型，抽取就不用标注了。” 大模型把冷启动成本降了一个量级，但领域实体、精确 schema 的生产级抽取，仍然需要标注数据做微调和评测；大模型的输出同样需要验证。</p>
+<p>“图谱推理能发现新知识。” 嵌入模型的链接预测是给缺失边打分排序，它的输出是假设，不是事实；进图谱前必须有人工或业务规则的确认。把预测分数当成已验证知识，是图谱质量崩坏的常见起点。</p>
+<h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1705.02488">1705.02488</a> — Knowledge Graphs（Hogan 等，知识图谱系统性综述）— ACM Computing Surveys 2021</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1145/1376616.1376746">10.1145&#x2F;1376616.1376746</a> — Freebase: A Collaboratively Created Graph Database for Structuring Human Knowledge — SIGMOD 2008（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1007/978-3-540-76298-0_52">DBpedia</a> — DBpedia: A Nucleus for a Web of Open Data — ISWC 2007</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1145/1242572.1242667">10.1145&#x2F;1242572.1242667</a> — YAGO: A Core of Semantic Knowledge — WWW 2007</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1145/2629489">Wikidata</a> — Wikidata: A Free Collaborative Knowledgebase — CACM 2014</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1301.3780">1301.3780</a> — Translating Embeddings for Modeling Multi-relational Data（TransE）— NeurIPS 2013（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1902.10197">1902.10197</a> — RotatE: Knowledge Graph Embedding by Relational Rotation in Complex Space — ICLR 2019</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tkipf/relational-gcn">tkipf&#x2F;relational-gcn</a> — Modeling Relational Data using Graph Convolutional Networks（R-GCN）— ESWC 2018</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1603.01360">1603.01360</a> — Neural Architectures for Named Entity Recognition（BiLSTM-CRF）— NAACL 2016</li>
+<li><a target="_blank" rel="noopener" href="https://aclanthology.org/P09-1013/">P09-1013</a> — Distant Supervision for Relation Extraction without Labeled Data — ACL 2009（CCF-A）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.03814">1911.03814</a> — Scalable Zero-shot Entity Linking with Dense Entity Retrieval（BLINK）— EMNLP 2020</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.16130">2404.16130</a> — From Local to Global: A Graph RAG Approach to Query-Focused Summarization — 预印本 2024</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1909.03136">1909.03136</a> — KG-BERT: BERT for Knowledge Graph Completion — 预印本 2019</li>
+<li><a target="_blank" rel="noopener" href="https://blog.google/products/search/introducing-knowledge-graph-things-not/">things not strings</a> — Google 官方博客：Introducing the Knowledge Graph — 2012</li>
+<li><a target="_blank" rel="noopener" href="https://neo4j.com/docs/">Neo4j 文档</a> — 属性图模型与 Cypher 查询语言</li>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/TR/sparql11-query/">SPARQL 1.1 规范</a> — W3C 标准</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/10/27/KnowledgeGraphs/">https://unluckynike.github.io/2026/10/27/KnowledgeGraphs/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                                    <span class="chip bg-color">知识图谱</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AE%9E%E4%BD%93%E8%AF%86%E5%88%AB/">
+                                    <span class="chip bg-color">实体识别</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AE%9E%E4%BD%93%E9%93%BE%E6%8E%A5/">
+                                    <span class="chip bg-color">实体链接</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93/">
+                                    <span class="chip bg-color">图数据库</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/10/27/EmbeddingHowItWorks/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="文本怎么变成向量">
+                        
+                        <span class="card-title">文本怎么变成向量</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            把一段文本映射成固定长度的向量，让"语义相近"变成"距离相近"——这句话说起来只有一步，背后是训练目标对空间几何的整体塑形：嵌入空间的性质不是天然存在的，是被损失函数逐个塑造出来的
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-10-27
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Embedding/">
+                        <span class="chip bg-color">Embedding</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%96%87%E6%9C%AC%E8%A1%A8%E7%A4%BA/">
+                        <span class="chip bg-color">文本表示</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">对比学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AF%AD%E4%B9%89%E6%A3%80%E7%B4%A2/">
+                        <span class="chip bg-color">语义检索</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/25/InstanceSegmentation/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="实例分割：从语义分割到分割一切">
+                        
+                        <span class="card-title">实例分割：从语义分割到分割一切</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            检测给出"框住目标的矩形"，分割要给出"目标本身的轮廓"——像素级的输出让任务的难度、指标和标注成本都换了量级。从 FCN 到 Mask R-CNN 再到提示式的 SAM，这篇把分割家族的谱系、评估与工程落地讲清
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/">
+                        <span class="chip bg-color">实例分割</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/">
+                        <span class="chip bg-color">图像分割</span>
+                    </a>
+                    
+                    <a href="/tags/SAM/">
+                        <span class="chip bg-color">SAM</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">计算机视觉</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+    
+
+
+
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">309k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--gihub badge-->
+             <div>
+                <div class="github-badge">       
+                    <a style="color: #fff"  rel="license" href="http://996.icu"  target="_blank" title="996">         
+                 <span class="badge-subject">Link</span><span class="badge-value bg-red">996.ICU</span></a>     
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="本站点采用知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议进行许可">  
+                <span class="badge-subject"><i class="fa fa-copyright"></i></span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0 </span></a>       
+                </div>
+                <div class="github-badge">          
+                   <a style="color: #fff"  rel="license" href="https://www.jsdelivr.com/" target="_blank" title="jsDelivr 提供 CDN 加速服务">  
+                <span class="badge-subject">CDN</span><span class="badge-value bg-orange">jsDelivr </span></a>       
+               </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸-->
+ <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+ <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+ <script type="text/javascript" src="/js/fireworks.js"></script>
+ 
+    <!--浏览器搞笑标题-->
+ <script type="text/javascript" src="../js/FunnyTitle.js"></script>
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
