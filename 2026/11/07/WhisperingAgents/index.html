@@ -1,0 +1,1698 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Whispering Agents 解读：Agent 互联网的隐蔽通信协议, 大模型,LLM,Agent,RAG,微调,推理部署,评测,计算机视觉,YOLO,Java,计算机网络">
+    <meta name="description" content="Agent 之间的消息加密之后，&#34;谁在跟谁通信、几点通信、通信了多少次&#34;仍然全在明面上——这是流量分析，加密管不了。北邮团队在 AAAI 2026 发表的 Whispering Agents 把 Agent 的每次公开交互当成载体，同时调节内容、时间和行为三个维度，让秘密对话藏进正常寒暄里；训练过的检测器 AUC 只有 0.503，接近瞎猜。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>Whispering Agents 解读：Agent 互联网的隐蔽通信协议 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book-open" style="zoom: 0.6;"></i>
+      
+      <span>阅读</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="https://unluckynike.github.io/ml-notes/" target="_blank" rel="noopener">
+          
+          <span>像搭积木一样了解AI-2026</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            AI 工程实践与计算机基础札记：大模型部署与推理、RAG 与知识管理、训练与对齐、评测、计算机视觉
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book-open"></i>
+			
+			阅读
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="https://unluckynike.github.io/ml-notes/ " style="margin-left:75px">
+				  
+		          <span>ml_notes</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+<div id="reading-progress-bar"></div>
+<style>
+    #reading-progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0;
+        background: linear-gradient(90deg, #209cee, #ee6e73);
+        z-index: 10000;
+        pointer-events: none;
+        transition: width .08s linear;
+    }
+</style>
+<script>
+    (function () {
+        var bar = document.getElementById('reading-progress-bar');
+        if (!bar) return;
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(function () {
+                var doc = document.documentElement;
+                var total = doc.scrollHeight - window.innerHeight;
+                var current = window.scrollY || doc.scrollTop || 0;
+                var ratio = total > 0 ? current / total : 0;
+                bar.style.width = (ratio * 100).toFixed(2) + '%';
+                ticking = false;
+            });
+        }, { passive: true });
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/covert_message_vs_act.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Whispering Agents 解读：Agent 互联网的隐蔽通信协议</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Agent/">
+                                <span class="chip bg-color">Agent</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%9A%90%E8%94%BD%E9%80%9A%E4%BF%A1/">
+                                <span class="chip bg-color">隐蔽通信</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/">
+                                <span class="chip bg-color">信息安全</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80/" class="post-category">
+                                大模型基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-11-07
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-11-12
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    8 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>两个 Agent 在一段看似普通的对话里讨论哲学和艺术，每句回复都符合正常的交互逻辑。旁观者不知道的是：这段公开对话里还叠着另一段只有通信双方才能恢复的秘密对话。北邮团队发表在 AAAI 2026 的这篇论文（arXiv 2025-08 挂出）问的不是”怎么加密消息”，而是更别扭的一步：<strong>怎么让秘密通信的存在本身都难以被发现</strong>——答案是别只盯着一句话，把整个交互过程当成信道。</p>
+</blockquote>
+<h2 id="一、问题：加密保护的只有内容"><a href="#一、问题：加密保护的只有内容" class="headerlink" title="一、问题：加密保护的只有内容"></a>一、问题：加密保护的只有内容</h2><p>Agent 互联网（Internet of Agents，IoA）的图景里，Agent 不再只是被动应答，而是自主发现同伴、协商任务、持续交互。传统做法是 Agent 间通信协议（如 Google 的 A2A）加一层加密——内容机密性解决了，但论文指出的威胁是另一类：<strong>流量分析</strong>。</p>
+<p>论文的监控者叫 Warden：它能看到公开环境里完整的事件轨迹——哪个 Agent 执行了什么动作、动作携带什么数据、事件发生在什么时间——只是不知道通信双方的共享密钥。定位是被动的、算力受限的观察者。在这样的模型下：</p>
+<ul>
+<li>通信双方是谁：看得见；</li>
+<li>什么时候通信、频率如何：看得见；</li>
+<li>说了多少、节奏怎样：看得见。</li>
+</ul>
+<p>加密解决的是”能不能读懂”，从头到尾没有以”让通信不可见”为目标。论文要的是三个更苛刻的目标：接收方能正确恢复秘密消息；整段通信轨迹在统计上与正常行为不可区分；甚至监控者结合上下文盯住某一个事件时，也判断不出它是否承载秘密。</p>
+<h2 id="二、三条前人路线，与它们的缺口"><a href="#二、三条前人路线，与它们的缺口" class="headerlink" title="二、三条前人路线，与它们的缺口"></a>二、三条前人路线，与它们的缺口</h2><table>
+<thead>
+<tr>
+<th>路线</th>
+<th>代表</th>
+<th>解决了什么</th>
+<th>缺什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加密通信</td>
+<td>A2A 协议</td>
+<td>内容机密性</td>
+<td>不隐藏”谁在通信、何时通信”</td>
+</tr>
+<tr>
+<td>生成式隐写</td>
+<td>Meteor、Discop、Liao 框架</td>
+<td>把秘密比特嵌进正常文本</td>
+<td>只管一句话的分布，不管多轮交互的时间与行为</td>
+</tr>
+<tr>
+<td>Agent 秘密串通</td>
+<td>Perfect Collusion、Secret Collusion</td>
+<td>证明 Agent 隐蔽交换信息可行</td>
+<td>静态单轮或提示词驱动，没有完整的多轮协议</td>
+</tr>
+</tbody></table>
+<p>前两条线的缺口可以压缩成一句话：<strong>一句话看起来正常，不代表整段交互看起来正常</strong>。一条回复完全符合自然语言分布，但它出现在不合理的时间，或者 Agent 做了不符合上下文的动作，Warden 照样起疑。第三条线证明可行性有余，系统性和协议化不足。</p>
+<h2 id="三、核心观察：把每次公开行动当成一个事件"><a href="#三、核心观察：把每次公开行动当成一个事件" class="headerlink" title="三、核心观察：把每次公开行动当成一个事件"></a>三、核心观察：把每次公开行动当成一个事件</h2><p>作者的切入点是重新看 Agent 的交互粒度。每次公开行动是一个原子事件，包含四个要素：谁（agent）、做什么（action）、携带什么数据（data）、发生在什么时间（timestamp）。Warden 看得到全部四要素——那么可藏信息的载体也就不止文本，而是三处：</p>
+<ul>
+<li><strong>存储信道</strong>：改 data——把秘密比特用可证明安全的生成式隐写嵌进正常回复；</li>
+<li><strong>时序信道</strong>：改 timestamp——事件发生的时间本身携带密钥可控的信号；</li>
+<li><strong>行为信道</strong>：改 action——在当前情境下选择合理的动作类型，维持交互可信。</li>
+</ul>
+<p>三者各司其职：内容承载数据、时间传递控制信号、行为维持合理性。这个”基本单位从单条消息扩展为事件序列”的转换，是全文真正的贡献所在。</p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/covert_message_vs_act.png" alt="Whispering Agents 论文 Figure 1：标准协议保护消息内容（左），隐蔽通信保护的是通信行为本身（右）"></p>
+<p><em>图源：Huang 等，Whispering Agents（AAAI 2026）Figure 1</em></p>
+<h2 id="四、协议-ΠCCAP：一次完整的”密谈”怎么走"><a href="#四、协议-ΠCCAP：一次完整的”密谈”怎么走" class="headerlink" title="四、协议 ΠCCAP：一次完整的”密谈”怎么走"></a>四、协议 ΠCCAP：一次完整的”密谈”怎么走</h2><p>形式化层先立了三个算法——KeyGen（建共享密钥）、Encode（有状态地连续生成公开事件）、Decode（从事件轨迹恢复消息）——和三个安全性质：Correctness、IND-STAT（整段轨迹统计不可区分）、IND-INT（事件级意图不可察觉，更强）。具体协议 ΠCCAP 把它们落成五步：</p>
+<p><strong>第一步，握手。</strong>利用 Agent 互联网的 PKI，走 ECDH 加 KDF 建会话密钥，顺带完成隐式双向身份认证。有意思的是信道激活方式：不发送任何显式握手消息——那本身就是”此处有秘密”的告示牌——而是让发送方先发一个正常事件，接收方用共享密钥验证它的时间戳，满足约定条件才激活信道。<strong>激活信号藏在时间特征里</strong>。</p>
+<p><strong>第二步，传输。</strong>秘密消息拼上完整性哈希，切成片段连续传输。每个片段带统一隐蔽头部：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TDS</td>
+<td>12 bit</td>
+<td>总数据长度</td>
+</tr>
+<tr>
+<td>SN</td>
+<td>6 bit</td>
+<td>片段序号</td>
+</tr>
+<tr>
+<td>FIN</td>
+<td>1 bit</td>
+<td>最后一片标志</td>
+</tr>
+<tr>
+<td>CS</td>
+<td>4 bit</td>
+<td>CRC-4 片段校验</td>
+</tr>
+</tbody></table>
+<p>首片段带完整 23 bit 头部，后续片段省掉 TDS 只留 11 bit。头部不作为显式控制消息发送，而是和数据一起进隐写编码。三个维度在每轮交互里同时工作：内容走 Discop 或 Differential 这类可证明安全隐写，把比特嵌进符合正常分布的文本（对应 IND-STAT）；时间走 SelectTime，用密钥在”当前上下文合理的响应时间分布”内挑满足条件的时间点——不能为了藏信号而让回复时间本身变得反常；行为由 LLM 的上下文感知策略选动作类型，只负责让事件”像正常 Agent 会做的事”（对应 IND-INT），不承担编码。</p>
+<p><strong>第三步，接收与确认。</strong>接收方持续观察事件轨迹，用密钥验证时间戳筛出候选隐蔽事件，隐写解码出片段，依次过 CRC-4 校验、按 SN 排序、靠 FIN 判尾、重组后做哈希完整性检查。确认环节也藏着：不回显式 ACK，而是让下一次正常回复落在满足密钥条件的时间点上，发送方看时间信号就知道对方收没收到——<strong>连确认本身都是隐式的</strong>。</p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/covert_protocol_workflow.png" alt="Whispering Agents 论文 Figure 2：ΠCCAP 协议总览——握手激活、连续事件传输、解码重组与隐式确认"></p>
+<p><em>图源：同上，Figure 2</em></p>
+<h2 id="五、实验：可靠、有容量、检测不出"><a href="#五、实验：可靠、有容量、检测不出" class="headerlink" title="五、实验：可靠、有容量、检测不出"></a>五、实验：可靠、有容量、检测不出</h2><p>实验用 Llama-3 和 Qwen2 两类 Agent、Discop 与 Differential 两种隐写、哲学&#x2F;艺术&#x2F;通用问答三类话题、512 与 1024 bit 两种载荷，每组重复三次。三组结果：</p>
+<p><strong>可靠性</strong>：全部配置下接收方都成功恢复秘密消息并通过哈希检查，完整性验证成功率 100%——分片、重组、校验机制在实验环境里协同有效。</p>
+<p><strong>容量</strong>：哲学话题、Discop、Qwen2、1024 bit 载荷下，每轮有效传输 89.72 ± 6.61 bit（含头部开销的 BPR 为 108.99 ± 7.51）。容量与话题相关，作者归因于不同话题文本的熵和语言分布差异。</p>
+<p><strong>隐蔽性</strong>，两个层面：</p>
+<ul>
+<li>统计层：按前人方法训练隐写分析分类器，AUC 0.503、精确率 0.250、F1 0.333——二分类任务 AUC 接近 0.5 就是接近瞎猜，所测试的检测器区分不出隐蔽事件与正常事件；</li>
+<li>语义层：GPT-4o 当评委给对话片段打分（1~5），艺术话题下 Normal 的可疑度 1.00，Discop 也是 1.00，Differential 1.17；自然度和连贯性都在 4.8 以上——LLM 评委没有发现稳定区分正常对话与隐蔽对话的依据。</li>
+</ul>
+<h2 id="六、边界与冷静读法"><a href="#六、边界与冷静读法" class="headerlink" title="六、边界与冷静读法"></a>六、边界与冷静读法</h2><p>论文自己交代的边界要如实转述：实验只覆盖离线文本对话；Warden 是被动的、算力受限的；三类信道组合之后的完整形式化安全证明是作者明确的后续工作——目前只有 Correctness&#x2F;IND-STAT&#x2F;IND-INT 的形式化定义与部分证明，协议整体的安全证据以实验为主；时序模块和行为模块的消融实验没有系统报告，三个模块各自贡献多少、是否缺一不可，论文证据不足；与已有方案比较容量时，一方按 bit&#x2F;sentence 一方按 bit&#x2F;conversation 计量，不能直接读成”性能倍数”。另外，校验和与哈希定位是错误检测与完整性检查，不等于针对主动攻击者的消息认证。</p>
+<p>去掉这些保留项，这篇论文真正值得带走的不是”藏得住”这个结论，而是它给出的<strong>安全分析视角</strong>：判断 Agent 是否在秘密通信，不能只检查消息内容——通信发生的时间、行为与上下文的一致性同样是信号面。检测方与协议方看的是同一组维度，这注定是一场长期的攻防。而在 Agent 互联网开始大规模互通的当下，这篇文章等于给所有协议设计者提了一个此前只有密码学界在意的问题：你的 Agent 通信，防的是窃听，还是监视？</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2508.02188">2508.02188</a> — Whispering Agents: An Event-Driven Covert Communication Protocol for the Internet of Agents — AAAI 2026（北邮团队，2025-08 挂出 arXiv）</li>
+<li><a target="_blank" rel="noopener" href="https://a2a-protocol.org/v0.3.0/specification/">A2A Protocol</a> — Google Agent2Agent 通信协议规范</li>
+<li><a target="_blank" rel="noopener" href="https://doi.org/10.1145/3460120.3484550">Meteor</a> — Cryptographically Secure Steganography for Realistic Distributions — ACM CCS 2021</li>
+<li><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/10179287">Discop</a> — Provably Secure Steganography in Practice Based on Distribution Copies — IEEE S&amp;P 2023</li>
+<li><a target="_blank" rel="noopener" href="https://www.usenix.org/conference/usenixsecurity25/presentation/liao">Liao et al.</a> — A Framework for Designing Provably Secure Steganography — USENIX Security 2025</li>
+<li><a target="_blank" rel="noopener" href="https://openreview.net/pdf?id=FXZFrOvIoc">Perfect Collusion Benchmark</a> — How Can AI Agents Be Prevented from Colluding with Information-Theoretic Undetectability? — NeurIPS MAS Workshop 2023</li>
+<li><a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/861f7dad098aec1c3560fb7add468d41-Abstract-Conference.html">Secret Collusion among AI Agents</a> — Multi-Agent Deception via Steganography — NeurIPS 2024</li>
+<li><a target="_blank" rel="noopener" href="https://proceedings.mlr.press/v267/sun25z.html">Idiosyncrasies in Large Language Models</a> — ICML 2025（隐写分析检测器的训练方法来源）</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/11/07/WhisperingAgents/">https://unluckynike.github.io/2026/11/07/WhisperingAgents/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Agent/">
+                                    <span class="chip bg-color">Agent</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%9A%90%E8%94%BD%E9%80%9A%E4%BF%A1/">
+                                    <span class="chip bg-color">隐蔽通信</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/">
+                                    <span class="chip bg-color">信息安全</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+<style>
+    .giscus-card {
+        margin: 1.5rem auto;
+    }
+    .giscus-card .card-content {
+        padding: 20px 20px 10px 20px;
+    }
+    .giscus-title {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="card giscus-card" data-aos="fade-up">
+    <div class="card-content">
+        <div class="giscus-title center-align">
+            <i class="fas fa-comments"></i>&nbsp;&nbsp;留言
+        </div>
+        <script src="https://giscus.app/client.js"
+                data-repo="unluckynike/unluckynike.github.io"
+                data-repo-id="MDEwOlJlcG9zaXRvcnkyNTM5ODMwMTA="
+                data-category="Announcements"
+                data-category-id="DIC_kwDODyN5Is4DKkeM"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/11/10/BlogOpsJournal/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="博客运维实录：两篇&#34;被吞&#34;的文章与一次全站体检">
+                        
+                        <span class="card-title">博客运维实录：两篇&#34;被吞&#34;的文章与一次全站体检</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            博客复更后的例行体检挖出两篇线上文章只剩三分之二——存在了很久没人发现。排查的结论很有意思：markdown 渲染器直渲全文完整，问题出在 hexo 管线的模板层，元凶是正文里 Thymeleaf 表达式撞上模板注释开始序列。这篇记录完整的定位过程、体检脚本的五类检查，以及这轮运维顺手做掉的一串优化。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-11-10
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Hexo/" class="post-category">
+                                    Hexo
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8D%9A%E5%AE%A2%E8%BF%90%E7%BB%B4/">
+                        <span class="chip bg-color">博客运维</span>
+                    </a>
+                    
+                    <a href="/tags/Markdown/">
+                        <span class="chip bg-color">Markdown</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/11/07/WeightSpaceProgramming/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/20261107113455339.png" class="responsive-img" alt="原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;">
+                        
+                        <span class="card-title">原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            MIT CSAIL 四人组的实验让 GPT-6 Astra 直接改 Qwen3.5-0.8B 的权重：不训练、不走梯度，只动 0.016%，MATH-500 从 7.9% 涨到 48.1%。但被中文报道略过的关键事实是：它不是"注入能力"，而是拆掉了卡住小模型的一个环路——换一个不卡环路的模型，它就无能为力。这篇把实验细节、改动机制和可信度边界讲清。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-11-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    大模型基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大模型</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9D%83%E9%87%8D%E7%BC%96%E8%BE%91/">
+                        <span class="chip bg-color">权重编辑</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/">
+                        <span class="chip bg-color">可解释性</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+    
+
+
+
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            &nbsp;<span style="opacity:.75">· 图床经 jsDelivr 分发</span>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">335.5k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--footer badges-->
+             <div>
+                <div class="github-badge">
+                    <a style="color: #fff" href="https://github.com/unluckynike/blog-source" target="_blank" title="本站源码（GitHub）">
+                 <span class="badge-subject">源码</span><span class="badge-value bg-blue">GitHub</span></a>
+                </div>
+                <div class="github-badge">
+                   <a style="color: #fff"  rel="license" href="/about#license" title="本站内容采用 CC BY-NC-SA 4.0 许可，转载要求见关于页">
+                <span class="badge-subject"><i class="fa fa-copyright"></i>CC</span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+    
+<script>
+    (function () {
+        var FALLBACKS = ['https://fastly.jsdelivr.net', 'https://testingcf.jsdelivr.net', 'https://gcore.jsdelivr.net'];
+
+        function candidatesFor(src) {
+            // 仅处理 blogimg 走 jsDelivr 主域的图：cdn.jsdelivr.net/gh/user/repo@ver/path
+            var m = src.match(/^https?:\/\/cdn\.jsdelivr\.net\/gh\/([^/\s?#]+)\/([^/\s?#]+?)(?:@([^/\s?#]+))?\/(.+)$/);
+            if (!m) return [];
+            var list = [];
+            FALLBACKS.forEach(function (base) {
+                list.push(base + '/gh/' + m[1] + '/' + m[2] + (m[3] ? '@' + m[3] : '') + '/' + m[4]);
+            });
+            list.push('https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + (m[3] || 'main') + '/' + m[4]);
+            return list;
+        }
+
+        function tryFallback(img) {
+            var cur = img.currentSrc || img.getAttribute('src') || '';
+            if (cur.indexOf('cdn.jsdelivr.net') === -1) return;
+            if (!img.dataset.fbSrc) {
+                img.dataset.fbSrc = cur.split('?')[0];
+                img.dataset.fbIdx = '0';
+            }
+            var list = candidatesFor(img.dataset.fbSrc);
+            var idx = parseInt(img.dataset.fbIdx, 10);
+            if (idx >= list.length) return; // 四个源都失败，放弃
+            img.dataset.fbIdx = String(idx + 1);
+            img.setAttribute('src', list[idx]);
+        }
+
+        // 捕获阶段委托：对动态插入的图同样生效
+        document.addEventListener('error', function (e) {
+            var t = e.target;
+            if (t && t.tagName === 'IMG') tryFallback(t);
+        }, true);
+
+        // 脚本执行前就已加载失败的图
+        window.addEventListener('load', function () {
+            document.querySelectorAll('img').forEach(function (img) {
+                if (img.complete && img.naturalWidth === 0) tryFallback(img);
+            });
+        });
+    })();
+</script>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸（已移除：依赖的 cdn.bootcss.com 已停止服务，特效失效）-->
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

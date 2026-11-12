@@ -1,0 +1,1867 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="微调框架 ms-swift 与 LLaMA-Factory, 大模型,LLM,Agent,RAG,微调,推理部署,评测,计算机视觉,YOLO,Java,计算机网络">
+    <meta name="description" content="两个微调框架的功能清单几乎重合——因为底层都是 transformers Trainer。真正的分野在清单之外：魔搭生态位、400+ 多模态覆盖、Megatron 并行与 GRPO 的集成度。本文从命令、数据、显存到部署评测逐环节对齐，最后给一张选型决策表。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>微调框架 ms-swift 与 LLaMA-Factory | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book-open" style="zoom: 0.6;"></i>
+      
+      <span>阅读</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="https://unluckynike.github.io/ml-notes/" target="_blank" rel="noopener">
+          
+          <span>像搭积木一样了解AI-2026</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            AI 工程实践与计算机基础札记：大模型部署与推理、RAG 与知识管理、训练与对齐、评测、计算机视觉
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book-open"></i>
+			
+			阅读
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="https://unluckynike.github.io/ml-notes/ " style="margin-left:75px">
+				  
+		          <span>ml_notes</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+<div id="reading-progress-bar"></div>
+<style>
+    #reading-progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0;
+        background: linear-gradient(90deg, #209cee, #ee6e73);
+        z-index: 10000;
+        pointer-events: none;
+        transition: width .08s linear;
+    }
+</style>
+<script>
+    (function () {
+        var bar = document.getElementById('reading-progress-bar');
+        if (!bar) return;
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(function () {
+                var doc = document.documentElement;
+                var total = doc.scrollHeight - window.innerHeight;
+                var current = window.scrollY || doc.scrollTop || 0;
+                var ratio = total > 0 ? current / total : 0;
+                bar.style.width = (ratio * 100).toFixed(2) + '%';
+                ticking = false;
+            });
+        }, { passive: true });
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/msswift_banner.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">微调框架 ms-swift 与 LLaMA-Factory</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大模型</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%BE%AE%E8%B0%83/">
+                                <span class="chip bg-color">微调</span>
+                            </a>
+                        
+                            <a href="/tags/ms-swift/">
+                                <span class="chip bg-color">ms-swift</span>
+                            </a>
+                        
+                            <a href="/tags/LLaMA-Factory/">
+                                <span class="chip bg-color">LLaMA-Factory</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%AF%B9%E9%BD%90/" class="post-category">
+                                训练与对齐
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-11-05
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-11-12
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    14 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>ms-swift 常被一句话介绍成”魔搭版的 LLaMA-Factory”。这个说法对了一半：功能清单层面两者确实高度重合；但对的另一半在清单之外——生态位、模型覆盖、大规模训练的集成度，这三处差异决定了”什么场景该选谁”，而不是”谁比谁好”。本文把两者从功能、命令、数据、显存到部署逐环节对齐，最后收敛成一张选型表。</p>
+</blockquote>
+<h2 id="一、功能清单：确实高度重合"><a href="#一、功能清单：确实高度重合" class="headerlink" title="一、功能清单：确实高度重合"></a>一、功能清单：确实高度重合</h2><p>把两边 README 的能力清单摆在一起：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>ms-swift（魔搭官方）</th>
+<th>LLaMA-Factory（社区项目）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>出身</td>
+<td>魔搭社区（阿里）官方框架</td>
+<td>北航开源的社区项目，ACL 2024 系统演示论文</td>
+</tr>
+<tr>
+<td>起源</td>
+<td>2023-08</td>
+<td>2023-05</td>
+</tr>
+<tr>
+<td>Star（2026-11）</td>
+<td>约 1.6 万</td>
+<td>约 7.6 万</td>
+</tr>
+<tr>
+<td>训练任务</td>
+<td>预训练、SFT、DPO&#x2F;KTO&#x2F;CPO&#x2F;SimPO&#x2F;ORPO&#x2F;RM&#x2F;GKD，另含 Embedding&#x2F;Reranker&#x2F;序列分类</td>
+<td>预训练、（多模态）SFT、奖励建模、PPO&#x2F;DPO&#x2F;KTO&#x2F;ORPO</td>
+</tr>
+<tr>
+<td>强化学习</td>
+<td>内置 GRPO 族：GRPO、DAPO、GSPO、SAPO、CISPO、CHORD、RLOO、Reinforce++</td>
+<td>主仓库不内置，GRPO 拆给姊妹项目 EasyR1</td>
+</tr>
+<tr>
+<td>轻量微调</td>
+<td>LoRA&#x2F;QLoRA&#x2F;DoRA&#x2F;LongLoRA&#x2F;LLaMA-Pro&#x2F;LoRA-GA&#x2F;ReFT&#x2F;LISA&#x2F;GaLore&#x2F;UnSloth&#x2F;Liger 等</td>
+<td>LoRA&#x2F;QLoRA&#x2F;DoRA&#x2F;LongLoRA&#x2F;LLaMA-Pro&#x2F;OFT&#x2F;GaLore&#x2F;UnSloth&#x2F;Liger 等</td>
+</tr>
+<tr>
+<td>分布式</td>
+<td>DDP、DeepSpeed ZeRO2&#x2F;3、FSDP&#x2F;FSDP2、Megatron（TP&#x2F;PP&#x2F;SP&#x2F;CP&#x2F;ETP&#x2F;EP&#x2F;VPP）</td>
+<td>DDP、DeepSpeed、FSDP、Megatron-core（2025-10 经 mcore_adapter 接入）</td>
+</tr>
+<tr>
+<td>推理与部署</td>
+<td>集成 vLLM&#x2F;SGLang&#x2F;LMDeploy，<code>swift deploy</code> 起 OpenAI 兼容服务</td>
+<td>vLLM&#x2F;SGLang worker，OpenAI 风格 API</td>
+</tr>
+<tr>
+<td>量化导出</td>
+<td>AWQ&#x2F;GPTQ&#x2F;FP8&#x2F;BNB</td>
+<td>AWQ&#x2F;GPTQ&#x2F;BNB</td>
+</tr>
+<tr>
+<td>交互</td>
+<td>CLI、Web-UI、Python（兼容 PEFT 接口）</td>
+<td>CLI、LLaMA Board WebUI、YAML 配置</td>
+</tr>
+<tr>
+<td>硬件</td>
+<td>NVIDIA、AMD ROCm、昇腾 NPU、MetaX、摩尔线程（MUSA）、Apple MPS、CPU</td>
+<td>NVIDIA CUDA 为主，另适配 AMD、昇腾 NPU</td>
+</tr>
+<tr>
+<td>许可证</td>
+<td>Apache-2.0</td>
+<td>Apache-2.0</td>
+</tr>
+</tbody></table>
+<p>单看这张表，”又一个微调框架”的第一印象得到了证实：任务面几乎完全重合，差异都是”多几个少几个”的量级。如果你只是要给一个 7B 模型跑一次 LoRA SFT，选哪个都不会错，从一个迁到另一个的成本低于一天。</p>
+<h2 id="二、重合的根因：同一副骨架"><a href="#二、重合的根因：同一副骨架" class="headerlink" title="二、重合的根因：同一副骨架"></a>二、重合的根因：同一副骨架</h2><p>这不是巧合。两个框架都构建在 Hugging Face transformers 的 Trainer 体系上——训练循环、优化器、梯度累积、混合精度这些底层机制全是现成的，框架做的是封装：模型注册（<code>model id</code> 到配置的映射）、数据集接入、对话模板管理、分布式启动脚本。</p>
+<p>这也解释了为什么两者的参数几乎一一对应：<code>per_device_train_batch_size</code>、<code>gradient_accumulation_steps</code>、<code>learning_rate</code> 两边同名同义，一份训练经验可以无损迁移。差异全部落在封装层——也就是下面几节要展开的地方：数据怎么喂、卡怎么开、模板怎么管、训完怎么接部署。</p>
+<p>顺带一提，两家官方 QuickStart 撞了同一个示例任务：<strong>把模型微调成自称你起的名字</strong>（自我认知微调）。这不是巧合——它是验证”数据、训练、推理”链路通没通的最小任务，建议任何人上手新框架都从它开始。</p>
+<h2 id="三、同一件事，两条命令"><a href="#三、同一件事，两条命令" class="headerlink" title="三、同一件事，两条命令"></a>三、同一件事，两条命令</h2><p>同一次微调（Qwen2.5-7B 做 LoRA SFT），两边的最小命令长这样。先是 ms-swift：</p>
+<pre class=" language-bash"><code class="language-bash">CUDA_VISIBLE_DEVICES<span class="token operator">=</span>0 \
+swift sft \
+    --model Qwen/Qwen2.5-7B-Instruct \
+    --train_type lora \
+    --dataset <span class="token string">'AI-ModelScope/alpaca-gpt4-data-zh#500'</span> \
+              <span class="token string">'AI-ModelScope/alpaca-gpt4-data-en#500'</span> \
+              <span class="token string">'swift/self-cognition#500'</span> \
+    --torch_dtype bfloat16 \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 16 \
+    --learning_rate 1e-4 \
+    --target_modules all-linear \
+    --max_length 2048 \
+    --output_dir output \
+    --model_name swift-robot \
+    --model_author halensea
+</code></pre>
+<p>LLaMA-Factory：</p>
+<pre class=" language-bash"><code class="language-bash">FORCE_TORCHRUN<span class="token operator">=</span>1 \
+llamafactory-cli train \
+    --model_name_or_path Qwen/Qwen2.5-7B-Instruct \
+    --stage sft \
+    --finetuning_type lora \
+    --template qwen \
+    --dataset identity,alpaca_gpt4_zh \
+    --lora_target all \
+    --per_device_train_batch_size 1 \
+    --gradient_accumulation_steps 16 \
+    --learning_rate 1e-4 \
+    --num_train_epochs 1 \
+    --output_dir output
+</code></pre>
+<p>四个值得注意的工程差异：</p>
+<p><strong>数据的引用方式不同</strong>。ms-swift 的 <code>--dataset</code> 可以直接写魔搭数据集 ID，后缀 <code>#500</code> 表示只取前 500 条——线上数据集一条命令拉下来就能训。LLaMA-Factory 的数据集要先在 <code>data/dataset_info.json</code> 里注册（登记文件路径和格式），再用数据集名引用。前者上手快，后者显式可控，多人协作时不容易出现”悄悄用了哪个数据版本”的歧义。</p>
+<p><strong>模板的指定方式不同</strong>。LLaMA-Factory 要求显式传 <code>--template qwen</code>；ms-swift 从模型配置自动推断模板，必要时可覆盖。看起来 ms-swift 省事，但要注意：自动推断依赖它的模型注册表，冷门模型或自定义结构走不到时，还是得手动确认——模板这个坑下一节专门讲。</p>
+<p><strong>多卡的启动方式不同</strong>。ms-swift 用环境变量 <code>NPROC_PER_NODE=2</code> 控制进程数；LLaMA-Factory 用 <code>FORCE_TORCHRUN=1</code> 强制走 torchrun，配合 <code>--deepspeed examples/deepspeed/ds_z2_config.json</code> 指定 ZeRO 配置。语义等价，都是 torchrun 封装，但报错时排查栈不一样。</p>
+<p><strong>自检信息的存放方式不同</strong>。ms-swift 的每个 checkpoint 目录里存有完整的 <code>args.json</code>，后续 <code>swift infer/export/deploy</code> 只需 <code>--adapters</code> 指向 checkpoint，训练参数自动回读；LLaMA-Factory 靠你引用同一份 yaml 配置。两者都解决了”训完忘了当时参数”的问题，但 ms-swift 的方案跟 checkpoint 绑定，跨机器拷贝时更自洽。</p>
+<h2 id="四、训练环节的三个工程问题"><a href="#四、训练环节的三个工程问题" class="headerlink" title="四、训练环节的三个工程问题"></a>四、训练环节的三个工程问题</h2><h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><p>ms-swift 主推 OpenAI 风格的 <code>messages</code> 格式——一条 JSON 一组对话，与部署后的 API 请求结构一致，训练数据、系统提示词、多模态字段（图片路径等）都能放进同一 schema：</p>
+<pre class=" language-json"><code class="language-json">&amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"messages"</span><span class="token operator">:</span> <span class="token punctuation">[</span>&amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"role"</span><span class="token operator">:</span> <span class="token string">"system"</span><span class="token punctuation">,</span> <span class="token property">"content"</span><span class="token operator">:</span> <span class="token string">"你是一名测试工程师"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+              &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"role"</span><span class="token operator">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token property">"content"</span><span class="token operator">:</span> <span class="token string">"根据需求生成测试用例"</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">,</span>
+              &amp;#<span class="token number">123</span><span class="token punctuation">;</span><span class="token property">"role"</span><span class="token operator">:</span> <span class="token string">"assistant"</span><span class="token punctuation">,</span> <span class="token property">"content"</span><span class="token operator">:</span> <span class="token string">"..."</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">]</span>&amp;#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>LLaMA-Factory 支持两种社区惯用格式：<strong>Alpaca</strong>（<code>instruction/input/output</code> 三字段，适合单轮任务）和 <strong>ShareGPT</strong>（<code>conversations</code> 数组，<code>from: human/gpt</code> 交替，适合多轮）。</p>
+<p>两边迁移不难：<code>messages</code> 与 ShareGPT 是键名映射的关系，Alpaca 是它的单轮特例，20 行脚本的事。真正要过一遍的是 schema 漂移——role 的命名习惯、多模态图片字段的位置、工具调用消息的编码，这些在自动转换脚本里最容易漏。</p>
+<h3 id="显存与多卡"><a href="#显存与多卡" class="headerlink" title="显存与多卡"></a>显存与多卡</h3><p>以 7B 模型为参照的量级（官方文档口径）：</p>
+<ul>
+<li><strong>QLoRA（4bit）</strong>：6~9GB，单卡 4090&#x2F;3090 从容跑通，消费级显卡做微调实验的默认起点</li>
+<li><strong>LoRA（bf16）</strong>：约 16GB 上下，单卡 24GB 可用</li>
+<li><strong>全参 SFT</strong>：权重加 AdamW 优化器状态加梯度，约是权重体积的四五倍，单卡放不下——用 DeepSpeed ZeRO-2&#x2F;3 或 FSDP 把状态摊到多卡，两个框架都支持，配置文件改一行的事</li>
+</ul>
+<p>一个常被忽略的点：<strong>LoRA 合并之后，推理显存就等于模型本身的大小</strong>，与训练方式无关。省钱省在训练侧，部署侧的账要按合并后的完整模型算。</p>
+<h3 id="头号坑：对话模板一致性"><a href="#头号坑：对话模板一致性" class="headerlink" title="头号坑：对话模板一致性"></a>头号坑：对话模板一致性</h3><p>微调领域最常见的翻车不是显存爆了，而是<strong>训练与推理用了不同的对话模板</strong>：训练时模板带思考标签、推理时不带，模型学到的是一种对话分布、上线后面对的是另一种，表现为答非所问或复读。排查这类问题先查模板，再查数据。</p>
+<p>两个框架的解法一致但强制性不同：ms-swift 把模板选择写进 <code>args.json</code>，推理部署时自动沿用；LLaMA-Factory 需要你在训练、chat、API 三个环节传入同一个 <code>--template</code>。无论哪个框架，<strong>把模板当成和数据同等级的契约来管理</strong>——它是训练与部署之间的接口。</p>
+<h2 id="五、训练之后：合并、部署、评测的衔接"><a href="#五、训练之后：合并、部署、评测的衔接" class="headerlink" title="五、训练之后：合并、部署、评测的衔接"></a>五、训练之后：合并、部署、评测的衔接</h2><p>微调的产出是一个 adapter，不是可上线的服务。全链路的五条命令，两边对照：</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>ms-swift</th>
+<th>LLaMA-Factory</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>训练</td>
+<td><code>swift sft</code></td>
+<td><code>llamafactory-cli train</code></td>
+</tr>
+<tr>
+<td>试推理</td>
+<td><code>swift infer --adapters output/vXX/checkpoint-XXX</code></td>
+<td><code>llamafactory-cli chat --adapter_name_or_path ...</code></td>
+</tr>
+<tr>
+<td>合并权重</td>
+<td><code>swift export --adapters ... --merge_lora true</code></td>
+<td><code>llamafactory-cli export --adapter_name_or_path ...</code></td>
+</tr>
+<tr>
+<td>起服务</td>
+<td><code>swift deploy --model merged_dir</code></td>
+<td><code>llamafactory-cli api --model_name_or_path merged_dir</code></td>
+</tr>
+<tr>
+<td>跑评测</td>
+<td><code>swift eval --eval_dataset mmlu</code></td>
+<td><code>llamafactory-cli evaluate --task mmlu</code></td>
+</tr>
+</tbody></table>
+<p>三点工程提醒：</p>
+<p><strong>合并还是动态加载</strong>。adapter 可以不合并直接挂载推理（省存储、一个基座挂多个 adapter），但推理引擎对动态 LoRA 的支持与性能都弱于合并后的完整权重；生产环境默认合并，然后用 vLLM&#x2F;SGLang 起服务。推理引擎本身的选型（吞吐、并发、量化方案）是另一个话题，见《大模型推理部署：vLLM、SGLang 与 Ollama 对比》。</p>
+<p><strong>别用公开基准验证微调效果</strong>。框架内置的 eval 跑 MMLU&#x2F;CEval 只能证明”模型没训坏”，证明不了”业务上变好了”。验证微调效果要用与训练数据同分布的留出集，最好在训练前就切好、冻结住——数据泄漏进训练集的评测是自欺，这个问题在《大模型评测：公开基准、数据污染与自建评测集》里展开过。</p>
+<p><strong>数据量级先说清</strong>。50~200 条数据能把链路跑通，验证的是工程不是效果；正式微调建议 1k 条以上起步。框架解决的是”训练怎么跑”，而后训练工作的大头在数据构造与效果验证——《后训练模型的产生：基座 SFT 对齐 推理 部署》讲的就是这条流水线全景。</p>
+<h2 id="六、真正的分野在哪"><a href="#六、真正的分野在哪" class="headerlink" title="六、真正的分野在哪"></a>六、真正的分野在哪</h2><p>前三节讲的是重合的部分，这一节讲分野。</p>
+<h3 id="1-生态位：官方框架与社区框架不是一个活法"><a href="#1-生态位：官方框架与社区框架不是一个活法" class="headerlink" title="1. 生态位：官方框架与社区框架不是一个活法"></a>1. 生态位：官方框架与社区框架不是一个活法</h3><p>ms-swift 是魔搭（ModelScope）的官方训练框架，背后是阿里的全职团队。最直接的体现是硬件清单：README 里明列 NVIDIA、AMD ROCm、昇腾 NPU、MetaX、摩尔线程 MUSA、Apple MPS、CPU——国产算力是官方适配的义务而非社区 PR。数据集与模型走魔搭 Hub，国内网络下加载速度与合规性都是现成的。</p>
+<p>LLaMA-Factory 是北航开源的社区项目，7.6 万 star、ACL 2024 论文、被多家大厂采用，HF 生态里的默认微调入口。它跟模型的速度也不慢（README 里有 Day-N 支持表，Qwen3 发布次日即支持），但驱动方式是社区热情而非商业义务。</p>
+<p>选型含义：<strong>你的模型、数据、算力如果主要在魔搭生态或国产硬件上，ms-swift 是顺路的；如果是 HF 生态加 CUDA 集群，LLaMA-Factory 是顺路的</strong>。逆着生态走也能用，只是每个环节都多一点摩擦。</p>
+<h3 id="2-模型覆盖：多模态上差了一个数量级"><a href="#2-模型覆盖：多模态上差了一个数量级" class="headerlink" title="2. 模型覆盖：多模态上差了一个数量级"></a>2. 模型覆盖：多模态上差了一个数量级</h3><p>ms-swift README 口径：600+ 纯文本大模型、400+ 多模态大模型，覆盖 Qwen3-VL、Qwen3-Omni、Kimi-K3、InternVL3.5、GLM4.5-V、DeepSeek-VL2、Ovis2.5 等，直到 All-to-All 全模态模型；LLaMA-Factory 口径是 100+ 模型，多模态覆盖 Qwen-VL 系、InternVL、GLM-4.1V 等主流款。</p>
+<p>数量差异的背后是<strong>模态工程的深度</strong>：视频、音频、全模态任务的训练样例、数据格式、显存优化，在 ms-swift 的文档里是一等公民；LLaMA-Factory 的多模态更像”支持了主流几款”。如果你的目标是微调一个多模态模型，ms-swift 大概率先撞不到墙。</p>
+<h3 id="3-RL-与-Megatron：集成与拆分两种哲学"><a href="#3-RL-与-Megatron：集成与拆分两种哲学" class="headerlink" title="3. RL 与 Megatron：集成与拆分两种哲学"></a>3. RL 与 Megatron：集成与拆分两种哲学</h3><p>这是两者技术路线差异最大的地方，也是最容易被清单掩盖的地方。</p>
+<p><strong>强化学习</strong>：ms-swift 把 GRPO 族算法全集内置——GRPO、DAPO、GSPO、SAPO、CISPO、CHORD、RLOO、Reinforce++，配同步&#x2F;异步 vLLM 推理引擎做 rollout，奖励函数、多轮调度器、环境都用插件扩展。LLaMA-Factory 的主仓库保留 PPO&#x2F;DPO&#x2F;KTO&#x2F;ORPO 等对齐训练，GRPO 在 2025 年初拆给了姊妹项目 EasyR1——一个专注 RL 的独立框架，支持多模态 GRPO。一个是”全家桶”，一个是”专项工具箱”，两种哲学没有高下，但决定了你的 RL 工程长在哪个仓库里。</p>
+<p><strong>大规模训练</strong>：两边都接了 Megatron，但成熟度不同。ms-swift 的 Megatron-SWIFT 是主线能力，并行策略覆盖 TP&#x2F;PP&#x2F;SP&#x2F;CP&#x2F;ETP&#x2F;EP&#x2F;VPP，从 2025 年 7 月支持 LoRA、9 月支持多模态、11 月支持 GRPO（外加 Mcore-Bridge 降低使用门槛），到 2026 年已有 DeepSeek-V4.1 级别 MoE 模型全参训练的官方实战文档；官方称在 MoE 模型上提速显著。LLaMA-Factory 的 Megatron-core 后端 2025 年 10 月才经 mcore_adapter 接入，还在早期。结论：<strong>数百亿以上的 MoE 多机训练，ms-swift 的路更宽、文档更厚</strong>；单机两卡的常规微调，这条差异与你无关。</p>
+<h3 id="4-一处反向差异：教程生态"><a href="#4-一处反向差异：教程生态" class="headerlink" title="4. 一处反向差异：教程生态"></a>4. 一处反向差异：教程生态</h3><p>ms-swift 的文档（readthedocs，中英双语）写得规整，但社区声量明显小于 LLaMA-Factory——后者中文教程铺天盖地，踩坑一搜就有前人答案。用 ms-swift 遇到边角问题，更多时候要自己啃源码和 issue。选社区声量小的框架，要接受这份隐性成本。另外 ms-swift 的大版本切换有过破坏性变更（2 到 3），生产环境记得锁版本。</p>
+<h2 id="七、选型决策表"><a href="#七、选型决策表" class="headerlink" title="七、选型决策表"></a>七、选型决策表</h2><table>
+<thead>
+<tr>
+<th>你的场景</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一次微调，单卡，靠搜索教程过坑</td>
+<td>LLaMA-Factory</td>
+</tr>
+<tr>
+<td>微调多模态模型（图像&#x2F;视频&#x2F;音频&#x2F;全模态）</td>
+<td>ms-swift</td>
+</tr>
+<tr>
+<td>MoE 大模型的多机全参或 GRPO 训练</td>
+<td>ms-swift（Megatron-SWIFT）</td>
+</tr>
+<tr>
+<td>RAG 场景微调 Embedding&#x2F;Reranker</td>
+<td>ms-swift</td>
+</tr>
+<tr>
+<td>昇腾、MetaX、摩尔线程等国产算力</td>
+<td>ms-swift</td>
+</tr>
+<tr>
+<td>团队深度绑定 HF 生态，已有成熟流水线</td>
+<td>LLaMA-Factory，不必迁移</td>
+</tr>
+<tr>
+<td>RL 训练想要工程化拆分</td>
+<td>LLaMA-Factory 主仓库加 EasyR1</td>
+</tr>
+</tbody></table>
+<p>两行背景判断：单机 LoRA&#x2F;SFT 的常规场景下，两者迁移成本很低，<strong>选哪个都不亏，别让选型占用超过半天</strong>；需要换框架的信号通常不是功能缺失，而是你撞上了它的封装边界——模型注册表里没有你的模型，或者数据格式拧不过来。</p>
+<h2 id="八、局限"><a href="#八、局限" class="headerlink" title="八、局限"></a>八、局限</h2><p><strong>时效性</strong>。本文数字取自两个仓库 2026 年 11 月的 README，两边都在快速互抄长板——LLaMA-Factory 接入了 Megatron，ms-swift 在补易用性（Mcore-Bridge、Web-UI）——这些差异窗口会持续收窄，读本文时建议以仓库现状为准。</p>
+<p><strong>没有跑对照实验</strong>。Megatron 提速幅度、RL 训练效率这类性能结论引自官方文档口径，本文未做独立基准；涉及大规模训练的决策，建议以自己场景的实测为准。</p>
+<p><strong>视角偏工程选型</strong>。两个框架的源码架构、二次开发成本没有展开；如果你要改框架本身而不只是用它，需要另做调研。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/modelscope/ms-swift">modelscope&#x2F;ms-swift</a> — 魔搭官方微调部署框架（Apache-2.0）</li>
+<li><a target="_blank" rel="noopener" href="https://swift.readthedocs.io/zh-cn/latest/">ms-swift 官方文档</a> — 含 Quick-Start、Megatron-SWIFT、GRPO 全套中文文档</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hiyouga/LLaMA-Factory">hiyouga&#x2F;LLaMA-Factory</a> — 社区微调框架，ACL 2024 系统演示论文（Apache-2.0）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/hiyouga/EasyR1">hiyouga&#x2F;EasyR1</a> — LLaMA-Factory 官方推荐的多模态 RL 训练框架</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.13372">LLaMA-Factory 论文</a> — LLaMA-Factory: A Unified No-code Fine-tuning Framework for Large Language Models</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/11/05/MsSwiftVsLlamaFactory/">https://unluckynike.github.io/2026/11/05/MsSwiftVsLlamaFactory/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大模型</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%BE%AE%E8%B0%83/">
+                                    <span class="chip bg-color">微调</span>
+                                </a>
+                            
+                                <a href="/tags/ms-swift/">
+                                    <span class="chip bg-color">ms-swift</span>
+                                </a>
+                            
+                                <a href="/tags/LLaMA-Factory/">
+                                    <span class="chip bg-color">LLaMA-Factory</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+<style>
+    .giscus-card {
+        margin: 1.5rem auto;
+    }
+    .giscus-card .card-content {
+        padding: 20px 20px 10px 20px;
+    }
+    .giscus-title {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="card giscus-card" data-aos="fade-up">
+    <div class="card-content">
+        <div class="giscus-title center-align">
+            <i class="fas fa-comments"></i>&nbsp;&nbsp;留言
+        </div>
+        <script src="https://giscus.app/client.js"
+                data-repo="unluckynike/unluckynike.github.io"
+                data-repo-id="MDEwOlJlcG9zaXRvcnkyNTM5ODMwMTA="
+                data-category="Announcements"
+                data-category-id="DIC_kwDODyN5Is4DKkeM"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/11/06/FewShotAndZeroShot/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/icl_cot_overview.png" class="responsive-img" alt="小样本与零样本：被模型吸收的技巧与留下的工程">
+                        
+                        <span class="card-title">小样本与零样本：被模型吸收的技巧与留下的工程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            zero-shot 赢成了所有模型交互的默认形态，few-shot 退守成小模型降本、输出校准、agent 示例四个工程阵地。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-11-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    大模型基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/">
+                        <span class="chip bg-color">小样本</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9B%B6%E6%A0%B7%E6%9C%AC/">
+                        <span class="chip bg-color">零样本</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">上下文学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大模型</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/10/27/Llm2Clip/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/llm2clip_retrieval_cases.webp" class="responsive-img" alt="LLM2CLIP: Powerful Language Model Unlocks Richer Cross-Modality Representation">
+                        
+                        <span class="card-title">LLM2CLIP: Powerful Language Model Unlocks Richer Cross-Modality Representation</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            CLIP 的视觉塔十年间一路升级，文本塔却停在 77 token 的老架构上。AAAI-26 杰出论文 LLM2CLIP 的做法不是再改数据，而是把文本塔整个换成 LLM——用两阶段微调解决了直接替换会塌缩的问题，训练成本与普通 CLIP 微调相当
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-10-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="post-category">
+                                    计算机视觉
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">对比学习</span>
+                    </a>
+                    
+                    <a href="/tags/LLM2CLIP/">
+                        <span class="chip bg-color">LLM2CLIP</span>
+                    </a>
+                    
+                    <a href="/tags/CLIP/">
+                        <span class="chip bg-color">CLIP</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81/">
+                        <span class="chip bg-color">多模态</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+    
+
+
+<div class="related-posts">
+    <div class="related-title"><i class="fas fa-book-reader"></i>&nbsp;&nbsp;相关文章</div>
+    <div class="related-list">
+        
+        <a class="related-item" href="/2026/11/07/WeightSpaceProgramming/" title="原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;">
+            <span class="related-item-title">原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;</span>
+            <span class="related-item-meta">2026-11-07</span>
+        </a>
+        
+        <a class="related-item" href="/2026/11/06/FewShotAndZeroShot/" title="小样本与零样本：被模型吸收的技巧与留下的工程">
+            <span class="related-item-title">小样本与零样本：被模型吸收的技巧与留下的工程</span>
+            <span class="related-item-meta">2026-11-06</span>
+        </a>
+        
+        <a class="related-item" href="/2026/10/27/ModelEvaluation/" title="大模型评测：公开基准、数据污染与自建评测集">
+            <span class="related-item-title">大模型评测：公开基准、数据污染与自建评测集</span>
+            <span class="related-item-meta">2026-10-27</span>
+        </a>
+        
+        <a class="related-item" href="/2026/10/13/FinetuningAndAlignment/" title="模型微调与对齐">
+            <span class="related-item-title">模型微调与对齐</span>
+            <span class="related-item-meta">2026-10-13</span>
+        </a>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            &nbsp;<span style="opacity:.75">· 图床经 jsDelivr 分发</span>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">335.5k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--footer badges-->
+             <div>
+                <div class="github-badge">
+                    <a style="color: #fff" href="https://github.com/unluckynike/blog-source" target="_blank" title="本站源码（GitHub）">
+                 <span class="badge-subject">源码</span><span class="badge-value bg-blue">GitHub</span></a>
+                </div>
+                <div class="github-badge">
+                   <a style="color: #fff"  rel="license" href="/about#license" title="本站内容采用 CC BY-NC-SA 4.0 许可，转载要求见关于页">
+                <span class="badge-subject"><i class="fa fa-copyright"></i>CC</span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+    
+<script>
+    (function () {
+        var FALLBACKS = ['https://fastly.jsdelivr.net', 'https://testingcf.jsdelivr.net', 'https://gcore.jsdelivr.net'];
+
+        function candidatesFor(src) {
+            // 仅处理 blogimg 走 jsDelivr 主域的图：cdn.jsdelivr.net/gh/user/repo@ver/path
+            var m = src.match(/^https?:\/\/cdn\.jsdelivr\.net\/gh\/([^/\s?#]+)\/([^/\s?#]+?)(?:@([^/\s?#]+))?\/(.+)$/);
+            if (!m) return [];
+            var list = [];
+            FALLBACKS.forEach(function (base) {
+                list.push(base + '/gh/' + m[1] + '/' + m[2] + (m[3] ? '@' + m[3] : '') + '/' + m[4]);
+            });
+            list.push('https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + (m[3] || 'main') + '/' + m[4]);
+            return list;
+        }
+
+        function tryFallback(img) {
+            var cur = img.currentSrc || img.getAttribute('src') || '';
+            if (cur.indexOf('cdn.jsdelivr.net') === -1) return;
+            if (!img.dataset.fbSrc) {
+                img.dataset.fbSrc = cur.split('?')[0];
+                img.dataset.fbIdx = '0';
+            }
+            var list = candidatesFor(img.dataset.fbSrc);
+            var idx = parseInt(img.dataset.fbIdx, 10);
+            if (idx >= list.length) return; // 四个源都失败，放弃
+            img.dataset.fbIdx = String(idx + 1);
+            img.setAttribute('src', list[idx]);
+        }
+
+        // 捕获阶段委托：对动态插入的图同样生效
+        document.addEventListener('error', function (e) {
+            var t = e.target;
+            if (t && t.tagName === 'IMG') tryFallback(t);
+        }, true);
+
+        // 脚本执行前就已加载失败的图
+        window.addEventListener('load', function () {
+            document.querySelectorAll('img').forEach(function (img) {
+                if (img.complete && img.naturalWidth === 0) tryFallback(img);
+            });
+        });
+    })();
+</script>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸（已移除：依赖的 cdn.bootcss.com 已停止服务，特效失效）-->
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

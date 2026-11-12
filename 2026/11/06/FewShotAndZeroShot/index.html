@@ -1,0 +1,1855 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="小样本与零样本：被模型吸收的技巧与留下的工程, 大模型,LLM,Agent,RAG,微调,推理部署,评测,计算机视觉,YOLO,Java,计算机网络">
+    <meta name="description" content="zero-shot 赢成了所有模型交互的默认形态，few-shot 退守成小模型降本、输出校准、agent 示例四个工程阵地。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>小样本与零样本：被模型吸收的技巧与留下的工程 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book-open" style="zoom: 0.6;"></i>
+      
+      <span>阅读</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="https://unluckynike.github.io/ml-notes/" target="_blank" rel="noopener">
+          
+          <span>像搭积木一样了解AI-2026</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            AI 工程实践与计算机基础札记：大模型部署与推理、RAG 与知识管理、训练与对齐、评测、计算机视觉
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book-open"></i>
+			
+			阅读
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="https://unluckynike.github.io/ml-notes/ " style="margin-left:75px">
+				  
+		          <span>ml_notes</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+<div id="reading-progress-bar"></div>
+<style>
+    #reading-progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0;
+        background: linear-gradient(90deg, #209cee, #ee6e73);
+        z-index: 10000;
+        pointer-events: none;
+        transition: width .08s linear;
+    }
+</style>
+<script>
+    (function () {
+        var bar = document.getElementById('reading-progress-bar');
+        if (!bar) return;
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(function () {
+                var doc = document.documentElement;
+                var total = doc.scrollHeight - window.innerHeight;
+                var current = window.scrollY || doc.scrollTop || 0;
+                var ratio = total > 0 ? current / total : 0;
+                bar.style.width = (ratio * 100).toFixed(2) + '%';
+                ticking = false;
+            });
+        }, { passive: true });
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/icl_cot_overview.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">小样本与零样本：被模型吸收的技巧与留下的工程</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/">
+                                <span class="chip bg-color">小样本</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%9B%B6%E6%A0%B7%E6%9C%AC/">
+                                <span class="chip bg-color">零样本</span>
+                            </a>
+                        
+                            <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">上下文学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大模型</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80/" class="post-category">
+                                大模型基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-11-06
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-11-12
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    13 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>zero-shot 成了今天所有模型交互的默认形态；few-shot 则从”通用涨分技巧”退守成几个特定场景的刚需工具。</p>
+</blockquote>
+<h2 id="一、发展始末：从-GPT-3-到推理模型的完整链条"><a href="#一、发展始末：从-GPT-3-到推理模型的完整链条" class="headerlink" title="一、发展始末：从 GPT-3 到推理模型的完整链条"></a>一、发展始末：从 GPT-3 到推理模型的完整链条</h2><p>先把主线摆出来（引用数为 Papers With Code 2026-11 口径）：</p>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>论文</th>
+<th>干了什么</th>
+<th>引用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2020-05</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.14165">GPT-3</a></td>
+<td>命名 zero&#x2F;one&#x2F;few-shot，不更新参数靠上下文做任务</td>
+<td>6.4 万</td>
+</tr>
+<tr>
+<td>2021-02</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">CLIP</a></td>
+<td>视觉谱系：零样本迁移，ImageNet 追平有监督 ResNet-50</td>
+<td>5.8 万</td>
+</tr>
+<tr>
+<td>2021-09</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.01652">FLAN</a></td>
+<td>指令微调，教会模型”看懂题目”</td>
+<td>5.5 千</td>
+</tr>
+<tr>
+<td>2022-01</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.11903">CoT</a></td>
+<td>few-shot 推理巅峰：8 个示例问倒基线</td>
+<td>2.3 万</td>
+</tr>
+<tr>
+<td>2022-03</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.02155">InstructGPT</a></td>
+<td>RLHF 对齐，零样本成为默认交互形态</td>
+<td>2.5 万</td>
+</tr>
+<tr>
+<td>2022-05</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.11916">Zero-shot CoT</a></td>
+<td>一句咒语，零样本推理翻几倍</td>
+<td>8.2 千</td>
+</tr>
+<tr>
+<td>2022-09</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.11895">Induction Heads</a></td>
+<td>机制研究：找到 ICL 的内部回路</td>
+<td>1.1 千</td>
+</tr>
+<tr>
+<td>2022-12</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.10559">Why Can GPT Learn In-Context</a></td>
+<td>理论：ICL 等价于隐式微调</td>
+<td>265</td>
+</tr>
+<tr>
+<td>2023-04</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.02643">SAM</a></td>
+<td>视觉提示式分割，两条谱系在此合流</td>
+<td>1.6 万</td>
+</tr>
+<tr>
+<td>2023-05</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.14926">USP</a></td>
+<td>自生成示例：模型给自己造演示</td>
+<td>15</td>
+</tr>
+<tr>
+<td>2023-10</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.01714">Analogical Reasoners</a></td>
+<td>“先回忆相似题，再解新题”</td>
+<td>181</td>
+</tr>
+<tr>
+<td>2024-04</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.11018">Many-Shot ICL</a></td>
+<td>长上下文时代：数百到千级示例</td>
+<td>272</td>
+</tr>
+<tr>
+<td>2025-01</td>
+<td><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a></td>
+<td>推理模型：纯 RL 让思考内生化</td>
+<td>5.3 千</td>
+</tr>
+</tbody></table>
+<p>这条线可以切成三段读。整个过程里最有代表性的一张图，是 CoT 论文的 Figure 1——同一道算术题，标准提示让模型直接给答案，思维链提示让模型先写中间步骤：</p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/icl_cot_overview.png" alt="CoT 论文 Figure 1：标准提示直接给答案，思维链提示先写中间推理步骤"></p>
+<p><em>图源：Wei 等，Chain-of-Thought Prompting（NeurIPS 2022）Figure 1</em>——8 个这样的带步骤示例，把 540B 模型推过了微调加验证器的 GPT-3。</p>
+<p><strong>2020-2022 上半年：概念奠基。</strong>GPT-3 用 1750 亿参数证明了一件事：不给任何训练样本、只在 prompt 里放几个示例，模型就能完成任务——它给这个现象起了一整套名字（zero&#x2F;one&#x2F;few-shot），也让”上下文学习”（ICL）成了研究对象。几乎同时，CLIP 在视觉侧走出另一条零样本路：4 亿图文对训出对齐空间，分类器都不用训练，把类别名当文本描述就能分类。FLAN 和 InstructGPT 随后回答了”怎么让零样本变强”：前者把 60 多个任务 verbalize 成指令做微调，137B 的模型零样本在 25 个任务里 20 个超过 175B 的 GPT-3；后者用人类反馈对齐，1.3B 参数的模型输出被人类偏好胜过 175B 的 GPT-3——从这以后，”直接用自然语言下指令”成为产品默认，zero-shot 赢下了第一局。</p>
+<p><strong>2022 下半年-2023：深挖”为什么”。</strong>技巧层面到了顶峰——CoT 用 8 个带推理过程的示例把 540B 模型在 GSM8K 上推过微调加验证器的 GPT-3；Zero-shot CoT 证明连示例都不要，一句”Let’s think step by step”就能让 MultiArith 从 17.7% 到 78.7%。机制研究同步展开：Anthropic 找到诱导头——实现 [A][B]…[A]→[B] 补全回路的注意力头，与 ICL 能力在同一点涌现；清华与微软的团队证明 attention 存在梯度下降的对偶形式，ICL 在功能上等价于一次隐式微调。也是在这个时期，研究开始问”人写的示例是不是必需的”——USP、SEC、Analogical Reasoners 先后让模型自己生成演示。</p>
+<p><strong>2024-2025：吸收与收官。</strong>长上下文把 few-shot 的天花板抬到”数百到千级示例”（many-shot），且效果能覆盖预训练偏置、追平微调；但同期的 DeepSeek-R1 用纯强化学习让推理能力内生涌现——模型自己会思考了，”给示例教它推理”完成历史使命。至此，prompting 作为研究前沿正式退潮。</p>
+<h2 id="二、两个词，各有两条谱系"><a href="#二、两个词，各有两条谱系" class="headerlink" title="二、两个词，各有两条谱系"></a>二、两个词，各有两条谱系</h2><p>读这个领域的论文，第一个坑是”zero-shot”这个词有两条独立的技术谱系。</p>
+<p><strong>NLP 谱系：上下文学习。</strong>GPT-3 定义的口径，区别只在 prompt 里给不给示例，参数全程不动：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>prompt 构成</th>
+<th>模型在干什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>零样本</td>
+<td>任务描述 + 输入</td>
+<td>纯靠指令理解任务</td>
+</tr>
+<tr>
+<td>单样本</td>
+<td>描述 + 1 个示例</td>
+<td>现场照猫画虎</td>
+</tr>
+<tr>
+<td>小样本</td>
+<td>描述 + K 个示例（通常 2~32）</td>
+<td>从示例归纳格式与规律</td>
+</tr>
+</tbody></table>
+<p>三种设置的形态，GPT-3 论文的 Figure 2.1 画得最直观——差别只在 prompt 里塞了几个示例，模型本体一个参数都没动：</p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/icl_gpt3_fewshot.png" alt="GPT-3 论文 Figure 2.1：零样本/单样本/小样本三种设置下模型看到的 prompt"></p>
+<p><em>图源：Brown 等，Language Models are Few-Shot Learners（NeurIPS 2020）Figure 2.1</em></p>
+<p><strong>视觉谱系：零样本迁移。</strong>CLIP 的做法是把类别名拼成文本（”一张{猫}的照片”），用图文相似度当分类器，一次前向出结果，没有”给示例”这一步：</p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/icl_clip_zeroshot.png" alt="CLIP 论文 Figure 1：4 亿图文对预训练对齐，类别名当文本输入，相似度即分类器"></p>
+<p><em>图源：Radford 等，Learning Transferable Visual Models From Natural Language Supervision（ICML 2021）Figure 1</em>。<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2411.04997">LLM2CLIP</a> 的文本塔升级，提升的正是这条谱系的零样本能力。</p>
+<p>两条谱系在 SAM 身上合流了：SAM 自称 zero-shot（提示式分割，不针对特定数据集训练），但它接收的”提示”——几个点、几个框——本质就是上下文示例的视觉形态（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.02643">SAM</a> 的点&#x2F;框提示即是）。所以读论文遇到 zero-shot，先分清是”不给示例靠指令”还是”不用微调靠预训练对齐”，数字才不会比错对象。</p>
+<h2 id="三、本质：学习发生在激活里，不是权重里"><a href="#三、本质：学习发生在激活里，不是权重里" class="headerlink" title="三、本质：学习发生在激活里，不是权重里"></a>三、本质：学习发生在激活里，不是权重里</h2><p>ICL 最反直觉的地方：参数一个都没动，只是上下文变了，”学习”却发生了。机制上至今没有定论，三条主流解释：</p>
+<p><strong>诱导头（机制实证）</strong>。注意力头实现”上文出现过 [A][B]，现在看到 [A] 就输出 [B]”的复制回路；Anthropic 观察到这类头与 ICL 能力在同一点涌现——小模型有强因果证据，大模型有相关性证据。</p>
+<p><strong>隐式微调（理论框架）</strong>。attention 存在梯度下降的对偶形式：示例先产生”元梯度”，再作用到原模型上得到一个”临时 ICL 模型”——行为上与显式微调多方面相似。这也给工程直觉背书：<strong>给示例和微调是同一件事的两个连续谱端，一个改激活、一个改权重</strong>。</p>
+<p><strong>贝叶斯任务定位</strong>。示例帮模型在隐式的任务分布上”定位”到具体任务——示例越典型，定位越准。</p>
+<p>另一个工程上重要的观察：这个能力是<strong>规模涌现</strong>的。GPT-3 论文就发现小模型给示例反而可能更差——连”模仿格式”都不会。这条性质决定了后面所有工程分工。</p>
+<h2 id="四、两个方向各自怎么被强化"><a href="#四、两个方向各自怎么被强化" class="headerlink" title="四、两个方向各自怎么被强化"></a>四、两个方向各自怎么被强化</h2><p><strong>零样本侧的路线是”教会看题”</strong>：FLAN 的指令微调、InstructGPT 的人类反馈对齐，把零样本从”碰运气”做成产品默认。推理类任务再补一句 Zero-shot CoT 的咒语。这条线的终点是推理模型——思考被 RL 内生化了，连咒语都不用念。</p>
+<p><strong>小样本侧的路线是”把例题给对”</strong>：</p>
+<ul>
+<li><p><strong>示例里带推理过程</strong>（CoT）：8 个示例推到 SOTA；配 self-consistency 多路投票，PaLM 540B 在 GSM8K 到 74.4%</p>
+</li>
+<li><p><strong>示例顺序是个超参数</strong>：换一下顺序，性能能从接近 SOTA 掉到随机猜水平（原文表述：”the difference between near state-of-the-art and random guess performance”）；用熵统计选序能拿 13% 的相对提升。生产上的对应物是 kNN 动态选例——按 query 检索最相似的示例注入 prompt</p>
+</li>
+<li><p><strong>示例数量上限被长上下文重拉</strong>：many-shot 实验到数百千级示例，性能持续上升，还能覆盖预训练偏置（few-shot 做不到），并追平微调——代价是推理成本随示例数线性增长。数据效率上，示例比标注更省：学 sequential parity 任务，8192-shot ICL 的效果，从头训练要多 20 倍的样本才追得上</p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/icl_manyshot_parity.png" alt="many-shot 论文附录 Figure A.13：8192-shot ICL（虚线）的效果，从头训练要多 20 倍样本才追平"></p>
+<p><em>图源：Agarwal 等，Many-Shot In-Context Learning（2024）Figure A.13</em></p>
+</li>
+</ul>
+<h2 id="五、热度为什么退了：四条吸收线"><a href="#五、热度为什么退了：四条吸收线" class="headerlink" title="五、热度为什么退了：四条吸收线"></a>五、热度为什么退了：四条吸收线</h2><p>论文不再多，是因为这个方向被四条线瓜分吸收了：</p>
+<p><strong>推理技巧被推理模型吸收</strong>。CoT 的本质是”让模型在输出里展开中间步骤”，o1&#x2F;R1 谱系直接把这件事变成训练目标（R1 纯 RL 涌现长思考）——用户不再写”step by step”，模型默认就展开。评测口径跟着转向：GPQA、MMLU-Pro 这些新基准用 0-shot CoT 口径，不再依赖人工示例。</p>
+<p><strong>知识来源被 RAG 接管</strong>。示例本来就不承载事实——示例教的是”怎么答”，不是”答案是什么”。要知识，检索比示例便宜且可靠（<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.11401">RAG</a> 原论文即此立意）。</p>
+<p><strong>格式被结构化输出接管</strong>。要严格的 JSON，schema 约束解码比示例更硬——示例可能被忽略，约束解码不会。OpenAI 的 structured outputs、vLLM 的 guided decoding 都已生产化。</p>
+<p><strong>低垂论文摘完了</strong>。各种 prompting 变体的边际收益变薄，这个组合拳打完，审稿人和作者都移向了 RL、agent 和多模态。</p>
+<p>这是典型的”研究热点沉淀为默认件”的曲线，dropout 和 batch-norm 走过一模一样的路：2015-2018 年是论文富矿，现在只是每个模型里的一行默认配置。</p>
+<h2 id="六、留下的四块阵地"><a href="#六、留下的四块阵地" class="headerlink" title="六、留下的四块阵地"></a>六、留下的四块阵地</h2><p>退潮之后，few-shot 在工程上退守到四个场景——都不是情怀，是实测下来示例仍是首选方案的地方：</p>
+<p><strong>1. 小模型降本</strong>。ICL 增益随模型变小而变大：给足示例的小模型能追平比它大一个量级模型的零样本表现。生产上”小模型 + 精选示例”替代”大模型裸问”是标准的省钱打法，延迟还低。</p>
+<p><strong>2. 校准，而不是教学</strong>。这是 few-shot 最本质的现代定位：模型早就有能力，示例把输出分布校准到任务上。实证例子：GPT-4 做作文评分，不给校准样本连简单基线都不如，给几条标注样本就追平专用自动评分系统；临床 NER、低资源领域同理——模型懂领域知识，缺的是”这个任务长什么样”。</p>
+<p><strong>3. schema 管不到的”什么叫好”</strong>。结构化输出能约束字段，约束不了判分尺度、语气、领域惯例、边界 case——这些用示例表达最直接。DSPy 这类框架干脆把”选哪些示例”当成可优化的变量交给程序搜。</p>
+<p><strong>4. Agent 轨迹示例</strong>。给一两条完整的”观察—思考—工具调用—结果”轨迹当示例，是稳住 agent 行为模式的常用手段——工具调用的格式与节奏，示例比描述传得准。</p>
+<p>另外两条边界上的动态值得知道：<strong>自生成示例</strong>这条线（USP 到 Analogical Reasoners，再到 many-shot 里的 Reinforced ICL）让模型先给自己造几个伪示例再答正式问题——zero-shot 的形态、few-shot 的效果，两个词的边界正在被抹掉；<strong>评测口径</strong>上 MMLU 至今还是 5-shot，且 2025 年的实测里即便 GPT-4.5 一级的模型，0-shot 换 5-shot 仍普遍 +4 个点上下——few-shot 对前沿模型也没有归零。</p>
+<h2 id="七、什么时候给示例：一张决策表"><a href="#七、什么时候给示例：一张决策表" class="headerlink" title="七、什么时候给示例：一张决策表"></a>七、什么时候给示例：一张决策表</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>严格结构化输出，schema 能表达</td>
+<td>约束解码 &#x2F; structured outputs，别用示例</td>
+</tr>
+<tr>
+<td>格式、判分尺度、语气这类 schema 外的要求</td>
+<td>few-shot，2~5 个精选示例</td>
+</tr>
+<tr>
+<td>量大、单次 token 成本敏感</td>
+<td>微调（SFT 一次摊销，方法见 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA</a>），或配 prefix caching</td>
+</tr>
+<tr>
+<td>小模型、端侧部署</td>
+<td>few-shot 优先于堆指令</td>
+</tr>
+<tr>
+<td>需要事实与知识</td>
+<td>RAG，示例只管格式</td>
+</tr>
+<tr>
+<td>推理模型（内生思考）</td>
+<td>不需要 CoT 示例，直接问</td>
+</tr>
+<tr>
+<td>新任务可行性验证</td>
+<td>先 zero-shot，再 few-shot 探顶，再决定要不要微调</td>
+</tr>
+</tbody></table>
+<p>选例三条原则：<strong>格式与目标输出完全一致</strong>（示例是格式契约）；<strong>覆盖边界 case</strong>（正常例之外放一个例外例）；<strong>标签分布平衡</strong>（示例里正例占八成，输出就会偏正——这是最常见的隐性偏置）。</p>
+<h2 id="八、示例工程的五个坑"><a href="#八、示例工程的五个坑" class="headerlink" title="八、示例工程的五个坑"></a>八、示例工程的五个坑</h2><p><strong>示例顺序与选择敏感</strong>。同一组示例换个顺序能从接近 SOTA 波动到随机猜，且好顺序不跨模型迁移——上生产前把换序做成一个测试维度。</p>
+<p><strong>多数标签偏置与近因偏置</strong>。模型倾向跟随示例的答案分布和最近的示例，分类任务选例要平衡标签。</p>
+<p><strong>注意力稀释</strong>。示例太长会稀释 query 的注意力（lost in the middle），示例要精不要全。</p>
+<p><strong>对推理模型可能帮倒忙</strong>。已有系统研究”few-shot 什么时候反而有害”——给内生思考的模型塞 CoT 示例，可能把它的思路框死在你的示例路径上。</p>
+<p><strong>口径玄机</strong>。对比基准分数先对齐 shot 数：MMLU 是 5-shot、GSM8K 历史口径 8-shot CoT、新基准多用 0-shot CoT——口径不一致的比较都是自欺（口径出处：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2009.03300">MMLU</a>、<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2110.14168">GSM8K</a>）。</p>
+<h2 id="九、局限"><a href="#九、局限" class="headerlink" title="九、局限"></a>九、局限</h2><p>本文的实证数字引自 2020-2025 的论文与 2025-2026 的工程实践资料，这个领域迭代快：推理模型继续进化，many-shot 的经济性随缓存价格变化，自生成示例的边界也在移动。文中”四块阵地”的判断以当下工程共识为准，读时建议对照自己手上的模型实测。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2005.14165">2005.14165</a> — Language Models are Few-Shot Learners — NeurIPS 2020（GPT-3，ICL 的命名之作）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2103.00020">2103.00020</a> — Learning Transferable Visual Models From Natural Language Supervision — ICML 2021（CLIP，视觉零样本谱系）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.01652">2109.01652</a> — Finetuned Language Models Are Zero-Shot Learners — ICLR 2022（FLAN，指令微调）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2203.02155">2203.02155</a> — Training language models to follow instructions with human feedback — NeurIPS 2022（InstructGPT，RLHF）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2201.11903">2201.11903</a> — Chain-of-Thought Prompting Elicits Reasoning in Large Language Models — NeurIPS 2022</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2205.11916">2205.11916</a> — Large Language Models are Zero-Shot Reasoners — NeurIPS 2022（Zero-shot CoT）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2104.08786">2104.08786</a> — Fantastically Ordered Prompts and Where to Find Them — ACL 2022（顺序敏感）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2209.11895">2209.11895</a> — In-context Learning and Induction Heads — Anthropic 2022（机制：诱导头）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2212.10559">2212.10559</a> — Why Can GPT Learn In-Context? Language Models Implicitly Perform Gradient Descent as Meta-Optimizers — 2022（ICL &#x3D; 隐式微调）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2304.02643">2304.02643</a> — Segment Anything — ICCV 2023（SAM，提示式分割）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2305.14926">2305.14926</a> — Universal Self-Adaptive Prompting — 2023（USP，自生成示例）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2309.14681">2309.14681</a> — Are Human-generated Demonstrations Necessary for In-context Learning? — ACL 2024（SEC）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.01714">2310.01714</a> — Large Language Models as Analogical Reasoners — 2023（类比提示）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2404.11018">2404.11018</a> — Many-Shot In-Context Learning — 2024（长上下文 few-shot）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2501.12948">2501.12948</a> — DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning — 2025（推理模型）</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/11/06/FewShotAndZeroShot/">https://unluckynike.github.io/2026/11/06/FewShotAndZeroShot/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/">
+                                    <span class="chip bg-color">小样本</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%9B%B6%E6%A0%B7%E6%9C%AC/">
+                                    <span class="chip bg-color">零样本</span>
+                                </a>
+                            
+                                <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">上下文学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大模型</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+<style>
+    .giscus-card {
+        margin: 1.5rem auto;
+    }
+    .giscus-card .card-content {
+        padding: 20px 20px 10px 20px;
+    }
+    .giscus-title {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="card giscus-card" data-aos="fade-up">
+    <div class="card-content">
+        <div class="giscus-title center-align">
+            <i class="fas fa-comments"></i>&nbsp;&nbsp;留言
+        </div>
+        <script src="https://giscus.app/client.js"
+                data-repo="unluckynike/unluckynike.github.io"
+                data-repo-id="MDEwOlJlcG9zaXRvcnkyNTM5ODMwMTA="
+                data-category="Announcements"
+                data-category-id="DIC_kwDODyN5Is4DKkeM"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2026/11/07/WeightSpaceProgramming/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/20261107113455339.png" class="responsive-img" alt="原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;">
+                        
+                        <span class="card-title">原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            MIT CSAIL 四人组的实验让 GPT-6 Astra 直接改 Qwen3.5-0.8B 的权重：不训练、不走梯度，只动 0.016%，MATH-500 从 7.9% 涨到 48.1%。但被中文报道略过的关键事实是：它不是"注入能力"，而是拆掉了卡住小模型的一个环路——换一个不卡环路的模型，它就无能为力。这篇把实验细节、改动机制和可信度边界讲清。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2026-11-07
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    大模型基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大模型</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9D%83%E9%87%8D%E7%BC%96%E8%BE%91/">
+                        <span class="chip bg-color">权重编辑</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7/">
+                        <span class="chip bg-color">可解释性</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/11/05/MsSwiftVsLlamaFactory/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/msswift_banner.png" class="responsive-img" alt="微调框架 ms-swift 与 LLaMA-Factory">
+                        
+                        <span class="card-title">微调框架 ms-swift 与 LLaMA-Factory</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            两个微调框架的功能清单几乎重合——因为底层都是 transformers Trainer。真正的分野在清单之外：魔搭生态位、400+ 多模态覆盖、Megatron 并行与 GRPO 的集成度。本文从命令、数据、显存到部署评测逐环节对齐，最后给一张选型决策表。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-11-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%AF%B9%E9%BD%90/" class="post-category">
+                                    训练与对齐
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大模型</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%BE%AE%E8%B0%83/">
+                        <span class="chip bg-color">微调</span>
+                    </a>
+                    
+                    <a href="/tags/ms-swift/">
+                        <span class="chip bg-color">ms-swift</span>
+                    </a>
+                    
+                    <a href="/tags/LLaMA-Factory/">
+                        <span class="chip bg-color">LLaMA-Factory</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+    
+
+
+<div class="related-posts">
+    <div class="related-title"><i class="fas fa-book-reader"></i>&nbsp;&nbsp;相关文章</div>
+    <div class="related-list">
+        
+        <a class="related-item" href="/2026/11/07/WeightSpaceProgramming/" title="原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;">
+            <span class="related-item-title">原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;</span>
+            <span class="related-item-meta">2026-11-07</span>
+        </a>
+        
+        <a class="related-item" href="/2026/11/05/MsSwiftVsLlamaFactory/" title="微调框架 ms-swift 与 LLaMA-Factory">
+            <span class="related-item-title">微调框架 ms-swift 与 LLaMA-Factory</span>
+            <span class="related-item-meta">2026-11-05</span>
+        </a>
+        
+        <a class="related-item" href="/2026/10/27/ModelEvaluation/" title="大模型评测：公开基准、数据污染与自建评测集">
+            <span class="related-item-title">大模型评测：公开基准、数据污染与自建评测集</span>
+            <span class="related-item-meta">2026-10-27</span>
+        </a>
+        
+        <a class="related-item" href="/2026/10/10/ModelTrainingPipeline/" title="后训练模型的产生：基座 SFT 对齐 推理 部署">
+            <span class="related-item-title">后训练模型的产生：基座 SFT 对齐 推理 部署</span>
+            <span class="related-item-meta">2026-10-10</span>
+        </a>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            &nbsp;<span style="opacity:.75">· 图床经 jsDelivr 分发</span>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">335.5k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--footer badges-->
+             <div>
+                <div class="github-badge">
+                    <a style="color: #fff" href="https://github.com/unluckynike/blog-source" target="_blank" title="本站源码（GitHub）">
+                 <span class="badge-subject">源码</span><span class="badge-value bg-blue">GitHub</span></a>
+                </div>
+                <div class="github-badge">
+                   <a style="color: #fff"  rel="license" href="/about#license" title="本站内容采用 CC BY-NC-SA 4.0 许可，转载要求见关于页">
+                <span class="badge-subject"><i class="fa fa-copyright"></i>CC</span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+    
+<script>
+    (function () {
+        var FALLBACKS = ['https://fastly.jsdelivr.net', 'https://testingcf.jsdelivr.net', 'https://gcore.jsdelivr.net'];
+
+        function candidatesFor(src) {
+            // 仅处理 blogimg 走 jsDelivr 主域的图：cdn.jsdelivr.net/gh/user/repo@ver/path
+            var m = src.match(/^https?:\/\/cdn\.jsdelivr\.net\/gh\/([^/\s?#]+)\/([^/\s?#]+?)(?:@([^/\s?#]+))?\/(.+)$/);
+            if (!m) return [];
+            var list = [];
+            FALLBACKS.forEach(function (base) {
+                list.push(base + '/gh/' + m[1] + '/' + m[2] + (m[3] ? '@' + m[3] : '') + '/' + m[4]);
+            });
+            list.push('https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + (m[3] || 'main') + '/' + m[4]);
+            return list;
+        }
+
+        function tryFallback(img) {
+            var cur = img.currentSrc || img.getAttribute('src') || '';
+            if (cur.indexOf('cdn.jsdelivr.net') === -1) return;
+            if (!img.dataset.fbSrc) {
+                img.dataset.fbSrc = cur.split('?')[0];
+                img.dataset.fbIdx = '0';
+            }
+            var list = candidatesFor(img.dataset.fbSrc);
+            var idx = parseInt(img.dataset.fbIdx, 10);
+            if (idx >= list.length) return; // 四个源都失败，放弃
+            img.dataset.fbIdx = String(idx + 1);
+            img.setAttribute('src', list[idx]);
+        }
+
+        // 捕获阶段委托：对动态插入的图同样生效
+        document.addEventListener('error', function (e) {
+            var t = e.target;
+            if (t && t.tagName === 'IMG') tryFallback(t);
+        }, true);
+
+        // 脚本执行前就已加载失败的图
+        window.addEventListener('load', function () {
+            document.querySelectorAll('img').forEach(function (img) {
+                if (img.complete && img.naturalWidth === 0) tryFallback(img);
+            });
+        });
+    })();
+</script>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸（已移除：依赖的 cdn.bootcss.com 已停止服务，特效失效）-->
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
