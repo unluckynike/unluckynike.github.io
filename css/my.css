@@ -1,0 +1,95 @@
+/* Here is your custom css styles. */
+
+/* 中文正文段落首行缩进两字符。
+   只作用于正文容器的直接段落：列表、引用、表格、代码块内的内容不受影响。 */
+#articleContent > p {
+  text-indent: 2em;
+}
+/* 含图片的段落不缩进（主题 JS 会把图片包进 div.img-item，故用后代匹配），避免图片整体右移 */
+#articleContent > p:has(img) {
+  text-indent: 0;
+}
+
+/* 多图并排的对比图网格：绕过主题的图片块级强制 */
+#articleContent .fig-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  text-indent: 0;
+}
+#articleContent .fig-grid img {
+  display: block;
+  width: calc(50% - 4px);
+  margin: 0;
+  text-indent: 0;
+}
+
+/* 下拉菜单子项文字不换行 */
+.menus_item_child li a span {
+  white-space: nowrap;
+}
+
+/* 下拉菜单宽度自适应内容（主题默认按父项宽度，长文字会溢出） */
+.menus_item_child {
+  width: max-content !important;
+  max-width: none !important;
+}
+.menus_item_child li,
+.menus_item_child li a {
+  width: auto !important;   /* 主题把 li 定死 140px / a 138px，长文字会溢出 */
+  white-space: nowrap;
+  display: block;
+}
+
+/* 图注行（*图源：…*）不缩进，与上方配图左缘对齐 */
+#articleContent > p:has(> em:only-child) {
+  text-indent: 0;
+}
+
+/* 相关文章（按 tag 匹配） */
+.related-posts {
+  margin: 2.5rem 0 1rem;
+}
+.related-posts .related-title {
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.related-posts .related-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.related-posts .related-item {
+  flex: 1 1 calc(50% - 10px);
+  min-width: 240px;
+  display: block;
+  border: 1px solid #e3e6ea;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: inherit;
+  transition: box-shadow .25s, border-color .25s;
+}
+.related-posts .related-item:hover {
+  border-color: #5b8ff9;
+  box-shadow: 0 4px 14px rgba(91, 143, 249, .18);
+  text-decoration: none;
+}
+.related-posts .related-item-title {
+  display: block;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.related-posts .related-item-meta {
+  font-size: .82rem;
+  color: #9aa0a6;
+}
+/* 窄屏单列 */
+@media (max-width: 600px) {
+  .related-posts .related-item {
+    flex: 1 1 100%;
+  }
+}

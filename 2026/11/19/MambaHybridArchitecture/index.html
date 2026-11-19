@@ -1,0 +1,1723 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Mamba 与混合架构：大模型为什么开始&#34;换掉&#34;注意力, 大模型,LLM,Agent,RAG,微调,推理部署,评测,计算机视觉,YOLO,Java,计算机网络">
+    <meta name="description" content="你微调用的 Qwen 已经不是纯 Transformer 了——它的多数层被换成了 Mamba 类的线性层，只留少数注意力层当&#34;精确回忆锚点&#34;。这不是省成本的权宜之计，而是一条有五年代际、有硬核基准的新路线：训练 O(N)、推理状态恒定，代价是细节会忘。这篇从注意力的账单讲起，把 Mamba 的机制、纯 Mamba 为什么不行、混合架构怎么折中，一次说透。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DRZTQLNC0S"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-DRZTQLNC0S');
+</script>
+
+
+    
+    <style>
+        body{
+            background-image: url(https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/pictures/dalian-1690991_1920.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>Mamba 与混合架构：大模型为什么开始&#34;换掉&#34;注意力 | Halensea</title>
+    <link rel="icon" type="image/png" href="/medias/logo.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Halensea" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Halensea</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-book-open" style="zoom: 0.6;"></i>
+      
+      <span>阅读</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="https://unluckynike.github.io/ml-notes/" target="_blank" rel="noopener">
+          
+          <span>像搭积木一样了解AI-2026</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Halensea</div>
+        <div class="logo-desc">
+            
+            AI 工程实践与计算机基础札记：大模型部署与推理、RAG 与知识管理、训练与对齐、评测、计算机视觉
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-book-open"></i>
+			
+			阅读
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>
+
+                  <a href="https://unluckynike.github.io/ml-notes/ " style="margin-left:75px">
+				  
+		          <span>ml_notes</span>
+                  </a>
+                </li>
+              
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/unluckynike" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/unluckynike" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+<div id="reading-progress-bar"></div>
+<style>
+    #reading-progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0;
+        background: linear-gradient(90deg, #209cee, #ee6e73);
+        z-index: 10000;
+        pointer-events: none;
+        transition: width .08s linear;
+    }
+</style>
+<script>
+    (function () {
+        var bar = document.getElementById('reading-progress-bar');
+        if (!bar) return;
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(function () {
+                var doc = document.documentElement;
+                var total = doc.scrollHeight - window.innerHeight;
+                var current = window.scrollY || doc.scrollTop || 0;
+                var ratio = total > 0 ? current / total : 0;
+                bar.style.width = (ratio * 100).toFixed(2) + '%';
+                ticking = false;
+            });
+        }, { passive: true });
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/mamba_memory_compare.svg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Mamba 与混合架构：大模型为什么开始&#34;换掉&#34;注意力</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">大模型</span>
+                            </a>
+                        
+                            <a href="/tags/Mamba/">
+                                <span class="chip bg-color">Mamba</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">
+                                <span class="chip bg-color">注意力机制</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%95%BF%E4%B8%8A%E4%B8%8B%E6%96%87/">
+                                <span class="chip bg-color">长上下文</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                人工智能
+                            </a>
+                        
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80/" class="post-category">
+                                大模型基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2026-11-19
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2026-11-19
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>给 Qwen3.5 做完 LoRA 微调之后，我去看它的架构文档，发现一件值得关注的事：这个模型的多数层已经不是注意力了——它们被换成了 Mamba 类的线性层（Gated DeltaNet），只有少数几层保留标准注意力。换句话说，我微调的不是一个”纯 Transformer”，而是一个混合体。这不是 Qwen 一家的选择：Nemotron、Jamba、Falcon-H1、Granite 4 都在走这条线。这篇把 Mamba 的来龙去脉讲清楚——它是什么、凭什么、短在哪，以及混合架构为什么成了当前的收敛答案。</p>
+</blockquote>
+<h2 id="一、先看注意力的账单"><a href="#一、先看注意力的账单" class="headerlink" title="一、先看注意力的账单"></a>一、先看注意力的账单</h2><p>注意力机制是过去八年大模型成功的地基，但它有一张越滚越大的账单。自注意力要对序列中每对 token 计算相似度：序列长度翻倍，计算量翻四倍——O(N²) 是写进公式里的。而推理时的代价更直观：为了支持”每个新 token 都能回看全部历史”，必须把所有历史 token 的 Key 和 Value 缓存下来，这就是 KV cache——<strong>它随上下文长度线性增长，永不释放</strong>。</p>
+<p>短上下文时代这张账单不显眼：4K 上下文的 KV cache 只占几百 MB。但当上下文走到 128K、1M，账单开始压垮预算：KV cache 以 GB 计，prompt 处理的计算量按长度平方涨，吞吐随长度骤降。”把上下文开到 1M”这个需求，对纯注意力架构来说不只是贵，是物理上放不下。</p>
+<p>所以社区一直在找替代品——线性注意力、门控卷积、各类循环变体都试过，长期没有赢家：便宜是真便宜，语言建模质量真不行。转折发生在 2023 年底：Mamba 出现。</p>
+<h2 id="二、Mamba：一页有选择地更新的笔记"><a href="#二、Mamba：一页有选择地更新的笔记" class="headerlink" title="二、Mamba：一页有选择地更新的笔记"></a>二、Mamba：一页有选择地更新的笔记</h2><h3 id="从-S4-到-Mamba-的两步"><a href="#从-S4-到-Mamba-的两步" class="headerlink" title="从 S4 到 Mamba 的两步"></a>从 S4 到 Mamba 的两步</h3><p>Mamba 不是凭空冒出来的，它前面有一段铺垫。<strong>S4</strong>（2021，Gu、Goel、Ré）先把控制论里的<strong>状态空间模型</strong>（SSM）引入序列建模：维护一个隐藏状态 h，每读一个输入更新一次，从状态读出输出。S4 用”结构化参数化”解决了 SSM 计算量的问题，在 Long Range Arena 那类超长序列基准上横扫——但它有个致命限制：<strong>参数是固定的</strong>，无论读到什么内容，状态更新的方式都一样，模型无法”因内容而异”地决定记什么忘什么。处理文本这种离散信息时，这几乎致命。</p>
+<p><strong>Mamba</strong>（2023-12，Gu &amp; Dao）的关键一步就是<strong>选择性（selective）</strong>：把状态更新的参数改成<strong>当前输入的函数</strong>——读到什么，决定写入什么、淡忘什么。一句话概括机制：</p>
+<blockquote>
+<p>每读一个 token，先判断它的信息价值，再决定让状态里哪些旧信息衰减、哪些新信息写入——“选择性”让固定大小的状态变成了一个智能的、内容感知的记忆。</p>
+</blockquote>
+<p>配套的工程难题是：参数随输入变化后，原来的高效卷积计算不能用了。Mamba 的应对是硬件感知的并行扫描算法（parallel scan，内核融合），让”看似必须串行的循环”在 GPU 上高效并行——训练依然是线性的，推理时状态恒定。论文报的数字很直白：推理吞吐是同尺寸 Transformer 的 5 倍，语言建模上 3B 的 Mamba 打平同尺寸 Transformer、追上两倍大的 Transformer。</p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/mamba_memory_compare.svg" alt="注意力与 Mamba 的记忆模型对比：全量 KV cache 精确但无限增长，固定状态省内存但有损压缩（本文自绘）"></p>
+<p><em>图源：本文自绘</em></p>
+<p>第三步是 <strong>Mamba-2</strong>（2024-05，Dao &amp; Gu）：提出”状态空间对偶”（SSD）理论框架，证明 SSM 与注意力的一个变体在数学上是同一类结构（半可分矩阵）的两种分解——这给了整个方向一个理论地基：<strong>线性注意力和 SSM 不是两个阵营，是一个家族</strong>。Mamba-2 的核心层比 Mamba 快 2-8 倍，后来的工程变体（包括 Qwen 用的 Gated DeltaNet）大多沿这条理论线演化。</p>
+<h2 id="三、纯-Mamba-的天生短板：细节会忘"><a href="#三、纯-Mamba-的天生短板：细节会忘" class="headerlink" title="三、纯 Mamba 的天生短板：细节会忘"></a>三、纯 Mamba 的天生短板：细节会忘</h2><p>如果 Mamba 全面优于注意力，故事到第二节就结束了。现实是：固定大小的状态是一把双刃剑——<strong>它是有损压缩，而有些任务恰恰需要无损</strong>。</p>
+<p>两个基准把这条短板钉死了。<strong>MQAR（多查询联想回忆）</strong>——Zoology 论文（2023-12，斯坦福 Ré 组）设计的测试：先给一串”键值对”（比如某代号对应某颜色），再问其中某个键对应的值。这需要从上下文里精确取出一条早先的记录——纯 SSM 的固定状态做不到，注意力轻松满分。<strong>Copying 任务</strong>——Repeat After Me 论文（2024-02）证明：把输入里的字符串原样复制到输出，纯 SSM 的能力有明确的长度上限，注意力没有。</p>
+<p>这不是实现 bug，是结构性的：<strong>无损记忆需要的状态大小与信息量成正比，而 Mamba 的状态大小是写死的</strong>。AI21 的 Jamba 论文在遗传学基准（HG38）上给出了同类证据：长序列中段的精确回忆，Mamba 系显著弱于注意力。缩写、引用编号、代码里的变量名、RAG 注入片段中的原文细节——大模型应用里到处是这类”逐字精确回溯”需求。</p>
+<h2 id="四、混合架构：粗活给线性层，回忆给注意力"><a href="#四、混合架构：粗活给线性层，回忆给注意力" class="headerlink" title="四、混合架构：粗活给线性层，回忆给注意力"></a>四、混合架构：粗活给线性层，回忆给注意力</h2><p>短板确认后，2024 年的收敛答案非常务实：<strong>别二选一，交错着放</strong>。绝大多数层用 Mamba 类线性层干粗活（局部语法、语义流动、把长历史压缩进状态），每隔几层插一个标准注意力层当”精确回忆的锚点”。</p>
+<p>Jamba 论文给出了这条路线最直接的实验证据：纯注意力、纯 Mamba、不同注意力:Mamba 配比的混合模型同场训练，混合模型在多数配置下<strong>损失曲线低于两个纯模型</strong>——两个极端都不如折中：</p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/jamba_ratio_loss.png" alt="Jamba 论文 Figure 6：纯注意力、纯 Mamba 与不同配比混合模型的训练损失曲线"></p>
+<p><em>图源：Lieber 等，Jamba: A Hybrid Transformer-Mamba Language Model（2024）Figure 6</em></p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/mamba_hybrid_layout.svg" alt="混合架构的层布局示意：线性层干粗活，注意力层当精确回忆锚点，KV cache 随注意力占比打折（本文自绘）"></p>
+<p><em>图源：本文自绘</em></p>
+<p>代表模型一览（配比为注意力:线性层的典型量级）：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>机构</th>
+<th>配比与特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Jamba（2403.19887）</td>
+<td>AI21</td>
+<td>1:7 左右，注意力+Mamba+MoE 三合一，52B 总参&#x2F;12B 激活</td>
+</tr>
+<tr>
+<td>Nemotron-H（2406.07887）</td>
+<td>NVIDIA</td>
+<td>8B，52 个 Mamba 层配 4 个注意力层（约 1:13）</td>
+</tr>
+<tr>
+<td>Qwen3.x 线</td>
+<td>阿里</td>
+<td>Gated DeltaNet 线性层 + 门控注意力混合，原生 1M 上下文</td>
+</tr>
+<tr>
+<td>Falcon-H1 &#x2F; Granite 4</td>
+<td>TII &#x2F; IBM</td>
+<td>同路线的各自变体</td>
+</tr>
+</tbody></table>
+<p>NVIDIA 的 Nemotron-H 论文（An Empirical Study of Mamba-based Language Models，2024-06）是这条路线目前最系统的实证：把 Mamba、Mamba-2、混合模型训到 8B 规模与 Transformer 对照，结论是<strong>混合模型的记忆与推理能力接近 Transformer，同时保住 Mamba 的吞吐优势</strong>——纯 Mamba 在回忆与推理基准上的短板被混合补齐。这基本终结了”要不要混合”的争论。</p>
+<p>代价也要说清楚：<strong>混合架构的收益按注意力占比打折，它的短板也是</strong>。长上下文里段的精确回忆仍然弱于全注意力（Jamba 自己的 needle 测试里，中段召回置信度低于首尾）；注意力层留得越少，这类差距越明显。配比本身成了新的架构超参数。</p>
+<p>顺带把术语对齐：Qwen 用的层叫 <strong>Gated DeltaNet（GDN）</strong>，出自 DeltaNet 谱系（2024 年Songlin Yang 等的并行 Delta 规则工作，后扩展出 GDN 门控变体）——它属于”线性注意力”分支而非原版 SSM，与 Mamba-2 在 SSD 理论框架下同源，工程目标一致（O(1) 推理状态）。社区讨论时把 Mamba&#x2F;SSM&#x2F;GDN 统称”Mamba 类层”，本文标题也是这么用的。</p>
+<h2 id="五、长上下文的表现与代价"><a href="#五、长上下文的表现与代价" class="headerlink" title="五、长上下文的表现与代价"></a>五、长上下文的表现与代价</h2><p>混合架构最直白的收益在长上下文的成本端。Jamba 的对照实验：单张 A100 80GB 能塞下的最大上下文，Jamba 明显长于同量级 Transformer——KV cache 缩到零头，同样的卡就能开更长的窗口、跑更大的并发。</p>
+<p><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/jamba_needle.png" alt="Jamba 论文 Figure 4：256K 长度的大海捞针测试，验证长上下文中的精确回忆"></p>
+<p><em>图源：同上，Figure 4</em></p>
+<p>但读这类图要带着第四节的结论：<strong>needle 测试测的是”找一条埋进去的针”，混合模型能找到——而真实应用里还有大量”逐字复述整段”的需求，那才是线性层占比的代价所在</strong>。翻译里要求原样保留的变量名、代码补全里的精确缩进、RAG 引用段落中的确切措辞，属于后者。</p>
+<h2 id="六、使用者的实际影响"><a href="#六、使用者的实际影响" class="headerlink" title="六、使用者的实际影响"></a>六、使用者的实际影响</h2><p>作为微调和部署这些模型的人，混合架构带来的变化分两面：</p>
+<p><strong>得到的</strong>：长上下文的成本结构变了。KV cache 按注意力占比缩水，同样显存能开更长窗口、更高并发；对需要 1M 上下文或高吞吐服务的场景，这是架构级降本。</p>
+<p><strong>要留意的</strong>，三条来自实践：</p>
+<ol>
+<li><strong>短上下文无感</strong>。2K-8K 的任务里，混合与全注意力的质量和速度差异都在噪声内——它的收益曲线在长上下文才显现，短任务别期待白捡</li>
+<li><strong>推理引擎的支持版本要对齐</strong>。线性层带”卷积状态 + 循环状态”两类额外缓存，vLLM&#x2F;SGLang 对具体 hybrid 模型的支持是逐个版本成熟的——升级模型时先查引擎对该混合架构的支持状态，别默认所有能力与全注意力模型对齐</li>
+<li><strong>微调生态的坑更少但存在</strong>：LoRA&#x2F;训练框架（LLaMA-Factory 等）对线性层的支持已基本就绪，但个别依赖 attention 实现细节的技巧（某些 attention hack、KV cache 量化的高级玩法）只作用于那少数几层注意力</li>
+</ol>
+<h2 id="七、未知与局限"><a href="#七、未知与局限" class="headerlink" title="七、未知与局限"></a>七、未知与局限</h2><p>这条路线还很年轻，几件事没有定论：<strong>配比没有最优解</strong>（1:3 到 1:13 都有人用，可能取决于模型规模与任务分布）；<strong>有损压缩的理论边界未完全量化</strong>——什么任务在什么长度会开始掉细节，缺少系统性刻画；<strong>训练基础设施仍在追赶</strong>——线性层的算子生态、分布式并行支持不如注意力成熟，各家都在自建内核；另外混合模型的一些行为特性（缩放定律形状、涌现阈值是否与纯 Transformer 一致）还在观察期。</p>
+<p>但方向本身已经清晰：<strong>“注意力是唯一正确的架构”这个共识在 2024 年被打破，2025-2026 年旗舰模型的架构图上，注意力从绝对主角变成了少数关键锚点</strong>。对你的意义是：下次看一个新模型的架构说明，先问一句——它的注意力占比是多少？这个数字决定了它的长上下文成本、吞吐上限，以及”让它逐字引用原文时”该多留一个心眼。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.00752">2312.00752</a> — Mamba: Linear-Time Sequence Modeling with Selective State Spaces — Gu &amp; Dao, 2023（选择性 SSM，10.3k 引用）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2111.00396">2111.00396</a> — Efficiently Modeling Long Sequences with Structured State Spaces（S4）— NeurIPS 2021（结构化 SSM 开山）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.21060">2405.21060</a> — Transformers are SSMs: Structured State Space Duality（Mamba-2）— 2024（SSM 与注意力的对偶理论）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2312.04927">2312.04927</a> — Zoology: Measuring and Improving Recall in Efficient Language Models — 2023（MQAR 联想回忆基准）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2402.01032">2402.01032</a> — Repeat After Me: Transformers are Better than State Space Models at Copying — 2024（复制任务短板）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2403.19887">2403.19887</a> — Jamba: A Hybrid Transformer-Mamba Language Model — AI21, 2024（注意力+Mamba+MoE 三合一）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.07887">2406.07887</a> — An Empirical Study of Mamba-based Language Models — NVIDIA, 2024（8B 规模混合模型系统实证）</li>
+<li><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2406.06484">2406.06484</a> — Parallelizing Linear Transformers with the Delta Rule over Sequence Length — 2024（DeltaNet&#x2F;GDN 谱系，Qwen 线性层的理论来源）</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Halensea</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://unluckynike.github.io/2026/11/19/MambaHybridArchitecture/">https://unluckynike.github.io/2026/11/19/MambaHybridArchitecture/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Halensea</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">大模型</span>
+                                </a>
+                            
+                                <a href="/tags/Mamba/">
+                                    <span class="chip bg-color">Mamba</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">
+                                    <span class="chip bg-color">注意力机制</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%95%BF%E4%B8%8A%E4%B8%8B%E6%96%87/">
+                                    <span class="chip bg-color">长上下文</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        
+<style>
+    .giscus-card {
+        margin: 1.5rem auto;
+    }
+    .giscus-card .card-content {
+        padding: 20px 20px 10px 20px;
+    }
+    .giscus-title {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="card giscus-card" data-aos="fade-up">
+    <div class="card-content">
+        <div class="giscus-title center-align">
+            <i class="fas fa-comments"></i>&nbsp;&nbsp;留言
+        </div>
+        <script src="https://giscus.app/client.js"
+                data-repo="unluckynike/unluckynike.github.io"
+                data-repo-id="MDEwOlJlcG9zaXRvcnkyNTM5ODMwMTA="
+                data-category="Announcements"
+                data-category-id="DIC_kwDODyN5Is4DKkeM"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</div>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2026/11/19/MambaHybridArchitecture/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/mamba_memory_compare.svg" class="responsive-img" alt="Mamba 与混合架构：大模型为什么开始&#34;换掉&#34;注意力">
+                        
+                        <span class="card-title">Mamba 与混合架构：大模型为什么开始&#34;换掉&#34;注意力</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            你微调用的 Qwen 已经不是纯 Transformer 了——它的多数层被换成了 Mamba 类的线性层，只留少数注意力层当"精确回忆锚点"。这不是省成本的权宜之计，而是一条有五年代际、有硬核基准的新路线：训练 O(N)、推理状态恒定，代价是细节会忘。这篇从注意力的账单讲起，把 Mamba 的机制、纯 Mamba 为什么不行、混合架构怎么折中，一次说透。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-11-19
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    大模型基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大模型</span>
+                    </a>
+                    
+                    <a href="/tags/Mamba/">
+                        <span class="chip bg-color">Mamba</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6/">
+                        <span class="chip bg-color">注意力机制</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%95%BF%E4%B8%8A%E4%B8%8B%E6%96%87/">
+                        <span class="chip bg-color">长上下文</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/11/18/TcmToxQaSystem/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/unluckynike/blogimg/images/posts/tcmtox_routing.svg" class="responsive-img" alt="构建毒性中药垂直问答系统：数据治理、SFT、RAG 迭代全记录">
+                        
+                        <span class="card-title">构建毒性中药垂直问答系统：数据治理、SFT、RAG 迭代全记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            山东大学公开了 229 味毒性中药的数据库，但字段是英文、分级只有 43 味、处方是拼音——而通用大模型在这个场景有 60% 的概率把无毒药说成有毒。这篇记录把它做成"口径严格、该拒就拒"垂直问答系统的全链路：数据治理、多任务 SFT（单卡 49 分钟）、RAG 五轮迭代、知识图谱，以及一个如实回滚的 DPO 负结果。393 条自建测试集 9 条验收全达标，模型与数据集已开源。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-11-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" class="post-category">
+                                    人工智能
+                                </a>
+                            
+                            <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%AF%B9%E9%BD%90/" class="post-category">
+                                    训练与对齐
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大模型</span>
+                    </a>
+                    
+                    <a href="/tags/SFT/">
+                        <span class="chip bg-color">SFT</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                        <span class="chip bg-color">知识图谱</span>
+                    </a>
+                    
+                    <a href="/tags/RAG/">
+                        <span class="chip bg-color">RAG</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('1000')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE' || selection.getRangeAt(0).commonAncestorContainer.nodeName === 'CODE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Halensea<br />'
+            + '文章作者: Halensea<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+    
+
+
+<div class="related-posts">
+    <div class="related-title"><i class="fas fa-book-reader"></i>&nbsp;&nbsp;相关文章</div>
+    <div class="related-list">
+        
+        <a class="related-item" href="/2026/11/18/TcmToxQaSystem/" title="构建毒性中药垂直问答系统：数据治理、SFT、RAG 迭代全记录">
+            <span class="related-item-title">构建毒性中药垂直问答系统：数据治理、SFT、RAG 迭代全记录</span>
+            <span class="related-item-meta">2026-11-18</span>
+        </a>
+        
+        <a class="related-item" href="/2026/11/07/WeightSpaceProgramming/" title="原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;">
+            <span class="related-item-title">原生修改大模型权重&#34;老祖打通弟子任督二脉&#34;</span>
+            <span class="related-item-meta">2026-11-07</span>
+        </a>
+        
+        <a class="related-item" href="/2026/11/06/FewShotAndZeroShot/" title="小样本与零样本：被模型吸收的技巧与留下的工程">
+            <span class="related-item-title">小样本与零样本：被模型吸收的技巧与留下的工程</span>
+            <span class="related-item-meta">2026-11-06</span>
+        </a>
+        
+        <a class="related-item" href="/2026/11/05/MsSwiftVsLlamaFactory/" title="微调框架 ms-swift 与 LLaMA-Factory">
+            <span class="related-item-title">微调框架 ms-swift 与 LLaMA-Factory</span>
+            <span class="related-item-meta">2026-11-05</span>
+        </a>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+
+
+
+    <style>
+    .github-badge {      
+        display:inline-block;      
+        border-radius:4px;       
+        text-shadow:none;        
+        font-size:13px;        
+        color:#fff;        
+        line-height:15px;        
+        background-color:#ABBAC3;        
+        margin-bottom:5px;   
+        }
+
+    .github-badge .badge-subject {        
+        display:inline-block;        
+        background-color:#4D4D4D;        
+        padding:4px 4px 4px 6px;        
+        border-top-left-radius:4px;       
+        border-bottom-left-radius:4px;  
+        }
+    
+    .github-badge .badge-value {       
+        display:inline-block;       
+        padding:4px 6px 4px 4px;       
+        border-top-right-radius:4px;        
+        border-bottom-right-radius:4px;  
+        }
+
+        .github-badge .bg-red {      background-color:#e05d44 !important;    }
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }
+        .github-badge .bg-brightgreen {        background-color:#4DC820 !important;    }    
+        .github-badge .bg-orange {        background-color:#FFA500 !important;    }    
+        .github-badge .bg-yellow {        background-color:#D8B024 !important;    }    
+        .github-badge .bg-blueviolet {        background-color:#8833D7 !important;    }    
+        .github-badge .bg-pink {        background-color:#F26BAE !important;    }    
+        .github-badge .bg-red {        background-color:#e05d44 !important;    }    
+        .github-badge .bg-blue {        background-color:#007EC6 !important;    }    
+        .github-badge .bg-lightgrey {        background-color:#9F9F9F !important;    }    
+        .github-badge .bg-grey, .github-badge .bg-gray {        background-color:#555 !important;    }    
+        .github-badge .bg-lightgrey, .github-badge .bg-lightgray {        background-color:#9f9f9f !important;    }
+
+</style>
+
+<footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="5030167437"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='list'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2020-2026</span>
+            
+            <a href="/about" target="_blank">Halensea</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            &nbsp;<span style="opacity:.75">· 图床经 jsDelivr 分发</span>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">345.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2020";
+                        var startMonth = "4";
+                        var startDate = "7";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+                        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /  minutes);
+                        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+
+                        if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                       }
+                        // // 区分是否有年份.
+                        // var language = 'zh-CN';
+                        // if (startYear === String(todayYear)) {
+                        //     document.getElementById("year").innerHTML = todayYear;
+                        //     var daysTip = 'This site has been running for ' + diffDays + ' days'+ diffHours +
+                        //     " hours " + diffMinutes + " minutes " + diffSeconds + " secinds";
+                        //     if (language === 'zh-CN') {
+                        //         daysTip = '本站已运行 ' + diffDays + ' 天'+ diffHours +
+                        //     " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                        //     } else if (language === 'zh-HK') {
+                        //         daysTip = '本站已運行 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = daysTip;
+                        // } else {
+                        //     document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        //     var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                        //         + diffDays + ' days';
+                        //     if (language === 'zh-CN') {
+                        //         yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     } else if (language === 'zh-HK') {
+                        //         yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                        //     }
+                        //     document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        // }
+
+                    }
+                    setInterval(calcSiteTime,1000);
+                </script>
+            
+            <br>
+            
+
+             <!--footer badges-->
+             <div>
+                <div class="github-badge">
+                    <a style="color: #fff" href="https://github.com/unluckynike/blog-source" target="_blank" title="本站源码（GitHub）">
+                 <span class="badge-subject">源码</span><span class="badge-value bg-blue">GitHub</span></a>
+                </div>
+                <div class="github-badge">
+                   <a style="color: #fff"  rel="license" href="/about#license" title="本站内容采用 CC BY-NC-SA 4.0 许可，转载要求见关于页">
+                <span class="badge-subject"><i class="fa fa-copyright"></i>CC</span><span class="badge-value bg-lightgrey">BY-NC-SA 4.0</span></a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/unluckynike" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2230432084@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="https://twitter.com/Halen67837546" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/Halen67837546" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2230432084" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2230432084" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+    
+<script>
+    (function () {
+        var FALLBACKS = ['https://fastly.jsdelivr.net', 'https://testingcf.jsdelivr.net', 'https://gcore.jsdelivr.net'];
+
+        function candidatesFor(src) {
+            // 仅处理 blogimg 走 jsDelivr 主域的图：cdn.jsdelivr.net/gh/user/repo@ver/path
+            var m = src.match(/^https?:\/\/cdn\.jsdelivr\.net\/gh\/([^/\s?#]+)\/([^/\s?#]+?)(?:@([^/\s?#]+))?\/(.+)$/);
+            if (!m) return [];
+            var list = [];
+            FALLBACKS.forEach(function (base) {
+                list.push(base + '/gh/' + m[1] + '/' + m[2] + (m[3] ? '@' + m[3] : '') + '/' + m[4]);
+            });
+            list.push('https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + (m[3] || 'main') + '/' + m[4]);
+            return list;
+        }
+
+        function tryFallback(img) {
+            var cur = img.currentSrc || img.getAttribute('src') || '';
+            if (cur.indexOf('cdn.jsdelivr.net') === -1) return;
+            if (!img.dataset.fbSrc) {
+                img.dataset.fbSrc = cur.split('?')[0];
+                img.dataset.fbIdx = '0';
+            }
+            var list = candidatesFor(img.dataset.fbSrc);
+            var idx = parseInt(img.dataset.fbIdx, 10);
+            if (idx >= list.length) return; // 四个源都失败，放弃
+            img.dataset.fbIdx = String(idx + 1);
+            img.setAttribute('src', list[idx]);
+        }
+
+        // 捕获阶段委托：对动态插入的图同样生效
+        document.addEventListener('error', function (e) {
+            var t = e.target;
+            if (t && t.tagName === 'IMG') tryFallback(t);
+        }, true);
+
+        // 脚本执行前就已加载失败的图
+        window.addEventListener('load', function () {
+            document.querySelectorAll('img').forEach(function (img) {
+                if (img.complete && img.naturalWidth === 0) tryFallback(img);
+            });
+        });
+    })();
+</script>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+      <!--点击烟花爆炸（已移除：依赖的 cdn.bootcss.com 已停止服务，特效失效）-->
+
+    <!-- 鼠标星星特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
+            }
+        </script>
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a56baae2a076d7fce03092c1dc069768";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    
+    <script defer src="https://events.vercount.one/js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

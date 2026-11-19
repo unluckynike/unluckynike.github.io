@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://unluckynike.github.io/sitemap.xml
